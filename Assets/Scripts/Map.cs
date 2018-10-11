@@ -15,13 +15,6 @@ public class Map : MonoBehaviour
 	public List<Floor> Floors { get; private set; }
 
 	[SerializeField]
-	private Image _highlight;
-	public Image HighLight
-	{
-		get { return _highlight; }
-	}
-
-	[SerializeField]
 	private Color _movableColor = new Color(0, 1, 1, 127f/255f);
 	public Color MovableColor
 	{

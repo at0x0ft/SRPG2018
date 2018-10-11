@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,7 @@ public class Floor : MonoBehaviour
 		get { return _type; }
 	}
 
+	[SerializeField]
 	private Image _highlight;
 	private Color _movableColor;
 	private Color _attackableColor;
@@ -105,6 +107,19 @@ public class Floor : MonoBehaviour
 	{
 		// マス自身がボタンの役割を果たしており, これをクリックした時にOnClickメソッドを実行するように設定する.
 		GetComponent<Button>().onClick.AddListener(OnClick);
+
+		// CoordinatePairの初期化
+		_coordinatePair = new KeyValuePair<Vector2Int, Vector3>(ParseLocalCoordinateFromName(), transform.localPosition);
+	}
+
+	/// <summary>
+	/// 名前からローカル座標を読み出し, Vector2Int型のオブジェクトとして返すメソッド
+	/// </summary>
+	/// <returns></returns>
+	private Vector2Int ParseLocalCoordinateFromName()
+	{
+		string[] coors = transform.name.Split(new string[]{ "(", ",", " ", "　", ")" }, StringSplitOptions.RemoveEmptyEntries);
+		return new Vector2Int(int.Parse(coors[0]), int.Parse(coors[1]));
 	}
 
 	/// <summary>
@@ -119,7 +134,6 @@ public class Floor : MonoBehaviour
 		_units = units;
 		_mc = mc;
 
-		_highlight = _map.HighLight;
 		_movableColor = _map.MovableColor;
 		_attackableColor = _map.AttackableColor;
 	}

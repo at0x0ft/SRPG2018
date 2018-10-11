@@ -66,7 +66,7 @@ public class Unit : MonoBehaviour
 	/// Unitの座標を表す. ローカル座標とtransformでの座標の両方を保持している. Keyがローカル座標, Valueがtransform座標にあたる.
 	/// </summary>
 	private KeyValuePair<Vector2Int, Vector3> _coordinate;
-	private KeyValuePair<Vector2Int, Vector3> Coordinate
+	private KeyValuePair<Vector2Int, Vector3> CoordinatePair
 	{
 		get
 		{
@@ -119,7 +119,7 @@ public class Unit : MonoBehaviour
 	/// <summary>
 	/// ユニットの乗っているマス
 	/// </summary>
-	public Floor Floor { get { return _map.GetFloor(Coordinate.Key.x, Coordinate.Key.y); } }
+	public Floor Floor { get { return _map.GetFloor(CoordinatePair.Key.x, CoordinatePair.Key.y); } }
 
 	void Start()
 	{
@@ -127,12 +127,9 @@ public class Unit : MonoBehaviour
 		GetComponent<Button>().onClick.AddListener(OnClick);
 
 		// 初期配置マスにUnitを設定する
-		Coordinate = _initialFloor.CoordinatePair;
+		CoordinatePair = _initialFloor.CoordinatePair;
 
 		Life = MaxLife;
-
-		Debug.Log(transform.name + " : (x, y) = (" + transform.position.x + ", " + transform.position.y + ")");	// 4debug
-		Debug.Log(transform.name + " : (x, y) = (" + transform.localPosition.x + ", " + transform.localPosition.y + ")");	// 4debug
 	}
 
 	/// <summary>
@@ -194,7 +191,7 @@ public class Unit : MonoBehaviour
 	public void MoveTo(int localX, int localY)
 	{
 		var destLocalCoordinate = new Vector2Int(localX, localY);
-		Coordinate = new KeyValuePair<Vector2Int, Vector3>(destLocalCoordinate, _map.ConvertLocal2Tranform(destLocalCoordinate));
+		CoordinatePair = new KeyValuePair<Vector2Int, Vector3>(destLocalCoordinate, _map.ConvertLocal2Tranform(destLocalCoordinate));
 	}
 
 	/// <summary>
