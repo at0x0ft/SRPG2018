@@ -60,7 +60,7 @@ public class Units : MonoBehaviour
 	/// <param name="localY">The y coordinate.</param>
 	public Unit GetUnit(int localX, int localY)
 	{
-		return Characters.FirstOrDefault(u => u.Coordinate.Key.x == localX && u.Coordinate.Key.y == localY);
+		return Characters.FirstOrDefault(u => u.X == localX && u.Y == localY);
 	}
 
 }

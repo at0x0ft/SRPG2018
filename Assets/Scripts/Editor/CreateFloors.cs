@@ -19,7 +19,7 @@ public class CreateFloors : EditorWindow
 	private int _screenPaddingWidth = 100;
 	private int _screenPaddingHeight = 60;
 
-	private int _width = 10;
+	private int _width = 20;
 	private int _height = 10;
 	private GameObject _parent;
 	private GameObject _floor1;
@@ -37,6 +37,9 @@ public class CreateFloors : EditorWindow
 	{
 		try
 		{
+			_canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+			_parent = GameObject.Find("Map");
+
 			_canvas = EditorGUILayout.ObjectField("UI Canvas", _canvas, typeof(Canvas), true) as Canvas;
 
 			_screenPaddingWidth = int.Parse(EditorGUILayout.TextField("Screen Marge Width ( = x)", _screenPaddingWidth.ToString()));
@@ -66,21 +69,17 @@ public class CreateFloors : EditorWindow
 		}
 	}
 
-	private void OnEnable()
-	{
-		if(Selection.gameObjects.Length > 0) _parent = Selection.gameObjects[0];
-	}
-
-	void OnSelectionChange()
-	{
-		if(Selection.gameObjects.Length > 0) _floor1 = Selection.gameObjects[0];
-		Repaint();
-	}
-
 	private void Create()
 	{
+		// Before create, remove all children.
+		while(_parent.transform.childCount > 0)
+		{
+			var child = _parent.transform.GetChild(0);
+			child.SetParent(null);
+			DestroyImmediate(child.gameObject);
+		}
+
 		int pix = (int)Mathf.Min((_canvas.GetComponent<RectTransform>().sizeDelta.x - _screenPaddingWidth) / _width, (_canvas.GetComponent<RectTransform>().sizeDelta.y - _screenPaddingHeight) / _height);
-		Debug.Log("pix : " + pix.ToString() + ", localScale : " + _floor1.transform.localScale.ToString());
 
 		var floors = new List<GameObject> { _floor1, _floor2, _floor3, _floor4, _floor5 };
 		var pers = new List<int> { _per1, _per2, _per3, _per4, _per5 };
@@ -97,12 +96,11 @@ public class CreateFloors : EditorWindow
 				floor.transform.SetParent(_parent.transform);
 				floor.GetComponent<RectTransform>().sizeDelta = new Vector2Int(pix, pix);
 				floor.transform.localScale = new Vector3Int(1, 1, 1);
-
-				floor.GetComponent<Floor>().Generate(i, CalcLocal2Transform(i, pix), j, CalcLocal2Transform(j, pix));
-
-				// floor.transform.localPosition = new Vector3Int(i, j);
+				floor.GetComponent<Floor>().Generate(i, j, CalcLocal2Transform(i, j, pix));
 			}
 		}
+
+		Debug.Log("CreateFloors.cs : Create " + _parent.transform.childCount + " floors in " + _parent.name);
 	}
 
 	private static int GetRandomIndex(List<int> weightTable)
@@ -121,11 +119,8 @@ public class CreateFloors : EditorWindow
 		return retIndex;
 	}
 
-	private float CalcLocal2Transform(int localVal, int pix)
+	private Vector3 CalcLocal2Transform(int localX, int localY, int pix)
 	{
-		// WIP
-		float start = 0;
-
-		return start * localVal * pix;
+		return new Vector3(-pix * (_width - 1) / 2 + pix * localX, -pix * (_height - 1) / 2 + pix * localY);
 	}
 }

@@ -96,9 +96,9 @@ public class Floor : MonoBehaviour
 	/// <param name="transformX"></param>
 	/// <param name="localY"></param>
 	/// <param name="transformY"></param>
-	public void Generate(int localX, float transformX, int localY, float transformY)
+	public void Generate(int localX, int localY, Vector3 transformCoordinate)
 	{
-		CoordinatePair = new KeyValuePair<Vector2Int, Vector3>(new Vector2Int(localX, localY), new Vector3(transformX, transformY));
+		CoordinatePair = new KeyValuePair<Vector2Int, Vector3>(new Vector2Int(localX, localY), transformCoordinate);
 	}
 
 	void Start()

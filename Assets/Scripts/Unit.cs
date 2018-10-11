@@ -52,22 +52,27 @@ public class Unit : MonoBehaviour
 	public int MaxMoveAmount { get; private set; }
 	public int MoveAmount { get; set; }
 
+	/// <summary>
+	/// ローカル座標でのX座標を表す. (transformのX座標ではない)
+	/// </summary>
+	public int X { get { return _coordinate.Key.x; } }
 
-	public KeyValuePair<int, float> X { get; private set; }
-
-	public KeyValuePair<int, float> Y { get; private set; }
+	/// <summary>
+	/// ローカル座標でのY座標を表す. (transformのY座標ではない)
+	/// </summary>
+	public int Y { get { return _coordinate.Key.y; } }
 
 	/// <summary>
 	/// Unitの座標を表す. ローカル座標とtransformでの座標の両方を保持している. Keyがローカル座標, Valueがtransform座標にあたる.
 	/// </summary>
 	private KeyValuePair<Vector2Int, Vector3> _coordinate;
-	public KeyValuePair<Vector2Int, Vector3> Coordinate
+	private KeyValuePair<Vector2Int, Vector3> Coordinate
 	{
 		get
 		{
 			return _coordinate;
 		}
-		private set
+		set
 		{
 			transform.localPosition = value.Value;
 			_coordinate = value;
