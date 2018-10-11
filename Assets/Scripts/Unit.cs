@@ -53,15 +53,9 @@ public class Unit : MonoBehaviour
 	public int MoveAmount { get; set; }
 
 
+	public int X { get; private set; }
 
-	public int X
-	{
-		get { return (int)transform.localPosition.x; }
-	}
-	public int Y
-	{
-		get { return (int)transform.localPosition.y; }
-	}
+	public int Y { get; private set; }
 
 	[SerializeField]
 	private List<Attack> _attacks;
@@ -95,6 +89,11 @@ public class Unit : MonoBehaviour
 	public int AttackPower { get { return Mathf.RoundToInt(Attacks[0].Power * (Mathf.Ceil((float)Life / (float)MaxLife * 10f) / 10f)); } }
 
 	/// <summary>
+	/// 初期配置マス
+	/// </summary>
+	[SerializeField]
+	private Floor _initialFloor;
+	/// <summary>
 	/// ユニットの乗っているマス
 	/// </summary>
 	public Floor Floor { get { return _map.GetFloor(X, Y); } }
@@ -103,6 +102,8 @@ public class Unit : MonoBehaviour
 	{
 		// ユニット自身がButtonとしての役割も持っており, 押下された時にOnClickメソッドの内容を実行する.
 		GetComponent<Button>().onClick.AddListener(OnClick);
+
+		X = Floor.X;
 
 		Life = MaxLife;
 
@@ -168,6 +169,7 @@ public class Unit : MonoBehaviour
 	/// <param name="y"></param>
 	public void MoveTo(int x, int y)
 	{
+		// kokomo kaeru
 		transform.localPosition = new Vector3Int(x, y, 0);
 	}
 
