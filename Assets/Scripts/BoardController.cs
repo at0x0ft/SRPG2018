@@ -97,6 +97,12 @@ public class BoardController : MonoBehaviour
 		foreach(var unit in _units.GetComponentsInChildren<Unit>())
 		{
 			unit.IsMoved = team != unit.Belonging;
+			//セット開始時に、移動量を回復させる
+            if (!unit.IsMoved && Set == 1)
+            {
+                unit.MoveAmount = unit.MaxMoveAmount;
+                Debug.Log("move amount:"+unit.MoveAmount);
+            }
 		}
 
 		// セットプレイヤーがAIならば, 画面をタッチできないように設定し, AIを走らせる.
