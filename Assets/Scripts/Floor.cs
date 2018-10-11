@@ -28,13 +28,31 @@ public class Floor : MonoBehaviour
 	private Units _units;
 	private MoveController _mc;
 
-	public int X
+	/// <summary>
+	/// ローカル座標のX座標 (transformのX座標ではない)
+	/// </summary>
+	public int X { get { return _coordinatePair.Key.x; } }
+
+	/// <summary>
+	/// ローカル座標のX座標 (transformのX座標ではない)
+	/// </summary>
+	public int Y { get { return _coordinatePair.Key.y; } }
+
+	/// <summary>
+	/// Floorの座標を表す. ローカル座標とtransformでの座標の両方を保持している. Keyがローカル座標, Valueがtransform座標にあたる.
+	/// </summary>
+	private KeyValuePair<Vector2Int, Vector3> _coordinatePair;
+	public KeyValuePair<Vector2Int, Vector3> CoordinatePair
 	{
-		get { return (int)transform.localPosition.x; }
-	}
-	public int Y
-	{
-		get { return (int)transform.localPosition.y; }
+		get
+		{
+			return _coordinatePair;
+		}
+		private set
+		{
+			transform.localPosition = value.Value;
+			_coordinatePair = value;
+		}
 	}
 
 	/// <summary>
@@ -68,7 +86,19 @@ public class Floor : MonoBehaviour
 
 	public Unit Unit
 	{
-		get { return _units.GetUnit(X, Y); }
+		get { return _units.GetUnit(CoordinatePair.Key.x, CoordinatePair.Key.y); }
+	}
+
+	/// <summary>
+	/// CreateFloor.csでFloorを配置する時にのみ呼び出されるメソッド.
+	/// </summary>
+	/// <param name="localX"></param>
+	/// <param name="transformX"></param>
+	/// <param name="localY"></param>
+	/// <param name="transformY"></param>
+	public void Generate(int localX, float transformX, int localY, float transformY)
+	{
+		CoordinatePair = new KeyValuePair<Vector2Int, Vector3>(new Vector2Int(localX, localY), new Vector3(transformX, transformY));
 	}
 
 	void Start()

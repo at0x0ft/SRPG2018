@@ -95,9 +95,12 @@ public class CreateFloors : EditorWindow
 				GameObject floor = Instantiate(floors[GetRandomIndex(pers)]);
 				floor.name = "(" + i.ToString() + ", " + j.ToString() + ")";
 				floor.transform.SetParent(_parent.transform);
-				floor.transform.localPosition = new Vector3Int(i, j, 0);
 				floor.GetComponent<RectTransform>().sizeDelta = new Vector2Int(pix, pix);
 				floor.transform.localScale = new Vector3Int(1, 1, 1);
+
+				floor.GetComponent<Floor>().Generate(i, CalcLocal2Transform(i, pix), j, CalcLocal2Transform(j, pix));
+
+				// floor.transform.localPosition = new Vector3Int(i, j);
 			}
 		}
 	}
@@ -116,5 +119,13 @@ public class CreateFloors : EditorWindow
 			value -= weightTable[i];
 		}
 		return retIndex;
+	}
+
+	private float CalcLocal2Transform(int localVal, int pix)
+	{
+		// WIP
+		float start = 0;
+
+		return start * localVal * pix;
 	}
 }

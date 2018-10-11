@@ -50,8 +50,8 @@ public class Map : MonoBehaviour
 		}
 
 		// いる?
-		WidthLimit = Floors.Max(floor => floor.X);
-		HeightLimit = Floors.Max(floor => floor.Y);
+		// WidthLimit = Floors.Max(floor => floor.X);
+		// HeightLimit = Floors.Max(floor => floor.Y);
 	}
 
 	/// <summary>
@@ -78,9 +78,9 @@ public class Map : MonoBehaviour
 	/// <param name="x">x座標</param>
 	/// <param name="y">y座標</param>
 	/// <returns></returns>
-	public Floor GetFloor(int x, int y)
+	public Floor GetFloor(int localX, int localY)
 	{
-		return Floors.First(f => f.X == x && f.Y == y);
+		return Floors.First(f => f.X == localX && f.Y == localY);
 	}
 
 	/// <summary>
@@ -130,9 +130,9 @@ public class Map : MonoBehaviour
 	/// <returns></returns>
 	public Floor[] GetFloorsByDistance(Floor baseFloor, int dMin, int dMax)
 	{
-		return Floors.Where(x =>
+		return Floors.Where(f =>
 			{
-				var distance = Math.Abs(baseFloor.X - x.X) + Math.Abs(baseFloor.Y - x.Y);
+				var distance = Math.Abs(baseFloor.X - f.X) + Math.Abs(baseFloor.X - f.Y);
 				return dMin <= distance && distance <= dMax;
 			}).ToArray();
 	}
@@ -151,5 +151,15 @@ public class Map : MonoBehaviour
 			}
 			Floor.IsMovable = false;
 		}
+	}
+
+	/// <summary>
+	/// ローカル座標からTransform座標に変換するメソッド
+	/// </summary>
+	/// <param name="localCoordinate"></param>
+	/// <returns></returns>
+	public Vector3 ConvertLocal2Tranform(Vector2Int localCoordinate)
+	{
+		return Floors.FirstOrDefault(f => f.X == localCoordinate.x && f.Y == localCoordinate.y).CoordinatePair.Value;
 	}
 }

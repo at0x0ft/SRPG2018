@@ -56,11 +56,11 @@ public class Units : MonoBehaviour
 	/// 任意の座標にいるユニットを取得 (nullもあり得る)
 	/// </summary>
 	/// <returns>The unit.</returns>
-	/// <param name="x">The x coordinate.</param>
-	/// <param name="y">The y coordinate.</param>
-	public Unit GetUnit(int x, int y)
+	/// <param name="localX">The x coordinate.</param>
+	/// <param name="localY">The y coordinate.</param>
+	public Unit GetUnit(int localX, int localY)
 	{
-		return Characters.FirstOrDefault(u => u.X == x && u.Y == y);
+		return Characters.FirstOrDefault(u => u.Coordinate.Key.x == localX && u.Coordinate.Key.y == localY);
 	}
 
 }
