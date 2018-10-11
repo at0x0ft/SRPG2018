@@ -81,11 +81,14 @@ public class Map : MonoBehaviour
 	/// </summary>
 	public void HighlightMovableFloors(Floor startFloor, int moveAmount)
 	{
+		var infos = _mc.GetRemainingMoveAmountInfos(this, startFloor, moveAmount);
+		Debug.Log("infos length : " + infos.Count);	// 4debug
+
 		// 移動可能なマスを計算し, 一つずつマスを展開
-		foreach(var info in _mc.GetRemainingMoveAmountInfos(this, startFloor, moveAmount))
+		foreach(var info in infos)
 		{
 			var Floor = GetFloor(info.Key.X, info.Key.Y);
-			if(null == Floor.Unit)
+			if(Floor.Unit == null)
 			{
 				// ユニットがいなければハイライト(=移動可能に)する
 				Floor.IsMovable = true;

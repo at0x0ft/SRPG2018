@@ -172,9 +172,12 @@ public class Unit : MonoBehaviour
 		{
 			// 移動可能なマスをハイライト
 			_map.HighlightMovableFloors(Floor, MoveAmount);
+
+			Debug.Log("HighLight completed.");	// 4debug
+
 			// 攻撃可能なマスをハイライト (攻撃は後で選択するはずだから, 要らない)
 			// atode kaeru
-			_map.HighlightAttackableFloors(Floor, Attacks[0]);
+			// _map.HighlightAttackableFloors(Floor, Attacks[0]);
 		}
 		else
 		{
