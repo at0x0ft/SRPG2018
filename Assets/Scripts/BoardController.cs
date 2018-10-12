@@ -113,7 +113,7 @@ public class BoardController : MonoBehaviour
 			Debug.Log("touch blocker invalid.");
 		}
 
-		Debug.Log("Arrange Finished.");	// 4debug
+		Debug.Log("Arrange Finished."); // 4debug
 	}
 
 	/// <summary>

@@ -15,14 +15,14 @@ public class Map : MonoBehaviour
 	public List<Floor> Floors { get; private set; }
 
 	[SerializeField]
-	private Color _movableColor = new Color(0, 1, 1, 127f/255f);
+	private Color _movableColor = new Color(0, 1, 1, 127f / 255f);
 	public Color MovableColor
 	{
 		get { return _movableColor; }
 	}
 
 	[SerializeField]
-	private Color _attackableColor = new Color(1, 0, 0, 127f/255f);
+	private Color _attackableColor = new Color(1, 0, 0, 127f / 255f);
 	public Color AttackableColor
 	{
 		get { return _attackableColor; }
@@ -82,7 +82,7 @@ public class Map : MonoBehaviour
 	public void HighlightMovableFloors(Floor startFloor, int moveAmount)
 	{
 		var infos = _mc.GetRemainingMoveAmountInfos(this, startFloor, moveAmount);
-		Debug.Log("infos length : " + infos.Count);	// 4debug
+		Debug.Log("infos length : " + infos.Count); // 4debug
 
 		// 移動可能なマスを計算し, 一つずつマスを展開
 		foreach(var info in infos)

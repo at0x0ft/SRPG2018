@@ -67,7 +67,7 @@ public class Floor : MonoBehaviour
 		{
 			_highlight.color = _movableColor;
 			_highlight.gameObject.SetActive(value);
-			Debug.Log(transform.name + " highLighted.");	// 4debug
+			Debug.Log(transform.name + " highLighted.");    // 4debug
 		}
 		get { return _highlight.gameObject.activeSelf && _highlight.color == _movableColor; }
 	}
@@ -119,7 +119,7 @@ public class Floor : MonoBehaviour
 	/// <returns></returns>
 	private Vector2Int ParseLocalCoordinateFromName()
 	{
-		string[] coors = transform.name.Split(new string[]{ "(", ",", " ", "　", ")" }, StringSplitOptions.RemoveEmptyEntries);
+		string[] coors = transform.name.Split(new string[] { "(", ",", " ", "　", ")" }, StringSplitOptions.RemoveEmptyEntries);
 		return new Vector2Int(int.Parse(coors[0]), int.Parse(coors[1]));
 	}
 

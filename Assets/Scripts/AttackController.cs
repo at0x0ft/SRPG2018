@@ -89,7 +89,7 @@ public class AttackController : MonoBehaviour
 		// Battle_SceneController.defender = defender;
 		// BattleSceneに移動.
 		// SceneManager.LoadScene("Battle", LoadSceneMode.Additive);
-		
+
 		// ダメージ計算を行う
 		defender.Damage(attacker, attacker.Attacks[0]);
 		// 体力が0以下になったらユニットを消滅させる
