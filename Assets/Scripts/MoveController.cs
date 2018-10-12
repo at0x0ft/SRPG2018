@@ -277,6 +277,6 @@ public class MoveController : MonoBehaviour
 			route[prevKV.Key] = prevMoveCost;
 		}
 		// Dictの順番を終点→始点から始点→終点に変換して返す
-		return route.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+		return route.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
 	}
 }
