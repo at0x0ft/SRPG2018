@@ -73,7 +73,7 @@ public class Map : MonoBehaviour
 	/// <returns></returns>
 	public Floor GetFloor(int localX, int localY)
 	{
-		return Floors.First(f => f.X == localX && f.Y == localY);
+		return Floors.FirstOrDefault(f => f.X == localX && f.Y == localY);
 	}
 
 	/// <summary>
