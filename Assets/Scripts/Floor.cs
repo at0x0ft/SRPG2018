@@ -120,8 +120,17 @@ public class Floor : MonoBehaviour
 	private Vector2Int ParseLocalCoordinateFromName()
 	{
 		string[] coors = transform.name.Split(new string[] { "(", ",", " ", "　", ")" }, StringSplitOptions.RemoveEmptyEntries);
-		return new Vector2Int(int.Parse(coors[0]), int.Parse(coors[1]));
-	}
+        try
+        {
+            return new Vector2Int(int.Parse(coors[0]), int.Parse(coors[1]));
+        }
+        catch(FormatException)
+        {
+            Debug.Log("Floor Name Format Exception");
+            Application.Quit();
+        }
+
+    }
 
 	/// <summary>
 	/// 初期化メソッド
