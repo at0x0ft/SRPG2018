@@ -5,7 +5,19 @@ using UnityEngine.UI;
 
 public class Attack : MonoBehaviour
 {
-	[SerializeField]
+    public enum TargetingKind
+    {
+        Single,
+        Range
+    }
+    [SerializeField]
+    private TargetingKind _targetingWay;
+    public TargetingKind TargetingWay
+    {
+        get { return _targetingWay; }
+    }
+
+    [SerializeField]
 	private Type _type;
 	public Type Type
 	{
