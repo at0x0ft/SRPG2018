@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -119,26 +120,32 @@ public class Floor : MonoBehaviour
 	/// <returns></returns>
 	private Vector2Int ParseLocalCoordinateFromName()
 	{
-		string[] coors = transform.name.Split(new string[] { "(", ",", " ", "　", ")" }, StringSplitOptions.RemoveEmptyEntries);
-        try
-        {
-            return new Vector2Int(int.Parse(coors[0]), int.Parse(coors[1]));
-        }
-        catch(FormatException)
-        {
-            Debug.Log("Floor Name Format Exception");
-            Application.Quit();
-        }
-
-    }
+		if (FloorNameFormatIsMatch())
+		{
+			string[] coors = transform.name.Split(new string[] { "(", ",", " ", "　", ")" }, StringSplitOptions.RemoveEmptyEntries);
+			return new Vector2Int(int.Parse(coors[0]), int.Parse(coors[1]));
+		}
+		else
+		{
+			Debug.LogWarning("Floor Name Format Exception");
+			Debug.LogWarning(tranform.name);
+			Application.Quit();
+		}
+	}
 
 	/// <summary>
-	/// 初期化メソッド
+	/// フォーマット判定メソッド
 	/// </summary>
-	/// <param name="map"></param>
-	/// <param name="units"></param>
-	/// <param name="mc"></param>
-	public void Initialize(Map map, Units units, MoveController mc)
+	private Boolean FloorNameFormatIsMatch() => Regex.IsMatch(transform.name, "(\d+,\d+)");
+
+
+    /// <summary>
+    /// 初期化メソッド
+    /// </summary>
+    /// <param name="map"></param>
+    /// <param name="units"></param>
+    /// <param name="mc"></param>
+    public void Initialize(Map map, Units units, MoveController mc)
 	{
 		_map = map;
 		_units = units;
