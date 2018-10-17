@@ -101,4 +101,95 @@ public class AttackController : MonoBehaviour
 		map.ClearHighlight();
 		units.FocusingUnit.IsMoved = true;
 	}
+
+
+    //ここからは、範囲攻撃向けの実装
+    
+    
+    /// <summary>
+    /// マウスの位置を取得する関数
+    /// </summary>
+    private Vector2Int GetMousePos()
+    {
+        Vector2Int pos = new Vector2Int();
+        //何かしらの手法で、マウスの位置を受け取る
+        pos.x = pos.y = 0;
+        return pos;
+    }
+    
+    /// <summary>
+    /// ユニットに対する、相対的なマウスの方角(四方)を返す
+    /// 0:u, 1:r, 2:d, 3:l
+    /// </summary>
+    private int GetMouseDirFromUnit(Unit unit)
+    {
+        var mousePos = GetMousePos();
+        int dx = mousePos.x - unit.X;
+        int dy = mousePos.y - unit.Y;
+
+        //y=x+k1, y=-x+k2
+        int k1 = dy - dx;
+        int k2 = dy + dx;
+        int dir = (k1 > 0
+            ? (k2 > 0 ? 0 : 3)
+            : (k2 > 0 ? 1 : 2)
+            );
+        return dir;
+    }
+
+    /// <summary>
+    /// 攻撃可能範囲のリストを返す
+    /// </summary>
+    private List<Vector2Int> GetAttackablePlaces(Map map, Unit attacker)
+    {
+        List<Vector2Int> attackable = new List<Vector2Int>();
+        /*
+         * 攻撃可能範囲を追加する
+         */
+        return attackable;
+    }
+
+    /// <summary>
+    /// マウスの位置が変更されているときに、攻撃可能ハイライト位置を変える
+    /// </summary>
+    public int UpdateAttackableHighLight(Map map, Unit attacker, int befDir)
+    {
+        int nowDir = GetMouseDirFromUnit(attacker);
+        if (nowDir == befDir) return befDir;
+        var attackables = GetAttackablePlaces(map, attacker);
+
+        map.ClearHighlight();
+        /*
+         *　攻撃可能範囲を赤色で塗る処理 
+         */
+        return nowDir;
+    }
+    
+    ///<summary>
+    ///攻撃可能ハイライトを初期設定する
+    /// </summary>
+    public int InitializeAttackableHighLight(Map map,Unit attacker)
+    {
+        return UpdateAttackableHighLight(map, attacker, -1);
+    }
+
+    /// <summary>
+    /// 範囲内に居るユニットに攻撃
+    /// </summary>
+    public void AttackRange(Map map, Unit attacker, Units units)
+    {
+
+        /*
+        // ダメージ計算を行う
+        defender.Damage(attacker, attacker.Attacks[0]);
+        // 体力が0以下になったらユニットを消滅させる
+        if (defender.Life <= 0)
+        {
+            defender.DestroyWithAnimate();
+        }
+        */
+
+        map.ClearHighlight();
+        units.FocusingUnit.IsMoved = true;
+    }
 }
