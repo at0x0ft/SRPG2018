@@ -176,6 +176,7 @@ public class Unit : MonoBehaviour
 		Debug.Log(transform.name + " clicked.");	// 4debug
 
 		// 攻撃対象の選択中であれば
+        // TODO : ここの条件に、単体攻撃時の条件も追加したい（範囲攻撃時に動作して欲しくない）
 		if(Floor.IsAttackable)
 		{
 			// 攻撃

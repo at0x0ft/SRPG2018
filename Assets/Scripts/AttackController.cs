@@ -7,7 +7,10 @@ using System;
 
 public class AttackController : MonoBehaviour
 {
-	[SerializeField]
+    [SerializeField]
+    public RectTransform canvaGameRect;  //マウスの座標を対応させるキャンバス
+
+    [SerializeField]
 	private float _strongRate = 1.2f;
 	[SerializeField]
 	private float _slightlyStrongRate = 1.1f;
@@ -103,18 +106,24 @@ public class AttackController : MonoBehaviour
 	}
 
 
-    //ここからは、範囲攻撃向けの実装
+    //ここからは、範囲攻撃向けの実装（Set1向け）
     
     
     /// <summary>
-    /// マウスの位置を取得する関数
+    /// マウスの位置を取得する関数(要検証)
     /// </summary>
     private Vector2Int GetMousePos()
     {
-        Vector2Int pos = new Vector2Int();
-        //何かしらの手法で、マウスの位置を受け取る
-        pos.x = pos.y = 0;
-        return pos;
+        Vector3 mousePos= Input.mousePosition;             // Vector3でマウス位置座標を取得する
+        mousePos.z = 0f;
+        var viewportPoint = Camera.main.ScreenToViewportPoint(mousePos);
+
+        // TODO : Unit/Floorに格納されているX,Y座標と同じ座標系になるように計算を修正する
+        Vector2Int WorldObject_ScreenPosition = new Vector2Int(
+        (int)((viewportPoint.x * canvaGameRect.sizeDelta.x) - (canvaGameRect.sizeDelta.x * 0.5f)),
+        (int)((viewportPoint.y * canvaGameRect.sizeDelta.y) - (canvaGameRect.sizeDelta.y * 0.5f)));
+
+        return WorldObject_ScreenPosition;
     }
     
     /// <summary>
@@ -168,7 +177,7 @@ public class AttackController : MonoBehaviour
 
         map.ClearHighlight();
         /*
-         *　攻撃可能範囲を赤色で塗る処理 
+         *　TODO : 攻撃可能範囲を赤色で塗る処理 
          */
         return nowDir;
     }
@@ -182,20 +191,44 @@ public class AttackController : MonoBehaviour
     }
 
     /// <summary>
+    /// 攻撃可能範囲を取得する（Set2で使用するためにUnit保管）
+    /// </summary>
+    public List<Vector2Int> GetAttackRanges(Map map,Unit unit,Attack attack,int dir)
+    {
+        // GetAttackableRangesを使いまわすと、外部が使用すべき関数が見えにくくなるため、新しく作成
+        return GetAttackableRanges(map, unit, attack, dir);
+    }
+
+    // 範囲攻撃向け実装（Set2向け）
+    Unit SearchUnitOnFloor(Unit attacker, Vector2Int place)
+    {
+        Unit unit = null;
+        // TODO : どうにかして、placeにあるUnitを見つける（無かったり、自軍ならnull）
+        return (unit == null || unit.Belonging == attacker.Belonging) ? null : unit;
+    }
+
+    /// <summary>
     /// 範囲内に居るユニットに攻撃
     /// </summary>
-    public void AttackRange(Map map, Unit attacker, Units units)
+    public void AttackRange(Map map, Unit attacker, List<Vector2Int> attackRanges, Units units)
     {
+        // TODO ? 既に殴られている場合は、動作しない(Unit側で処理する？)
 
-        /*
-        // ダメージ計算を行う
-        defender.Damage(attacker, attacker.Attacks[0]);
-        // 体力が0以下になったらユニットを消滅させる
-        if (defender.Life <= 0)
+        // 攻撃した範囲全てに対して、
+        foreach(var attackRange in attackRanges)
         {
-            defender.DestroyWithAnimate();
+            // 敵Unitの存在判定を行い、
+            var defender = SearchUnitOnFloor(attacker, attackRange);
+            if (defender == null) continue;
+
+            // ダメージ計算を行う
+            defender.Damage(attacker, attacker.Attacks[0]);
+            // 体力が0以下になったらユニットを消滅させる
+            if (defender.Life <= 0)
+            {
+                defender.DestroyWithAnimate();
+            }
         }
-        */
 
         map.ClearHighlight();
         units.FocusingUnit.IsMoved = true;
