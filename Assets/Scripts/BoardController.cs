@@ -6,6 +6,14 @@ using System;
 
 public class BoardController : MonoBehaviour
 {
+    public enum BattleState
+    {
+        CheckingStatus, // 戦況確認中
+        Move,           // 移動コマンド入力中
+        Attack,         // 攻撃コマンド選択中
+        Loading         // スクリプト処理中
+    }
+
 	[SerializeField]
 	private UI _ui;
 	[SerializeField]
@@ -22,12 +30,13 @@ public class BoardController : MonoBehaviour
 	private bool _setAI = true;
 	[SerializeField]
 	private bool _setPlayerFirst = true;
-
+    
 	private Dictionary<Unit.Team, AI> _ais = new Dictionary<Unit.Team, AI>();
 	private Unit.Team _startTeam;
-
+    
 	public int Turn { get; private set; }
 	public int Set { get; private set; }
+    public BattleState State { get; set; }
 
 	void Start()
 	{
@@ -88,10 +97,13 @@ public class BoardController : MonoBehaviour
 				Turn++;
 				Set = 1;
 			}
-		}
+        }
 
-		// セットプレイヤーのチームを記録
-		_units.CurrentPlayerTeam = team;
+        // 盤面の状態も設定
+        State = BattleState.CheckingStatus;
+
+        // セットプレイヤーのチームを記録
+        _units.CurrentPlayerTeam = team;
 
 		// セットプレイヤー以外ユニットは行動済みとする
 		foreach(var unit in _units.GetComponentsInChildren<Unit>())
