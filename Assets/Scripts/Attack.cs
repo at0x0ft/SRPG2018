@@ -10,6 +10,7 @@ public class Attack : MonoBehaviour
         Single,
         Range
     }
+
     [SerializeField]
     private TargetingKind _targetingWay;
     public TargetingKind TargetingWay
@@ -23,6 +24,14 @@ public class Attack : MonoBehaviour
 	{
 		get { return _type; }
 	}
+
+    // 攻撃範囲を回転させられるかどうか
+    [SerializeField]
+    private bool _isRangeRotatable;
+    public bool IsRangeRotatable
+    {
+        get { return _isRangeRotatable; }
+    }
 
 	[SerializeField]
 	private int _power;
@@ -40,6 +49,7 @@ public class Attack : MonoBehaviour
 		new Vector2Int(-1, 0),
 		new Vector2Int(0, -1)
 	};
+
 	public List<Vector2Int> Range
 	{
 		get { return _range; }
