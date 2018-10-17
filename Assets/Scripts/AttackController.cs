@@ -119,7 +119,7 @@ public class AttackController : MonoBehaviour
     
     /// <summary>
     /// ユニットに対する、相対的なマウスの方角(四方)を返す
-    /// 0:u, 1:r, 2:d, 3:l
+    /// 0:right, 1:up, 2:left, 3:down
     /// </summary>
     private int GetMouseDirFromUnit(Unit unit)
     {
@@ -131,8 +131,8 @@ public class AttackController : MonoBehaviour
         int k1 = dy - dx;
         int k2 = dy + dx;
         int dir = (k1 > 0
-            ? (k2 > 0 ? 0 : 3)
-            : (k2 > 0 ? 1 : 2)
+            ? (k2 > 0 ? 1 : 2)
+            : (k2 > 0 ? 0 : 3)
             );
         return dir;
     }
@@ -140,23 +140,31 @@ public class AttackController : MonoBehaviour
     /// <summary>
     /// 攻撃可能範囲のリストを返す
     /// </summary>
-    private List<Vector2Int> GetAttackablePlaces(Map map, Unit attacker)
+    private List<Vector2Int> GetAttackableRanges(Map map, Unit unit, Attack attack, int dir)
     {
-        List<Vector2Int> attackable = new List<Vector2Int>();
-        /*
-         * 攻撃可能範囲を追加する
-         */
-        return attackable;
+        float rot = dir * Mathf.PI / 2;
+        Func<float, int> cos = (float rad) => (int)Mathf.Cos(rad);
+        Func<float, int> sin = (float rad) => (int)Mathf.Sin(rad);
+        
+        int cx = unit.X;
+        int cy = unit.Y;
+
+        //wikipedia,回転行列を参照
+        var attackables = attack.Range.Select(p => new Vector2Int(
+            p.x * cos(rot) - p.y * sin(rot) + cx,
+            p.x * sin(rot) + p.y * cos(rot) + cy
+            )).ToList();
+        return attackables;
     }
 
     /// <summary>
     /// マウスの位置が変更されているときに、攻撃可能ハイライト位置を変える
     /// </summary>
-    public int UpdateAttackableHighLight(Map map, Unit attacker, int befDir)
+    public int UpdateAttackableHighLight(Map map, Unit attacker, Attack attack, int befDir)
     {
         int nowDir = GetMouseDirFromUnit(attacker);
         if (nowDir == befDir) return befDir;
-        var attackables = GetAttackablePlaces(map, attacker);
+        var attackables = GetAttackableRanges(map, attacker, attack, nowDir);
 
         map.ClearHighlight();
         /*
@@ -164,13 +172,13 @@ public class AttackController : MonoBehaviour
          */
         return nowDir;
     }
-    
+
     ///<summary>
     ///攻撃可能ハイライトを初期設定する
     /// </summary>
-    public int InitializeAttackableHighLight(Map map,Unit attacker)
+    public int InitializeAttackableHighLight(Map map, Unit attacker, Attack attack)
     {
-        return UpdateAttackableHighLight(map, attacker, -1);
+        return UpdateAttackableHighLight(map, attacker, attack, -1);
     }
 
     /// <summary>
