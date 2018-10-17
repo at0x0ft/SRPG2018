@@ -47,6 +47,7 @@ public class AttackController : MonoBehaviour
 			case Floor.Feature.Rock:
 				return _rockAvoidRate;
 			default:
+				Debug.LogWarning("[Error] : (Floor)" + floor.transform.name + "'s avoid rate is unknown/unset (calculated it as 0%).");
 				return 0;
 		}
 	}
@@ -62,10 +63,10 @@ public class AttackController : MonoBehaviour
 		// 命中率を, [地形効果命中補正]を考慮して計算.
 		var hitRate = attack.Accuracy - GetAvoidRate(floor);
 
-		// Random.Rangeが0から99までの値をランダムに返すメソッドであるから, 1加えて, [1, 100]の範囲で乱数を返して判定.
-		if(Random.Range(0, 100) + 1 <= hitRate) return true;
-
-		return false;
+		// 百分率の最大は100%.
+		const int RANGE_MAX = 100;
+		// Random.Rangeが0から100までの値をランダムに返すメソッドであるから, [0, 101)の範囲で乱数を返して判定.
+		return Random.Range(0, RANGE_MAX + 1) <= hitRate;
 	}
 
 	/// <summary>
