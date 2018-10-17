@@ -120,7 +120,7 @@ public class Floor : MonoBehaviour
 	/// <returns></returns>
 	private Vector2Int ParseLocalCoordinateFromName()
 	{
-		if (Regex.IsMatch(transform.name, @"^(\d+,\d+)$"))
+		if (Regex.IsMatch(transform.name, @"^\(\d+, \d+\)$"))
 		{
 			string[] coors = transform.name.Split(new string[] { "(", ",", " ", "　", ")" }, StringSplitOptions.RemoveEmptyEntries);
 			return new Vector2Int(int.Parse(coors[0]), int.Parse(coors[1]));
