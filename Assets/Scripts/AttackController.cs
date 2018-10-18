@@ -7,6 +7,8 @@ using System;
 
 public class AttackController : MonoBehaviour
 {
+	// 定数
+
     [SerializeField]
     public RectTransform canvaGameRect;  //マウスの座標を対応させるキャンバス
 
@@ -27,6 +29,8 @@ public class AttackController : MonoBehaviour
 	private float _forestReduceRate = 0.2f;
 	[SerializeField]
 	private float _rockReduceRate = 0.5f;
+
+	// ダメージ計算関連
 
 	/// <summary>
 	/// タイプ相性での威力の倍率を返すメソッド
@@ -80,6 +84,11 @@ public class AttackController : MonoBehaviour
 		return Mathf.RoundToInt(AttackPower(attacker, attack) * GetTypeAdvantageRate(attack.Type, defender.Type) * (1f - GetReduceRate(defenderFloor)));
 	}
 
+	// TODO : ハイライト部分取得関数
+	// TODO : ハイライト実行関数
+	// TODO : 攻撃実行関数
+	// TODO : 攻撃分岐関数
+
 	/// <summary>
 	/// 対象ユニットに攻撃
 	/// </summary>
@@ -108,43 +117,6 @@ public class AttackController : MonoBehaviour
 
     //ここからは、範囲攻撃向けの実装（Set1向け）
     
-    
-    /// <summary>
-    /// マウスの位置を取得する関数(要検証)
-    /// </summary>
-    private Vector2Int GetMousePos()
-    {
-        Vector3 mousePos= Input.mousePosition;             // Vector3でマウス位置座標を取得する
-        mousePos.z = 0f;
-        var viewportPoint = Camera.main.ScreenToViewportPoint(mousePos);
-
-        // TODO : Unit/Floorに格納されているX,Y座標と同じ座標系になるように計算を修正する
-        Vector2Int WorldObject_ScreenPosition = new Vector2Int(
-        (int)((viewportPoint.x * canvaGameRect.sizeDelta.x) - (canvaGameRect.sizeDelta.x * 0.5f)),
-        (int)((viewportPoint.y * canvaGameRect.sizeDelta.y) - (canvaGameRect.sizeDelta.y * 0.5f)));
-
-        return WorldObject_ScreenPosition;
-    }
-    
-    /// <summary>
-    /// ユニットに対する、相対的なマウスの方角(四方)を返す
-    /// 0:right, 1:up, 2:left, 3:down
-    /// </summary>
-    private int GetMouseDirFromUnit(Unit unit)
-    {
-        var mousePos = GetMousePos();
-        int dx = mousePos.x - unit.X;
-        int dy = mousePos.y - unit.Y;
-
-        //y=x+k1, y=-x+k2
-        int k1 = dy - dx;
-        int k2 = dy + dx;
-        int dir = (k1 > 0
-            ? (k2 > 0 ? 1 : 2)
-            : (k2 > 0 ? 0 : 3)
-            );
-        return dir;
-    }
 
     /// <summary>
     /// 攻撃可能範囲のリストを返す
@@ -167,12 +139,11 @@ public class AttackController : MonoBehaviour
     }
 
     /// <summary>
-    /// マウスの位置が変更されているときに、攻撃可能ハイライト位置を変える
+    /// 空白マスがクリックされたときに呼ばれます。
     /// </summary>
     public int UpdateAttackableHighLight(Map map, Unit attacker, Attack attack, int befDir)
     {
-        int nowDir = GetMouseDirFromUnit(attacker);
-        if (nowDir == befDir) return befDir;
+		int nowDir = (befDir + 1) % 4;
         var attackables = GetAttackableRanges(map, attacker, attack, nowDir);
 
         map.ClearHighlight();
@@ -187,7 +158,7 @@ public class AttackController : MonoBehaviour
     /// </summary>
     public int InitializeAttackableHighLight(Map map, Unit attacker, Attack attack)
     {
-        return UpdateAttackableHighLight(map, attacker, attack, -1);
+		return UpdateAttackableHighLight(map, attacker, attack, 0);
     }
 
     /// <summary>
