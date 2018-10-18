@@ -112,7 +112,9 @@ public class Map : MonoBehaviour
 	/// </summary>
 	public void SetAttackableHighlights(List<Vector2Int> attackables)
 	{
+		// この関数を呼び出すとき、"必ず"ハイライトを1度全て解除するはず。
 		ClearHighlight();
+
 		foreach(var attackable in attackables)
 		{
 			var floor = GetFloor(attackable.x, attackable.y);

@@ -143,13 +143,14 @@ public class AttackController : MonoBehaviour
     /// </summary>
     public int UpdateAttackableHighLight(Map map, Unit attacker, Attack attack, int befDir)
     {
+		// 反時計回りに90°回転させる
 		int nowDir = (befDir + 1) % 4;
+
+		// 範囲攻撃の対象を計算する
         var attackables = GetAttackableRanges(map, attacker, attack, nowDir);
 
-        map.ClearHighlight();
-        /*
-         *　TODO : 攻撃可能範囲を赤色で塗る処理 
-         */
+		map.SetAttackableHighlights(attackables);
+
         return nowDir;
     }
 
