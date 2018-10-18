@@ -162,15 +162,6 @@ public class AttackController : MonoBehaviour
 		return UpdateAttackableHighLight(map, attacker, attack, 0);
     }
 
-    /// <summary>
-    /// 攻撃可能範囲を取得する（Set2で使用するためにUnit保管）
-    /// </summary>
-    public List<Vector2Int> GetAttackRanges(Map map,Unit unit,Attack attack,int dir)
-    {
-        // GetAttackableRangesを使いまわすと、外部が使用すべき関数が見えにくくなるため、新しく作成
-        return GetAttackableRanges(map, unit, attack, dir);
-    }
-
     // 範囲攻撃向け実装（Set2向け）
     Unit SearchUnitOnFloor(Unit attacker, Vector2Int place)
     {
@@ -181,16 +172,17 @@ public class AttackController : MonoBehaviour
 
     /// <summary>
     /// 範囲内に居るユニットに攻撃
+	/// (範囲攻撃の赤マス選択時に呼び出される)
     /// </summary>
-    public void AttackRange(Map map, Unit attacker, List<Vector2Int> attackRanges, Units units)
+    public void AttackRange(Map map, Unit attacker, Units units)
     {
-        // TODO ? 既に殴られている場合は、動作しない(Unit側で処理する？)
+		var attackRanges = map.GetAttackableFloors();
 
         // 攻撃した範囲全てに対して、
         foreach(var attackRange in attackRanges)
         {
             // 敵Unitの存在判定を行い、
-            var defender = SearchUnitOnFloor(attacker, attackRange);
+            var defender = SearchUnitOnFloor(attacker, attackRange.CoordinatePair.Key);
             if (defender == null) continue;
 
             // ダメージ計算を行う
