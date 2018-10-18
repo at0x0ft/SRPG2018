@@ -97,6 +97,30 @@ public class Map : MonoBehaviour
 	}
 
 	/// <summary>
+	/// 特定のマスに攻撃可能ハイライトを点ける。
+	/// </summary>
+	private void SetAttackableHighlight(Floor floor)
+	{
+		floor.IsAttackable = true;
+
+		// 攻撃対象を選択可能にする. (ユニットのステータスを表示する機能もあるため, いちいち選択可能/不可にする必要がない)
+		floor.Unit.GetComponent<Button>().interactable = true;
+	}
+
+	/// <summary>
+	/// 特定の位置にあるマスに攻撃可能ハイライトを点ける
+	/// </summary>
+	public void SetAttackableHighlights(List<Vector2Int> attackables)
+	{
+		ClearHighlight();
+		foreach(var attackable in attackables)
+		{
+			var floor = GetFloor(attackable.x, attackable.y);
+			if (floor != null) SetAttackableHighlight(floor);
+		}
+	}
+
+	/// <summary>
 	/// 攻撃可能なマスをハイライトし, 攻撃対象がいるか否かを返すメソッド
 	/// </summary>
 	public bool HighlightAttackableFloors(Floor startFloor, Attack attack)
@@ -108,10 +132,7 @@ public class Map : MonoBehaviour
 			if(Floor.Unit != null && Floor.Unit.Belonging != startFloor.Unit.Belonging)
 			{
 				hasTarget = true;
-				Floor.IsAttackable = true;
-
-				// 攻撃対象を選択可能にする. (ユニットのステータスを表示する機能もあるため, いちいち選択可能/不可にする必要がない)
-				Floor.Unit.GetComponent<Button>().interactable = true;
+				SetAttackableHighlight(Floor);
 			}
 		}
 		return hasTarget;
