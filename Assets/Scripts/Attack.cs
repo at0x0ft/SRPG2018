@@ -5,33 +5,35 @@ using UnityEngine.UI;
 
 public class Attack : MonoBehaviour
 {
-    public enum TargetingKind
-    {
-        Single,
-        Range
-    }
+	public enum TargetingKind
+	{
+		Single,
+		Range
+	}
 
-    [SerializeField]
-    private TargetingKind _targetingWay;
-    public TargetingKind TargetingWay
-    {
-        get { return _targetingWay; }
-    }
+	[SerializeField]
+	private TargetingKind _targetingWay;
+	public TargetingKind TargetingWay
+	{
+		get { return _targetingWay; }
+	}
 
-    [SerializeField]
+	[SerializeField]
 	private Type _type;
 	public Type Type
 	{
 		get { return _type; }
 	}
 
-    // 攻撃範囲を回転させられるかどうか
-    [SerializeField]
-    private bool _isRangeRotatable;
-    public bool IsRangeRotatable
-    {
-        get { return _isRangeRotatable; }
-    }
+	/// <summary>
+	/// 攻撃範囲を回転させられるかどうか
+	/// </summary>
+	[SerializeField]
+	private bool _isRangeRotatable;
+	public bool IsRangeRotatable
+	{
+		get { return _isRangeRotatable; }
+	}
 
 	[SerializeField]
 	private int _power;
