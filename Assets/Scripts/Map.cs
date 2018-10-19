@@ -99,7 +99,7 @@ public class Map : MonoBehaviour
 	/// <summary>
 	/// 攻撃可能なマスをハイライトし, 攻撃対象がいるか否かを返すメソッド
 	/// </summary>
-	public bool HighlightAttackableFloors(Floor startFloor, Attack attack)
+	public bool HighlightAttackableFloors(Floor startFloor, SingleAttack attack)
 	{
 		var hasTarget = false;
 		foreach(var Floor in GetFloorsByDistance(startFloor, attack.RangeMin, attack.RangeMax))

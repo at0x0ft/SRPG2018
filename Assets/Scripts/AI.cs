@@ -198,7 +198,7 @@ public class AI : MonoBehaviour
 		{
 			// atode kaeru
 			// 指定したAttackの攻撃範囲に当たる攻撃範囲のマスを全て列挙する
-			Floors.AddRange(_map.GetFloorsByDistance(enemyUnit.Floor, unit.Attacks[0].RangeMin, unit.Attacks[0].RangeMax)
+			Floors.AddRange(_map.GetFloorsByDistance(enemyUnit.Floor, ((SingleAttack)unit.Attacks[0]).RangeMin, ((SingleAttack)unit.Attacks[0]).RangeMax)
 				.Where(f => _mc.GetFloorCost(f) < _mc.MaxLimitCost));
 		}
 		return Floors.Distinct().ToArray();

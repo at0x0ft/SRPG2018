@@ -169,7 +169,7 @@ public class AttackController : MonoBehaviour
     /// <summary>
     /// マウスの位置が変更されているときに、攻撃可能ハイライト位置を変える
     /// </summary>
-    public int UpdateAttackableHighLight(Map map, Unit attacker, Attack attack, int befDir)
+    public int UpdateAttackableHighLight(Map map, Unit attacker, RangeAttack attack, int befDir)
     {
         int nowDir = GetMouseDirFromUnit(attacker);
         if (nowDir == befDir) return befDir;
@@ -185,7 +185,7 @@ public class AttackController : MonoBehaviour
     ///<summary>
     ///攻撃可能ハイライトを初期設定する
     /// </summary>
-    public int InitializeAttackableHighLight(Map map, Unit attacker, Attack attack)
+    public int InitializeAttackableHighLight(Map map, Unit attacker, RangeAttack attack)
     {
         return UpdateAttackableHighLight(map, attacker, attack, -1);
     }
@@ -193,7 +193,7 @@ public class AttackController : MonoBehaviour
     /// <summary>
     /// 攻撃可能範囲を取得する（Set2で使用するためにUnit保管）
     /// </summary>
-    public List<Vector2Int> GetAttackRanges(Map map,Unit unit,Attack attack,int dir)
+    public List<Vector2Int> GetAttackRanges(Map map,Unit unit, RangeAttack attack,int dir)
     {
         // GetAttackableRangesを使いまわすと、外部が使用すべき関数が見えにくくなるため、新しく作成
         return GetAttackableRanges(map, unit, attack, dir);
