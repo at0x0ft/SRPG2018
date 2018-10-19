@@ -12,7 +12,7 @@ public abstract class Attack : MonoBehaviour
 	{
 		get { return _type; }
 	}
-
+	
 	// 攻撃力
 	[SerializeField]
 	private int _power;
