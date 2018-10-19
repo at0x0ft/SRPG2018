@@ -34,7 +34,10 @@ public abstract class Attack : MonoBehaviour
 		new Vector2Int(-1, 0),
 		new Vector2Int(0, -1)
 	};
-	public List<Vector2Int> Range{ get { return _range; } }
+	public List<Vector2Int> Range
+	{
+		get { return _range; }
+	}
 }
 
 
