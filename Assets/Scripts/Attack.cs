@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public abstract class Attack : MonoBehaviour
 {
 	// 攻撃の種類
-    [SerializeField]
+	[SerializeField]
 	private Type _type;
 	public Type Type
 	{
