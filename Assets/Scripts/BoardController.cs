@@ -6,6 +6,14 @@ using System;
 
 public class BoardController : MonoBehaviour
 {
+	public enum BattleState
+	{
+		CheckingStatus, // 戦況確認中
+		Move,			// 移動コマンド入力中
+		Attack,			// 攻撃コマンド選択中
+		Loading			// スクリプト処理中
+	}
+
 	[SerializeField]
 	private UI _ui;
 	[SerializeField]
@@ -22,12 +30,13 @@ public class BoardController : MonoBehaviour
 	private bool _setAI = true;
 	[SerializeField]
 	private bool _setPlayerFirst = true;
-
+	
 	private Dictionary<Unit.Team, AI> _ais = new Dictionary<Unit.Team, AI>();
 	private Unit.Team _startTeam;
-
+	
 	public int Turn { get; private set; }
 	public int Set { get; private set; }
+	public BattleState State { get; set; }
 
 	void Start()
 	{
@@ -90,6 +99,9 @@ public class BoardController : MonoBehaviour
 			}
 		}
 
+		// 盤面の状態も設定
+		State = BattleState.CheckingStatus;
+
 		// セットプレイヤーのチームを記録
 		_units.CurrentPlayerTeam = team;
 
@@ -99,11 +111,10 @@ public class BoardController : MonoBehaviour
 			unit.IsMoved = team != unit.Belonging;
 			//セット開始時に、移動量を回復させる
 			//(コードの場所がここで良いのかは、一考の余地あり)
-            if (!unit.IsMoved && Set == 1)
-            {
-                unit.MoveAmount = unit.MaxMoveAmount;
-                Debug.Log("move amount:"+unit.MoveAmount);
-            }
+			if (unit.IsMoved || Set != 1) continue;
+
+			unit.MoveAmount = unit.MaxMoveAmount;
+			Debug.Log("move amount:"+unit.MoveAmount);
 		}
 
 		// セットプレイヤーがAIならば, 画面をタッチできないように設定し, AIを走らせる.
