@@ -58,6 +58,16 @@ public class SingleAttack : Attack
 	{
 		get { return _rangeMax; }
 	}
+
+	/// <summary>
+	/// 命中率 (単位:% かつ 整数)
+	/// </summary>
+	[SerializeField]
+	private int _accuracy;
+	public int Accuracy
+	{
+		get { return _accuracy; }
+	}
 }
 
 
