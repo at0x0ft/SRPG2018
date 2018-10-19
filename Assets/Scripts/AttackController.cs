@@ -6,9 +6,9 @@ using System.Linq;
 
 public class AttackController : MonoBehaviour
 {
-	// 定数
+	// ==========定数==========
 
-    [SerializeField]
+	[SerializeField]
     public RectTransform canvaGameRect;  //マウスの座標を対応させるキャンバス
 
     [SerializeField]
@@ -35,6 +35,10 @@ public class AttackController : MonoBehaviour
 	private int _forestAvoidRate = 10;
 	[SerializeField]
 	private int _rockAvoidRate = 0;
+
+
+	// ==========数値計算==========
+
 
 	/// <summary>
 	/// [地形効果命中補正] : floorの命中減少率について, 百分率整数で返すメソッド
@@ -129,17 +133,27 @@ public class AttackController : MonoBehaviour
 		return Mathf.RoundToInt(AttackPower(attacker, attack) * GetTypeAdvantageRate(attack.Type, defender.Type) * (1f - GetReduceRate(defenderFloor)));
 	}
 
-	// TODO : ハイライト部分取得関数
-	// TODO : ハイライト実行関数
-	// TODO : 攻撃実行関数
-	// TODO : 攻撃分岐関数
+
+	// ==========オブジェクト操作レベル==========
+
+	/// <summary>
+	/// 特定のマスのハイライトを行う
+	/// </summary>
+	private void SetHighLight(){ }
+
+	/// <summary>
+	/// 特定のマスの敵を攻撃する
+	/// </summary>
+	private void AttackToSingle(){ }
+
+	// ==========単体攻撃向けの実装==========
 
 	/// <summary>
 	/// 対象ユニットに攻撃
 	/// </summary>
 	/// <param name="fromUnit">From unit.</param>
 	/// <param name="toUnit">To unit.</param>
-	public void AttackTo(Map map, Unit attacker, Unit defender, Units units)
+	public void AttackToSingle(Map map, Unit attacker, Unit defender, Units units)
 	{
 		// BattleSceneに移動してバトルをする (取り敢えず要らない)
 		// Battle_SceneController.attacker = attacker;
@@ -160,17 +174,17 @@ public class AttackController : MonoBehaviour
 	}
 
 
-    //ここからは、範囲攻撃向けの実装（Set1向け）
-    
+	// ==========範囲攻撃向けの実装（Set1向け）==========
 
-    /// <summary>
-    /// 攻撃可能範囲のリストを返す
-    /// </summary>
-    private List<Vector2Int> GetAttackableRanges(Map map, Unit unit, Attack attack, int dir)
+
+	/// <summary>
+	/// 攻撃可能範囲のリストを返す
+	/// </summary>
+	private List<Vector2Int> GetAttackableRanges(Map map, Unit unit, Attack attack, int dir)
     {
         float rot = dir * Mathf.PI / 2;
-        Func<float, int> cos = (float rad) => (int)Mathf.Cos(rad);
-        Func<float, int> sin = (float rad) => (int)Mathf.Sin(rad);
+        System.Func<float, int> cos = (float rad) => (int)Mathf.Cos(rad);
+        System.Func<float, int> sin = (float rad) => (int)Mathf.Sin(rad);
         
         int cx = unit.X;
         int cy = unit.Y;
@@ -216,8 +230,17 @@ public class AttackController : MonoBehaviour
         return GetAttackableRanges(map, unit, attack, dir);
     }
 
-    // 範囲攻撃向け実装（Set2向け）
-    Unit SearchUnitOnFloor(Unit attacker, Vector2Int place)
+
+	// ==========範囲攻撃向け実装（Set2向け）==========
+
+
+	/// <summary>
+	/// 目的の場所に、敵が居るかを判定する
+	/// </summary>
+	/// <param name="attacker"></param>
+	/// <param name="place"></param>
+	/// <returns></returns>
+	Unit SearchUnitOnFloor(Unit attacker, Vector2Int place)
     {
         Unit unit = null;
         // TODO : どうにかして、placeにあるUnitを見つける（無かったり、自軍ならnull）
@@ -228,7 +251,7 @@ public class AttackController : MonoBehaviour
     /// 範囲内に居るユニットに攻撃
 	/// (範囲攻撃の赤マス選択時に呼び出される)
     /// </summary>
-    public void AttackRange(Map map, Unit attacker, Units units)
+    public void AttackToRange(Map map, Unit attacker, Units units)
     {
 		var attackRanges = map.GetAttackableFloors();
 
@@ -251,4 +274,16 @@ public class AttackController : MonoBehaviour
         map.ClearHighlight();
         units.FocusingUnit.IsMoved = true;
     }
+
+	// ==========外部公開==========
+
+	/// <summary>
+	/// ハイライトを行う
+	/// </summary>
+	public void HighLight(){ }
+
+	/// <summary>
+	/// 攻撃をする
+	/// </summary>
+	public void Attack(){ }
 }
