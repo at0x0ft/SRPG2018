@@ -141,7 +141,7 @@ public class AttackController : MonoBehaviour
     /// <summary>
     /// 空白マスがクリックされたときに呼ばれます。
     /// </summary>
-    public int UpdateAttackableHighLight(Map map, Unit attacker, Attack attack, int befDir)
+    public int UpdateAttackableHighLight(Map map, Unit attacker, RangeAttack attack, int befDir)
     {
 		// 反時計回りに90°回転させる
 		int nowDir = (befDir + 1) % 4;
@@ -157,9 +157,18 @@ public class AttackController : MonoBehaviour
     ///<summary>
     ///攻撃可能ハイライトを初期設定する
     /// </summary>
-    public int InitializeAttackableHighLight(Map map, Unit attacker, Attack attack)
+    public int InitializeAttackableHighLight(Map map, Unit attacker, RangeAttack attack)
     {
-		return UpdateAttackableHighLight(map, attacker, attack, 0);
+        return UpdateAttackableHighLight(map, attacker, attack, -1);
+    }
+
+    /// <summary>
+    /// 攻撃可能範囲を取得する（Set2で使用するためにUnit保管）
+    /// </summary>
+    public List<Vector2Int> GetAttackRanges(Map map,Unit unit, RangeAttack attack,int dir)
+    {
+        // GetAttackableRangesを使いまわすと、外部が使用すべき関数が見えにくくなるため、新しく作成
+        return GetAttackableRanges(map, unit, attack, dir);
     }
 
     // 範囲攻撃向け実装（Set2向け）
