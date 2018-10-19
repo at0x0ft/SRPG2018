@@ -7,7 +7,7 @@ public abstract class Attack : MonoBehaviour
 {
 	// 攻撃の種類
 	[SerializeField]
-	private Type _type;
+	protected Type _type;
 	public Type Type
 	{
 		get { return _type; }
@@ -15,7 +15,7 @@ public abstract class Attack : MonoBehaviour
 	
 	// 攻撃力
 	[SerializeField]
-	private int _power;
+	protected int _power;
 	public int Power
 	{
 		get { return _power; }
@@ -27,7 +27,7 @@ public abstract class Attack : MonoBehaviour
 	/// RangeAttackの場合は、攻撃"する"マスの集合を示します。
 	/// </summary>
 	[SerializeField]
-	private List<Vector2Int> _range = new List<Vector2Int>
+	protected List<Vector2Int> _range = new List<Vector2Int>
 	{
 		new Vector2Int(0, 1),
 		new Vector2Int(1, 0),
