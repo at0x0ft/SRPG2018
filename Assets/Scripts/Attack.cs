@@ -22,6 +22,16 @@ public abstract class Attack : MonoBehaviour
 	}
 
 	/// <summary>
+	/// 命中率 (単位:% かつ 整数)
+	/// </summary>
+	[SerializeField]
+	private int _accuracy;
+	public int Accuracy
+	{
+		get { return _accuracy; }
+	}
+
+	/// <summary>
 	/// 攻撃範囲.
 	/// SingleAttackの場合は、攻撃"可能"なマスの集合を示します。
 	/// RangeAttackの場合は、攻撃"する"マスの集合を示します。
@@ -57,16 +67,6 @@ public class SingleAttack : Attack
 	public int RangeMax
 	{
 		get { return _rangeMax; }
-	}
-
-	/// <summary>
-	/// 命中率 (単位:% かつ 整数)
-	/// </summary>
-	[SerializeField]
-	private int _accuracy;
-	public int Accuracy
-	{
-		get { return _accuracy; }
 	}
 }
 
