@@ -120,27 +120,25 @@ public class Floor : MonoBehaviour
 	/// <returns></returns>
 	private Vector2Int ParseLocalCoordinateFromName()
 	{
-		if (Regex.IsMatch(transform.name, @"^\(\d+, \d+\)$"))
+		// パターンにマッチしない座標であれば, 警告し終了する.
+		if(!Regex.IsMatch(transform.name, @"^\(\d+, \d+\)$"))
 		{
-			string[] coors = transform.name.Split(new string[] { "(", ",", " ", "　", ")" }, StringSplitOptions.RemoveEmptyEntries);
-			return new Vector2Int(int.Parse(coors[0]), int.Parse(coors[1]));
-		}
-		else
-		{
-			Debug.LogWarning("Floor Name Format Exception");
-			Debug.LogWarning(tranform.name);
+			Debug.LogWarning("[Error] Floor Name Format (Coordinate) Exception : " + transform.name);
 			Application.Quit();
 		}
+
+		string[] coors = transform.name.Split(new string[] { "(", ",", " ", "　", ")" }, StringSplitOptions.RemoveEmptyEntries);
+		return new Vector2Int(int.Parse(coors[0]), int.Parse(coors[1]));
 	}
 
 
-    /// <summary>
-    /// 初期化メソッド
-    /// </summary>
-    /// <param name="map"></param>
-    /// <param name="units"></param>
-    /// <param name="mc"></param>
-    public void Initialize(Map map, Units units, MoveController mc)
+	/// <summary>
+	/// 初期化メソッド
+	/// </summary>
+	/// <param name="map"></param>
+	/// <param name="units"></param>
+	/// <param name="mc"></param>
+	public void Initialize(Map map, Units units, MoveController mc)
 	{
 		_map = map;
 		_units = units;
