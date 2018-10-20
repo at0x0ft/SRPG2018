@@ -9,7 +9,7 @@ public class AttackController : MonoBehaviour
 	// ==========定数==========
 
 	[SerializeField]
-	public RectTransform canvaGameRect;	 //マウスの座標を対応させるキャンバス
+	public RectTransform canvaGameRect;  //マウスの座標を対応させるキャンバス
 
 	[SerializeField]
 	private float _strongRate = 1.2f;
@@ -28,7 +28,7 @@ public class AttackController : MonoBehaviour
 	private float _forestReduceRate = 0.2f;
 	[SerializeField]
 	private float _rockReduceRate = 0.5f;
-  
+
 	[SerializeField]
 	private int _normalAvoidRate = 20;
 	[SerializeField]
@@ -47,7 +47,7 @@ public class AttackController : MonoBehaviour
 	/// <returns></returns>
 	public int GetAvoidRate(Floor floor)
 	{
-		switch(floor.Type)
+		switch (floor.Type)
 		{
 			case Floor.Feature.Normal:
 				return _normalAvoidRate;
@@ -77,7 +77,7 @@ public class AttackController : MonoBehaviour
 		// Random.Rangeが0から100までの値をランダムに返すメソッドであるから, [0, 101)の範囲で乱数を返して判定.
 		return Random.Range(0, RANGE_MAX + 1) <= hitRate;
 	}
-  
+
 	/// <summary>
 	/// タイプ相性での威力の倍率を返すメソッド
 	/// </summary>
@@ -101,7 +101,7 @@ public class AttackController : MonoBehaviour
 	/// <returns></returns>
 	public float GetReduceRate(Floor floor)
 	{
-		switch(floor.Type)
+		switch (floor.Type)
 		{
 			case Floor.Feature.Normal:
 				return _normalReduceRate;
@@ -128,7 +128,7 @@ public class AttackController : MonoBehaviour
 	public int CalcurateDamage(Unit attacker, Attack attack, Unit defender, Floor defenderFloor)
 	{
 		// 取り敢えず, 暫定的にダメージ計算時に命中可否の判定を行うこととする. (命中可否を画面に通知するかどうかは, また別で考える)
-		if(!IsHit(attack, defenderFloor)) return 0;
+		if (!IsHit(attack, defenderFloor)) return 0;
 
 		return Mathf.RoundToInt(AttackPower(attacker, attack) * GetTypeAdvantageRate(attack.Type, defender.Type) * (1f - GetReduceRate(defenderFloor)));
 	}
@@ -136,17 +136,20 @@ public class AttackController : MonoBehaviour
 
 	// ==========オブジェクト操作レベル==========
 
+
 	/// <summary>
 	/// 特定のマスのハイライトを行う
 	/// </summary>
-	private void SetHighLight(){ }
+	private void SetHighLight() { }
 
 	/// <summary>
 	/// 特定のマスの敵を攻撃する
 	/// </summary>
-	private void AttackToSingle(){ }
+	private void AttackToSingle() { }
+
 
 	// ==========単体攻撃向けの実装==========
+
 
 	/// <summary>
 	/// 対象ユニットに攻撃
@@ -164,7 +167,7 @@ public class AttackController : MonoBehaviour
 		// ダメージ計算を行う
 		defender.Damage(attacker, attacker.Attacks[0]);
 		// 体力が0以下になったらユニットを消滅させる
-		if(defender.Life <= 0)
+		if (defender.Life <= 0)
 		{
 			defender.DestroyWithAnimate();
 		}
@@ -185,7 +188,7 @@ public class AttackController : MonoBehaviour
 		float rot = dir * Mathf.PI / 2;
 		System.Func<float, int> cos = (float rad) => (int)Mathf.Cos(rad);
 		System.Func<float, int> sin = (float rad) => (int)Mathf.Sin(rad);
-		
+
 		int cx = unit.X;
 		int cy = unit.Y;
 
@@ -224,7 +227,7 @@ public class AttackController : MonoBehaviour
 	/// <summary>
 	/// 攻撃可能範囲を取得する（Set2で使用するためにUnit保管）
 	/// </summary>
-	public List<Vector2Int> GetAttackRanges(Map map,Unit unit, RangeAttack attack,int dir)
+	public List<Vector2Int> GetAttackRanges(Map map, Unit unit, RangeAttack attack, int dir)
 	{
 		// GetAttackableRangesを使いまわすと、外部が使用すべき関数が見えにくくなるため、新しく作成
 		return GetAttackableRanges(map, unit, attack, dir);
@@ -256,7 +259,7 @@ public class AttackController : MonoBehaviour
 		var attackRanges = map.GetAttackableFloors();
 
 		// 攻撃した範囲全てに対して、
-		foreach(var attackRange in attackRanges)
+		foreach (var attackRange in attackRanges)
 		{
 			// 敵Unitの存在判定を行い、
 			var defender = SearchUnitOnFloor(attacker, attackRange.CoordinatePair.Key);
@@ -275,15 +278,17 @@ public class AttackController : MonoBehaviour
 		units.FocusingUnit.IsMoved = true;
 	}
 
+
 	// ==========外部公開==========
+
 
 	/// <summary>
 	/// ハイライトを行う
 	/// </summary>
-	public void HighLight(){ }
+	public void HighLight() { }
 
 	/// <summary>
 	/// 攻撃をする
 	/// </summary>
-	public void Attack(){ }
+	public void Attack() { }
 }

@@ -36,7 +36,7 @@ public class Map : MonoBehaviour
 
 		// マス全てをFloorsに登録
 		Floors = new List<Floor>();
-		foreach(var floor in transform.GetComponentsInChildren<Floor>())
+		foreach (var floor in transform.GetComponentsInChildren<Floor>())
 		{
 			floor.Initialize(this, units, mc);
 			Floors.Add(floor);
@@ -85,10 +85,10 @@ public class Map : MonoBehaviour
 		Debug.Log("infos length : " + infos.Count); // 4debug
 
 		// 移動可能なマスを計算し, 一つずつマスを展開
-		foreach(var info in infos)
+		foreach (var info in infos)
 		{
 			var Floor = GetFloor(info.Key.X, info.Key.Y);
-			if(Floor.Unit == null)
+			if (Floor.Unit == null)
 			{
 				// ユニットがいなければハイライト(=移動可能に)する
 				Floor.IsMovable = true;
@@ -115,7 +115,7 @@ public class Map : MonoBehaviour
 		// この関数を呼び出すとき、"必ず"ハイライトを1度全て解除するはず。
 		ClearHighlight();
 
-		foreach(var attackable in attackables)
+		foreach (var attackable in attackables)
 		{
 			var floor = GetFloor(attackable.x, attackable.y);
 			if (floor != null) SetAttackableHighlight(floor);
@@ -128,10 +128,10 @@ public class Map : MonoBehaviour
 	public bool HighlightAttackableFloors(Floor startFloor, SingleAttack attack)
 	{
 		var hasTarget = false;
-		foreach(var Floor in GetFloorsByDistance(startFloor, attack.RangeMin, attack.RangeMax))
+		foreach (var Floor in GetFloorsByDistance(startFloor, attack.RangeMin, attack.RangeMax))
 		{
 			// 取り出したマスにユニットが存在し, そのユニットが敵軍である場合
-			if(Floor.Unit != null && Floor.Unit.Belonging != startFloor.Unit.Belonging)
+			if (Floor.Unit != null && Floor.Unit.Belonging != startFloor.Unit.Belonging)
 			{
 				hasTarget = true;
 				SetAttackableHighlight(Floor);
@@ -161,9 +161,9 @@ public class Map : MonoBehaviour
 	/// </summary>
 	public void ClearHighlight()
 	{
-		foreach(var Floor in Floors)
+		foreach (var Floor in Floors)
 		{
-			if(Floor.IsAttackable)
+			if (Floor.IsAttackable)
 			{
 				// 攻撃対象のユニットを選択不可に戻す.
 				Floor.Unit.GetComponent<Button>().interactable = false;
