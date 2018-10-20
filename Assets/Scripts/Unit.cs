@@ -128,7 +128,7 @@ public class Unit : MonoBehaviour
 
 		// 初期配置マスにUnitを設定する
 		//CoordinatePair = _initialFloor.CoordinatePair;
-        StartCoroutine(SetInitialPosition());
+		StartCoroutine(SetInitialPosition());
 
 		Life = MaxLife;
 	}
@@ -136,25 +136,25 @@ public class Unit : MonoBehaviour
 	/// <summary>
 	/// 初期配置マスにUnitを設定します。
 	/// </summary>
-    IEnumerator SetInitialPosition()
-    {
+	IEnumerator SetInitialPosition()
+	{
 		// （参照先の値が初期化された後に実行しなければいけないため、遅延処理しています。
-		//  デッドロックが怖いため、あくまで暫定的です。）
-        while (true)
-        {
-            var pair = _initialFloor.CoordinatePair;
-            if(pair.Key.x==0 && pair.Key.y==0 && pair.Value.x==0 && pair.Value.y==0 && pair.Value.z == 0)
-            {
-                Debug.Log("stay");
-                yield return new WaitForSeconds(0.1f);
-            }
-            else
-            {
-                CoordinatePair = pair;
-                break;
-            }
-        }
-    }
+		//	デッドロックが怖いため、あくまで暫定的です。）
+		while (true)
+		{
+			var pair = _initialFloor.CoordinatePair;
+			if(pair.Key.x==0 && pair.Key.y==0 && pair.Value.x==0 && pair.Value.y==0 && pair.Value.z == 0)
+			{
+				Debug.Log("stay");
+				yield return new WaitForSeconds(0.1f);
+			}
+			else
+			{
+				CoordinatePair = pair;
+				break;
+			}
+		}
+	}
 	
 	/// <summary>
 	/// 初期化メソッド
@@ -176,7 +176,7 @@ public class Unit : MonoBehaviour
 		Debug.Log(transform.name + " clicked.");	// 4debug
 
 		// 攻撃対象の選択中であれば
-        // TODO : ここの条件に、単体攻撃時の条件も追加したい（範囲攻撃時に動作して欲しくない）
+		// TODO : ここの条件に、単体攻撃時の条件も追加したい（範囲攻撃時に動作して欲しくない）
 		if(Floor.IsAttackable)
 		{
 			// 攻撃

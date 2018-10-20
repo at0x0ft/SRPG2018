@@ -9,9 +9,9 @@ public class AttackController : MonoBehaviour
 	// ==========定数==========
 
 	[SerializeField]
-    public RectTransform canvaGameRect;  //マウスの座標を対応させるキャンバス
+	public RectTransform canvaGameRect;	 //マウスの座標を対応させるキャンバス
 
-    [SerializeField]
+	[SerializeField]
 	private float _strongRate = 1.2f;
 	[SerializeField]
 	private float _slightlyStrongRate = 1.1f;
@@ -181,54 +181,54 @@ public class AttackController : MonoBehaviour
 	/// 攻撃可能範囲のリストを返す
 	/// </summary>
 	private List<Vector2Int> GetAttackableRanges(Map map, Unit unit, Attack attack, int dir)
-    {
-        float rot = dir * Mathf.PI / 2;
-        System.Func<float, int> cos = (float rad) => (int)Mathf.Cos(rad);
-        System.Func<float, int> sin = (float rad) => (int)Mathf.Sin(rad);
-        
-        int cx = unit.X;
-        int cy = unit.Y;
+	{
+		float rot = dir * Mathf.PI / 2;
+		System.Func<float, int> cos = (float rad) => (int)Mathf.Cos(rad);
+		System.Func<float, int> sin = (float rad) => (int)Mathf.Sin(rad);
+		
+		int cx = unit.X;
+		int cy = unit.Y;
 
-        //wikipedia,回転行列を参照
-        var attackables = attack.Range.Select(p => new Vector2Int(
-            p.x * cos(rot) - p.y * sin(rot) + cx,
-            p.x * sin(rot) + p.y * cos(rot) + cy
-            )).ToList();
-        return attackables;
-    }
+		//wikipedia,回転行列を参照
+		var attackables = attack.Range.Select(p => new Vector2Int(
+			p.x * cos(rot) - p.y * sin(rot) + cx,
+			p.x * sin(rot) + p.y * cos(rot) + cy
+			)).ToList();
+		return attackables;
+	}
 
-    /// <summary>
-    /// 空白マスがクリックされたときに呼ばれます。
-    /// </summary>
-    public int UpdateAttackableHighLight(Map map, Unit attacker, RangeAttack attack, int befDir)
-    {
+	/// <summary>
+	/// 空白マスがクリックされたときに呼ばれます。
+	/// </summary>
+	public int UpdateAttackableHighLight(Map map, Unit attacker, RangeAttack attack, int befDir)
+	{
 		// 反時計回りに90°回転させる
 		int nowDir = (befDir + 1) % 4;
 
 		// 範囲攻撃の対象を計算する
-        var attackables = GetAttackableRanges(map, attacker, attack, nowDir);
+		var attackables = GetAttackableRanges(map, attacker, attack, nowDir);
 
 		map.SetAttackableHighlights(attackables);
 
-        return nowDir;
-    }
+		return nowDir;
+	}
 
-    ///<summary>
-    ///攻撃可能ハイライトを初期設定する
-    /// </summary>
-    public int InitializeAttackableHighLight(Map map, Unit attacker, RangeAttack attack)
-    {
-        return UpdateAttackableHighLight(map, attacker, attack, -1);
-    }
+	///<summary>
+	///攻撃可能ハイライトを初期設定する
+	/// </summary>
+	public int InitializeAttackableHighLight(Map map, Unit attacker, RangeAttack attack)
+	{
+		return UpdateAttackableHighLight(map, attacker, attack, -1);
+	}
 
-    /// <summary>
-    /// 攻撃可能範囲を取得する（Set2で使用するためにUnit保管）
-    /// </summary>
-    public List<Vector2Int> GetAttackRanges(Map map,Unit unit, RangeAttack attack,int dir)
-    {
-        // GetAttackableRangesを使いまわすと、外部が使用すべき関数が見えにくくなるため、新しく作成
-        return GetAttackableRanges(map, unit, attack, dir);
-    }
+	/// <summary>
+	/// 攻撃可能範囲を取得する（Set2で使用するためにUnit保管）
+	/// </summary>
+	public List<Vector2Int> GetAttackRanges(Map map,Unit unit, RangeAttack attack,int dir)
+	{
+		// GetAttackableRangesを使いまわすと、外部が使用すべき関数が見えにくくなるため、新しく作成
+		return GetAttackableRanges(map, unit, attack, dir);
+	}
 
 
 	// ==========範囲攻撃向け実装（Set2向け）==========
@@ -241,39 +241,39 @@ public class AttackController : MonoBehaviour
 	/// <param name="place"></param>
 	/// <returns></returns>
 	Unit SearchUnitOnFloor(Unit attacker, Vector2Int place)
-    {
-        Unit unit = null;
-        // TODO : どうにかして、placeにあるUnitを見つける（無かったり、自軍ならnull）
-        return (unit == null || unit.Belonging == attacker.Belonging) ? null : unit;
-    }
+	{
+		Unit unit = null;
+		// TODO : どうにかして、placeにあるUnitを見つける（無かったり、自軍ならnull）
+		return (unit == null || unit.Belonging == attacker.Belonging) ? null : unit;
+	}
 
-    /// <summary>
-    /// 範囲内に居るユニットに攻撃
+	/// <summary>
+	/// 範囲内に居るユニットに攻撃
 	/// (範囲攻撃の赤マス選択時に呼び出される)
-    /// </summary>
-    public void AttackToRange(Map map, Unit attacker, Units units)
-    {
+	/// </summary>
+	public void AttackToRange(Map map, Unit attacker, Units units)
+	{
 		var attackRanges = map.GetAttackableFloors();
 
-        // 攻撃した範囲全てに対して、
-        foreach(var attackRange in attackRanges)
-        {
-            // 敵Unitの存在判定を行い、
-            var defender = SearchUnitOnFloor(attacker, attackRange.CoordinatePair.Key);
-            if (defender == null) continue;
+		// 攻撃した範囲全てに対して、
+		foreach(var attackRange in attackRanges)
+		{
+			// 敵Unitの存在判定を行い、
+			var defender = SearchUnitOnFloor(attacker, attackRange.CoordinatePair.Key);
+			if (defender == null) continue;
 
-            // ダメージ計算を行う
-            defender.Damage(attacker, attacker.Attacks[0]);
-            // 体力が0以下になったらユニットを消滅させる
-            if (defender.Life <= 0)
-            {
-                defender.DestroyWithAnimate();
-            }
-        }
+			// ダメージ計算を行う
+			defender.Damage(attacker, attacker.Attacks[0]);
+			// 体力が0以下になったらユニットを消滅させる
+			if (defender.Life <= 0)
+			{
+				defender.DestroyWithAnimate();
+			}
+		}
 
-        map.ClearHighlight();
-        units.FocusingUnit.IsMoved = true;
-    }
+		map.ClearHighlight();
+		units.FocusingUnit.IsMoved = true;
+	}
 
 	// ==========外部公開==========
 
