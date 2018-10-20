@@ -151,7 +151,23 @@ public class AttackController : MonoBehaviour
 	/// <summary>
 	/// 特定のマスの敵を攻撃する
 	/// </summary>
-	private void AttackToSingle() { }
+	private void AttackToUnit(Map map, Unit attacker, Unit defender, Attack attack)
+	{
+		// BattleSceneに移動してバトルをする (取り敢えず要らない)
+		// Battle_SceneController.attacker = attacker;
+		// Battle_SceneController.defender = defender;
+		// BattleSceneに移動.
+		// SceneManager.LoadScene("Battle", LoadSceneMode.Additive);
+
+		// ダメージ計算を行う
+		defender.Damage(attacker, attack);
+
+		// 体力が0以下になったらユニットを消滅させる
+		if (defender.Life <= 0)
+		{
+			defender.DestroyWithAnimate();
+		}
+	}
 
 
 	// ==========単体攻撃向けの実装==========
@@ -180,24 +196,21 @@ public class AttackController : MonoBehaviour
 	/// <summary>
 	/// 対象ユニットに攻撃
 	/// </summary>
-	private void AttackToSingle(Map map, Unit attacker, Unit defender, Units units)
+	/// <param name="target">攻撃先(マス座標)</param>
+	/// <returns>ユニットがあるかどうか</returns>
+	public bool AttackToSingle(Map map, Unit attacker, Vector2Int target, Attack attack, Units units)
 	{
-		// BattleSceneに移動してバトルをする (取り敢えず要らない)
-		// Battle_SceneController.attacker = attacker;
-		// Battle_SceneController.defender = defender;
-		// BattleSceneに移動.
-		// SceneManager.LoadScene("Battle", LoadSceneMode.Additive);
+		var defender = units.GetUnit(target.x, target.y);
 
-		// ダメージ計算を行う
-		defender.Damage(attacker, attacker.Attacks[0]);
-		// 体力が0以下になったらユニットを消滅させる
-		if (defender.Life <= 0)
-		{
-			defender.DestroyWithAnimate();
-		}
+		if (defender == null) return false;
+
+		AttackToUnit(map, attacker, defender, attack);
 
 		map.ClearHighlight();
+
 		units.FocusingUnit.IsMoved = true;
+
+		return true;
 	}
 
 
@@ -281,44 +294,28 @@ public class AttackController : MonoBehaviour
 
 
 	/// <summary>
-	/// 目的の場所に、敵が居るかを判定する
-	/// </summary>
-	/// <param name="attacker"></param>
-	/// <param name="place"></param>
-	/// <returns></returns>
-	Unit SearchUnitOnFloor(Unit attacker, Vector2Int place)
-	{
-		Unit unit = null;
-		// TODO : どうにかして、placeにあるUnitを見つける（無かったり、自軍ならnull）
-		return (unit == null || unit.Belonging == attacker.Belonging) ? null : unit;
-	}
-
-	/// <summary>
 	/// 範囲内に居るユニットに攻撃
 	/// (範囲攻撃の赤マス選択時に呼び出される)
 	/// </summary>
-	private void AttackToRange(Map map, Unit attacker, Units units)
+	/// <returns>範囲内に、敵が1体でも居たかどうか</returns>
+	public bool AttackToRange(Map map, Unit attacker, Attack attack, Units units)
 	{
+		bool unitExist = false;
 		var attackRanges = map.GetAttackableFloors();
 
 		// 攻撃した範囲全てに対して、
 		foreach (var attackRange in attackRanges)
 		{
 			// 敵Unitの存在判定を行い、
-			var defender = SearchUnitOnFloor(attacker, attackRange.CoordinatePair.Key);
+			var defender = units.GetUnit(attackRange.X, attackRange.Y);
 			if (defender == null) continue;
-
-			// ダメージ計算を行う
-			defender.Damage(attacker, attacker.Attacks[0]);
-			// 体力が0以下になったらユニットを消滅させる
-			if (defender.Life <= 0)
-			{
-				defender.DestroyWithAnimate();
-			}
+			unitExist = true;
+			AttackToUnit(map, attacker, defender, attack);
 		}
 
 		map.ClearHighlight();
 		units.FocusingUnit.IsMoved = true;
+		return unitExist;
 	}
 
 
@@ -357,7 +354,24 @@ public class AttackController : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 攻撃をする
+	/// 攻撃を実行します
 	/// </summary>
-	public void Attack() { }
+	/// <param name="map">便利関数を呼ぶため必要</param>
+	/// <param name="attacker">攻撃主体</param>
+	/// <param name="target">クリックされた攻撃先（マス座標）</param>
+	/// <param name="attack">攻撃内容</param>
+	/// <param name="units">便利関数を呼ぶため必要</param>
+	/// <returns>攻撃先に、そもそも敵が居たかどうか</returns>
+	public bool Attack(Map map, Unit attacker, Vector2Int target, Attack attack, Units units)
+	{
+		var single = attack as SingleAttack;
+		var range = attack as RangeAttack;
+		if (single != null) return AttackToSingle(map, attacker, target, attack, units);
+		else if (range != null) return AttackToRange(map, attacker, attack, units);
+		else
+		{
+			Debug.Log("予定されていない型の攻撃がありました");
+			return false;
+		}
+	}
 }
