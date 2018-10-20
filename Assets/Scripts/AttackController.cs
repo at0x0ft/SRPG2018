@@ -175,7 +175,7 @@ public class AttackController : MonoBehaviour
 	/// 攻撃可能なマスをハイライトする。
 	/// </summary>
 	/// <returns>攻撃対象が居るか否か(コマンド選択可否に使うのかな？)</returns>
-	public bool SetAttackableHighLightOfSingle(Map map, Unit attacker, SingleAttack attack)
+	public bool SetAttackableHighlightOfSingle(Map map, Unit attacker, SingleAttack attack)
 	{
 		var hasTarget = false;
 		Floor startFloor = attacker.Floor;
@@ -256,7 +256,7 @@ public class AttackController : MonoBehaviour
 	/// <param name="befDir">先程まで向いていた方角</param>
 	/// <param name="isClockwise">押されたボタンが時計回りか否か</param>
 	/// <returns>今から見る方角</returns>
-	public int UpdateAttackableHighLightOfRange(Map map, Unit attacker, RangeAttack attack, int befDir, bool isClockwise)
+	public int UpdateAttackableHighlightOfRange(Map map, Unit attacker, RangeAttack attack, int befDir, bool isClockwise)
 	{
 		// 回転できない場合は、その場で終了
 		if (!attack.IsRotatable) return befDir;
@@ -275,7 +275,7 @@ public class AttackController : MonoBehaviour
 	/// <summary>
 	/// 攻撃可能ハイライトを初期設定する
 	/// </summary>
-	public int InitializeAttackableHighLight(Map map, Unit attacker, RangeAttack attack)
+	public int InitializeAttackableHighlightOfRange(Map map, Unit attacker, RangeAttack attack)
 	{
 		// 初期方角 : 陣営によって初期方角を変えるならここを変える
 		int startAttackDir = 0;
@@ -329,20 +329,20 @@ public class AttackController : MonoBehaviour
 	/// <param name="befDir">先程まで向いていた方角（任意）</param>
 	/// <param name="isClockwise">回転をする場合の方向</param>
 	/// <returns>単独攻撃:攻撃が出来るか否か, 範囲攻撃:攻撃する方角はどこか(東を0とした、反時計回り90°単位)</returns>
-	public int HighLight(Map map, Unit attacker, Attack attack, int befDir = -1, bool isClockwise = false)
+	public int Highlight(Map map, Unit attacker, Attack attack, int befDir = -1, bool isClockwise = false)
 	{
 		var single = attack as SingleAttack;
 		var range = attack as RangeAttack;
 
 		if (single != null)
 		{
-			bool canAttack = SetAttackableHighLightOfSingle(map, attacker, single);
+			bool canAttack = SetAttackableHighlightOfSingle(map, attacker, single);
 			return (canAttack ? 1 : 0);
 		}
 		else if (range != null)
 		{
-			if (befDir == -1) return InitializeAttackableHighLight(map, attacker, range);
-			else return UpdateAttackableHighLightOfRange(map, attacker, range, befDir, isClockwise);
+			if (befDir == -1) return InitializeAttackableHighlightOfRange(map, attacker, range);
+			else return UpdateAttackableHighlightOfRange(map, attacker, range, befDir, isClockwise);
 		}
 		else
 		{
