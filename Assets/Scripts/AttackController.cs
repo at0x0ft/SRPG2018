@@ -7,9 +7,7 @@ using System.Linq;
 public class AttackController : MonoBehaviour
 {
 	// ==========定数==========
-
-	[SerializeField]
-	public RectTransform canvaGameRect;  //マウスの座標を対応させるキャンバス
+	
 
 	[SerializeField]
 	private float _strongRate = 1.2f;
