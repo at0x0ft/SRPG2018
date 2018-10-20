@@ -138,9 +138,15 @@ public class AttackController : MonoBehaviour
 
 
 	/// <summary>
-	/// 特定のマスのハイライトを行う
+	/// 特定のマスに攻撃可能ハイライトを点ける。
 	/// </summary>
-	private void SetHighLight() { }
+	private void SetAttackableHighlight(Floor floor)
+	{
+		floor.IsAttackable = true;
+
+		// 攻撃対象を選択可能にする. (ユニットのステータスを表示する機能もあるため, いちいち選択可能/不可にする必要がない)
+		floor.Unit.GetComponent<Button>().interactable = true;
+	}
 
 	/// <summary>
 	/// 特定のマスの敵を攻撃する
@@ -152,11 +158,29 @@ public class AttackController : MonoBehaviour
 
 
 	/// <summary>
+	/// 攻撃可能なマスをハイライトする。
+	/// </summary>
+	/// <returns>攻撃対象が居るか否か(コマンド選択可否に使うのかな？)</returns>
+	public bool SetAttackableHighLightOfSingle(Map map, Unit attacker, SingleAttack attack)
+	{
+		var hasTarget = false;
+		Floor startFloor = attacker.Floor;
+		foreach (var Floor in map.GetFloorsByDistance(startFloor, attack.RangeMin, attack.RangeMax))
+		{
+			// 取り出したマスにユニットが存在し, そのユニットが敵軍である場合
+			if (Floor.Unit != null && Floor.Unit.Belonging != attacker.Belonging)
+			{
+				hasTarget = true;
+				SetAttackableHighlight(Floor);
+			}
+		}
+		return hasTarget;
+	}
+
+	/// <summary>
 	/// 対象ユニットに攻撃
 	/// </summary>
-	/// <param name="fromUnit">From unit.</param>
-	/// <param name="toUnit">To unit.</param>
-	public void AttackToSingle(Map map, Unit attacker, Unit defender, Units units)
+	private void AttackToSingle(Map map, Unit attacker, Unit defender, Units units)
 	{
 		// BattleSceneに移動してバトルをする (取り敢えず要らない)
 		// Battle_SceneController.attacker = attacker;
@@ -181,11 +205,11 @@ public class AttackController : MonoBehaviour
 
 
 	/// <summary>
-	/// 攻撃可能範囲のリストを返す
+	/// 攻撃可能範囲を検索する
 	/// </summary>
-	private List<Vector2Int> GetAttackableRanges(Map map, Unit unit, Attack attack, int dir)
+	private List<Vector2Int> GetAttackableRanges(Map map, Unit unit, Attack attack, int attackDir)
 	{
-		float rot = dir * Mathf.PI / 2;
+		float rot = attackDir * Mathf.PI / 2;
 		System.Func<float, int> cos = (float rad) => (int)Mathf.Cos(rad);
 		System.Func<float, int> sin = (float rad) => (int)Mathf.Sin(rad);
 
@@ -201,36 +225,55 @@ public class AttackController : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 空白マスがクリックされたときに呼ばれます。
+	/// 特定の位置にあるマスに攻撃可能ハイライトを点ける
 	/// </summary>
-	public int UpdateAttackableHighLight(Map map, Unit attacker, RangeAttack attack, int befDir)
+	private void SetAttackableHighlightOfRange(Map map, List<Vector2Int> attackables)
 	{
-		// 反時計回りに90°回転させる
-		int nowDir = (befDir + 1) % 4;
+		// この関数を呼び出すとき、"必ず"ハイライトを1度全て解除するはず。
+		map.ClearHighlight();
 
-		// 範囲攻撃の対象を計算する
+		foreach (var attackable in attackables)
+		{
+			var floor = map.GetFloor(attackable.x, attackable.y);
+			if (floor != null) SetAttackableHighlight(floor);
+		}
+	}
+
+	/// <summary>
+	/// 攻撃する方角を変更します（可能なら）
+	/// </summary>
+	/// <param name="befDir">先程まで向いていた方角</param>
+	/// <param name="isClockwise">押されたボタンが時計回りか否か</param>
+	/// <returns>今から見る方角</returns>
+	public int UpdateAttackableHighLightOfRange(Map map, Unit attacker, RangeAttack attack, int befDir, bool isClockwise)
+	{
+		// 回転できない場合は、その場で終了
+		if (!attack.IsRotatable) return befDir;
+
+		// 回転させる
+		int nowDir = (befDir + (isClockwise ? 3 : 1)) % 4;
+
+		// 攻撃範囲を計算する
 		var attackables = GetAttackableRanges(map, attacker, attack, nowDir);
 
-		map.SetAttackableHighlights(attackables);
+		SetAttackableHighlightOfRange(map, attackables);
 
 		return nowDir;
 	}
 
-	///<summary>
-	///攻撃可能ハイライトを初期設定する
+	/// <summary>
+	/// 攻撃可能ハイライトを初期設定する
 	/// </summary>
 	public int InitializeAttackableHighLight(Map map, Unit attacker, RangeAttack attack)
 	{
-		return UpdateAttackableHighLight(map, attacker, attack, -1);
-	}
+		// 初期方角 : 陣営によって初期方角を変えるならここを変える
+		int startAttackDir = 0;
 
-	/// <summary>
-	/// 攻撃可能範囲を取得する（Set2で使用するためにUnit保管）
-	/// </summary>
-	public List<Vector2Int> GetAttackRanges(Map map, Unit unit, RangeAttack attack, int dir)
-	{
-		// GetAttackableRangesを使いまわすと、外部が使用すべき関数が見えにくくなるため、新しく作成
-		return GetAttackableRanges(map, unit, attack, dir);
+		var attackables = GetAttackableRanges(map, attacker, attack, startAttackDir);
+
+		SetAttackableHighlightOfRange(map, attackables);
+
+		return startAttackDir;
 	}
 
 
@@ -254,7 +297,7 @@ public class AttackController : MonoBehaviour
 	/// 範囲内に居るユニットに攻撃
 	/// (範囲攻撃の赤マス選択時に呼び出される)
 	/// </summary>
-	public void AttackToRange(Map map, Unit attacker, Units units)
+	private void AttackToRange(Map map, Unit attacker, Units units)
 	{
 		var attackRanges = map.GetAttackableFloors();
 
@@ -279,13 +322,39 @@ public class AttackController : MonoBehaviour
 	}
 
 
-	// ==========外部公開==========
-
+	// ==========統合関数（個々の状況に合わせた関数を呼ぶか統合したやつを呼ぶかは、呼び出し側に任せる）==========
+	// 以上のpublic関数の、扱い方の説明も兼ねています
 
 	/// <summary>
 	/// ハイライトを行う
 	/// </summary>
-	public void HighLight() { }
+	/// <param name="map">便利な関数を色々呼び出すために使います</param>
+	/// <param name="attacker">攻撃主体</param>
+	/// <param name="attack">攻撃内容</param>
+	/// <param name="befDir">先程まで向いていた方角（任意）</param>
+	/// <param name="isClockwise">回転をする場合の方向</param>
+	/// <returns>単独攻撃:攻撃が出来るか否か, 範囲攻撃:攻撃する方角はどこか(東を0とした、反時計回り90°単位)</returns>
+	public int HighLight(Map map, Unit attacker, Attack attack, int befDir = -1, bool isClockwise = false)
+	{
+		var single = attack as SingleAttack;
+		var range = attack as RangeAttack;
+
+		if (single != null)
+		{
+			bool canAttack = SetAttackableHighLightOfSingle(map, attacker, single);
+			return (canAttack ? 1 : 0);
+		}
+		else if (range != null)
+		{
+			if (befDir == -1) return InitializeAttackableHighLight(map, attacker, range);
+			else return UpdateAttackableHighLightOfRange(map, attacker, range, befDir, isClockwise);
+		}
+		else
+		{
+			Debug.Log("予測されていない型の攻撃が行われました");
+			return -1;
+		}
+	}
 
 	/// <summary>
 	/// 攻撃をする

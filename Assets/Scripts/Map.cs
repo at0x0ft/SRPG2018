@@ -97,50 +97,6 @@ public class Map : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 特定のマスに攻撃可能ハイライトを点ける。
-	/// </summary>
-	private void SetAttackableHighlight(Floor floor)
-	{
-		floor.IsAttackable = true;
-
-		// 攻撃対象を選択可能にする. (ユニットのステータスを表示する機能もあるため, いちいち選択可能/不可にする必要がない)
-		floor.Unit.GetComponent<Button>().interactable = true;
-	}
-
-	/// <summary>
-	/// 特定の位置にあるマスに攻撃可能ハイライトを点ける
-	/// </summary>
-	public void SetAttackableHighlights(List<Vector2Int> attackables)
-	{
-		// この関数を呼び出すとき、"必ず"ハイライトを1度全て解除するはず。
-		ClearHighlight();
-
-		foreach (var attackable in attackables)
-		{
-			var floor = GetFloor(attackable.x, attackable.y);
-			if (floor != null) SetAttackableHighlight(floor);
-		}
-	}
-
-	/// <summary>
-	/// 攻撃可能なマスをハイライトし, 攻撃対象がいるか否かを返すメソッド
-	/// </summary>
-	public bool HighlightAttackableFloors(Floor startFloor, SingleAttack attack)
-	{
-		var hasTarget = false;
-		foreach (var Floor in GetFloorsByDistance(startFloor, attack.RangeMin, attack.RangeMax))
-		{
-			// 取り出したマスにユニットが存在し, そのユニットが敵軍である場合
-			if (Floor.Unit != null && Floor.Unit.Belonging != startFloor.Unit.Belonging)
-			{
-				hasTarget = true;
-				SetAttackableHighlight(Floor);
-			}
-		}
-		return hasTarget;
-	}
-
-	/// <summary>
 	/// dMin以上dMax以下のマンハッタン距離にあるマス全て返す関数 (GetRemainingAccountRangeInfosメソッドと本質的に等価だったのでこちらのみを残した)
 	/// </summary>
 	/// <param name="baseFloor">起点となるマス</param>
