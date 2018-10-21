@@ -107,8 +107,25 @@ public class Unit : MonoBehaviour
 		}
 	}
 
-	// atode kaeru
-	public int AttackPower { get { return Mathf.RoundToInt(Attacks[0].Power * (Mathf.Ceil((float)Life / (float)MaxLife * 10f) / 10f)); } }
+	[SerializeField]
+	private int _attackPower;
+	/// <summary>
+	/// 攻撃力
+	/// </summary>
+	public int AttackPower
+	{
+		get { return _attackPower; }
+	}
+
+	[SerializeField]
+	private int _defence;
+	/// <summary>
+	/// 防御力
+	/// </summary>
+	public int Defence
+	{
+		get { return _defence; }
+	}
 
 	/// <summary>
 	/// 初期配置マス
@@ -155,7 +172,7 @@ public class Unit : MonoBehaviour
             }
         }
     }
-	
+
 	/// <summary>
 	/// 初期化メソッド
 	/// </summary>
