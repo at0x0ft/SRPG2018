@@ -47,7 +47,30 @@ public class Unit : MonoBehaviour
 	{
 		get { return _maxLife; }
 	}
+	/// <summary>
+	/// HP/体力
+	/// </summary>
 	public int Life { get; private set; }
+
+	[SerializeField]
+	private int _attackPower;
+	/// <summary>
+	/// 攻撃力
+	/// </summary>
+	public int AttackPower
+	{
+		get { return _attackPower; }
+	}
+
+	[SerializeField]
+	private int _defence;
+	/// <summary>
+	/// 防御力
+	/// </summary>
+	public int Defence
+	{
+		get { return _defence; }
+	}
 
 	public int MaxMoveAmount { get; private set; }
 	public int MoveAmount { get; set; }
@@ -107,26 +130,6 @@ public class Unit : MonoBehaviour
 		}
 	}
 
-	[SerializeField]
-	private int _attackPower;
-	/// <summary>
-	/// 攻撃力
-	/// </summary>
-	public int AttackPower
-	{
-		get { return _attackPower; }
-	}
-
-	[SerializeField]
-	private int _defence;
-	/// <summary>
-	/// 防御力
-	/// </summary>
-	public int Defence
-	{
-		get { return _defence; }
-	}
-
 	/// <summary>
 	/// 初期配置マス
 	/// </summary>
@@ -145,7 +148,7 @@ public class Unit : MonoBehaviour
 
 		// 初期配置マスにUnitを設定する
 		//CoordinatePair = _initialFloor.CoordinatePair;
-        StartCoroutine(SetInitialPosition());
+		StartCoroutine(SetInitialPosition());
 
 		Life = MaxLife;
 	}
@@ -153,25 +156,25 @@ public class Unit : MonoBehaviour
 	/// <summary>
 	/// 初期配置マスにUnitを設定します。
 	/// </summary>
-    IEnumerator SetInitialPosition()
-    {
+	IEnumerator SetInitialPosition()
+	{
 		// （参照先の値が初期化された後に実行しなければいけないため、遅延処理しています。
 		//  デッドロックが怖いため、あくまで暫定的です。）
-        while (true)
-        {
-            var pair = _initialFloor.CoordinatePair;
-            if(pair.Key.x==0 && pair.Key.y==0 && pair.Value.x==0 && pair.Value.y==0 && pair.Value.z == 0)
-            {
-                Debug.Log("stay");
-                yield return new WaitForSeconds(0.1f);
-            }
-            else
-            {
-                CoordinatePair = pair;
-                break;
-            }
-        }
-    }
+		while(true)
+		{
+			var pair = _initialFloor.CoordinatePair;
+			if(pair.Key.x == 0 && pair.Key.y == 0 && pair.Value.x == 0 && pair.Value.y == 0 && pair.Value.z == 0)
+			{
+				Debug.Log("stay");
+				yield return new WaitForSeconds(0.1f);
+			}
+			else
+			{
+				CoordinatePair = pair;
+				break;
+			}
+		}
+	}
 
 	/// <summary>
 	/// 初期化メソッド
@@ -190,7 +193,7 @@ public class Unit : MonoBehaviour
 	/// </summary>
 	public void OnClick()
 	{
-		Debug.Log(transform.name + " clicked.");	// 4debug
+		Debug.Log(transform.name + " clicked.");    // 4debug
 
 		// 攻撃対象の選択中であれば
 		if(Floor.IsAttackable)
@@ -214,7 +217,7 @@ public class Unit : MonoBehaviour
 			// 移動可能なマスをハイライト
 			_map.HighlightMovableFloors(Floor, MoveAmount);
 
-			Debug.Log("HighLight completed.");	// 4debug
+			Debug.Log("HighLight completed.");  // 4debug
 
 			// 攻撃可能なマスをハイライト (攻撃は後で選択するはずだから, 要らない)
 			// atode kaeru
