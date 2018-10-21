@@ -151,6 +151,17 @@ public class Floor : MonoBehaviour
 	}
 
 	/// <summary>
+	/// 特定のマスに攻撃可能ハイライトを点ける。
+	/// </summary>
+	public void SetAttackableHighlight()
+	{
+		IsAttackable = true;
+
+		// 攻撃対象を選択可能にする. (ユニットのステータスを表示する機能もあるため, いちいち選択可能/不可にする必要がない)
+		Unit.GetComponent<Button>().interactable = true;
+	}
+
+	/// <summary>
 	/// マスがクリックされた場合の挙動
 	/// </summary>
 	public void OnClick()

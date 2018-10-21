@@ -133,18 +133,7 @@ public class AttackController : MonoBehaviour
 
 
 	// ==========オブジェクト操作レベル==========
-
-
-	/// <summary>
-	/// 特定のマスに攻撃可能ハイライトを点ける。
-	/// </summary>
-	private void SetAttackableHighlight(Floor floor)
-	{
-		floor.IsAttackable = true;
-
-		// 攻撃対象を選択可能にする. (ユニットのステータスを表示する機能もあるため, いちいち選択可能/不可にする必要がない)
-		floor.Unit.GetComponent<Button>().interactable = true;
-	}
+	
 
 	/// <summary>
 	/// 特定のマスの敵を攻撃する
@@ -179,13 +168,13 @@ public class AttackController : MonoBehaviour
 	{
 		var hasTarget = false;
 		Floor startFloor = attacker.Floor;
-		foreach (var Floor in map.GetFloorsByDistance(startFloor, attack.RangeMin, attack.RangeMax))
+		foreach (var floor in map.GetFloorsByDistance(startFloor, attack.RangeMin, attack.RangeMax))
 		{
 			// 取り出したマスにユニットが存在し, そのユニットが敵軍である場合
-			if (Floor.Unit != null && Floor.Unit.Belonging != attacker.Belonging)
+			if (floor.Unit != null && floor.Unit.Belonging != attacker.Belonging)
 			{
 				hasTarget = true;
-				SetAttackableHighlight(Floor);
+				floor.SetAttackableHighlight();
 			}
 		}
 		return hasTarget;
@@ -246,7 +235,7 @@ public class AttackController : MonoBehaviour
 		foreach (var attackable in attackables)
 		{
 			var floor = map.GetFloor(attackable.x, attackable.y);
-			if (floor != null) SetAttackableHighlight(floor);
+			if (floor != null) floor.SetAttackableHighlight();
 		}
 	}
 
