@@ -22,7 +22,7 @@ public class AttackController : MonoBehaviour
 	private SingleAttackController _sac;
 	private RangeAttackController _rac;
 
-	AttackController()
+	private void Start()
 	{
 		_bac = gameObject.GetComponent<BaseAttackController>();
 		_sac = gameObject.GetComponent<SingleAttackController>();
