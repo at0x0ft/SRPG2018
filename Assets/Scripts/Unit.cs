@@ -7,6 +7,16 @@ using DG.Tweening;
 [RequireComponent(typeof(Button))]
 public class Unit : MonoBehaviour
 {
+	[SerializeField]
+	private string _name;
+	/// <summary>
+	/// ユニットの名前
+	/// </summary>
+	public string Name
+	{
+		get { return _name; }
+	}
+
 	public enum Team
 	{
 		Player,
@@ -47,7 +57,30 @@ public class Unit : MonoBehaviour
 	{
 		get { return _maxLife; }
 	}
+	/// <summary>
+	/// HP/体力
+	/// </summary>
 	public int Life { get; private set; }
+
+	[SerializeField]
+	private int _attackPower;
+	/// <summary>
+	/// 攻撃力
+	/// </summary>
+	public int AttackPower
+	{
+		get { return _attackPower; }
+	}
+
+	[SerializeField]
+	private int _defence;
+	/// <summary>
+	/// 防御力
+	/// </summary>
+	public int Defence
+	{
+		get { return _defence; }
+	}
 
 	public int MaxMoveAmount { get; private set; }
 	public int MoveAmount { get; set; }
@@ -106,9 +139,6 @@ public class Unit : MonoBehaviour
 			}
 		}
 	}
-
-	// atode kaeru
-	public int AttackPower { get { return Mathf.RoundToInt(Attacks[0].Power * (Mathf.Ceil((float)Life / (float)MaxLife * 10f) / 10f)); } }
 
 	/// <summary>
 	/// 初期配置マス

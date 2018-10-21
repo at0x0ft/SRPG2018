@@ -31,6 +31,9 @@ public class BoardController : MonoBehaviour
 
 	void Start()
 	{
+		// ユニット詳細情報サブウィンドウを一度閉じる
+		_ui.UnitInfoWindow.Hide();
+
 		// コスト計算機とダメージ計算機を取得し, 移動と攻撃を担うクラスを作成
 		_map.Initilize(_moveController, _units);
 		_units.Initilize(_map, _moveController, _attackController);
@@ -119,6 +122,9 @@ public class BoardController : MonoBehaviour
 			_ui.TouchBlocker.SetActive(false);
 			Debug.Log("touch blocker invalid.");
 		}
+
+		// ユニット情報サブウィンドウを開く (targetUnitは, ターンプレイヤーの持つユニットのうち, 順番をソートした後に最初に来るユニット)
+		// _ui.UnitInfoWindow.ShowUnitInfoWindow(targetUnit);
 
 		Debug.Log("Arrange Finished."); // 4debug
 	}

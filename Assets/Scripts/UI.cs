@@ -21,4 +21,11 @@ public class UI : MonoBehaviour
 	{
 		get { return _touchBlocker; }
 	}
+
+	[SerializeField]
+	private UnitInfoWindow _unitInfoWindow;
+	public UnitInfoWindow UnitInfoWindow
+	{
+		get { return _unitInfoWindow; }
+	}
 }
