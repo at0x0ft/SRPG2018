@@ -111,11 +111,11 @@ public class BoardController : MonoBehaviour
 			unit.IsMoved = team != unit.Belonging;
 			//セット開始時に、移動量を回復させる
 			//(コードの場所がここで良いのかは、一考の余地あり)
-			if (!unit.IsMoved && Set == 1)
+			if(!unit.IsMoved && Set == 1)
 			{
-                unit.MoveAmount = unit.MaxMoveAmount;
-                Debug.Log("move amount:"+unit.MoveAmount);
-            }
+				unit.MoveAmount = unit.MaxMoveAmount;
+				Debug.Log("move amount:" + unit.MoveAmount);
+			}
 		}
 
 		// セットプレイヤーがAIならば, 画面をタッチできないように設定し, AIを走らせる.
