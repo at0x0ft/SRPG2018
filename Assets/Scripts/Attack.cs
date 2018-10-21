@@ -5,6 +5,15 @@ using UnityEngine.UI;
 
 public abstract class Attack : MonoBehaviour
 {
+	// 攻撃の規模
+	public enum AttackScale
+	{
+		Single, // 単体攻撃
+		Range   // 範囲攻撃
+	}
+	
+	public AttackScale Scale { get; protected set; }
+
 	// 攻撃の種類
 	[SerializeField]
 	protected Type _type;
@@ -53,6 +62,11 @@ public abstract class Attack : MonoBehaviour
 
 public class SingleAttack : Attack
 {
+	void Start()
+	{
+		Scale = AttackScale.Single;
+	}
+
 	// 攻撃先の最小距離
 	[SerializeField]
 	private int _rangeMin;
@@ -73,6 +87,11 @@ public class SingleAttack : Attack
 
 public class RangeAttack : Attack
 {
+	void Start()
+	{
+		Scale = AttackScale.Range;
+	}
+
 	// 攻撃範囲を回転させられるかどうか
 	[SerializeField]
 	private bool _isRotatable;

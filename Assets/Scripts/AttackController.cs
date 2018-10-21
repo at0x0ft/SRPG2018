@@ -382,18 +382,21 @@ public class AttackController : MonoBehaviour
 	/// <returns>単独攻撃:攻撃が出来るか否か, 範囲攻撃:攻撃する方角はどこか(東を0とした、反時計回り90°単位)</returns>
 	public int Highlight(Unit attacker, Attack attack, int befDir = -1, bool isClockwise = false)
 	{
-		var single = attack as SingleAttack;
-		var range = attack as RangeAttack;
-
-		if (single != null)
+		if (attack.Scale==global::Attack.AttackScale.Single)
 		{
-			bool canAttack = _sac.SetAttackableHighlight(attacker, single);
+			bool canAttack = _sac.SetAttackableHighlight(attacker, (SingleAttack)attack);
 			return (canAttack ? 1 : 0);
 		}
-		else if (range != null)
+		else if (attack.Scale==global::Attack.AttackScale.Range)
 		{
-			if (befDir == -1) return _rac.InitializeAttackableHighlight(attacker, range);
-			else return _rac.UpdateAttackableHighlight(attacker, range, befDir, isClockwise);
+			if (befDir == -1)
+			{
+				return _rac.InitializeAttackableHighlight(attacker, (RangeAttack)attack);
+			}
+			else
+			{
+				return _rac.UpdateAttackableHighlight(attacker, (RangeAttack)attack, befDir, isClockwise);
+			}
 		}
 		else
 		{
@@ -413,10 +416,14 @@ public class AttackController : MonoBehaviour
 	/// <returns>攻撃先に、そもそも敵が居たかどうか</returns>
 	public bool Attack(Unit attacker, Vector2Int target, Attack attack)
 	{
-		var single = attack as SingleAttack;
-		var range = attack as RangeAttack;
-		if (single != null) return _sac.Attack(attacker, target, attack);
-		else if (range != null) return _rac.Attack(attacker, attack);
+		if (attack.Scale == global::Attack.AttackScale.Single)
+		{
+			return _sac.Attack(attacker, target, attack);
+		}
+		else if (attack.Scale == global::Attack.AttackScale.Range)
+		{
+			return _rac.Attack(attacker, attack);
+		}
 		else
 		{
 			Debug.Log("予定されていない型の攻撃がありました");
