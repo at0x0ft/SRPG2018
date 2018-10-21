@@ -107,7 +107,8 @@ public class AI : MonoBehaviour
 				{
 					var matchedRouteKV = route.FirstOrDefault(r => r.Key.X == f.X && r.Key.Y == f.Y);
 					return (matchedRouteKV.Key != null ? matchedRouteKV.Value : 0) +
-					_ac.GetReduceRate(f) * _floorReduceRateImportance;
+					// バグ対策の、強制的な変更（BACを使用しないこと）
+					_ac.BAC.GetReduceRate(f) * _floorReduceRateImportance;
 				}).First();
 
 			if(moveTargetFloor != unit.Floor)
@@ -140,7 +141,8 @@ public class AI : MonoBehaviour
 				attackableFloors.OrderByDescending(x =>
 					{
 						// atode kaeru
-						var damageValue = _ac.CalcurateDamage(unit, unit.Attacks[0], x.Unit, x);
+						// バグ対策の、強制的な変更（BACを使用しないこと）
+						var damageValue = _ac.BAC.CalcurateDamage(unit, unit.Attacks[0], x.Unit, x);
 						return damageValue * (x.Unit.Life <= damageValue ? 10 : 1);
 					}).First().Unit.OnClick();
 			}
@@ -198,7 +200,8 @@ public class AI : MonoBehaviour
 		{
 			// atode kaeru
 			// 指定したAttackの攻撃範囲に当たる攻撃範囲のマスを全て列挙する
-			Floors.AddRange(_map.GetFloorsByDistance(enemyUnit.Floor, unit.Attacks[0].RangeMin, unit.Attacks[0].RangeMax)
+			// バグ対策の、強制的な変更（SingleAttackかどうかは、事前に検査して分岐すること）
+			Floors.AddRange(_map.GetFloorsByDistance(enemyUnit.Floor, ((SingleAttack)unit.Attacks[0]).RangeMin, ((SingleAttack)unit.Attacks[0]).RangeMax)
 				.Where(f => _mc.GetFloorCost(f) < _mc.MaxLimitCost));
 		}
 		return Floors.Distinct().ToArray();

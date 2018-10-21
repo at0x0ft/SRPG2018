@@ -179,7 +179,8 @@ public class Unit : MonoBehaviour
 		if(Floor.IsAttackable)
 		{
 			// 攻撃
-			_ac.AttackTo(_map, _units.FocusingUnit, this, _units);
+			// バグ対策の強制的変更（コマンド選択結果のAttackも必要なため、これではAttackの条件を満たしていない）
+			// _ac.AttackTo(_map, _units.FocusingUnit, this, _units);
 			return;
 		}
 

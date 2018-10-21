@@ -13,7 +13,7 @@ namespace AC
 	using RAC = RangeAttackController;
 
 	// 単体攻撃,範囲攻撃に関わらず、必要な定数/関数群です
-	class BaseAttackController
+	public class BaseAttackController
 	{
 		// ==========定数==========
 
@@ -143,7 +143,7 @@ namespace AC
 		/// <summary>
 		/// ダメージを計算
 		/// </summary>
-		private int CalcurateDamage(Unit attacker, Attack attack, Unit defender, Floor defenderFloor)
+		public int CalcurateDamage(Unit attacker, Attack attack, Unit defender, Floor defenderFloor)
 		{
 			// 取り敢えず, 暫定的にダメージ計算時に命中可否の判定を行うこととする. (命中可否を画面に通知するかどうかは, また別で考える)
 			if (!IsHit(attack, defenderFloor)) return 0;
@@ -170,7 +170,7 @@ namespace AC
 		}
 	}
 
-	class SingleAttackController
+	public class SingleAttackController
 	{
 		// ==========変数==========
 
@@ -230,7 +230,7 @@ namespace AC
 		}
 	}
 
-	class RangeAttackController
+	public class RangeAttackController
 	{
 		// ==========変数==========
 
@@ -366,6 +366,12 @@ public class AttackController : MonoBehaviour
 		_bac = new AC.BaseAttackController(_map);
 		_sac = new AC.SingleAttackController(_map, _bac, _units);
 		_rac = new AC.RangeAttackController(_map, _bac, _units);
+	}
+	
+	// バグ対策の、強制的な変更（隠蔽のため、このgetterは削除すること）
+	public AC.BaseAttackController BAC
+	{
+		get{ return _bac; }
 	}
 
 	/// <summary>
