@@ -68,7 +68,7 @@ public class Floor : MonoBehaviour
 		{
 			_highlight.color = _movableColor;
 			_highlight.gameObject.SetActive(value);
-			Debug.Log(transform.name + " highLighted.");	// 4debug
+			Debug.Log(transform.name + " highLighted.");    // 4debug
 		}
 		get { return _highlight.gameObject.activeSelf && _highlight.color == _movableColor; }
 	}
@@ -134,13 +134,13 @@ public class Floor : MonoBehaviour
 	}
 
 
-	/// <summary>
-	/// 初期化メソッド
-	/// </summary>
-	/// <param name="map"></param>
-	/// <param name="units"></param>
-	/// <param name="mc"></param>
-	public void Initialize(Map map, Units units, MoveController mc)
+    /// <summary>
+    /// 初期化メソッド
+    /// </summary>
+    /// <param name="map"></param>
+    /// <param name="units"></param>
+    /// <param name="mc"></param>
+    public void Initialize(Map map, Units units, MoveController mc)
 	{
 		_map = map;
 		_units = units;
