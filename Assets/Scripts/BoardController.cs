@@ -123,6 +123,9 @@ public class BoardController : MonoBehaviour
 			Debug.Log("touch blocker invalid.");
 		}
 
+		// ターン/セット情報を表示
+		_ui.TurnSetInfoWindow.Show(Turn, Set);
+
 		// ユニット情報サブウィンドウを開く (targetUnitは, ターンプレイヤーの持つユニットのうち, 順番をソートした後に最初に来るユニット)
 		// _ui.UnitInfoWindow.ShowUnitInfoWindow(targetUnit);
 

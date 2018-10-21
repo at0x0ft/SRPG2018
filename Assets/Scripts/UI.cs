@@ -23,6 +23,13 @@ public class UI : MonoBehaviour
 	}
 
 	[SerializeField]
+	private TurnSetInfoWindow _turnSetInfoWindow;
+	public TurnSetInfoWindow TurnSetInfoWindow
+	{
+		get { return _turnSetInfoWindow; }
+	}
+
+	[SerializeField]
 	private UnitInfoWindow _unitInfoWindow;
 	public UnitInfoWindow UnitInfoWindow
 	{
