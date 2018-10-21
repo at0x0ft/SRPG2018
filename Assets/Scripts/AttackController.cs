@@ -197,7 +197,7 @@ namespace AC
 		/// 攻撃可能なマスをハイライトする。
 		/// </summary>
 		/// <returns>攻撃対象が居るか否か(コマンド選択可否に使うのかな？)</returns>
-		public bool SetAttackableHighlightOfSingle(Unit attacker, SingleAttack attack)
+		public bool SetAttackableHighlight(Unit attacker, SingleAttack attack)
 		{
 			var hasTarget = false;
 			Floor startFloor = attacker.Floor;
@@ -218,7 +218,7 @@ namespace AC
 		/// </summary>
 		/// <param name="target">攻撃先(マス座標)</param>
 		/// <returns>ユニットがあるかどうか</returns>
-		public bool AttackToSingle(Unit attacker, Vector2Int target, Attack attack)
+		public bool Attack(Unit attacker, Vector2Int target, Attack attack)
 		{
 			var defender = _units.GetUnit(target.x, target.y);
 
@@ -257,7 +257,7 @@ namespace AC
 		/// <summary>
 		/// 攻撃可能範囲を検索する
 		/// </summary>
-		private List<Vector2Int> GetAttackableRanges(Unit unit, Attack attack, int attackDir)
+		private List<Vector2Int> GetAttackable(Unit unit, Attack attack, int attackDir)
 		{
 			float rot = attackDir * Mathf.PI / 2;
 			System.Func<float, int> cos = (float rad) => (int)Mathf.Cos(rad);
@@ -277,7 +277,7 @@ namespace AC
 		/// <summary>
 		/// 特定の位置にあるマスに攻撃可能ハイライトを点ける
 		/// </summary>
-		private void SetAttackableHighlightOfRange(List<Vector2Int> attackables)
+		private void SetAttackableHighlight(List<Vector2Int> attackables)
 		{
 			// この関数を呼び出すとき、"必ず"ハイライトを1度全て解除するはず。
 			_map.ClearHighlight();
@@ -295,7 +295,7 @@ namespace AC
 		/// <param name="befDir">先程まで向いていた方角</param>
 		/// <param name="isClockwise">押されたボタンが時計回りか否か</param>
 		/// <returns>今から見る方角</returns>
-		public int UpdateAttackableHighlightOfRange(Unit attacker, RangeAttack attack, int befDir, bool isClockwise)
+		public int UpdateAttackableHighlight(Unit attacker, RangeAttack attack, int befDir, bool isClockwise)
 		{
 			// 回転できない場合は、その場で終了
 			if (!attack.IsRotatable) return befDir;
@@ -304,9 +304,9 @@ namespace AC
 			int nowDir = (befDir + (isClockwise ? 3 : 1)) % 4;
 
 			// 攻撃範囲を計算する
-			var attackables = GetAttackableRanges(attacker, attack, nowDir);
+			var attackables = GetAttackable(attacker, attack, nowDir);
 
-			SetAttackableHighlightOfRange(attackables);
+			SetAttackableHighlight(attackables);
 
 			return nowDir;
 		}
@@ -314,14 +314,14 @@ namespace AC
 		/// <summary>
 		/// 攻撃可能ハイライトを初期設定する
 		/// </summary>
-		public int InitializeAttackableHighlightOfRange(Unit attacker, RangeAttack attack)
+		public int InitializeAttackableHighlight(Unit attacker, RangeAttack attack)
 		{
 			// 初期方角 : 陣営によって初期方角を変えるならここを変える
 			int startAttackDir = 0;
 
-			var attackables = GetAttackableRanges(attacker, attack, startAttackDir);
+			var attackables = GetAttackable(attacker, attack, startAttackDir);
 
-			SetAttackableHighlightOfRange(attackables);
+			SetAttackableHighlight(attackables);
 
 			return startAttackDir;
 		}
@@ -331,7 +331,7 @@ namespace AC
 		/// (範囲攻撃の赤マス選択時に呼び出される)
 		/// </summary>
 		/// <returns>範囲内に、敵が1体でも居たかどうか</returns>
-		public bool AttackToRange(Unit attacker, Attack attack)
+		public bool Attack(Unit attacker, Attack attack)
 		{
 			bool unitExist = false;
 			var attackRanges = _map.GetAttackableFloors();
@@ -387,13 +387,13 @@ public class AttackController : MonoBehaviour
 
 		if (single != null)
 		{
-			bool canAttack = _sac.SetAttackableHighlightOfSingle(attacker, single);
+			bool canAttack = _sac.SetAttackableHighlight(attacker, single);
 			return (canAttack ? 1 : 0);
 		}
 		else if (range != null)
 		{
-			if (befDir == -1) return _rac.InitializeAttackableHighlightOfRange(attacker, range);
-			else return _rac.UpdateAttackableHighlightOfRange(attacker, range, befDir, isClockwise);
+			if (befDir == -1) return _rac.InitializeAttackableHighlight(attacker, range);
+			else return _rac.UpdateAttackableHighlight(attacker, range, befDir, isClockwise);
 		}
 		else
 		{
@@ -415,8 +415,8 @@ public class AttackController : MonoBehaviour
 	{
 		var single = attack as SingleAttack;
 		var range = attack as RangeAttack;
-		if (single != null) return _sac.AttackToSingle(attacker, target, attack);
-		else if (range != null) return _rac.AttackToRange(attacker, attack);
+		if (single != null) return _sac.Attack(attacker, target, attack);
+		else if (range != null) return _rac.Attack(attacker, attack);
 		else
 		{
 			Debug.Log("予定されていない型の攻撃がありました");
