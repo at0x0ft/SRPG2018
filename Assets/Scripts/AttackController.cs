@@ -143,7 +143,7 @@ namespace AC
 		/// <summary>
 		/// ダメージを計算
 		/// </summary>
-		public int CalcurateDamage(Unit attacker, Attack attack, Unit defender, Floor defenderFloor)
+		private int CalcurateDamage(Unit attacker, Attack attack, Unit defender, Floor defenderFloor)
 		{
 			// 取り敢えず, 暫定的にダメージ計算時に命中可否の判定を行うこととする. (命中可否を画面に通知するかどうかは, また別で考える)
 			if (!IsHit(attack, defenderFloor)) return 0;
@@ -163,13 +163,10 @@ namespace AC
 			// SceneManager.LoadScene("Battle", LoadSceneMode.Additive);
 
 			// ダメージ計算を行う
-			defender.Damage(attacker, attack);
+			int damage = CalcurateDamage(attacker, attack, defender, defender.Floor);
 
-			// 体力が0以下になったらユニットを消滅させる
-			if (defender.Life <= 0)
-			{
-				defender.DestroyWithAnimate();
-			}
+			// ダメージを適用する
+			defender.Damage(damage);
 		}
 	}
 

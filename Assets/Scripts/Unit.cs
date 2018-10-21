@@ -224,10 +224,12 @@ public class Unit : MonoBehaviour
 	/// <summary>
 	/// ダメージを与える
 	/// </summary>
-	/// <param name="attacker">Attacker.</param>
-	public void Damage(Unit attacker, Attack attack)
+	public void Damage(int damage)
 	{
-		Life = Mathf.Max(0, Life - _ac.CalcurateDamage(attacker, attack, this, Floor));
+		Life = Mathf.Max(0, Life - damage);
+
+		// 体力が0以下になったらユニットを消滅させる
+		if (Life <= 0) DestroyWithAnimate();
 	}
 
 	public void DestroyWithAnimate()
