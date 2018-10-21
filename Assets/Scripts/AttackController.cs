@@ -255,12 +255,9 @@ namespace AC
 		/// </summary>
 		private List<Vector2Int> GetAttackable(Unit unit, Attack attack, int attackDir)
 		{
-			// attackDir = [0,3]
-			attackDir = ((attackDir % 4) + 4) % 4;
-			
-			// sinRot = sin(attackDir * PI/2)  (cosRotも同様) (要検算)
-			int sinRot = -((attackDir - 1) % 2);
-			int cosRot = -((attackDir - 2) % 2);
+			// sinRot = sin(attackDir * PI/2)  (cosRotも同様) 
+			int sinRot = (attackDir % 2 == 0) ? 0 : (2 - attackDir);
+			int cosRot = (attackDir % 2 == 1) ? 0 : (1 - attackDir);
 
 			// attacker's place
 			int cx = unit.X;
