@@ -9,27 +9,27 @@ using UnityEngine.UI;
 public class UnitInfoWindow : SubWindow
 {
 	[SerializeField]
-	Text _name;
+	private Text _nameTextBox;
 	[SerializeField]
-	Text _hp;
+	private Text _hpTextBox;
 	[SerializeField]
-	Text _position;
+	private Text _positionTextBox;
 	[SerializeField]
-	Text _type;
+	private Text _typeTextBox;
 	[SerializeField]
-	Text _attackPower;
+	private Text _attackPowerTextBox;
 	[SerializeField]
-	Text _defence;
+	private Text _defenceTextBox;
 
 	public void ShowUnitInfoWindow(Unit unit)
 	{
 		Hide();
-		// _name.text = unit.Name;
-		// _hp.text = unit.HP;
-		_position.text = unit.Position.ToString();
-		_type.text = unit.Type.ToString();
-		_attackPower.text = unit.AttackPower.ToString();
-		// _defence.text = unit.Defence;
+		_nameTextBox.text = unit.Name;
+		_hpTextBox.text = unit.Life.ToString();
+		_positionTextBox.text = unit.Position.ToString();
+		_typeTextBox.text = unit.Type.ToString();
+		_attackPowerTextBox.text = unit.AttackPower.ToString();
+		_defenceTextBox.text = unit.Defence.ToString();
 		Show();
 	}
 }

@@ -7,6 +7,16 @@ using DG.Tweening;
 [RequireComponent(typeof(Button))]
 public class Unit : MonoBehaviour
 {
+	[SerializeField]
+	private string _name;
+	/// <summary>
+	/// ユニットの名前
+	/// </summary>
+	public string Name
+	{
+		get { return _name; }
+	}
+
 	public enum Team
 	{
 		Player,
