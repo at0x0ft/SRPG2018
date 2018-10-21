@@ -380,7 +380,7 @@ public class AttackController : MonoBehaviour
 	/// <param name="befDir">先程まで向いていた方角（任意）</param>
 	/// <param name="isClockwise">回転をする場合の方向</param>
 	/// <returns>単独攻撃:攻撃が出来るか否か, 範囲攻撃:攻撃する方角はどこか(東を0とした、反時計回り90°単位)</returns>
-	public int Highlight(Map map, Unit attacker, Attack attack, int befDir = -1, bool isClockwise = false)
+	public int Highlight(Unit attacker, Attack attack, int befDir = -1, bool isClockwise = false)
 	{
 		var single = attack as SingleAttack;
 		var range = attack as RangeAttack;
@@ -411,7 +411,7 @@ public class AttackController : MonoBehaviour
 	/// <param name="attack">攻撃内容</param>
 	/// <param name="units">便利関数を呼ぶため必要</param>
 	/// <returns>攻撃先に、そもそも敵が居たかどうか</returns>
-	public bool Attack(Map map, Unit attacker, Vector2Int target, Attack attack, Units units)
+	public bool Attack(Unit attacker, Vector2Int target, Attack attack)
 	{
 		var single = attack as SingleAttack;
 		var range = attack as RangeAttack;
