@@ -200,12 +200,11 @@ namespace AC
 			Floor startFloor = attacker.Floor;
 			foreach (var floor in _map.GetFloorsByDistance(startFloor, attack.RangeMin, attack.RangeMax))
 			{
+				if (floor.Unit == null || floor.Unit.Belonging == attacker.Belonging) continue;
+
 				// 取り出したマスにユニットが存在し, そのユニットが敵軍である場合
-				if (floor.Unit != null && floor.Unit.Belonging != attacker.Belonging)
-				{
-					hasTarget = true;
-					floor.SetAttackableHighlight();
-				}
+				hasTarget = true;
+				floor.SetAttackableHighlight();
 			}
 			return hasTarget;
 		}
@@ -256,17 +255,21 @@ namespace AC
 		/// </summary>
 		private List<Vector2Int> GetAttackable(Unit unit, Attack attack, int attackDir)
 		{
-			float rot = attackDir * Mathf.PI / 2;
-			System.Func<float, int> cos = (float rad) => (int)Mathf.Cos(rad);
-			System.Func<float, int> sin = (float rad) => (int)Mathf.Sin(rad);
+			// attackDir = [0,3]
+			attackDir = ((attackDir % 4) + 4) % 4;
+			
+			// sinRot = sin(attackDir * PI/2)  (cosRotも同様) (要検算)
+			int sinRot = -((attackDir - 1) % 2);
+			int cosRot = -((attackDir - 2) % 2);
 
+			// attacker's place
 			int cx = unit.X;
 			int cy = unit.Y;
 
 			//wikipedia,回転行列を参照
 			var attackables = attack.Range.Select(p => new Vector2Int(
-				p.x * cos(rot) - p.y * sin(rot) + cx,
-				p.x * sin(rot) + p.y * cos(rot) + cy
+				p.x * cosRot - p.y * sinRot + cx,
+				p.x * sinRot + p.y * cosRot + cy
 				)).ToList();
 			return attackables;
 		}
