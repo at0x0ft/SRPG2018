@@ -21,7 +21,7 @@ public class UnitInfoWindow : SubWindow
 	[SerializeField]
 	private Text _defenceTextBox;
 
-	public void ShowUnitInfoWindow(Unit unit)
+	public void Show(Unit unit)
 	{
 		Hide();
 		_nameTextBox.text = unit.Name;
