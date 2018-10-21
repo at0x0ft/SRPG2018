@@ -30,10 +30,10 @@ public class BoardController : MonoBehaviour
 	private bool _setAI = true;
 	[SerializeField]
 	private bool _setPlayerFirst = true;
-	
+
 	private Dictionary<Unit.Team, AI> _ais = new Dictionary<Unit.Team, AI>();
 	private Unit.Team _startTeam;
-	
+
 	public int Turn { get; private set; }
 	public int Set { get; private set; }
 	public BattleState State { get; set; }
@@ -111,10 +111,11 @@ public class BoardController : MonoBehaviour
 			unit.IsMoved = team != unit.Belonging;
 			//セット開始時に、移動量を回復させる
 			//(コードの場所がここで良いのかは、一考の余地あり)
-			if (unit.IsMoved || Set != 1) continue;
-
-			unit.MoveAmount = unit.MaxMoveAmount;
-			Debug.Log("move amount:"+unit.MoveAmount);
+            if (unit.IsMoved || Set != 1)
+            {
+                unit.MoveAmount = unit.MaxMoveAmount;
+                Debug.Log("move amount:" + unit.MoveAmount);
+            }
 		}
 
 		// セットプレイヤーがAIならば, 画面をタッチできないように設定し, AIを走らせる.
