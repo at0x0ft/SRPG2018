@@ -120,7 +120,7 @@ public class DamageCalculator : MonoBehaviour
 	/// <summary>
 	/// ダメージを計算
 	/// </summary>
-	public int CalcurateDamage(Unit attacker, Attack attack, Unit defender, Floor defenderFloor)
+	public int CalculateDamage(Unit attacker, Attack attack, Unit defender, Floor defenderFloor)
 	{
 		// 取り敢えず, 暫定的にダメージ計算時に命中可否の判定を行うこととする. (命中可否を画面に通知するかどうかは, また別で考える)
 		if (!IsHit(attack, defenderFloor)) return 0;

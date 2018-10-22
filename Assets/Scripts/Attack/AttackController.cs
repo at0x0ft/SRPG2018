@@ -34,7 +34,7 @@ namespace AC
 			// SceneManager.LoadScene("Battle", LoadSceneMode.Additive);
 
 			// ダメージ計算を行う
-			int damage = _dc.CalcurateDamage(attacker, attack, defender, defender.Floor);
+			int damage = _dc.CalculateDamage(attacker, attack, defender, defender.Floor);
 
 			// ダメージを適用する
 			defender.Damage(damage);
