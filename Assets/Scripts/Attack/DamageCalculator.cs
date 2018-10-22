@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BaseAttackController : MonoBehaviour
+public class DamageCalculator : MonoBehaviour
 {
-
 	// ==========定数==========
 
 
@@ -31,12 +30,6 @@ public class BaseAttackController : MonoBehaviour
 	private int _forestAvoidRate = 10;
 	[SerializeField]
 	private int _rockAvoidRate = 0;
-
-
-	// ==========変数==========
-
-	[SerializeField]
-	private Map _map;
 
 
 	// ==========関数==========
@@ -133,23 +126,5 @@ public class BaseAttackController : MonoBehaviour
 		if (!IsHit(attack, defenderFloor)) return 0;
 
 		return Mathf.RoundToInt(AttackPower(attacker, attack) * GetTypeAdvantageRate(attack.Type, defender.Type) * (1f - GetReduceRate(defenderFloor)));
-	}
-
-	/// <summary>
-	/// 特定のマスの敵を攻撃する
-	/// </summary>
-	public void AttackToUnit(Unit attacker, Unit defender, Attack attack)
-	{
-		// BattleSceneに移動してバトルをする (取り敢えず要らない)
-		// Battle_SceneController.attacker = attacker;
-		// Battle_SceneController.defender = defender;
-		// BattleSceneに移動.
-		// SceneManager.LoadScene("Battle", LoadSceneMode.Additive);
-
-		// ダメージ計算を行う
-		int damage = CalcurateDamage(attacker, attack, defender, defender.Floor);
-
-		// ダメージを適用する
-		defender.Damage(damage);
 	}
 }
