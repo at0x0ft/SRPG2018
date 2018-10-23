@@ -38,7 +38,7 @@ public class BoardController : MonoBehaviour
 	public int Set { get; private set; }
 	public BattleState State { get; set; }
 
-	void Start()
+	private void Start()
 	{
 		// 盤面とユニット, AttackControllerを作成
 		var ac = new AttackController(_map, _units, _damageCalculator);
