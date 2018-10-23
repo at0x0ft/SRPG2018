@@ -44,6 +44,7 @@ public class UI : MonoBehaviour
 	{
 		if(!_endCommandButton) Debug.LogError("[Error] : EndCommandButton is not set!");
 		if(!_touchBlocker) Debug.LogError("[Error] : Touch Blocker is not set!");
+		if(!_turnSetInfoWindow) Debug.LogError("[Error] : TurnSetInfoWindow is not set!");
 		if(!_unitInfoWindow) Debug.LogError("[Error] : UnitInfoWindow is not set!");
 	}
 
