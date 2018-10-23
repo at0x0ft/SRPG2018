@@ -45,8 +45,14 @@ public class BoardController : MonoBehaviour
 	private void CheckSerializedMember()
 	{
 		if(!_ui) Debug.LogError("[Error] : UI Canvas GameObject is not set!");
+		_ui.CheckSerializedMember();
+
 		if(!_map) Debug.LogError("[Error] : Map GameObject is not set!");
+		_map.CheckSerializedMember();
+
 		if(!_units) Debug.LogError("[Error] : Units GameObject is not set!");
+		_units.CheckSerializedMember();
+
 		if(!_moveController) Debug.LogError("[Error] : MoveController GameObject is not set!");
 		if(!_damageCalculator) Debug.LogError("[Error] : DamageCalculator GameObject is not set!");
 		if(_setAI && !_ai) Debug.LogError("[Error] : AI GameObject is not set!");
@@ -55,7 +61,6 @@ public class BoardController : MonoBehaviour
 	private void Start()
 	{
 		CheckSerializedMember();	// 4debug
-		_ui.Initialize();
 
 		// ユニット詳細情報サブウィンドウを一度閉じる
 		_ui.UnitInfoWindow.Hide();

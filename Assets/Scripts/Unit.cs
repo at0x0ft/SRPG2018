@@ -160,7 +160,7 @@ public class Unit : MonoBehaviour
 	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
 	/// </summary>
 	/// <returns></returns>
-	private void CheckSerializedMember()
+	public void CheckSerializedMember()
 	{
 		if(MaxLife < 0) Debug.LogWarning("[Warning] : MaxLife is 0 or negative value!");
 		if(!_type) Debug.LogError("[Error] : Type is not set!");
@@ -202,8 +202,6 @@ public class Unit : MonoBehaviour
 		_map = map;
 		_units = units;
 		_ac = ac;
-
-		CheckSerializedMember();	//4debug
 
 		// ユニット自身がButtonとしての役割も持っており, 押下された時にOnClickメソッドの内容を実行する.
 		GetComponent<Button>().onClick.AddListener(OnClick);
