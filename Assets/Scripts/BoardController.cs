@@ -43,7 +43,6 @@ public class BoardController : MonoBehaviour
 		// ユニット詳細情報サブウィンドウを一度閉じる
 		_ui.UnitInfoWindow.Hide();
 
-		// コスト計算機とダメージ計算機を取得し, 移動と攻撃を担うクラスを作成
 		// 盤面とユニット, AttackControllerを作成
 		var ac = new AttackController(_map, _units, _damageCalculator);
 		_map.Initilize(_moveController, _units);
