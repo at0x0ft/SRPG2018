@@ -202,8 +202,8 @@ public class AI : MonoBehaviour
 			// atode kaeru
 			// 指定したAttackの攻撃範囲に当たる攻撃範囲のマスを全て列挙する
 			// バグ対策の、強制的な変更（SingleAttackかどうかは、事前に検査して分岐すること）
-			Floors.AddRange(_map.GetFloorsByDistance(enemyUnit.Floor, ((SingleAttack)unit.Attacks[0]).RangeMin, ((SingleAttack)unit.Attacks[0]).RangeMax)
-				.Where(f => _mc.GetFloorCost(f) < _mc.MaxLimitCost));
+			// Floors.AddRange(_map.GetFloorsByDistance(enemyUnit.Floor, ((SingleAttack)unit.Attacks[0]).RangeMin, ((SingleAttack)unit.Attacks[0]).RangeMax)
+				// .Where(f => _mc.GetFloorCost(f) < _mc.MaxLimitCost));
 		}
 		return Floors.Distinct().ToArray();
 	}
