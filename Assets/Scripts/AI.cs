@@ -103,6 +103,7 @@ public class AI : MonoBehaviour
 		{
 			// 自分の居るマスも移動先の選択肢に含める
 			movableFloors.Add(unit.Floor);
+			/*
 			var moveTargetFloor = movableFloors.OrderByDescending(f =>
 				{
 					var matchedRouteKV = route.FirstOrDefault(r => r.Key.X == f.X && r.Key.Y == f.Y);
@@ -117,7 +118,7 @@ public class AI : MonoBehaviour
 				moveTargetFloor.OnClick();
 				// 移動完了を待つ
 				yield return WaitMoveCoroutine(unit, moveTargetFloor);
-			}
+			} */
 
 			yield return AttackIfPossibleCoroutine(unit);
 		}
@@ -138,13 +139,13 @@ public class AI : MonoBehaviour
 				// 攻撃を選択.
 
 				// 攻撃可能なマスのうち、できるだけ倒せる/大ダメージを与えられる
-				attackableFloors.OrderByDescending(x =>
+				/* attackableFloors.OrderByDescending(x =>
 					{
 						// atode kaeru
 						// バグ対策の、強制的な変更（BACを使用しないこと）
 						var damageValue = _ac.BAC.CalcurateDamage(unit, unit.Attacks[0], x.Unit, x);
 						return damageValue * (x.Unit.Life <= damageValue ? 10 : 1);
-					}).First().Unit.OnClick();
+					}).First().Unit.OnClick(); */
 			}
 			yield return WaitBattleCoroutine();
 		}
