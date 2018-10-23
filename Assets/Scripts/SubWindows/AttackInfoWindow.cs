@@ -9,27 +9,33 @@ using UnityEngine.UI;
 public class AttackInfoWindow : SubWindow
 {
 	[SerializeField]
-	private Text _nameTextBox;
-	[SerializeField]
-	private Text _hpTextBox;
-	[SerializeField]
-	private Text _positionTextBox;
+	private Text _scaleTextBox;
 	[SerializeField]
 	private Text _typeTextBox;
 	[SerializeField]
-	private Text _attackPowerTextBox;
+	private Text _powerBox;
 	[SerializeField]
-	private Text _defenceTextBox;
+	private Text _accuracyTextBox;
 
-	public void Show(Unit unit)
+	/// <summary>
+	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
+	/// </summary>
+	/// <returns></returns>
+	public void CheckSerializedMember()
+	{
+		if(!_scaleTextBox) Debug.LogError("[Error] : Scale TextBox is not set!");
+		if(!_typeTextBox) Debug.LogError("[Error] : Type TextBox is not set!");
+		if(!_powerBox) Debug.LogError("[Error] : Pow. TextBox is not set!");
+		if(!_accuracyTextBox) Debug.LogError("[Error] : Acc. TextBox is not set!");
+	}
+
+	public void Show(Attack attack)
 	{
 		Hide();
-		_nameTextBox.text = unit.Name;
-		_hpTextBox.text = unit.Life.ToString();
-		_positionTextBox.text = unit.Position.ToString();
-		_typeTextBox.text = unit.Type.ToString();
-		_attackPowerTextBox.text = unit.AttackPower.ToString();
-		_defenceTextBox.text = unit.Defence.ToString();
+		_scaleTextBox.text = attack.Scale.ToString();
+		_typeTextBox.text = attack.Type.ToString();
+		_powerBox.text = attack.Power.ToString();
+		_accuracyTextBox.text = attack.Accuracy.ToString();
 		Show();
 	}
 }
