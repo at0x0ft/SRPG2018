@@ -20,6 +20,15 @@ public class Unit : MonoBehaviour
 		Back,
 	}
 
+	public enum AttackStates
+	{
+		// いずれの場合においても、待機は可能
+		LittleAttack, // 弱攻撃,強攻撃溜めができる
+		MiddleAttack, // 中攻撃ができる
+		Charging,     // 強攻撃のみできる（移動不可,強制攻撃）
+		Movable       // 攻撃不可
+	}
+
 	[SerializeField]
 	private Team _belonging;
 	public Team Belonging
@@ -51,6 +60,7 @@ public class Unit : MonoBehaviour
 
 	public int MaxMoveAmount { get; private set; }
 	public int MoveAmount { get; set; }
+	public AttackStates AttackState{ get; set; }
 
 	/// <summary>
 	/// ローカル座標を表す. (transformの座標ではない)
