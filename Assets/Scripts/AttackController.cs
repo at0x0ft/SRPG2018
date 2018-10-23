@@ -4,148 +4,286 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class AttackController : MonoBehaviour
+namespace AC
 {
-	[SerializeField]
-	private float _strongRate = 1.2f;
-	[SerializeField]
-	private float _slightlyStrongRate = 1.1f;
-	[SerializeField]
-	private float _normalRate = 1f;
-	[SerializeField]
-	private float _slightlyWeakRate = 0.9f;
-	[SerializeField]
-	private float _weakRate = 0.8f;
+	public class BaseAttackController
+	{
+		// ==========変数==========
 
-	[SerializeField]
-	private float _normalReduceRate = 0;
-	[SerializeField]
-	private float _forestReduceRate = 0.2f;
-	[SerializeField]
-	private float _rockReduceRate = 0.5f;
+		private DamageCalculator _dc;
+		private Map _map;
+		private Units _units;
 
-	[SerializeField]
-	private int _normalAvoidRate = 20;
-	[SerializeField]
-	private int _forestAvoidRate = 10;
-	[SerializeField]
-	private int _rockAvoidRate = 0;
+
+		// ==========関数==========
+
+		public BaseAttackController(DamageCalculator dc, Map map, Units units)
+		{
+			_dc = dc;
+			_map = map;
+			_units = units;
+		}
+
+		/// <summary>
+		/// 攻撃可能なマスをハイライトする。
+		/// </summary>
+		public void SetAttackableHighlight(List<Vector2Int> attackableCoordinates)
+		{
+			foreach(var attackable in attackableCoordinates)
+			{
+				var floor = _map.GetFloor(attackable.x, attackable.y);
+				if(floor != null) floor.SetAttackableHighlight();
+			}
+		}
+
+		/// <summary>
+		/// 特定のマスの敵を攻撃する
+		/// </summary>
+		public void AttackToUnit(Unit attacker, Unit defender, Attack attack)
+		{
+			// BattleSceneに移動してバトルをする (取り敢えず要らない)
+			// Battle_SceneController.attacker = attacker;
+			// Battle_SceneController.defender = defender;
+			// BattleSceneに移動.
+			// SceneManager.LoadScene("Battle", LoadSceneMode.Additive);
+
+			// ダメージ計算を行う
+			int damage = _dc.CalculateDamage(attacker, attack, defender, defender.Floor);
+
+			// ダメージを適用する
+			defender.Damage(damage);
+		}
+
+		public void FinishAttack()
+		{
+			_map.ClearHighlight();
+			_units.FocusingUnit.IsMoved = true;
+		}
+	}
+
+
+	public class SingleAttackController
+	{
+		// ==========変数==========
+
+		private Map _map;
+		private BaseAttackController _bac;
+
+
+		// ==========関数==========
+
+		public SingleAttackController(Map map, BaseAttackController bac)
+		{
+			_map = map;
+			_bac = bac;
+		}
+
+		/// <summary>
+		/// 攻撃可能なマスをハイライトする。
+		/// </summary>
+		public void SetAttackableHighlight(Unit unit, SingleAttack attack)
+		{
+			_bac.SetAttackableHighlight(GetAttackable(unit, attack));
+		}
+
+		/// <summary>
+		/// 攻撃に設定された相対座標にユニットの現在の座標を加算して返すメソッド.
+		/// </summary>
+		/// <param name="unit"></param>
+		/// <param name="attack"></param>
+		/// <param name="attackDir"></param>
+		/// <returns></returns>
+		private List<Vector2Int> GetAttackable(Unit unit, Attack attack)
+		{
+			return attack.Range.Select(p => p + unit.Coordinate).ToList();
+		}
+
+		/// <summary>
+		/// 対象ユニットに攻撃
+		/// </summary>
+		/// <param name="target">攻撃先(マス座標)</param>
+		/// <returns>ユニットがあるかどうか</returns>
+		public bool Attack(Unit attacker, Unit targetUnit, Attack attack)
+		{
+			if(targetUnit == null) return false;
+
+			_bac.AttackToUnit(attacker, targetUnit, attack);
+
+			_bac.FinishAttack();
+
+			return true;
+		}
+	}
+
+	public class RangeAttackController
+	{
+		// ==========変数==========
+
+
+		private Map _map;
+		private Units _units;
+		private BaseAttackController _bac;
+
+
+		// ==========関数==========
+
+
+		public RangeAttackController(Map map, Units units, BaseAttackController bac)
+		{
+			_map = map;
+			_units = units;
+			_bac = bac;
+		}
+
+		/// <summary>
+		/// 攻撃可能範囲を検索する
+		/// </summary>
+		private List<Vector2Int> GetAttackable(Unit unit, Attack attack, int attackDir)
+		{
+			// sinRot = sin(attackDir * PI/2)  (cosRotも同様)
+			int sinRot = (attackDir % 2 == 0) ? 0 : (2 - attackDir);
+			int cosRot = (attackDir % 2 == 1) ? 0 : (1 - attackDir);
+
+			//wikipedia,回転行列を参照
+			var attackables = attack.Range.Select(p => new Vector2Int(
+				p.x * cosRot - p.y * sinRot,
+				p.x * sinRot + p.y * cosRot
+				) + unit.Coordinate).ToList();
+			return attackables;
+		}
+
+		/// <summary>
+		/// 攻撃可能ハイライトを初期設定する
+		/// </summary>
+		public int InitializeAttackableHighlight(Unit attacker, RangeAttack attack)
+		{
+			// 初期方角 : 陣営によって初期方角を変えるならここを変える
+			int startAttackDir = 0;
+
+			// 攻撃可能範囲をハイライト
+			_bac.SetAttackableHighlight(GetAttackable(attacker, attack, startAttackDir));
+
+			return startAttackDir;
+		}
+
+		/// <summary>
+		/// 攻撃する方角を変更します（可能なら）
+		/// </summary>
+		/// <param name="befDir">先程まで向いていた方角</param>
+		/// <param name="isClockwise">押されたボタンが時計回りか否か</param>
+		/// <returns>今から見る方角</returns>
+		public int UpdateAttackableHighlight(Unit attacker, RangeAttack attack, int befDir, bool isClockwise)
+		{
+			// 回転できない場合は、その場で終了
+			if(!attack.IsRotatable) return befDir;
+
+			// 回転させる
+			int nowDir = (befDir + (isClockwise ? 3 : 1)) % 4;
+
+			// 攻撃範囲を計算し, ハイライト
+			_bac.SetAttackableHighlight(GetAttackable(attacker, attack, nowDir));
+
+			return nowDir;
+		}
+
+		/// <summary>
+		/// 範囲内に居るユニットに攻撃
+		/// (範囲攻撃の赤マス選択時に呼び出される)
+		/// </summary>
+		/// <returns>範囲内に、敵が1体でも居たかどうか</returns>
+		public bool Attack(Unit attacker, Attack attack)
+		{
+			bool unitExist = false;
+			var attackRanges = _map.GetAttackableFloors();
+
+			// 攻撃した範囲全てに対して、
+			foreach(var attackRange in attackRanges)
+			{
+				// 敵Unitの存在判定を行い、
+				var defender = _units.GetUnit(attackRange.X, attackRange.Y);
+				if(defender == null) continue;
+				unitExist = true;
+				_bac.AttackToUnit(attacker, defender, attack);
+			}
+
+			_bac.FinishAttack();
+			return unitExist;
+		}
+	}
+}
+
+
+public class AttackController
+{
+	private AC.SingleAttackController _sac;
+	private AC.RangeAttackController _rac;
+
+	public AttackController(Map map, Units units, DamageCalculator dc)
+	{
+		var bac = new AC.BaseAttackController(dc, map, units);
+		_sac = new AC.SingleAttackController(map, bac);
+		_rac = new AC.RangeAttackController(map, units, bac);
+	}
 
 	/// <summary>
-	/// [地形効果命中補正] : floorの命中減少率について, 百分率整数で返すメソッド
+	/// ハイライトを行う (単体攻撃ならば0, 範囲攻撃ならハイライトした方向を0 ~ 3で返す)
 	/// </summary>
-	/// <param name="floor"></param>
-	/// <returns></returns>
-	public int GetAvoidRate(Floor floor)
+	/// <param name="map">便利な関数を色々呼び出すために使います</param>
+	/// <param name="attacker">攻撃主体</param>
+	/// <param name="attack">攻撃内容</param>
+	/// <param name="befDir">先程まで向いていた方角（任意）</param>
+	/// <param name="isClockwise">回転をする場合の方向</param>
+	/// <returns>単独攻撃:攻撃が出来るか否か, 範囲攻撃:攻撃する方角はどこか(東を0とした、反時計回り90°単位)</returns>
+	public int Highlight(Unit attacker, Attack attack, int befDir = -1, bool isClockwise = false)
 	{
-		switch(floor.Type)
+		Debug.Log("Attack scale ? " + attack.Scale);	// 4debug
+
+		if(attack.Scale == global::Attack.AttackScale.Single)
 		{
-			case Floor.Feature.Normal:
-				return _normalAvoidRate;
-			case Floor.Feature.Forest:
-				return _forestAvoidRate;
-			case Floor.Feature.Rock:
-				return _rockAvoidRate;
-			default:
-				Debug.LogWarning("[Error] : (Floor)" + floor.transform.name + "'s avoid rate is unknown/unset (calculated it as 0%).");
-				return 0;
+			_sac.SetAttackableHighlight(attacker, (SingleAttack)attack);
+			return 0;
+		}
+		else if(attack.Scale == global::Attack.AttackScale.Range)
+		{
+			if(befDir == -1)
+			{
+				return _rac.InitializeAttackableHighlight(attacker, (RangeAttack)attack);
+			}
+			else
+			{
+				return _rac.UpdateAttackableHighlight(attacker, (RangeAttack)attack, befDir, isClockwise);
+			}
+		}
+		else
+		{
+			Debug.Log("予測されていない型の攻撃が行われました");
+			return -1;
 		}
 	}
 
 	/// <summary>
-	/// 攻撃が当たったかどうか, bool型で返すメソッド
+	/// 攻撃を実行します
 	/// </summary>
-	/// <param name="attack"></param>
-	/// <param name="floor"></param>
-	/// <returns></returns>
-	public bool IsHit(Attack attack, Floor floor)
+	/// <param name="map">便利関数を呼ぶため必要</param>
+	/// <param name="attacker">攻撃主体</param>
+	/// <param name="target">クリックされた攻撃先（マス座標）</param>
+	/// <param name="attack">攻撃内容</param>
+	/// <param name="units">便利関数を呼ぶため必要</param>
+	/// <returns>攻撃先に、そもそも敵が居たかどうか</returns>
+	public bool Attack(Unit attacker, Unit targetUnit, Attack attack)
 	{
-		// 命中率を, [地形効果命中補正]を考慮して計算.
-		var hitRate = attack.Accuracy - GetAvoidRate(floor);
-
-		// 百分率の最大は100%.
-		const int RANGE_MAX = 100;
-		// Random.Rangeが0から100までの値をランダムに返すメソッドであるから, [0, 101)の範囲で乱数を返して判定.
-		return Random.Range(0, RANGE_MAX + 1) <= hitRate;
-	}
-
-	/// <summary>
-	/// タイプ相性での威力の倍率を返すメソッド
-	/// </summary>
-	public float GetTypeAdvantageRate(Type attackType, Type defenceType)
-	{
-		return attackType.IsStrongAgainst(defenceType)
-			? _strongRate
-			: attackType.IsSlightlyStrongAgainst(defenceType)
-			? _slightlyStrongRate
-			: attackType.IsSlightlyWeakAgainst(defenceType)
-			? _slightlyWeakRate
-			: attackType.IsWeakAgainst(defenceType)
-			? _weakRate
-			: _normalRate;
-	}
-
-	/// <summary>
-	/// 地形効果での威力の軽減率を返すメソッド
-	/// </summary>
-	/// <param name="floor"></param>
-	/// <returns></returns>
-	public float GetReduceRate(Floor floor)
-	{
-		switch(floor.Type)
+		if(attack.Scale == global::Attack.AttackScale.Single)
 		{
-			case Floor.Feature.Normal:
-				return _normalReduceRate;
-			case Floor.Feature.Forest:
-				return _forestReduceRate;
-			case Floor.Feature.Rock:
-				return _rockReduceRate;
-			default:
-				return 0;
+			return _sac.Attack(attacker, targetUnit, attack);
 		}
-	}
-
-	/// <summary>
-	/// 攻撃時の威力を計算
-	/// </summary>
-	public int AttackPower(Unit attacker, Attack attack)
-	{
-		return Mathf.RoundToInt(attack.Power * (Mathf.Ceil((float)attacker.Life / (float)attacker.MaxLife * 10f) / 10f));
-	}
-
-	/// <summary>
-	/// ダメージを計算
-	/// </summary>
-	public int CalcurateDamage(Unit attacker, Attack attack, Unit defender, Floor defenderFloor)
-	{
-		// 取り敢えず, 暫定的にダメージ計算時に命中可否の判定を行うこととする. (命中可否を画面に通知するかどうかは, また別で考える)
-		if(!IsHit(attack, defenderFloor)) return 0;
-
-		return Mathf.RoundToInt(AttackPower(attacker, attack) * GetTypeAdvantageRate(attack.Type, defender.Type) * (1f - GetReduceRate(defenderFloor)));
-	}
-
-	/// <summary>
-	/// 対象ユニットに攻撃
-	/// </summary>
-	/// <param name="fromUnit">From unit.</param>
-	/// <param name="toUnit">To unit.</param>
-	public void AttackTo(Map map, Unit attacker, Unit defender, Units units)
-	{
-		// BattleSceneに移動してバトルをする (取り敢えず要らない)
-		// Battle_SceneController.attacker = attacker;
-		// Battle_SceneController.defender = defender;
-		// BattleSceneに移動.
-		// SceneManager.LoadScene("Battle", LoadSceneMode.Additive);
-
-		// ダメージ計算を行う
-		defender.Damage(attacker, attacker.Attacks[0]);
-		// 体力が0以下になったらユニットを消滅させる
-		if(defender.Life <= 0)
+		else if(attack.Scale == global::Attack.AttackScale.Range)
 		{
-			defender.DestroyWithAnimate();
+			return _rac.Attack(attacker, attack);
 		}
-
-		map.ClearHighlight();
-		units.FocusingUnit.IsMoved = true;
+		else
+		{
+			Debug.Log("予定されていない型の攻撃がありました");
+			return false;
+		}
 	}
 }

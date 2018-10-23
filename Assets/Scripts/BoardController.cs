@@ -6,6 +6,14 @@ using System;
 
 public class BoardController : MonoBehaviour
 {
+	public enum BattleState
+	{
+		CheckingStatus, // 戦況確認中
+		Move,			// 移動コマンド入力中
+		Attack,			// 攻撃コマンド選択中
+		Loading			// スクリプト処理中
+	}
+
 	[SerializeField]
 	private UI _ui;
 	[SerializeField]
@@ -15,7 +23,7 @@ public class BoardController : MonoBehaviour
 	[SerializeField]
 	private MoveController _moveController;
 	[SerializeField]
-	private AttackController _attackController;
+	private DamageCalculator _damageCalculator;
 	[SerializeField]
 	private AI _ai;
 	[SerializeField]
@@ -28,18 +36,21 @@ public class BoardController : MonoBehaviour
 
 	public int Turn { get; private set; }
 	public int Set { get; private set; }
+	public BattleState State { get; set; }
 
 	void Start()
 	{
-		// コスト計算機とダメージ計算機を取得し, 移動と攻撃を担うクラスを作成
+		// 盤面とユニット, AttackControllerを作成
+		var ac = new AttackController(_map, _units, _damageCalculator);
 		_map.Initilize(_moveController, _units);
-		_units.Initilize(_map, _moveController, _attackController);
+		_units.Initilize(_map, _moveController, ac);
+
 
 		// endCommandボタンが押下されたらmapインスタンスメソッドの持つNextSet()を実行
 		_ui.EndCommandButton.onClick.AddListener(() => { NextSet(); });
 
 		// AI設定
-		if(_setAI) SetAI(Unit.Team.Enemy);
+		if(_setAI) SetAI(Unit.Team.Enemy, ac);
 
 		// ターン/セットをそれぞれ設定 (わざと0/2スタートとしている)
 		Turn = 0;
@@ -56,10 +67,10 @@ public class BoardController : MonoBehaviour
 	/// AIを設定する
 	/// </summary>
 	/// <param name="team"></param>
-	public void SetAI(Unit.Team team)
+	public void SetAI(Unit.Team team, AttackController ac)
 	{
 		// AIインスタンスを初期化
-		_ai.Initialize(this, _map, _units, _moveController, _attackController);
+		_ai.Initialize(this, _map, _units, _moveController, ac);
 		// AIと相手プレイヤーを対応付ける
 		_ais[team] = _ai;
 	}
@@ -90,6 +101,9 @@ public class BoardController : MonoBehaviour
 			}
 		}
 
+		// 盤面の状態も設定
+		State = BattleState.CheckingStatus;
+
 		// セットプレイヤーのチームを記録
 		_units.CurrentPlayerTeam = team;
 
@@ -99,11 +113,11 @@ public class BoardController : MonoBehaviour
 			unit.IsMoved = team != unit.Belonging;
 			//セット開始時に、移動量を回復させる
 			//(コードの場所がここで良いのかは、一考の余地あり)
-            if (!unit.IsMoved && Set == 1)
-            {
-                unit.MoveAmount = unit.MaxMoveAmount;
-                Debug.Log("move amount:"+unit.MoveAmount);
-            }
+			if(!unit.IsMoved && Set == 1)
+			{
+				unit.MoveAmount = unit.MaxMoveAmount;
+				Debug.Log("move amount:" + unit.MoveAmount);
+			}
 		}
 
 		// セットプレイヤーがAIならば, 画面をタッチできないように設定し, AIを走らせる.

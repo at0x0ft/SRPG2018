@@ -76,29 +76,34 @@ public class Unit : MonoBehaviour
 	public int MoveAmount { get; set; }
 
 	/// <summary>
-	/// ローカル座標でのX座標を表す. (transformのX座標ではない)
+	/// ローカル座標を表す. (transformの座標ではない)
 	/// </summary>
-	public int X { get { return _coordinate.Key.x; } }
+	public Vector2Int Coordinate { get { return _coordinatePair.Key; } }
+
+	/// <summary>
+	/// ローカル座標でのX座標を表す. (transformのY座標ではない)
+	/// </summary>
+	public int X { get { return _coordinatePair.Key.x; } }
 
 	/// <summary>
 	/// ローカル座標でのY座標を表す. (transformのY座標ではない)
 	/// </summary>
-	public int Y { get { return _coordinate.Key.y; } }
+	public int Y { get { return _coordinatePair.Key.y; } }
 
 	/// <summary>
 	/// Unitの座標を表す. ローカル座標とtransformでの座標の両方を保持している. Keyがローカル座標, Valueがtransform座標にあたる.
 	/// </summary>
-	private KeyValuePair<Vector2Int, Vector3> _coordinate;
+	private KeyValuePair<Vector2Int, Vector3> _coordinatePair;
 	private KeyValuePair<Vector2Int, Vector3> CoordinatePair
 	{
 		get
 		{
-			return _coordinate;
+			return _coordinatePair;
 		}
 		set
 		{
 			transform.localPosition = value.Value;
-			_coordinate = value;
+			_coordinatePair = value;
 		}
 	}
 
@@ -141,20 +146,8 @@ public class Unit : MonoBehaviour
 	/// </summary>
 	public Floor Floor { get { return _map.GetFloor(CoordinatePair.Key.x, CoordinatePair.Key.y); } }
 
-	void Start()
-	{
-		// ユニット自身がButtonとしての役割も持っており, 押下された時にOnClickメソッドの内容を実行する.
-		GetComponent<Button>().onClick.AddListener(OnClick);
-
-		// 初期配置マスにUnitを設定する
-		//CoordinatePair = _initialFloor.CoordinatePair;
-		StartCoroutine(SetInitialPosition());
-
-		Life = MaxLife;
-	}
-
 	/// <summary>
-	/// 初期配置マスにUnitを設定します。
+	/// 初期配置マスにUnitを設定. (デッドロック回避のため遅延処理)
 	/// </summary>
 	IEnumerator SetInitialPosition()
 	{
@@ -165,7 +158,7 @@ public class Unit : MonoBehaviour
 			var pair = _initialFloor.CoordinatePair;
 			if(pair.Key.x == 0 && pair.Key.y == 0 && pair.Value.x == 0 && pair.Value.y == 0 && pair.Value.z == 0)
 			{
-				Debug.Log("stay");
+				Debug.Log("stay");	// 4debug
 				yield return new WaitForSeconds(0.1f);
 			}
 			else
@@ -185,7 +178,25 @@ public class Unit : MonoBehaviour
 		_units = units;
 		_ac = ac;
 
+		// ユニット自身がButtonとしての役割も持っており, 押下された時にOnClickメソッドの内容を実行する.
+		GetComponent<Button>().onClick.AddListener(OnClick);
+
+		// 初期配置マスにUnitを設定する
+		// CoordinatePair = _initialFloor.CoordinatePair;
+		StartCoroutine(SetInitialPosition());
+
+		// 体力の初期化
+		Life = MaxLife;
+
+		// 移動量の初期化
 		MaxMoveAmount = mc.GetUnitMaxMoveAmount(this);
+
+
+		// 技の初期化
+		foreach(var attack in Attacks)
+		{
+			attack.Initialize();
+		}
 	}
 
 	/// <summary>
@@ -199,7 +210,8 @@ public class Unit : MonoBehaviour
 		if(Floor.IsAttackable)
 		{
 			// 攻撃
-			_ac.AttackTo(_map, _units.FocusingUnit, this, _units);
+			// バグ対策の強制的変更（コマンド選択結果のAttackも必要なため、これではAttackの条件を満たしていない）
+			//_ac.AttackTo(_map, _units.FocusingUnit, this, _units);
 			return;
 		}
 
@@ -215,13 +227,15 @@ public class Unit : MonoBehaviour
 		if(IsFocusing)
 		{
 			// 移動可能なマスをハイライト
-			_map.HighlightMovableFloors(Floor, MoveAmount);
+			// _map.HighlightMovableFloors(Floor, MoveAmount);
 
 			Debug.Log("HighLight completed.");  // 4debug
 
 			// 攻撃可能なマスをハイライト (攻撃は後で選択するはずだから, 要らない)
 			// atode kaeru
-			// _map.HighlightAttackableFloors(Floor, Attacks[0]);
+			Debug.Log("Attacks[0] = " + Attacks[0].transform.name);	//4debug
+			Debug.Log("this == null ? " + this == null); //4debug
+			_ac.Highlight(this, Attacks[0]);
 		}
 		else
 		{
@@ -244,10 +258,12 @@ public class Unit : MonoBehaviour
 	/// <summary>
 	/// ダメージを与える
 	/// </summary>
-	/// <param name="attacker">Attacker.</param>
-	public void Damage(Unit attacker, Attack attack)
+	public void Damage(int damage)
 	{
-		Life = Mathf.Max(0, Life - _ac.CalcurateDamage(attacker, attack, this, Floor));
+		Life = Mathf.Max(0, Life - damage);
+
+		// 体力が0以下になったらユニットを消滅させる
+		if(Life <= 0) DestroyWithAnimate();
 	}
 
 	public void DestroyWithAnimate()

@@ -97,27 +97,6 @@ public class Map : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 攻撃可能なマスをハイライトし, 攻撃対象がいるか否かを返すメソッド
-	/// </summary>
-	public bool HighlightAttackableFloors(Floor startFloor, Attack attack)
-	{
-		var hasTarget = false;
-		foreach(var Floor in GetFloorsByDistance(startFloor, attack.RangeMin, attack.RangeMax))
-		{
-			// 取り出したマスにユニットが存在し, そのユニットが敵軍である場合
-			if(Floor.Unit != null && Floor.Unit.Belonging != startFloor.Unit.Belonging)
-			{
-				hasTarget = true;
-				Floor.IsAttackable = true;
-
-				// 攻撃対象を選択可能にする. (ユニットのステータスを表示する機能もあるため, いちいち選択可能/不可にする必要がない)
-				Floor.Unit.GetComponent<Button>().interactable = true;
-			}
-		}
-		return hasTarget;
-	}
-
-	/// <summary>
 	/// dMin以上dMax以下のマンハッタン距離にあるマス全て返す関数 (GetRemainingAccountRangeInfosメソッドと本質的に等価だったのでこちらのみを残した)
 	/// </summary>
 	/// <param name="baseFloor">起点となるマス</param>
@@ -143,7 +122,7 @@ public class Map : MonoBehaviour
 			if(Floor.IsAttackable)
 			{
 				// 攻撃対象のユニットを選択不可に戻す.
-				Floor.Unit.GetComponent<Button>().interactable = false;
+				if(Floor.Unit) Floor.Unit.GetComponent<Button>().interactable = false;
 			}
 			Floor.IsMovable = false;
 		}

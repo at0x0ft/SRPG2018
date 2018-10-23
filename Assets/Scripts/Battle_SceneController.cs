@@ -46,7 +46,7 @@ public class Battle_SceneController : MonoBehaviour
 
 		// 防衛側がダメージを受ける
 		// atode kaeru
-		defender.Damage(attacker, attacker.Attacks[0]);
+		//defender.Damage(attacker, attacker.Attacks[0]);
 		RefreshImages(defenderImages, defender, true);
 
 		yield return new WaitForSeconds(1f);
@@ -56,16 +56,16 @@ public class Battle_SceneController : MonoBehaviour
 		//var distance = Mathf.Abs(attacker.X - defender.X) + Mathf.Abs(attacker.Y - defender.Y);
 		//if (defender.AttackRangeMin <= distance && distance <= defender.AttackRangeMax)
 		//{
-		//    foreach (var image in defenderImages)
-		//    {
-		//        image.transform.DOLocalMoveX(image.transform.localPosition.x + 30f, 0.2f)
-		//            .SetLoops(2, LoopType.Yoyo);
-		//    }
+		//	foreach (var image in defenderImages)
+		//	{
+		//		image.transform.DOLocalMoveX(image.transform.localPosition.x + 30f, 0.2f)
+		//		.SetLoops(2, LoopType.Yoyo);
+		//	}
 
-		//    yield return new WaitForSeconds(0.2f);
+		//	yield return new WaitForSeconds(0.2f);
 
-		//    attacker.Damage(defender);
-		//    RefreshImages(attackerImages, attacker, true);
+		//	attacker.Damage(defender);
+		//	RefreshImages(attackerImages, attacker, true);
 		//}
 
 		yield return new WaitForSeconds(1f);
