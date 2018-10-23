@@ -38,8 +38,24 @@ public class BoardController : MonoBehaviour
 	public int Set { get; private set; }
 	public BattleState State { get; set; }
 
-	void Start()
+	/// <summary>
+	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
+	/// </summary>
+	/// <returns></returns>
+	private void CheckSerializedMember()
 	{
+		if(!_ui) Debug.LogError("[Error] : UI Canvas GameObject is not set!");
+		if(!_map) Debug.LogError("[Error] : Map GameObject is not set!");
+		if(!_units) Debug.LogError("[Error] : Units GameObject is not set!");
+		if(!_moveController) Debug.LogError("[Error] : MoveController GameObject is not set!");
+		if(!_damageCalculator) Debug.LogError("[Error] : DamageCalculator GameObject is not set!");
+		if(_setAI && !_ai) Debug.LogError("[Error] : AI GameObject is not set!");
+	}
+
+	private void Start()
+	{
+		CheckSerializedMember();	// 4debug
+
 		// 盤面とユニット, AttackControllerを作成
 		var ac = new AttackController(_map, _units, _damageCalculator);
 		_map.Initilize(_moveController, _units);
