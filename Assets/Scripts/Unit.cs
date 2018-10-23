@@ -150,6 +150,21 @@ public class Unit : MonoBehaviour
 	}
 
 	/// <summary>
+	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
+	/// </summary>
+	/// <returns></returns>
+	public void CheckSerializedMember()
+	{
+		if(MaxLife < 0) Debug.LogWarning("[Warning] : MaxLife is 0 or negative value!");
+		if(!_type) Debug.LogError("[Error] : Type is not set!");
+		if(!_initialFloor) Debug.LogError("[Error] : InitialFloor is not set!");
+		foreach(var attack in Attacks)
+		{
+			if(!attack) Debug.LogError("[Error] : Attack is not fully set!");
+		}
+	}
+
+	/// <summary>
 	/// 初期化メソッド
 	/// </summary>
 	public void Initialize(Map map, Units units, MoveController mc, AttackController ac)
@@ -157,6 +172,8 @@ public class Unit : MonoBehaviour
 		_map = map;
 		_units = units;
 		_ac = ac;
+
+		CheckSerializedMember();
 
 		// ユニット自身がButtonとしての役割も持っており, 押下された時にOnClickメソッドの内容を実行する.
 		GetComponent<Button>().onClick.AddListener(OnClick);
