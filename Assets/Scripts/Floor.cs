@@ -68,7 +68,7 @@ public class Floor : MonoBehaviour
 		{
 			_highlight.color = _movableColor;
 			_highlight.gameObject.SetActive(value);
-			Debug.Log(transform.name + " highLighted.");    // 4debug
+			Debug.Log(transform.name + " highLighted.");	// 4debug
 		}
 		get { return _highlight.gameObject.activeSelf && _highlight.color == _movableColor; }
 	}
@@ -146,6 +146,17 @@ public class Floor : MonoBehaviour
 
 		_movableColor = _map.MovableColor;
 		_attackableColor = _map.AttackableColor;
+	}
+
+	/// <summary>
+	/// 特定のマスに攻撃可能ハイライトを点ける。
+	/// </summary>
+	public void SetAttackableHighlight()
+	{
+		IsAttackable = true;
+
+		// 攻撃対象を選択可能にする. (ユニットのステータスを表示する機能もあるため, いちいち選択可能/不可にする必要がない)
+		if(Unit) Unit.GetComponent<Button>().interactable = true;
 	}
 
 	/// <summary>
