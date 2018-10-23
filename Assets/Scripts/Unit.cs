@@ -153,7 +153,7 @@ public class Unit : MonoBehaviour
 	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
 	/// </summary>
 	/// <returns></returns>
-	public void CheckSerializedMember()
+	private void CheckSerializedMember()
 	{
 		if(MaxLife < 0) Debug.LogWarning("[Warning] : MaxLife is 0 or negative value!");
 		if(!_type) Debug.LogError("[Error] : Type is not set!");
