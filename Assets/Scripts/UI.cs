@@ -36,6 +36,13 @@ public class UI : MonoBehaviour
 		get { return _unitInfoWindow; }
 	}
 
+	[SerializeField]
+	private AttackInfoWindow _attackInfoWindow;
+	public AttackInfoWindow AttackInfoWindow
+	{
+		get { return _attackInfoWindow; }
+	}
+
 	/// <summary>
 	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
 	/// </summary>
@@ -50,5 +57,8 @@ public class UI : MonoBehaviour
 
 		if(!_unitInfoWindow) Debug.LogError("[Error] : UnitInfoWindow is not set!");
 		_unitInfoWindow.CheckSerializedMember();
+
+		if(!_attackInfoWindow) Debug.LogError("[Error] : AttackInfoWindow is not set!");
+		_attackInfoWindow.CheckSerializedMember();
 	}
 }
