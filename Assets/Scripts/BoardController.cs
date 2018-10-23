@@ -84,6 +84,48 @@ public class BoardController : MonoBehaviour
 		_startTeam = _setPlayerFirst ? Unit.Team.Player : Unit.Team.Enemy;
 	}
 
+
+	/// <summary>
+	/// (セット毎に起こる、)ユニットの移動ステータスに関する更新
+	/// </summary>
+	/// <param name="team">次に動くチーム</param>
+	/// <param name="unit">更新するユニット</param>
+	private void UpdateMoveStatusOfUnit(Unit.Team team, Unit unit)
+	{
+		// セットプレイヤー以外ユニットは行動済みとする
+		unit.IsMoved = team != unit.Belonging;
+
+		//セット開始時に、移動量を回復させる
+		//(コードの場所がここで良いのかは、一考の余地あり)
+		if(!unit.IsMoved && Set == 1)
+		{
+			unit.MoveAmount = unit.MaxMoveAmount;
+			Debug.Log("move amount:" + unit.MoveAmount);
+		}
+	}
+
+	/// <summary>
+	/// (セット毎に起こる、)ユニットの攻撃状態に関する更新
+	/// </summary>
+	/// <param name="unit">更新するユニット</param>
+	private void UpdateAttackStateOfUnit(Unit unit)
+	{
+		// 直後に動くUnitだけ更新する(UpdateMoveStatusOfUnitの挙動より、以下の式が出る)
+		if(unit.IsMoved) return;
+
+		if(Set == 1)
+		{
+			unit.AttackState = Unit.AttackStates.LittleAttack;
+		}
+		else
+		{
+			if(unit.AttackState==Unit.AttackStates.LittleAttack)
+			{
+				unit.AttackState = Unit.AttackStates.MiddleAttack;
+			}
+		}	
+	}
+	
 	/// <summary>
 	/// セット開始時の処理
 	/// </summary>
@@ -107,17 +149,12 @@ public class BoardController : MonoBehaviour
 		// セットプレイヤーのチームを記録
 		_units.CurrentPlayerTeam = team;
 
-		// セットプレイヤー以外ユニットは行動済みとする
+		// 全てのUnitの情報を,更新する
 		foreach(var unit in _units.GetComponentsInChildren<Unit>())
 		{
-			unit.IsMoved = team != unit.Belonging;
-			//セット開始時に、移動量を回復させる
-			//(コードの場所がここで良いのかは、一考の余地あり)
-			if(!unit.IsMoved && Set == 1)
-			{
-				unit.MoveAmount = unit.MaxMoveAmount;
-				Debug.Log("move amount:" + unit.MoveAmount);
-			}
+			UpdateMoveStatusOfUnit(team, unit);
+
+			UpdateAttackStateOfUnit(unit);
 		}
 
 		// セットプレイヤーがAIならば, 画面をタッチできないように設定し, AIを走らせる.
