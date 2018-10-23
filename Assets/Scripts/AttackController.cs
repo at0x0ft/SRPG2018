@@ -66,7 +66,6 @@ namespace AC
 	{
 		// ==========変数==========
 
-		private Map _map;
 		private BaseAttackController _bac;
 
 
@@ -74,7 +73,6 @@ namespace AC
 
 		public SingleAttackController(Map map, BaseAttackController bac)
 		{
-			_map = map;
 			_bac = bac;
 		}
 
