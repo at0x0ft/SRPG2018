@@ -58,7 +58,7 @@ public class Unit : MonoBehaviour
 	public Vector2Int Coordinate { get { return _coordinatePair.Key; } }
 
 	/// <summary>
-	/// ローカル座標でのY座標を表す. (transformのY座標ではない)
+	/// ローカル座標でのX座標を表す. (transformのX座標ではない)
 	/// </summary>
 	public int X { get { return _coordinatePair.Key.x; } }
 
