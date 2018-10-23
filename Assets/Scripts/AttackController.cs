@@ -25,6 +25,18 @@ namespace AC
 		}
 
 		/// <summary>
+		/// 攻撃可能なマスをハイライトする。
+		/// </summary>
+		public void SetAttackableHighlight(List<Vector2Int> attackableCoordinates)
+		{
+			foreach(var attackable in attackableCoordinates)
+			{
+				var floor = _map.GetFloor(attackable.x, attackable.y);
+				if(floor != null) floor.SetAttackableHighlight();
+			}
+		}
+
+		/// <summary>
 		/// 特定のマスの敵を攻撃する
 		/// </summary>
 		public void AttackToUnit(Unit attacker, Unit defender, Attack attack)
@@ -69,20 +81,21 @@ namespace AC
 		/// <summary>
 		/// 攻撃可能なマスをハイライトする。
 		/// </summary>
-		/// <returns>攻撃対象が居るか否か(コマンド選択可否に使うのかな？)</returns>
-		public bool SetAttackableHighlight(Unit attacker, SingleAttack attack)
+		public void SetAttackableHighlight(Unit unit, SingleAttack attack)
 		{
-			var hasTarget = false;
-			Floor startFloor = attacker.Floor;
-			foreach(var floor in _map.GetFloorsByDistance(startFloor, attack.RangeMin, attack.RangeMax))
-			{
-				if(floor.Unit == null || floor.Unit.Belonging == attacker.Belonging) continue;
+			_bac.SetAttackableHighlight(GetAttackable(unit, attack));
+		}
 
-				// 取り出したマスにユニットが存在し, そのユニットが敵軍である場合
-				hasTarget = true;
-				floor.SetAttackableHighlight();
-			}
-			return hasTarget;
+		/// <summary>
+		/// 攻撃に設定された相対座標にユニットの現在の座標を加算して返すメソッド.
+		/// </summary>
+		/// <param name="unit"></param>
+		/// <param name="attack"></param>
+		/// <param name="attackDir"></param>
+		/// <returns></returns>
+		private List<Vector2Int> GetAttackable(Unit unit, Attack attack)
+		{
+			return attack.Range.Select(p => p + unit.Coordinate).ToList();
 		}
 
 		/// <summary>
@@ -131,31 +144,26 @@ namespace AC
 			int sinRot = (attackDir % 2 == 0) ? 0 : (2 - attackDir);
 			int cosRot = (attackDir % 2 == 1) ? 0 : (1 - attackDir);
 
-			// attacker's place
-			int cx = unit.X;
-			int cy = unit.Y;
-
 			//wikipedia,回転行列を参照
 			var attackables = attack.Range.Select(p => new Vector2Int(
-				p.x * cosRot - p.y * sinRot + cx,
-				p.x * sinRot + p.y * cosRot + cy
-				)).ToList();
+				p.x * cosRot - p.y * sinRot,
+				p.x * sinRot + p.y * cosRot
+				) + unit.Coordinate).ToList();
 			return attackables;
 		}
 
 		/// <summary>
-		/// 特定の位置にあるマスに攻撃可能ハイライトを点ける
+		/// 攻撃可能ハイライトを初期設定する
 		/// </summary>
-		private void SetAttackableHighlight(List<Vector2Int> attackables)
+		public int InitializeAttackableHighlight(Unit attacker, RangeAttack attack)
 		{
-			// この関数を呼び出すとき、"必ず"ハイライトを1度全て解除するはず。
-			_map.ClearHighlight();
+			// 初期方角 : 陣営によって初期方角を変えるならここを変える
+			int startAttackDir = 0;
 
-			foreach(var attackable in attackables)
-			{
-				var floor = _map.GetFloor(attackable.x, attackable.y);
-				if(floor != null) floor.SetAttackableHighlight();
-			}
+			// 攻撃可能範囲をハイライト
+			_bac.SetAttackableHighlight(GetAttackable(attacker, attack, startAttackDir));
+
+			return startAttackDir;
 		}
 
 		/// <summary>
@@ -172,27 +180,10 @@ namespace AC
 			// 回転させる
 			int nowDir = (befDir + (isClockwise ? 3 : 1)) % 4;
 
-			// 攻撃範囲を計算する
-			var attackables = GetAttackable(attacker, attack, nowDir);
-
-			SetAttackableHighlight(attackables);
+			// 攻撃範囲を計算し, ハイライト
+			_bac.SetAttackableHighlight(GetAttackable(attacker, attack, nowDir));
 
 			return nowDir;
-		}
-
-		/// <summary>
-		/// 攻撃可能ハイライトを初期設定する
-		/// </summary>
-		public int InitializeAttackableHighlight(Unit attacker, RangeAttack attack)
-		{
-			// 初期方角 : 陣営によって初期方角を変えるならここを変える
-			int startAttackDir = 0;
-
-			var attackables = GetAttackable(attacker, attack, startAttackDir);
-
-			SetAttackableHighlight(attackables);
-
-			return startAttackDir;
 		}
 
 		/// <summary>
@@ -219,7 +210,6 @@ namespace AC
 			return unitExist;
 		}
 	}
-
 }
 
 
@@ -236,7 +226,7 @@ public class AttackController
 	}
 
 	/// <summary>
-	/// ハイライトを行う
+	/// ハイライトを行う (単体攻撃ならば0, 範囲攻撃ならハイライトした方向を0 ~ 3で返す)
 	/// </summary>
 	/// <param name="map">便利な関数を色々呼び出すために使います</param>
 	/// <param name="attacker">攻撃主体</param>
@@ -250,8 +240,8 @@ public class AttackController
 
 		if(attack.Scale == global::Attack.AttackScale.Single)
 		{
-			bool canAttack = _sac.SetAttackableHighlight(attacker, (SingleAttack)attack);
-			return (canAttack ? 1 : 0);
+			_sac.SetAttackableHighlight(attacker, (SingleAttack)attack);
+			return 0;
 		}
 		else if(attack.Scale == global::Attack.AttackScale.Range)
 		{

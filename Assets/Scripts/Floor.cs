@@ -156,7 +156,7 @@ public class Floor : MonoBehaviour
 		IsAttackable = true;
 
 		// 攻撃対象を選択可能にする. (ユニットのステータスを表示する機能もあるため, いちいち選択可能/不可にする必要がない)
-		Unit.GetComponent<Button>().interactable = true;
+		if(Unit) Unit.GetComponent<Button>().interactable = true;
 	}
 
 	/// <summary>
