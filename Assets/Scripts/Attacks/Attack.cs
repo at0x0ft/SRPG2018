@@ -57,4 +57,9 @@ public abstract class Attack : MonoBehaviour
 	{
 		get { return _range; }
 	}
+
+	/// <summary>
+	/// 初期化メソッド (抽象メソッド:実体は継承して使う.)
+	/// </summary>
+	public abstract void Initialize();
 }

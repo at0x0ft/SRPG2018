@@ -5,11 +5,6 @@ using UnityEngine.UI;
 
 public class SingleAttack : Attack
 {
-	void Start()
-	{
-		Scale = AttackScale.Single;
-	}
-
 	// 攻撃先の最小距離
 	[SerializeField]
 	private int _rangeMin;
@@ -24,5 +19,13 @@ public class SingleAttack : Attack
 	public int RangeMax
 	{
 		get { return _rangeMax; }
+	}
+
+	/// <summary>
+	/// 初期化メソッド
+	/// </summary>
+	public override void Initialize()
+	{
+		Scale = AttackScale.Single;
 	}
 }

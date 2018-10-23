@@ -55,16 +55,14 @@ namespace AC
 		// ==========変数==========
 
 		private Map _map;
-		private Units _units;
 		private BaseAttackController _bac;
 
 
 		// ==========関数==========
 
-		public SingleAttackController(Map map, Units units, BaseAttackController bac)
+		public SingleAttackController(Map map, BaseAttackController bac)
 		{
 			_map = map;
-			_units = units;
 			_bac = bac;
 		}
 
@@ -92,20 +90,17 @@ namespace AC
 		/// </summary>
 		/// <param name="target">攻撃先(マス座標)</param>
 		/// <returns>ユニットがあるかどうか</returns>
-		public bool Attack(Unit attacker, Vector2Int target, Attack attack)
+		public bool Attack(Unit attacker, Unit targetUnit, Attack attack)
 		{
-			var defender = _units.GetUnit(target.x, target.y);
+			if(targetUnit == null) return false;
 
-			if(defender == null) return false;
-
-			_bac.AttackToUnit(attacker, defender, attack);
+			_bac.AttackToUnit(attacker, targetUnit, attack);
 
 			_bac.FinishAttack();
 
 			return true;
 		}
 	}
-
 
 	public class RangeAttackController
 	{
@@ -230,29 +225,14 @@ namespace AC
 
 public class AttackController
 {
-	private Map _map;
-	private Units _units;
-	private DamageCalculator _dc;
-
-	private AC.BaseAttackController _bac;
 	private AC.SingleAttackController _sac;
 	private AC.RangeAttackController _rac;
 
 	public AttackController(Map map, Units units, DamageCalculator dc)
 	{
-		_map = map;
-		_units = units;
-		_dc = dc;
-
-		_bac = new AC.BaseAttackController(_dc, _map, _units);
-		_sac = new AC.SingleAttackController(_map, _units, _bac);
-		_rac = new AC.RangeAttackController(_map, _units, _bac);
-	}
-
-	// バグ対策の、強制的な変更（隠蔽のため、このgetterは削除すること）
-	public AC.BaseAttackController BAC
-	{
-		get { return _bac; }
+		var bac = new AC.BaseAttackController(dc, map, units);
+		_sac = new AC.SingleAttackController(map, bac);
+		_rac = new AC.RangeAttackController(map, units, bac);
 	}
 
 	/// <summary>
@@ -266,6 +246,8 @@ public class AttackController
 	/// <returns>単独攻撃:攻撃が出来るか否か, 範囲攻撃:攻撃する方角はどこか(東を0とした、反時計回り90°単位)</returns>
 	public int Highlight(Unit attacker, Attack attack, int befDir = -1, bool isClockwise = false)
 	{
+		Debug.Log("Attack scale ? " + attack.Scale);	// 4debug
+
 		if(attack.Scale == global::Attack.AttackScale.Single)
 		{
 			bool canAttack = _sac.SetAttackableHighlight(attacker, (SingleAttack)attack);
@@ -298,11 +280,11 @@ public class AttackController
 	/// <param name="attack">攻撃内容</param>
 	/// <param name="units">便利関数を呼ぶため必要</param>
 	/// <returns>攻撃先に、そもそも敵が居たかどうか</returns>
-	public bool Attack(Unit attacker, Vector2Int target, Attack attack)
+	public bool Attack(Unit attacker, Unit targetUnit, Attack attack)
 	{
 		if(attack.Scale == global::Attack.AttackScale.Single)
 		{
-			return _sac.Attack(attacker, target, attack);
+			return _sac.Attack(attacker, targetUnit, attack);
 		}
 		else if(attack.Scale == global::Attack.AttackScale.Range)
 		{

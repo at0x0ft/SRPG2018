@@ -23,7 +23,7 @@ public class BoardController : MonoBehaviour
 	[SerializeField]
 	private MoveController _moveController;
 	[SerializeField]
-	private AttackController _attackController;
+	private DamageCalculator _damageCalculator;
 	[SerializeField]
 	private AI _ai;
 	[SerializeField]
@@ -40,15 +40,17 @@ public class BoardController : MonoBehaviour
 
 	void Start()
 	{
-		// コスト計算機とダメージ計算機を取得し, 移動と攻撃を担うクラスを作成
+		// 盤面とユニット, AttackControllerを作成
+		var ac = new AttackController(_map, _units, _damageCalculator);
 		_map.Initilize(_moveController, _units);
-		_units.Initilize(_map, _moveController, _attackController);
+		_units.Initilize(_map, _moveController, ac);
+
 
 		// endCommandボタンが押下されたらmapインスタンスメソッドの持つNextSet()を実行
 		_ui.EndCommandButton.onClick.AddListener(() => { NextSet(); });
 
 		// AI設定
-		if(_setAI) SetAI(Unit.Team.Enemy);
+		if(_setAI) SetAI(Unit.Team.Enemy, ac);
 
 		// ターン/セットをそれぞれ設定 (わざと0/2スタートとしている)
 		Turn = 0;
@@ -65,10 +67,10 @@ public class BoardController : MonoBehaviour
 	/// AIを設定する
 	/// </summary>
 	/// <param name="team"></param>
-	public void SetAI(Unit.Team team)
+	public void SetAI(Unit.Team team, AttackController ac)
 	{
 		// AIインスタンスを初期化
-		_ai.Initialize(this, _map, _units, _moveController, _attackController);
+		_ai.Initialize(this, _map, _units, _moveController, ac);
 		// AIと相手プレイヤーを対応付ける
 		_ais[team] = _ai;
 	}

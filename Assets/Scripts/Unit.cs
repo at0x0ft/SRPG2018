@@ -121,18 +121,6 @@ public class Unit : MonoBehaviour
 	/// </summary>
 	public Floor Floor { get { return _map.GetFloor(CoordinatePair.Key.x, CoordinatePair.Key.y); } }
 
-	void Start()
-	{
-		// ユニット自身がButtonとしての役割も持っており, 押下された時にOnClickメソッドの内容を実行する.
-		GetComponent<Button>().onClick.AddListener(OnClick);
-
-		// 初期配置マスにUnitを設定する
-		//CoordinatePair = _initialFloor.CoordinatePair;
-		StartCoroutine(SetInitialPosition());
-
-		Life = MaxLife;
-	}
-
 	/// <summary>
 	/// 初期配置マスにUnitを設定します。
 	/// </summary>
@@ -145,7 +133,7 @@ public class Unit : MonoBehaviour
 			var pair = _initialFloor.CoordinatePair;
 			if(pair.Key.x == 0 && pair.Key.y == 0 && pair.Value.x == 0 && pair.Value.y == 0 && pair.Value.z == 0)
 			{
-				Debug.Log("stay");
+				Debug.Log("stay");	// 4debug
 				yield return new WaitForSeconds(0.1f);
 			}
 			else
@@ -165,7 +153,28 @@ public class Unit : MonoBehaviour
 		_units = units;
 		_ac = ac;
 
+		// ユニット自身がButtonとしての役割も持っており, 押下された時にOnClickメソッドの内容を実行する.
+		GetComponent<Button>().onClick.AddListener(OnClick);
+
+		// 初期配置マスにUnitを設定する
+		// CoordinatePair = _initialFloor.CoordinatePair;
+		StartCoroutine(SetInitialPosition());
+
+		// 体力の初期化
+		Life = MaxLife;
+
+		// 移動量の初期化
 		MaxMoveAmount = mc.GetUnitMaxMoveAmount(this);
+
+
+		Debug.Log("Attacks Length = " + Attacks.Count);	// 4debug
+		// 技の初期化
+		foreach(var attack in Attacks)
+		{
+			Debug.Log("attack = " + attack.transform.name); // 4debug
+
+			attack.Initialize();
+		}
 	}
 
 	/// <summary>
@@ -203,6 +212,7 @@ public class Unit : MonoBehaviour
 			// 攻撃可能なマスをハイライト (攻撃は後で選択するはずだから, 要らない)
 			// atode kaeru
 			Debug.Log("Attacks[0] = " + Attacks[0].transform.name);	//4debug
+			Debug.Log("this == null ? " + this == null); //4debug
 			_ac.Highlight(this, Attacks[0]);
 		}
 		else
