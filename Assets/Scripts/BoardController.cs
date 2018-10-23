@@ -54,6 +54,8 @@ public class BoardController : MonoBehaviour
 
 	private void Start()
 	{
+		CheckSerializedMember();	// 4debug
+
 		// 盤面とユニット, AttackControllerを作成
 		var ac = new AttackController(_map, _units, _damageCalculator);
 		_map.Initilize(_moveController, _units);

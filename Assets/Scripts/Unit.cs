@@ -173,7 +173,7 @@ public class Unit : MonoBehaviour
 		_units = units;
 		_ac = ac;
 
-		CheckSerializedMember();
+		CheckSerializedMember();	//4debug
 
 		// ユニット自身がButtonとしての役割も持っており, 押下された時にOnClickメソッドの内容を実行する.
 		GetComponent<Button>().onClick.AddListener(OnClick);
