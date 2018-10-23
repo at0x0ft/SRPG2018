@@ -5,7 +5,6 @@ public class DamageCalculator : MonoBehaviour
 {
 	// ==========定数==========
 
-
 	[SerializeField]
 	private float _strongRate = 1.2f;
 	[SerializeField]

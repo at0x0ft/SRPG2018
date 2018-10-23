@@ -10,16 +10,18 @@ namespace AC
 	{
 		// ==========変数==========
 
-		
 		private DamageCalculator _dc;
+		private Map _map;
+		private Units _units;
 
 
 		// ==========関数==========
 
-
-		public BaseAttackController(DamageCalculator dc)
+		public BaseAttackController(DamageCalculator dc, Map map, Units units)
 		{
 			_dc = dc;
+			_map = map;
+			_units = units;
 		}
 
 		/// <summary>
@@ -39,13 +41,18 @@ namespace AC
 			// ダメージを適用する
 			defender.Damage(damage);
 		}
+
+		public void FinishAttack()
+		{
+			_map.ClearHighlight();
+			_units.FocusingUnit.IsMoved = true;
+		}
 	}
 
 
 	public class SingleAttackController
 	{
 		// ==========変数==========
-		
 
 		private Map _map;
 		private Units _units;
@@ -54,8 +61,7 @@ namespace AC
 
 		// ==========関数==========
 
-
-		public SingleAttackController(Map map,Units units,BaseAttackController bac)
+		public SingleAttackController(Map map, Units units, BaseAttackController bac)
 		{
 			_map = map;
 			_units = units;
@@ -70,9 +76,9 @@ namespace AC
 		{
 			var hasTarget = false;
 			Floor startFloor = attacker.Floor;
-			foreach (var floor in _map.GetFloorsByDistance(startFloor, attack.RangeMin, attack.RangeMax))
+			foreach(var floor in _map.GetFloorsByDistance(startFloor, attack.RangeMin, attack.RangeMax))
 			{
-				if (floor.Unit == null || floor.Unit.Belonging == attacker.Belonging) continue;
+				if(floor.Unit == null || floor.Unit.Belonging == attacker.Belonging) continue;
 
 				// 取り出したマスにユニットが存在し, そのユニットが敵軍である場合
 				hasTarget = true;
@@ -90,13 +96,11 @@ namespace AC
 		{
 			var defender = _units.GetUnit(target.x, target.y);
 
-			if (defender == null) return false;
+			if(defender == null) return false;
 
 			_bac.AttackToUnit(attacker, defender, attack);
 
-			_map.ClearHighlight();
-
-			_units.FocusingUnit.IsMoved = true;
+			_bac.FinishAttack();
 
 			return true;
 		}
@@ -106,7 +110,7 @@ namespace AC
 	public class RangeAttackController
 	{
 		// ==========変数==========
-		
+
 
 		private Map _map;
 		private Units _units;
@@ -116,7 +120,7 @@ namespace AC
 		// ==========関数==========
 
 
-		public RangeAttackController(Map map,Units units, BaseAttackController bac)
+		public RangeAttackController(Map map, Units units, BaseAttackController bac)
 		{
 			_map = map;
 			_units = units;
@@ -128,7 +132,7 @@ namespace AC
 		/// </summary>
 		private List<Vector2Int> GetAttackable(Unit unit, Attack attack, int attackDir)
 		{
-			// sinRot = sin(attackDir * PI/2)  (cosRotも同様) 
+			// sinRot = sin(attackDir * PI/2)  (cosRotも同様)
 			int sinRot = (attackDir % 2 == 0) ? 0 : (2 - attackDir);
 			int cosRot = (attackDir % 2 == 1) ? 0 : (1 - attackDir);
 
@@ -152,10 +156,10 @@ namespace AC
 			// この関数を呼び出すとき、"必ず"ハイライトを1度全て解除するはず。
 			_map.ClearHighlight();
 
-			foreach (var attackable in attackables)
+			foreach(var attackable in attackables)
 			{
 				var floor = _map.GetFloor(attackable.x, attackable.y);
-				if (floor != null) floor.SetAttackableHighlight();
+				if(floor != null) floor.SetAttackableHighlight();
 			}
 		}
 
@@ -168,7 +172,7 @@ namespace AC
 		public int UpdateAttackableHighlight(Unit attacker, RangeAttack attack, int befDir, bool isClockwise)
 		{
 			// 回転できない場合は、その場で終了
-			if (!attack.IsRotatable) return befDir;
+			if(!attack.IsRotatable) return befDir;
 
 			// 回転させる
 			int nowDir = (befDir + (isClockwise ? 3 : 1)) % 4;
@@ -207,17 +211,16 @@ namespace AC
 			var attackRanges = _map.GetAttackableFloors();
 
 			// 攻撃した範囲全てに対して、
-			foreach (var attackRange in attackRanges)
+			foreach(var attackRange in attackRanges)
 			{
 				// 敵Unitの存在判定を行い、
 				var defender = _units.GetUnit(attackRange.X, attackRange.Y);
-				if (defender == null) continue;
+				if(defender == null) continue;
 				unitExist = true;
 				_bac.AttackToUnit(attacker, defender, attack);
 			}
 
-			_map.ClearHighlight();
-			_units.FocusingUnit.IsMoved = true;
+			_bac.FinishAttack();
 			return unitExist;
 		}
 	}
@@ -226,7 +229,7 @@ namespace AC
 
 
 public class AttackController
-{ 
+{
 	private Map _map;
 	private Units _units;
 	private DamageCalculator _dc;
@@ -235,21 +238,21 @@ public class AttackController
 	private AC.SingleAttackController _sac;
 	private AC.RangeAttackController _rac;
 
-	public AttackController(Map map,Units units,DamageCalculator dc)
+	public AttackController(Map map, Units units, DamageCalculator dc)
 	{
 		_map = map;
 		_units = units;
 		_dc = dc;
 
-		_bac = new AC.BaseAttackController(_dc);
+		_bac = new AC.BaseAttackController(_dc, _map, _units);
 		_sac = new AC.SingleAttackController(_map, _units, _bac);
 		_rac = new AC.RangeAttackController(_map, _units, _bac);
 	}
-	
+
 	// バグ対策の、強制的な変更（隠蔽のため、このgetterは削除すること）
 	public AC.BaseAttackController BAC
 	{
-		get{ return _bac; }
+		get { return _bac; }
 	}
 
 	/// <summary>
@@ -263,14 +266,14 @@ public class AttackController
 	/// <returns>単独攻撃:攻撃が出来るか否か, 範囲攻撃:攻撃する方角はどこか(東を0とした、反時計回り90°単位)</returns>
 	public int Highlight(Unit attacker, Attack attack, int befDir = -1, bool isClockwise = false)
 	{
-		if (attack.Scale==global::Attack.AttackScale.Single)
+		if(attack.Scale == global::Attack.AttackScale.Single)
 		{
 			bool canAttack = _sac.SetAttackableHighlight(attacker, (SingleAttack)attack);
 			return (canAttack ? 1 : 0);
 		}
-		else if (attack.Scale==global::Attack.AttackScale.Range)
+		else if(attack.Scale == global::Attack.AttackScale.Range)
 		{
-			if (befDir == -1)
+			if(befDir == -1)
 			{
 				return _rac.InitializeAttackableHighlight(attacker, (RangeAttack)attack);
 			}
@@ -297,11 +300,11 @@ public class AttackController
 	/// <returns>攻撃先に、そもそも敵が居たかどうか</returns>
 	public bool Attack(Unit attacker, Vector2Int target, Attack attack)
 	{
-		if (attack.Scale == global::Attack.AttackScale.Single)
+		if(attack.Scale == global::Attack.AttackScale.Single)
 		{
 			return _sac.Attack(attacker, target, attack);
 		}
-		else if (attack.Scale == global::Attack.AttackScale.Range)
+		else if(attack.Scale == global::Attack.AttackScale.Range)
 		{
 			return _rac.Attack(attacker, attack);
 		}

@@ -11,7 +11,7 @@ public abstract class Attack : MonoBehaviour
 		Single, // 単体攻撃
 		Range   // 範囲攻撃
 	}
-	
+
 	public AttackScale Scale { get; protected set; }
 
 	// 攻撃の種類
@@ -57,47 +57,4 @@ public abstract class Attack : MonoBehaviour
 	{
 		get { return _range; }
 	}
-}
-
-
-public class SingleAttack : Attack
-{
-	void Start()
-	{
-		Scale = AttackScale.Single;
-	}
-
-	// 攻撃先の最小距離
-	[SerializeField]
-	private int _rangeMin;
-	public int RangeMin
-	{
-		get { return _rangeMin; }
-	}
-
-	// 攻撃先の最大距離
-	[SerializeField]
-	private int _rangeMax;
-	public int RangeMax
-	{
-		get { return _rangeMax; }
-	}
-}
-
-
-public class RangeAttack : Attack
-{
-	void Start()
-	{
-		Scale = AttackScale.Range;
-	}
-
-	// 攻撃範囲を回転させられるかどうか
-	[SerializeField]
-	private bool _isRotatable;
-	public bool IsRotatable
-	{
-		get { return _isRotatable; }
-	}
-
 }
