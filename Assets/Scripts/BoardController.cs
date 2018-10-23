@@ -55,6 +55,7 @@ public class BoardController : MonoBehaviour
 	private void Start()
 	{
 		CheckSerializedMember();	// 4debug
+		_ui.Initialize();
 
 		// ユニット詳細情報サブウィンドウを一度閉じる
 		_ui.UnitInfoWindow.Hide();
