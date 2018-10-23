@@ -30,6 +30,13 @@ public class DamageCalculator : MonoBehaviour
 	[SerializeField]
 	private int _rockAvoidRate = 0;
 
+	[SerializeField]
+	private float _goodAtRate = 1.1f;
+	[SerializeField]
+	private float _notSoGoodOrBadAtRate = 1f;
+	[SerializeField]
+	private float _badAtRate = 0.9f;
+
 
 	// ==========関数==========
 
@@ -109,6 +116,19 @@ public class DamageCalculator : MonoBehaviour
 	}
 
 	/// <summary>
+	/// 得意補正の場合の倍率を計算して返すメソッド.
+	/// </summary>
+	/// <returns></returns>
+	public float GetGoodAtRate(Type attackType, Type ownType)
+	{
+		return attackType == ownType
+			? _goodAtRate
+			: attackType.IsStrongAgainst(ownType) || attackType.IsSlightlyStrongAgainst(ownType)
+			? _badAtRate
+			: _notSoGoodOrBadAtRate;
+	}
+
+	/// <summary>
 	/// ダメージを計算
 	/// </summary>
 	public int Calculate(Unit attacker, Attack attack, Unit defender, Floor defenderFloor)
@@ -118,7 +138,7 @@ public class DamageCalculator : MonoBehaviour
 
 		// ダメージ = { (攻撃力 * attackの威力 * 相性補正 * 得意補正) / (防御力 * 地形効果防御補正) } * 乱数 * クリティカル補正
 		return Mathf.RoundToInt(
-			(attacker.AttackPower * attack.Power * GetTypeAdvantageRate(attack.Type, defender.Type))
+			(attacker.AttackPower * attack.Power * GetTypeAdvantageRate(attack.Type, defender.Type) * GetGoodAtRate(attack.Type, attacker.Type))
 			/ (defender.Defence * (1f + GetReduceRate(defenderFloor)))
 			* Random.Range(0.85f, 1f)
 			);
