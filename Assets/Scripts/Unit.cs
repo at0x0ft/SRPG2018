@@ -61,6 +61,7 @@ public class Unit : MonoBehaviour
 	public int MaxMoveAmount { get; private set; }
 	public int MoveAmount { get; set; }
 	public AttackStates AttackState{ get; set; }
+	public KeyValuePair<Attack, int>? ChargingAttack { get; private set; }
 
 	/// <summary>
 	/// ローカル座標を表す. (transformの座標ではない)
@@ -181,6 +182,8 @@ public class Unit : MonoBehaviour
 		// 移動量の初期化
 		MaxMoveAmount = mc.GetUnitMaxMoveAmount(this);
 
+		// 強攻撃溜め途中情報の初期化
+		ChargingAttack = null;
 
 		// 技の初期化
 		foreach(var attack in Attacks)
@@ -246,11 +249,44 @@ public class Unit : MonoBehaviour
 	}
 
 	/// <summary>
+	/// 強攻撃を選択したときに、その設定を一時的に保持する
+	/// </summary>
+	/// <param name="attack">選択された,強攻撃</param>
+	/// <param name="attackDir">攻撃予定の方角</param>
+	/// <returns>引数が正しいかどうか(正しい:attack が,強攻撃)</returns>
+	public bool StrongAttackPrepare(Attack attack, int attackDir)
+	{
+		// TODO:attackが、強攻撃であることを確認する
+
+		ChargingAttack = new KeyValuePair<Attack, int>(attack, attackDir);
+		AttackState = AttackStates.Charging;
+
+		return true;
+	}
+
+	/// <summary>
+	/// 攻撃を受けたときに、強攻撃溜め状態を解除させる
+	/// </summary>
+	private void StrongAttackFailure()
+	{
+		// 関数の動作は、強攻撃溜めのときを対象とする。
+		if(AttackState != AttackStates.Charging) return;
+
+		// 移動しかできない状態にする
+		AttackState = AttackStates.Movable;
+
+		// 不要な情報になったため、削除もしておく
+		ChargingAttack = null;
+	}
+
+	/// <summary>
 	/// ダメージを与える
 	/// </summary>
 	public void Damage(int damage)
 	{
 		Life = Mathf.Max(0, Life - damage);
+
+		StrongAttackFailure();
 
 		// 体力が0以下になったらユニットを消滅させる
 		if(Life <= 0) DestroyWithAnimate();
