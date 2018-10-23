@@ -37,6 +37,13 @@ public class UI : MonoBehaviour
 	}
 
 	[SerializeField]
+	private MoveAmountInfoWindow _moveAmountInfoWindow;
+	public MoveAmountInfoWindow MoveAmountInfoWindow
+	{
+		get { return _moveAmountInfoWindow; }
+	}
+
+	[SerializeField]
 	private AttackInfoWindow _attackInfoWindow;
 	public AttackInfoWindow AttackInfoWindow
 	{
@@ -57,6 +64,9 @@ public class UI : MonoBehaviour
 
 		if(!_unitInfoWindow) Debug.LogError("[Error] : UnitInfoWindow is not set!");
 		_unitInfoWindow.CheckSerializedMember();
+
+		if(!_moveAmountInfoWindow) Debug.LogError("[Error] : MoveAmountInfoWindow is not set!");
+		_moveAmountInfoWindow.CheckSerializedMember();
 
 		if(!_attackInfoWindow) Debug.LogError("[Error] : AttackInfoWindow is not set!");
 		_attackInfoWindow.CheckSerializedMember();
