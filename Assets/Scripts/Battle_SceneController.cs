@@ -46,7 +46,7 @@ public class Battle_SceneController : MonoBehaviour
 
 		// 防衛側がダメージを受ける
 		// atode kaeru
-		defender.Damage(attacker, attacker.Attacks[0]);
+		//defender.Damage(attacker, attacker.Attacks[0]);
 		RefreshImages(defenderImages, defender, true);
 
 		yield return new WaitForSeconds(1f);
