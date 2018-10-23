@@ -122,7 +122,7 @@ public class Map : MonoBehaviour
 			if(Floor.IsAttackable)
 			{
 				// 攻撃対象のユニットを選択不可に戻す.
-				Floor.Unit.GetComponent<Button>().interactable = false;
+				if(Floor.Unit) Floor.Unit.GetComponent<Button>().interactable = false;
 			}
 			Floor.IsMovable = false;
 		}
