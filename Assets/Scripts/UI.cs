@@ -33,18 +33,11 @@ public class UI : MonoBehaviour
 	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
 	/// </summary>
 	/// <returns></returns>
-	private void CheckSerializedMember()
+	public void CheckSerializedMember()
 	{
 		if(!_endCommandButton) Debug.LogError("[Error] : EndCommandButton is not set!");
 		if(!_touchBlocker) Debug.LogError("[Error] : Touch Blocker is not set!");
 		if(!_unitInfoWindow) Debug.LogError("[Error] : UnitInfoWindow is not set!");
-	}
-
-	/// <summary>
-	/// 初期化メソッド
-	/// </summary>
-	public void Initialize()
-	{
-		CheckSerializedMember();	// 4debug
+		_unitInfoWindow.CheckSerializedMember();
 	}
 }

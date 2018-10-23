@@ -21,6 +21,20 @@ public class UnitInfoWindow : SubWindow
 	[SerializeField]
 	private Text _defenceTextBox;
 
+	/// <summary>
+	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
+	/// </summary>
+	/// <returns></returns>
+	public void CheckSerializedMember()
+	{
+		if(!_nameTextBox) Debug.LogError("[Error] : Name TextBox is not set!");
+		if(!_hpTextBox) Debug.LogError("[Error] : HP TextBox is not set!");
+		if(!_positionTextBox) Debug.LogError("[Error] : Position TextBox is not set!");
+		if(!_typeTextBox) Debug.LogError("[Error] : Type TextBox is not set!");
+		if(!_attackPowerTextBox) Debug.LogError("[Error] : AttackPower TextBox is not set!");
+		if(!_defenceTextBox) Debug.LogError("[Error] : Defence TextBox is not set!");
+	}
+
 	public void Show(Unit unit)
 	{
 		Hide();
