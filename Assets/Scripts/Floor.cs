@@ -105,7 +105,16 @@ public class Floor : MonoBehaviour
 		CoordinatePair = new KeyValuePair<Vector2Int, Vector3>(new Vector2Int(localX, localY), transformCoordinate);
 	}
 
-	void Start()
+	/// <summary>
+	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
+	/// </summary>
+	/// <returns></returns>
+	public void CheckSerializedMember()
+	{
+		if(!_highlight) Debug.LogError("[Error] : HighLight is not set!");
+	}
+
+	private void Start()
 	{
 		// マス自身がボタンの役割を果たしており, これをクリックした時にOnClickメソッドを実行するように設定する.
 		GetComponent<Button>().onClick.AddListener(OnClick);

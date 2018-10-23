@@ -10,6 +10,18 @@ public class Units : MonoBehaviour
 	public Unit.Team CurrentPlayerTeam { get; set; }
 
 	/// <summary>
+	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
+	/// </summary>
+	/// <returns></returns>
+	public void CheckSerializedMember()
+	{
+		foreach(var unit in transform.GetComponentsInChildren<Unit>())
+		{
+			unit.CheckSerializedMember();
+		}
+	}
+
+	/// <summary>
 	/// 初期化メソッド
 	/// </summary>
 	/// <param name="map"></param>
