@@ -173,14 +173,14 @@ public class Unit : MonoBehaviour
 	/// </summary>
 	public void OnClick()
 	{
-		Debug.Log(transform.name + " clicked.");    // 4debug
+		Debug.Log(transform.name + " clicked.");	// 4debug
 
 		// 攻撃対象の選択中であれば
 		if(Floor.IsAttackable)
 		{
 			// 攻撃
 			// バグ対策の強制的変更（コマンド選択結果のAttackも必要なため、これではAttackの条件を満たしていない）
-			// _ac.AttackTo(_map, _units.FocusingUnit, this, _units);
+			//_ac.AttackTo(_map, _units.FocusingUnit, this, _units);
 			return;
 		}
 
@@ -196,13 +196,14 @@ public class Unit : MonoBehaviour
 		if(IsFocusing)
 		{
 			// 移動可能なマスをハイライト
-			_map.HighlightMovableFloors(Floor, MoveAmount);
+			// _map.HighlightMovableFloors(Floor, MoveAmount);
 
 			Debug.Log("HighLight completed.");  // 4debug
 
 			// 攻撃可能なマスをハイライト (攻撃は後で選択するはずだから, 要らない)
 			// atode kaeru
-			// _map.HighlightAttackableFloors(Floor, Attacks[0]);
+			Debug.Log("Attacks[0] = " + Attacks[0].transform.name);	//4debug
+			_ac.Highlight(this, Attacks[0]);
 		}
 		else
 		{
@@ -230,7 +231,7 @@ public class Unit : MonoBehaviour
 		Life = Mathf.Max(0, Life - damage);
 
 		// 体力が0以下になったらユニットを消滅させる
-		if (Life <= 0) DestroyWithAnimate();
+		if(Life <= 0) DestroyWithAnimate();
 	}
 
 	public void DestroyWithAnimate()

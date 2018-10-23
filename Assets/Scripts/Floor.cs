@@ -68,7 +68,7 @@ public class Floor : MonoBehaviour
 		{
 			_highlight.color = _movableColor;
 			_highlight.gameObject.SetActive(value);
-			Debug.Log(transform.name + " highLighted.");    // 4debug
+			Debug.Log(transform.name + " highLighted.");	// 4debug
 		}
 		get { return _highlight.gameObject.activeSelf && _highlight.color == _movableColor; }
 	}
