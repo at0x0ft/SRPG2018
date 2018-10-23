@@ -157,6 +157,21 @@ public class Unit : MonoBehaviour
 	public Floor Floor { get { return _map.GetFloor(CoordinatePair.Key.x, CoordinatePair.Key.y); } }
 
 	/// <summary>
+	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
+	/// </summary>
+	/// <returns></returns>
+	private void CheckSerializedMember()
+	{
+		if(MaxLife < 0) Debug.LogWarning("[Warning] : MaxLife is 0 or negative value!");
+		if(!_type) Debug.LogError("[Error] : Type is not set!");
+		if(!_initialFloor) Debug.LogError("[Error] : InitialFloor is not set!");
+		foreach(var attack in Attacks)
+		{
+			if(!attack) Debug.LogError("[Error] : Attack is not fully set!");
+		}
+	}
+
+	/// <summary>
 	/// 初期配置マスにUnitを設定. (デッドロック回避のため遅延処理)
 	/// </summary>
 	IEnumerator SetInitialPosition()
@@ -187,6 +202,8 @@ public class Unit : MonoBehaviour
 		_map = map;
 		_units = units;
 		_ac = ac;
+
+		CheckSerializedMember();	//4debug
 
 		// ユニット自身がButtonとしての役割も持っており, 押下された時にOnClickメソッドの内容を実行する.
 		GetComponent<Button>().onClick.AddListener(OnClick);
