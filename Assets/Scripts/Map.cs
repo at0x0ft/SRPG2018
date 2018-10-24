@@ -37,6 +37,7 @@ public class Map : MonoBehaviour
 		get { return _attackableColor; }
 	}
 
+	private BoardController _bc;
 	private MoveController _mc;
 
 	/// <summary>
@@ -53,8 +54,9 @@ public class Map : MonoBehaviour
 		}
 	}
 
-	public void Initilize(MoveController mc, Units units)
+	public void Initilize(BoardController bc, MoveController mc, Units units)
 	{
+		_bc = bc;
 		_mc = mc;
 
 		// 戦闘全体の状態を初期化
