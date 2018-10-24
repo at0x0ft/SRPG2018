@@ -181,7 +181,6 @@ public class BoardController : MonoBehaviour
 			Debug.Log("touch blocker invalid.");
 		}
 
-
 		Debug.Log("Player update Finished."); // 4debug
 	}
 
