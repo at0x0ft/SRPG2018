@@ -54,7 +54,7 @@ public class BoardController : MonoBehaviour
 
 		// 盤面とユニット, AttackControllerを作成
 		var ac = new AttackController(_map, _units, _damageCalculator);
-		_map.Initilize(_moveController, _units);
+		_map.Initilize(this, _moveController, _units);
 		_units.Initilize(_map, _moveController, ac);
 
 
@@ -157,9 +157,9 @@ public class BoardController : MonoBehaviour
 			{
 				unit.AttackState = Unit.AttackStates.MiddleAttack;
 			}
-		}	
+		}
 	}
-	
+
 	/// <summary>
 	/// 自軍の先頭のユニットを展開するメソッド.
 	/// </summary>
@@ -190,7 +190,7 @@ public class BoardController : MonoBehaviour
 	{
 		// セットプレイヤーのチームを記録
 		_units.CurrentPlayerTeam = team;
-		
+
 		// 全てのUnitの情報を,更新する
 		foreach(var unit in _units.GetComponentsInChildren<Unit>())
 		{
