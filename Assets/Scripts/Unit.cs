@@ -297,6 +297,23 @@ public class Unit : MonoBehaviour
 		CoordinatePair = new KeyValuePair<Vector2Int, Vector3>(destLocalCoordinate, _map.ConvertLocal2Tranform(destLocalCoordinate));
 	}
 
+	private bool CanSelectTheAttack(Attack attack)
+	{
+		
+		return false;
+	}
+
+	private List<KeyValuePair<Attack, bool>> GetAttackCommandsList()
+	{
+		List<KeyValuePair<Attack, bool>> res = new List<KeyValuePair<Attack, bool>>();
+		foreach(var attack in Attacks)
+		{
+			bool canSelect = CanSelectTheAttack(attack);
+			res.Add(new KeyValuePair<Attack, bool>(attack, canSelect));
+		}
+		return res;
+	}
+
 	/// <summary>
 	/// 強攻撃を選択したときに、その設定を一時的に保持する
 	/// </summary>
