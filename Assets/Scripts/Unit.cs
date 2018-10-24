@@ -297,13 +297,37 @@ public class Unit : MonoBehaviour
 		CoordinatePair = new KeyValuePair<Vector2Int, Vector3>(destLocalCoordinate, _map.ConvertLocal2Tranform(destLocalCoordinate));
 	}
 
+	/// <summary>
+	/// このセットで使える攻撃コマンドか否かを判定します
+	/// </summary>
+	/// <param name="attack">判定対象</param>
+	/// <returns>使えるか否か</returns>
 	private bool CanSelectTheAttack(Attack attack)
 	{
-		
-		return false;
+		var kind = attack.Kind;
+		switch(AttackState)
+		{
+			case AttackStates.LittleAttack:
+				return (kind == Attack.Level.Low || kind == Attack.Level.High);
+
+			case AttackStates.MiddleAttack:
+				return (kind == Attack.Level.Mid);
+
+			case AttackStates.Charging: // <-選択するまでもなく、強制発動にしましょう。
+			case AttackStates.Movable:
+				return false;
+
+			default:
+				Debug.Log(attack.ToString() + " は未規定のAttackStateが設定されてます。");
+				return false;
+		}
 	}
 
-	private List<KeyValuePair<Attack, bool>> GetAttackCommandsList()
+	/// <summary>
+	/// 攻撃コマンドリストを、使用可否情報と共に返します。
+	/// </summary>
+	/// <returns>(攻撃コマンド,使用可否)のリスト</returns>
+	public List<KeyValuePair<Attack, bool>> GetAttackCommandsList()
 	{
 		List<KeyValuePair<Attack, bool>> res = new List<KeyValuePair<Attack, bool>>();
 		foreach(var attack in Attacks)
