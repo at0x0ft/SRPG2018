@@ -101,21 +101,21 @@ public class BoardController : MonoBehaviour
 	/// </summary>
 	private void UpdateSet()
 	{
-			Set++;
+		Set++;
 
-			// 更に, セットが2以上ならば, ターン数も更新し, 移動量も補充.
-			if(Set > 2)
+		// 更に, セットが2以上ならば, ターン数も更新し, 移動量も補充.
+		if(Set > 2)
+		{
+			Turn++;
+			Set = 1;
+
+			// ターン開始時に、移動量を回復させる
+			foreach(var unit in _units.Characters)
 			{
-				Turn++;
-				Set = 1;
-
-				// ターン開始時に、移動量を回復させる
-				foreach(var unit in _units.Characters)
-				{
-					unit.MoveAmount = unit.MaxMoveAmount;
-					Debug.Log("move amount:" + unit.MoveAmount);	// 4debug
-				}
+				unit.MoveAmount = unit.MaxMoveAmount;
+				Debug.Log("move amount:" + unit.MoveAmount);	// 4debug
 			}
+		}
 	}
 
 	/// <summary>
