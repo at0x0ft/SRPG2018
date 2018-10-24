@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -62,6 +63,7 @@ public class Unit : MonoBehaviour
 	public int MoveAmount { get; set; }
 	public AttackStates AttackState{ get; set; }
 	public KeyValuePair<Attack, int>? ChargingAttack { get; private set; }
+	private Dictionary<Map.BattleStates, Action> ClickBehaviors;
 
 	/// <summary>
 	/// ローカル座標を表す. (transformの座標ではない)
@@ -205,6 +207,9 @@ public class Unit : MonoBehaviour
 		{
 			attack.Initialize();
 		}
+
+		// クリックによる動作の初期化
+		SetClickBehavior();
 	}
 
 	/// <summary>
@@ -259,32 +264,28 @@ public class Unit : MonoBehaviour
 	}
 
 	/// <summary>
+	/// ユニットがクリックされた場合の挙動を設定する
+	/// </summary>
+	private void SetClickBehavior()
+	{
+		ClickBehaviors = new Dictionary<Map.BattleStates, Action>();
+		ClickBehaviors[Map.BattleStates.CheckingStatus] = ClickBehaviorOnChecking;
+		ClickBehaviors[Map.BattleStates.Move] = () => { };
+		ClickBehaviors[Map.BattleStates.Attack] = ClickBehaviorOnAttack;
+		ClickBehaviors[Map.BattleStates.Loading] = () => { };
+	}
+
+	/// <summary>
 	/// ユニットが押された時の処理
 	/// </summary>
 	public void OnClick()
 	{
-		Debug.Log(transform.name + " clicked.");	// 4debug
+		Debug.Log(gameObject.name + " is clicked. AttackState is " + AttackState.ToString());
 
-		switch(_map.BattleState)
-		{
-			case Map.BattleStates.CheckingStatus:
-				ClickBehaviorOnChecking();
-				break;
-
-			case Map.BattleStates.Attack:
-				ClickBehaviorOnAttack();
-				break;
-
-			case Map.BattleStates.Move:
-			case Map.BattleStates.Loading:
-				break;
-
-			default:
-				Debug.Log("意図しないBattleStateが検出されました");
-				break;
-		}
+		// SetClickBehaviorで登録した関数を実行
+		ClickBehaviors[_map.BattleState]();
 	}
-
+	
 	/// <summary>
 	/// ユニットを(x, y)に移動
 	/// </summary>
