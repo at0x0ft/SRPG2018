@@ -8,9 +8,18 @@ using UnityEngine.SceneManagement;
 
 public class Map : MonoBehaviour
 {
+	public enum BattleStates
+	{
+		CheckingStatus, // 戦況確認中
+		Move,           // 移動コマンド入力中
+		Attack,         // 攻撃コマンド選択中
+		Loading         // スクリプト処理中
+	}
+
 	// 要整理
 	public int WidthLimit { get; private set; }
 	public int HeightLimit { get; private set; }
+	public BattleStates BattleState { get; set; }
 
 	public List<Floor> Floors { get; private set; }
 
@@ -47,6 +56,9 @@ public class Map : MonoBehaviour
 	public void Initilize(MoveController mc, Units units)
 	{
 		_mc = mc;
+
+		// 戦闘全体の状態を初期化
+		BattleState = BattleStates.CheckingStatus;
 
 		// マス全てをFloorsに登録
 		Floors = new List<Floor>();

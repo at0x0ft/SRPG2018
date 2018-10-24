@@ -6,14 +6,6 @@ using System;
 
 public class BoardController : MonoBehaviour
 {
-	public enum BattleState
-	{
-		CheckingStatus, // 戦況確認中
-		Move,			// 移動コマンド入力中
-		Attack,			// 攻撃コマンド選択中
-		Loading			// スクリプト処理中
-	}
-
 	[SerializeField]
 	private UI _ui;
 	[SerializeField]
@@ -36,7 +28,6 @@ public class BoardController : MonoBehaviour
 
 	public int Turn { get; private set; }
 	public int Set { get; private set; }
-	public BattleState State { get; set; }
 
 	/// <summary>
 	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
@@ -185,7 +176,7 @@ public class BoardController : MonoBehaviour
 		}
 
 		// 盤面の状態を戦況確認中に設定
-		State = BattleState.CheckingStatus;
+		_map.BattleState = Map.BattleStates.CheckingStatus;
 
 		// Unitsクラスに記憶.
 		_units.ActiveUnit = activeUnit;
