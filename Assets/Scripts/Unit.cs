@@ -208,47 +208,80 @@ public class Unit : MonoBehaviour
 	}
 
 	/// <summary>
+	/// 戦況確認中のときに、ユニットをクリックした場合の挙動
+	/// </summary>
+	private void ClickBehaviorOnChecking()
+	{
+		// とりあえず盤面を綺麗にする
+		_map.ClearHighlight();
+
+		// 2連続で、同じユニットをクリックした場合
+		if(_units.FocusingUnit == this)
+		{
+			IsFocusing = false;
+			// UIで作成してもらう以下の関数を呼び出す。
+			// UnitInfoWindow.close();
+
+			// MoveFazeへの移行条件
+			if(_units.ActiveUnit == this)
+			{
+				_map.HighlightMovableFloors(Floor, MoveAmount);
+				_map.BattleState = Map.BattleStates.Move;
+			}
+		}
+		else
+		{
+			// 自分以外のユニットが選択状態であれば、そのユニットの選択を解除
+			if(_units.FocusingUnit != null)
+			{
+				_units.FocusingUnit.IsFocusing = false;
+			}
+
+			// 自身に選択を割り当てる
+			IsFocusing = true;
+			
+			// UIで作成してもらう以下の関数を呼び出す。
+			// UnitInfoWindow.UpdateInfo(this);
+		}
+	}
+
+	/// <summary>
+	/// 攻撃選択中のときに、ユニットをクリックした場合の挙動
+	/// </summary>
+	private void ClickBehaviorOnAttack()
+	{
+		if(!Floor.IsAttackable) return;
+
+		// 攻撃出来る場合は攻撃を開始する
+		// (attack情報をどこかで格納してほしい)
+		// _ac.Attack(_units.ActiveUnit, this, attack);
+		// BoardController.NextUnit(); //<-参照できない
+	}
+
+	/// <summary>
 	/// ユニットが押された時の処理
 	/// </summary>
 	public void OnClick()
 	{
 		Debug.Log(transform.name + " clicked.");	// 4debug
 
-		// 攻撃対象の選択中であれば
-		if(Floor.IsAttackable)
+		switch(_map.BattleState)
 		{
-			// 攻撃
-			// バグ対策の強制的変更（コマンド選択結果のAttackも必要なため、これではAttackの条件を満たしていない）
-			//_ac.AttackTo(_map, _units.FocusingUnit, this, _units);
-			return;
-		}
+			case Map.BattleStates.CheckingStatus:
+				ClickBehaviorOnChecking();
+				break;
 
-		// 自分以外のユニットが選択状態であれば、そのユニットの選択を解除
-		if(null != _units.FocusingUnit && this != _units.FocusingUnit)
-		{
-			_units.FocusingUnit.IsFocusing = false;
-			_map.ClearHighlight();
-		}
+			case Map.BattleStates.Attack:
+				ClickBehaviorOnAttack();
+				break;
 
-		// 選択されていない状態ならば
-		IsFocusing = !IsFocusing;
-		if(IsFocusing)
-		{
-			// 移動可能なマスをハイライト
-			// _map.HighlightMovableFloors(Floor, MoveAmount);
+			case Map.BattleStates.Move:
+			case Map.BattleStates.Loading:
+				break;
 
-			Debug.Log("HighLight completed.");  // 4debug
-
-			// 攻撃可能なマスをハイライト (攻撃は後で選択するはずだから, 要らない)
-			// atode kaeru
-			Debug.Log("Attacks[0] = " + Attacks[0].transform.name);	//4debug
-			Debug.Log("this == null ? " + this == null); //4debug
-			_ac.Highlight(this, Attacks[0]);
-		}
-		else
-		{
-			// 同じユニットを二回選択した場合には選択状態を解除
-			_map.ClearHighlight();
+			default:
+				Debug.Log("意図しないBattleStateが検出されました");
+				break;
 		}
 	}
 
