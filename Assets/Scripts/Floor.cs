@@ -30,6 +30,7 @@ public class Floor : MonoBehaviour
 	private Map _map;
 	private Units _units;
 	private MoveController _mc;
+	private Dictionary<Map.BattleStates, Action> ClickBehaviors;
 
 	/// <summary>
 	/// ローカル座標のX座標 (transformのX座標ではない)
@@ -68,7 +69,7 @@ public class Floor : MonoBehaviour
 		{
 			_highlight.color = _movableColor;
 			_highlight.gameObject.SetActive(value);
-			Debug.Log(transform.name + " highLighted.");	// 4debug
+			// Debug.Log(transform.name + " highLighted.");	// 4debug
 		}
 		get { return _highlight.gameObject.activeSelf && _highlight.color == _movableColor; }
 	}
@@ -121,6 +122,9 @@ public class Floor : MonoBehaviour
 
 		// CoordinatePairの初期化
 		_coordinatePair = new KeyValuePair<Vector2Int, Vector3>(ParseLocalCoordinateFromName(), transform.localPosition);
+
+		// マスをクリックしたときの挙動の初期化
+		SetClickBehavior();
 	}
 
 	/// <summary>
@@ -169,15 +173,70 @@ public class Floor : MonoBehaviour
 	}
 
 	/// <summary>
+	/// 戦況確認中の挙動
+	/// </summary>
+	private void ClickBehaviorOnChecking()
+	{
+		while(_units.FocusingUnit != null) 
+		{
+			_units.FocusingUnit.IsFocusing = false;
+		}
+		// UnitInfoWindow.close();
+	}
+
+	/// <summary>
+	/// 移動先設定中の挙動
+	/// </summary>
+	private void ClickBehaviorOnMoving()
+	{
+		// 移動先が移動可能なら
+		if(!IsMovable) return;
+
+		// 移動する
+		_mc.MoveTo(_map, _units.ActiveUnit, this);
+
+		// 攻撃一覧画面を作成する(UIに任せる)
+		// var attackCommandList = _units.ActiveUnit.GetAttackCommandList();
+		// attackSelectWindow.setup(attackCommandList);
+
+		// 場面を移動する
+		_map.BattleState = Map.BattleStates.Attack;
+	}
+
+	/// <summary>
+	/// 攻撃設定中の挙動
+	/// </summary>
+	private void ClickBehaviorOnAttacking()
+	{
+		if(!IsAttackable) return;
+
+		/*
+		 * if(！選択中攻撃が、範囲攻撃) return;
+		 * _units.ActiveUnit.Attack();
+		 * boardController.NextUnit(); 
+		 * 
+		*/
+	}
+
+	/// <summary>
+	/// マスをクリックした場合の挙動を登録します
+	/// </summary>
+	private void SetClickBehavior()
+	{
+		ClickBehaviors = new Dictionary<Map.BattleStates, Action>();
+		ClickBehaviors[Map.BattleStates.CheckingStatus] = ClickBehaviorOnChecking;
+		ClickBehaviors[Map.BattleStates.Move] = ClickBehaviorOnMoving;
+		ClickBehaviors[Map.BattleStates.Attack] = ClickBehaviorOnAttacking;
+		ClickBehaviors[Map.BattleStates.Loading] = () => { };
+	}
+
+	/// <summary>
 	/// マスがクリックされた場合の挙動
 	/// </summary>
 	public void OnClick()
 	{
-		// (移動可能先の選択中で)移動先が移動可能なら
-		if(IsMovable)
-		{
-			// 移動する
-			_mc.MoveTo(_map, _units.FocusingUnit, this);
-		}
+		Debug.Log(gameObject.name + " is clicked. BattleState is " + _map.BattleState.ToString());
+
+		ClickBehaviors[_map.BattleState]();
 	}
 }
