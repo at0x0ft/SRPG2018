@@ -33,7 +33,6 @@ public class DamageCalculator : MonoBehaviour
 
 	// ==========関数==========
 
-
 	/// <summary>
 	/// [地形効果命中補正] : floorの命中減少率について, 百分率整数で返すメソッド
 	/// </summary>

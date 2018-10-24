@@ -43,6 +43,8 @@ public class AI : MonoBehaviour
 
 	IEnumerator RunCoroutine()
 	{
+		// memo:現在の行動可能なユニットは, _units.ActiveUnitで参照できます.
+
 		yield return new WaitForSeconds(0.5f);
 		// 行動可能なユニットを取得
 		var playerUnits = _units.GetPlayerUnits().OrderByDescending(x => x.Life);
@@ -57,7 +59,7 @@ public class AI : MonoBehaviour
 		}
 		yield return new WaitForSeconds(0.5f);
 		// 全ての操作が完了したらセット終了
-		_bc.NextSet();
+		_bc.NextUnit();
 	}
 
 	IEnumerator MoveAndAttackCoroutine(Unit unit)

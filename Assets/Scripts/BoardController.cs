@@ -38,8 +38,29 @@ public class BoardController : MonoBehaviour
 	public int Set { get; private set; }
 	public BattleState State { get; set; }
 
-	void Start()
+	/// <summary>
+	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
+	/// </summary>
+	/// <returns></returns>
+	private void CheckSerializedMember()
 	{
+		if(!_ui) Debug.LogError("[Error] : UI Canvas GameObject is not set!");
+
+		if(!_map) Debug.LogError("[Error] : Map GameObject is not set!");
+		_map.CheckSerializedMember();
+
+		if(!_units) Debug.LogError("[Error] : Units GameObject is not set!");
+		_units.CheckSerializedMember();
+
+		if(!_moveController) Debug.LogError("[Error] : MoveController GameObject is not set!");
+		if(!_damageCalculator) Debug.LogError("[Error] : DamageCalculator GameObject is not set!");
+		if(_setAI && !_ai) Debug.LogError("[Error] : AI GameObject is not set!");
+	}
+
+	private void Start()
+	{
+		CheckSerializedMember();	// 4debug
+
 		// 盤面とユニット, AttackControllerを作成
 		var ac = new AttackController(_map, _units, _damageCalculator);
 		_map.Initilize(_moveController, _units);
@@ -47,7 +68,7 @@ public class BoardController : MonoBehaviour
 
 
 		// endCommandボタンが押下されたらmapインスタンスメソッドの持つNextSet()を実行
-		_ui.EndCommandButton.onClick.AddListener(() => { NextSet(); });
+		_ui.EndCommandButton.onClick.AddListener(() => { NextUnit(); });
 
 		// AI設定
 		if(_setAI) SetAI(Unit.Team.Enemy, ac);
@@ -60,19 +81,41 @@ public class BoardController : MonoBehaviour
 		SetPlayerOrder();
 
 		// セット開始
-		StartSet(_startTeam);
+		StartPlayer(_startTeam);
 	}
 
 	/// <summary>
 	/// AIを設定する
 	/// </summary>
 	/// <param name="team"></param>
-	public void SetAI(Unit.Team team, AttackController ac)
+	private void SetAI(Unit.Team team, AttackController ac)
 	{
 		// AIインスタンスを初期化
 		_ai.Initialize(this, _map, _units, _moveController, ac);
 		// AIと相手プレイヤーを対応付ける
 		_ais[team] = _ai;
+	}
+
+	/// <summary>
+	/// セットを更新するメソッド
+	/// </summary>
+	private void UpdateSet()
+	{
+			Set++;
+
+			// 更に, セットが2以上ならば, ターン数も更新し, 移動量も補充.
+			if(Set > 2)
+			{
+				Turn++;
+				Set = 1;
+
+				// ターン開始時に、移動量を回復させる
+				foreach(var unit in _units.Characters)
+				{
+					unit.MoveAmount = unit.MaxMoveAmount;
+					Debug.Log("move amount:" + unit.MoveAmount);	// 4debug
+				}
+			}
 	}
 
 	/// <summary>
@@ -127,28 +170,36 @@ public class BoardController : MonoBehaviour
 	}
 	
 	/// <summary>
+	/// 自軍の先頭のユニットを展開するメソッド.
+	/// </summary>
+	private void StartUnitAction()
+	{
+		// 自分の先頭のユニットを展開.
+		var activeUnit = _units.Order.FirstOrDefault();
+		if(!activeUnit) Debug.LogError("[Error] : " + _units.CurrentPlayerTeam.ToString() +  "'s active unit is not Found!");	// 4debug
+
+		// セットプレイヤーの先頭のユニット以外は行動済みとする
+		foreach(var unit in _units.Characters)
+		{
+			unit.IsMoved = unit != activeUnit;
+		}
+
+		// 盤面の状態を戦況確認中に設定
+		State = BattleState.CheckingStatus;
+
+		// Unitsクラスに記憶.
+		_units.ActiveUnit = activeUnit;
+	}
+
+	/// <summary>
 	/// セット開始時の処理
 	/// </summary>
 	/// <param name="team"></param>
-	public void StartSet(Unit.Team team)
+	private void StartPlayer(Unit.Team team)
 	{
-		// プレイヤーの順番が一巡したら, セット数・ターン数を更新
-		if(team == _startTeam)
-		{
-			Set++;
-			if(Set > 2)
-			{
-				Turn++;
-				Set = 1;
-			}
-		}
-
-		// 盤面の状態も設定
-		State = BattleState.CheckingStatus;
-
 		// セットプレイヤーのチームを記録
 		_units.CurrentPlayerTeam = team;
-
+		
 		// 全てのUnitの情報を,更新する
 		foreach(var unit in _units.GetComponentsInChildren<Unit>())
 		{
@@ -156,6 +207,15 @@ public class BoardController : MonoBehaviour
 
 			UpdateAttackStateOfUnit(unit);
 		}
+
+		// プレイヤーの順番が一巡したら, セット数・ターン数を更新
+		if(_units.CurrentPlayerTeam == _startTeam) UpdateSet();
+
+		// セットプレイヤーのユニットの順番を設定
+		_units.SetUnitsOrder();
+
+		// セットプレイヤーの持つユニットのうち先頭のユニットを展開.
+		StartUnitAction();
 
 		// セットプレイヤーがAIならば, 画面をタッチできないように設定し, AIを走らせる.
 		if(_ais.ContainsKey(team))
@@ -171,16 +231,30 @@ public class BoardController : MonoBehaviour
 			Debug.Log("touch blocker invalid.");
 		}
 
-		Debug.Log("Arrange Finished."); // 4debug
+		Debug.Log("Player update Finished."); // 4debug
 	}
 
 	/// <summary>
-	/// 次のセットに更新
+	/// 次のユニットの行動に移る.
 	/// </summary>
-	public void NextSet()
+	public void NextUnit()
 	{
-		// 次のTeamの設定
+		// 行動が終了したユニットは順番から取り除く.
+		_units.Order.Remove(_units.ActiveUnit);
+
+		// まだ自軍のユニットが残っているのならば, 次のユニットに交代
+		if(_units.Order.Count > 0) StartUnitAction();
+		// 自軍のユニット全てが行動終了したならば, 次のプレイヤーに交代
+		else NextPlayer();
+	}
+
+	/// <summary>
+	/// 次のプレイヤーに更新
+	/// </summary>
+	private void NextPlayer()
+	{
+		// 次のTeamの設定 (現在対戦人数2人の時の場合のみを想定した実装)
 		var nextTeam = _units.CurrentPlayerTeam == Unit.Team.Player ? Unit.Team.Enemy : Unit.Team.Player;
-		StartSet(nextTeam);
+		StartPlayer(nextTeam);
 	}
 }

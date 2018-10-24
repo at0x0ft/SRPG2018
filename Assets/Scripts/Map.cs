@@ -30,6 +30,20 @@ public class Map : MonoBehaviour
 
 	private MoveController _mc;
 
+	/// <summary>
+	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
+	/// </summary>
+	/// <returns></returns>
+	public void CheckSerializedMember()
+	{
+		if(_movableColor == null) Debug.LogError("[Error] : Movable Color is not set!");
+		if(_attackableColor == null) Debug.LogError("[Error] : Attackable Color is not set!");
+		foreach(var floor in transform.GetComponentsInChildren<Floor>())
+		{
+			floor.CheckSerializedMember();
+		}
+	}
+
 	public void Initilize(MoveController mc, Units units)
 	{
 		_mc = mc;

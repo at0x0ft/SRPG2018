@@ -69,7 +69,7 @@ public class Unit : MonoBehaviour
 	public Vector2Int Coordinate { get { return _coordinatePair.Key; } }
 
 	/// <summary>
-	/// ローカル座標でのY座標を表す. (transformのY座標ではない)
+	/// ローカル座標でのX座標を表す. (transformのX座標ではない)
 	/// </summary>
 	public int X { get { return _coordinatePair.Key.x; } }
 
@@ -136,6 +136,21 @@ public class Unit : MonoBehaviour
 	/// ユニットの乗っているマス
 	/// </summary>
 	public Floor Floor { get { return _map.GetFloor(CoordinatePair.Key.x, CoordinatePair.Key.y); } }
+
+	/// <summary>
+	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
+	/// </summary>
+	/// <returns></returns>
+	public void CheckSerializedMember()
+	{
+		if(MaxLife < 0) Debug.LogWarning("[Warning] : MaxLife is 0 or negative value!");
+		if(!_type) Debug.LogError("[Error] : Type is not set!");
+		if(!_initialFloor) Debug.LogError("[Error] : InitialFloor is not set!");
+		foreach(var attack in Attacks)
+		{
+			if(!attack) Debug.LogError("[Error] : Attack is not fully set!");
+		}
+	}
 
 	/// <summary>
 	/// 初期配置マスにUnitを設定. (デッドロック回避のため遅延処理)
@@ -292,6 +307,9 @@ public class Unit : MonoBehaviour
 		if(Life <= 0) DestroyWithAnimate();
 	}
 
+	/// <summary>
+	/// ユニットを消滅させるメソッド
+	/// </summary>
 	public void DestroyWithAnimate()
 	{
 		GetComponent<Button>().enabled = false;
@@ -299,5 +317,8 @@ public class Unit : MonoBehaviour
 			{
 				Destroy(gameObject);
 			});
+
+		// 勝敗判定を行い, 負けた場合はゲーム終了.
+		if(_units.JudgeLose(Belonging)) _units.FinishGame(Belonging);
 	}
 }
