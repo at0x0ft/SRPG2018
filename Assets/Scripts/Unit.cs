@@ -221,14 +221,14 @@ public class Unit : MonoBehaviour
 		// とりあえず盤面を綺麗にする
 		_map.ClearHighlight();
 
-		// 元々選択していたユニットの情報は不要になるので破棄
-		_units.ClearFocusingUnit();
-
 		// 2連続で、同じユニットをクリックした場合
 		if(_units.FocusingUnit == this)
 		{
+			// 元々選択していたユニットの情報は不要になるので破棄
+			_units.ClearFocusingUnit();
+
 			// UIで作成してもらう以下の関数を呼び出す。
-			// UnitInfoWindow.close();
+			// UnitInfoWindow.Close();
 
 			// MoveFazeへの移行条件
 			if(_units.ActiveUnit == this)
@@ -239,6 +239,9 @@ public class Unit : MonoBehaviour
 		}
 		else
 		{
+			// 元々選択していたユニットの情報は不要になるので破棄
+			_units.ClearFocusingUnit();
+
 			// 自身に選択を割り当てる
 			IsFocusing = true;
 			
