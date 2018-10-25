@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using BattleStates = Map.BattleStates;
+
 [RequireComponent(typeof(Button))]
 public class Floor : MonoBehaviour
 {
@@ -30,7 +32,7 @@ public class Floor : MonoBehaviour
 	private Map _map;
 	private Units _units;
 	private MoveController _mc;
-	private Dictionary<Map.BattleStates, Action> ClickBehaviors;
+	private Dictionary<BattleStates, Action> ClickBehaviors;
 
 	/// <summary>
 	/// ローカル座標のX座標 (transformのX座標ではない)
@@ -201,7 +203,7 @@ public class Floor : MonoBehaviour
 		// attackSelectWindow.setup(attackCommandList);
 
 		// 場面を移動する
-		_map.BattleState = Map.BattleStates.Attack;
+		_map.NextBattleState();
 	}
 
 	/// <summary>
@@ -216,8 +218,8 @@ public class Floor : MonoBehaviour
 		 * _units.ActiveUnit.Attack();
 		 */
 
-		 // 行動終了したため、次のユニットを動かす
-		_map.NextUnit();
+		// 攻撃アニメは時間がかかるだろうから、それが終わるまでLoadingStatusとする
+		_map.NextBattleState();
 	}
 
 	/// <summary>
@@ -225,11 +227,11 @@ public class Floor : MonoBehaviour
 	/// </summary>
 	private void SetClickBehavior()
 	{
-		ClickBehaviors = new Dictionary<Map.BattleStates, Action>();
-		ClickBehaviors[Map.BattleStates.CheckingStatus] = ClickBehaviorOnChecking;
-		ClickBehaviors[Map.BattleStates.Move] = ClickBehaviorOnMoving;
-		ClickBehaviors[Map.BattleStates.Attack] = ClickBehaviorOnAttacking;
-		ClickBehaviors[Map.BattleStates.Loading] = () => { };
+		ClickBehaviors = new Dictionary<BattleStates, Action>();
+		ClickBehaviors[BattleStates.Check] = ClickBehaviorOnChecking;
+		ClickBehaviors[BattleStates.Move] = ClickBehaviorOnMoving;
+		ClickBehaviors[BattleStates.Attack] = ClickBehaviorOnAttacking;
+		ClickBehaviors[BattleStates.Load] = () => { };
 	}
 
 	/// <summary>

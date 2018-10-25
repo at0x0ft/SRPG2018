@@ -176,7 +176,7 @@ public class BoardController : MonoBehaviour
 		}
 
 		// 盤面の状態を戦況確認中に設定
-		_map.BattleState = Map.BattleStates.CheckingStatus;
+		_map.WarpBattleState(Map.BattleStates.Check);
 
 		// Unitsクラスに記憶.
 		_units.ActiveUnit = activeUnit;

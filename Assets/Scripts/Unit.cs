@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using BattleStates = Map.BattleStates;
 
 [RequireComponent(typeof(Button))]
 public class Unit : MonoBehaviour
@@ -63,7 +64,7 @@ public class Unit : MonoBehaviour
 	public int MoveAmount { get; set; }
 	public AttackStates AttackState{ get; set; }
 	public KeyValuePair<Attack, int>? ChargingAttack { get; private set; }
-	private Dictionary<Map.BattleStates, Action> ClickBehaviors;
+	private Dictionary<BattleStates, Action> ClickBehaviors;
 
 	/// <summary>
 	/// ローカル座標を表す. (transformの座標ではない)
@@ -233,7 +234,7 @@ public class Unit : MonoBehaviour
 			if(_units.ActiveUnit == this)
 			{
 				_map.HighlightMovableFloors(Floor, MoveAmount);
-				_map.BattleState = Map.BattleStates.Move;
+				_map.NextBattleState();
 			}
 		}
 		else
@@ -257,8 +258,8 @@ public class Unit : MonoBehaviour
 		// (attack情報をどこかで格納してほしい)
 		// _ac.Attack(_units.ActiveUnit, this, attack);
 
-		// 行動終了のため、次のユニットに手番を譲る
-		_map.NextUnit();
+		// 攻撃が終わるまではLoadFaze
+		_map.NextBattleState();
 	}
 
 	/// <summary>
@@ -266,11 +267,11 @@ public class Unit : MonoBehaviour
 	/// </summary>
 	private void SetClickBehavior()
 	{
-		ClickBehaviors = new Dictionary<Map.BattleStates, Action>();
-		ClickBehaviors[Map.BattleStates.CheckingStatus] = ClickBehaviorOnChecking;
-		ClickBehaviors[Map.BattleStates.Move] = () => { };
-		ClickBehaviors[Map.BattleStates.Attack] = ClickBehaviorOnAttack;
-		ClickBehaviors[Map.BattleStates.Loading] = () => { };
+		ClickBehaviors = new Dictionary<BattleStates, Action>();
+		ClickBehaviors[BattleStates.Check] = ClickBehaviorOnChecking;
+		ClickBehaviors[BattleStates.Move] = () => { };
+		ClickBehaviors[BattleStates.Attack] = ClickBehaviorOnAttack;
+		ClickBehaviors[BattleStates.Load] = () => { };
 	}
 
 	/// <summary>
