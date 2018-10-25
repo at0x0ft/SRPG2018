@@ -165,4 +165,15 @@ public class Map : MonoBehaviour
 	{
 		return Floors.FirstOrDefault(f => f.X == localCoordinate.x && f.Y == localCoordinate.y).CoordinatePair.Value;
 	}
+
+	/// <summary>
+	/// ユニットの動作を終了させ、次に移行する
+	/// </summary>
+	public void NextUnit()
+	{
+		ClearHighlight();
+
+		// 次のユニットを起用する
+		_bc.NextUnit();
+	}
 }

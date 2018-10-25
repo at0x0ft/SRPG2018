@@ -260,7 +260,9 @@ public class Unit : MonoBehaviour
 		// 攻撃出来る場合は攻撃を開始する
 		// (attack情報をどこかで格納してほしい)
 		// _ac.Attack(_units.ActiveUnit, this, attack);
-		// BoardController.NextUnit(); //<-参照できない
+
+		// 行動終了のため、次のユニットに手番を譲る
+		_map.NextUnit();
 	}
 
 	/// <summary>

@@ -215,9 +215,10 @@ public class Floor : MonoBehaviour
 		/*
 		 * if(！選択中攻撃が、範囲攻撃) return;
 		 * _units.ActiveUnit.Attack();
-		 * boardController.NextUnit(); 
-		 * 
-		*/
+		 */
+
+		 // 行動終了したため、次のユニットを動かす
+		_map.NextUnit();
 	}
 
 	/// <summary>
