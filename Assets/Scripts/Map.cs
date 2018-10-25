@@ -8,9 +8,18 @@ using UnityEngine.SceneManagement;
 
 public class Map : MonoBehaviour
 {
+	public enum BattleStates
+	{
+		Check,  // 戦況確認中
+		Move,   // 移動コマンド入力中
+		Attack, // 攻撃コマンド選択中
+		Load    // スクリプト処理中
+	}
+
 	// 要整理
 	public int WidthLimit { get; private set; }
 	public int HeightLimit { get; private set; }
+	public BattleStates BattleState { get; private set; }
 
 	public List<Floor> Floors { get; private set; }
 
@@ -28,6 +37,7 @@ public class Map : MonoBehaviour
 		get { return _attackableColor; }
 	}
 
+	private BoardController _bc;
 	private MoveController _mc;
 
 	/// <summary>
@@ -44,9 +54,13 @@ public class Map : MonoBehaviour
 		}
 	}
 
-	public void Initilize(MoveController mc, Units units)
+	public void Initilize(BoardController bc, MoveController mc, Units units)
 	{
+		_bc = bc;
 		_mc = mc;
+
+		// 戦闘全体の状態を初期化
+		BattleState = BattleStates.Check;
 
 		// マス全てをFloorsに登録
 		Floors = new List<Floor>();
@@ -150,5 +164,36 @@ public class Map : MonoBehaviour
 	public Vector3 ConvertLocal2Tranform(Vector2Int localCoordinate)
 	{
 		return Floors.FirstOrDefault(f => f.X == localCoordinate.x && f.Y == localCoordinate.y).CoordinatePair.Value;
+	}
+
+	// 状況進行系(BoardControllerに入れたいが、そうするとBoardControllerを触りすぎる)
+	
+	/// <summary>
+	/// 定石通りに戦闘状態を進める。
+	/// Check -> Move-> Attack -> Load
+	/// </summary>
+	public void NextBattleState()
+	{
+		BattleState = (BattleStates)(((int)BattleState + 1) % 4);
+	}
+
+	/// <summary>
+	/// 定石からは異なる順番で戦闘状態を進める
+	/// </summary>
+	/// <param name="state"></param>
+	public void WarpBattleState(BattleStates state)
+	{
+		BattleState = state;
+	}
+
+	/// <summary>
+	/// ユニットの動作を終了させ、次に移行する
+	/// </summary>
+	public void NextUnit()
+	{
+		ClearHighlight();
+
+		// 次のユニットを起用する
+		_bc.NextUnit();
 	}
 }

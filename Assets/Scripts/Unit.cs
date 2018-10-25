@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using BattleStates = Map.BattleStates;
 
 [RequireComponent(typeof(Button))]
 public class Unit : MonoBehaviour
@@ -28,6 +30,15 @@ public class Unit : MonoBehaviour
 		Forward,
 		Middle,
 		Back,
+	}
+
+	public enum AttackStates
+	{
+		// いずれの場合においても、待機は可能
+		LittleAttack, // 弱攻撃,強攻撃溜めができる
+		MiddleAttack, // 中攻撃ができる
+		Charging,     // 強攻撃のみできる（移動不可,強制攻撃）
+		Movable       // 攻撃不可
 	}
 
 	[SerializeField]
@@ -84,6 +95,9 @@ public class Unit : MonoBehaviour
 
 	public int MaxMoveAmount { get; private set; }
 	public int MoveAmount { get; set; }
+	public AttackStates AttackState{ get; set; }
+	public KeyValuePair<Attack, int>? ChargingAttack { get; private set; }
+	private Dictionary<BattleStates, Action> ClickBehaviors;
 
 	/// <summary>
 	/// ローカル座標を表す. (transformの座標ではない)
@@ -216,12 +230,81 @@ public class Unit : MonoBehaviour
 		// 移動量の初期化
 		MaxMoveAmount = mc.GetUnitMaxMoveAmount(this);
 
+		// 強攻撃溜め途中情報の初期化
+		ChargingAttack = null;
 
 		// 技の初期化
 		foreach(var attack in Attacks)
 		{
 			attack.Initialize();
 		}
+
+		// クリックによる動作の初期化
+		SetClickBehavior();
+	}
+
+	/// <summary>
+	/// 戦況確認中のときに、ユニットをクリックした場合の挙動
+	/// </summary>
+	private void ClickBehaviorOnChecking()
+	{
+		// とりあえず盤面を綺麗にする
+		_map.ClearHighlight();
+
+		// 2連続で、同じユニットをクリックした場合
+		if(_units.FocusingUnit == this)
+		{
+			// 元々選択していたユニットの情報は不要になるので破棄
+			_units.ClearFocusingUnit();
+
+			// UIで作成してもらう以下の関数を呼び出す。
+			// UnitInfoWindow.Close();
+
+			// MoveFazeへの移行条件
+			if(_units.ActiveUnit == this)
+			{
+				_map.HighlightMovableFloors(Floor, MoveAmount);
+				_map.NextBattleState();
+			}
+		}
+		else
+		{
+			// 元々選択していたユニットの情報は不要になるので破棄
+			_units.ClearFocusingUnit();
+
+			// 自身に選択を割り当てる
+			IsFocusing = true;
+			
+			// UIで作成してもらう以下の関数を呼び出す。
+			// UnitInfoWindow.UpdateInfo(this);
+		}
+	}
+
+	/// <summary>
+	/// 攻撃選択中のときに、ユニットをクリックした場合の挙動
+	/// </summary>
+	private void ClickBehaviorOnAttack()
+	{
+		if(!Floor.IsAttackable) return;
+
+		// 攻撃出来る場合は攻撃を開始する
+		// (attack情報をどこかで格納してほしい)
+		// _ac.Attack(_units.ActiveUnit, this, attack);
+
+		// 攻撃が終わるまではLoadFaze
+		_map.NextBattleState();
+	}
+
+	/// <summary>
+	/// ユニットがクリックされた場合の挙動を設定する
+	/// </summary>
+	private void SetClickBehavior()
+	{
+		ClickBehaviors = new Dictionary<BattleStates, Action>();
+		ClickBehaviors[BattleStates.Check] = ClickBehaviorOnChecking;
+		ClickBehaviors[BattleStates.Move] = () => { };
+		ClickBehaviors[BattleStates.Attack] = ClickBehaviorOnAttack;
+		ClickBehaviors[BattleStates.Load] = () => { };
 	}
 
 	/// <summary>
@@ -229,46 +312,12 @@ public class Unit : MonoBehaviour
 	/// </summary>
 	public void OnClick()
 	{
-		Debug.Log(transform.name + " clicked.");    // 4debug
+		Debug.Log(gameObject.name + " is clicked. AttackState is " + AttackState.ToString());
 
-		// 攻撃対象の選択中であれば
-		if(Floor.IsAttackable)
-		{
-			// 攻撃
-			// バグ対策の強制的変更（コマンド選択結果のAttackも必要なため、これではAttackの条件を満たしていない）
-			//_ac.AttackTo(_map, _units.FocusingUnit, this, _units);
-			return;
-		}
-
-		// 自分以外のユニットが選択状態であれば、そのユニットの選択を解除
-		if(null != _units.FocusingUnit && this != _units.FocusingUnit)
-		{
-			_units.FocusingUnit.IsFocusing = false;
-			_map.ClearHighlight();
-		}
-
-		// 選択されていない状態ならば
-		IsFocusing = !IsFocusing;
-		if(IsFocusing)
-		{
-			// 移動可能なマスをハイライト
-			// _map.HighlightMovableFloors(Floor, MoveAmount);
-
-			Debug.Log("HighLight completed.");  // 4debug
-
-			// 攻撃可能なマスをハイライト (攻撃は後で選択するはずだから, 要らない)
-			// atode kaeru
-			Debug.Log("Attacks[0] = " + Attacks[0].transform.name);	//4debug
-			Debug.Log("this == null ? " + this == null); //4debug
-			_ac.Highlight(this, Attacks[0]);
-		}
-		else
-		{
-			// 同じユニットを二回選択した場合には選択状態を解除
-			_map.ClearHighlight();
-		}
+		// SetClickBehaviorで登録した関数を実行
+		ClickBehaviors[_map.BattleState]();
 	}
-
+	
 	/// <summary>
 	/// ユニットを(x, y)に移動
 	/// </summary>
@@ -281,16 +330,93 @@ public class Unit : MonoBehaviour
 	}
 
 	/// <summary>
+	/// このセットで使える攻撃コマンドか否かを判定します
+	/// </summary>
+	/// <param name="attack">判定対象</param>
+	/// <returns>使えるか否か</returns>
+	private bool CanSelectTheAttack(Attack attack)
+	{
+		var kind = attack.Kind;
+		switch(AttackState)
+		{
+			case AttackStates.LittleAttack:
+				return (kind == Attack.Level.Low || kind == Attack.Level.High);
+
+			case AttackStates.MiddleAttack:
+				return (kind == Attack.Level.Mid);
+
+			case AttackStates.Charging: // <-選択するまでもなく、強制発動にしましょう。
+			case AttackStates.Movable:
+				return false;
+
+			default:
+				Debug.Log(attack.ToString() + " は未規定のAttackStateが設定されてます。");
+				return false;
+		}
+	}
+
+	/// <summary>
+	/// 攻撃コマンドリストを、使用可否情報と共に返します。
+	/// </summary>
+	/// <returns>(攻撃コマンド,使用可否)のリスト</returns>
+	public List<KeyValuePair<Attack, bool>> GetAttackCommandsList()
+	{
+		List<KeyValuePair<Attack, bool>> res = new List<KeyValuePair<Attack, bool>>();
+		foreach(var attack in Attacks)
+		{
+			bool canSelect = CanSelectTheAttack(attack);
+			res.Add(new KeyValuePair<Attack, bool>(attack, canSelect));
+		}
+		return res;
+	}
+
+	/// <summary>
+	/// 強攻撃を選択したときに、その設定を一時的に保持する
+	/// </summary>
+	/// <param name="attack">選択された,強攻撃</param>
+	/// <param name="attackDir">攻撃予定の方角</param>
+	/// <returns>引数が正しいかどうか(正しい:attack が,強攻撃)</returns>
+	public bool StrongAttackPrepare(Attack attack, int attackDir)
+	{
+		// TODO:attackが、強攻撃であることを確認する
+
+		ChargingAttack = new KeyValuePair<Attack, int>(attack, attackDir);
+		AttackState = AttackStates.Charging;
+
+		return true;
+	}
+
+	/// <summary>
+	/// 攻撃を受けたときに、強攻撃溜め状態を解除させる
+	/// </summary>
+	private void StrongAttackFailure()
+	{
+		// 関数の動作は、強攻撃溜めのときを対象とする。
+		if(AttackState != AttackStates.Charging) return;
+
+		// 移動しかできない状態にする
+		AttackState = AttackStates.Movable;
+
+		// 不要な情報になったため、削除もしておく
+		ChargingAttack = null;
+	}
+
+	/// <summary>
 	/// ダメージを与える
 	/// </summary>
 	public void Damage(int damage)
 	{
 		Life = Mathf.Max(0, Life - damage);
 
+		StrongAttackFailure();
+
 		// 体力が0以下になったらユニットを消滅させる
 		if(Life <= 0) DestroyWithAnimate();
 	}
 
+	/// <summary>
+	/// ユニットを消滅させるメソッド
+	/// </summary>
 	public void DestroyWithAnimate()
 	{
 		GetComponent<Button>().enabled = false;

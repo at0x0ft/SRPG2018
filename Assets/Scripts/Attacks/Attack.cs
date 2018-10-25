@@ -22,7 +22,25 @@ public abstract class Attack : MonoBehaviour
 
 	public AttackScale Scale { get; protected set; }
 
-	// 攻撃の種類
+	// 攻撃の強さ
+	public enum Level
+	{
+		Low,		// 弱攻撃
+		Mid,		// 中攻撃
+		High		// 強攻撃
+	}
+
+	[SerializeField]
+	protected Level _kind;
+	/// <summary>
+	/// 弱中強攻撃の分類
+	/// </summary>
+	public Level Kind
+	{
+		get { return _kind; }
+	}
+
+	// 攻撃の属性
 	[SerializeField]
 	protected Type _type;
 	public Type Type
