@@ -5,11 +5,19 @@ using UnityEngine.UI;
 
 public abstract class Attack : MonoBehaviour
 {
+	// 攻撃の名前
+	[SerializeField]
+	protected string _name;
+	public string Name
+	{
+		get { return _name; }
+	}
+
 	// 攻撃の規模
 	public enum AttackScale
 	{
-		Single, // 単体攻撃
-		Range   // 範囲攻撃
+		Single,	// 単体攻撃
+		Range	// 範囲攻撃
 	}
 
 	public AttackScale Scale { get; protected set; }

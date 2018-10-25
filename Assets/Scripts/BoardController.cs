@@ -36,6 +36,7 @@ public class BoardController : MonoBehaviour
 	private void CheckSerializedMember()
 	{
 		if(!_ui) Debug.LogError("[Error] : UI Canvas GameObject is not set!");
+		_ui.CheckSerializedMember();
 
 		if(!_map) Debug.LogError("[Error] : Map GameObject is not set!");
 		_map.CheckSerializedMember();
@@ -51,6 +52,9 @@ public class BoardController : MonoBehaviour
 	private void Start()
 	{
 		CheckSerializedMember();	// 4debug
+
+		// ユニット詳細情報サブウィンドウを一度閉じる
+		_ui.UnitInfoWindow.Hide();
 
 		// 盤面とユニット, AttackControllerを作成
 		var ac = new AttackController(_map, _units, _damageCalculator);
@@ -225,7 +229,13 @@ public class BoardController : MonoBehaviour
 			Debug.Log("touch blocker invalid.");
 		}
 
-		Debug.Log("Player update Finished."); // 4debug
+		// ターン/セット情報を表示
+		_ui.TurnSetInfoWindow.Show(Turn, Set);
+
+		// ユニット情報サブウィンドウを開く (targetUnitは, ターンプレイヤーの持つユニットのうち, 順番をソートした後に最初に来るユニット)
+		// _ui.UnitInfoWindow.ShowUnitInfoWindow(targetUnit);
+
+		Debug.Log("Arrange Finished."); // 4debug
 	}
 
 	/// <summary>
