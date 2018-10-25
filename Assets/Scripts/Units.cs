@@ -56,6 +56,17 @@ public class Units : MonoBehaviour
 	}
 
 	/// <summary>
+	/// 全てのユニットを未選択状態にする
+	/// </summary>
+	public void ClearFocusingUnit()
+	{
+		foreach(var character in Characters)
+		{
+			character.IsFocusing = false;
+		}
+	}
+
+	/// <summary>
 	/// 現在の手番のユニット
 	/// </summary>
 	public Unit ActiveUnit { get; set; }

@@ -220,10 +220,12 @@ public class Unit : MonoBehaviour
 		// とりあえず盤面を綺麗にする
 		_map.ClearHighlight();
 
+		// 元々選択していたユニットの情報は不要になるので破棄
+		_units.ClearFocusingUnit();
+
 		// 2連続で、同じユニットをクリックした場合
 		if(_units.FocusingUnit == this)
 		{
-			IsFocusing = false;
 			// UIで作成してもらう以下の関数を呼び出す。
 			// UnitInfoWindow.close();
 
@@ -236,12 +238,6 @@ public class Unit : MonoBehaviour
 		}
 		else
 		{
-			// 自分以外のユニットが選択状態であれば、そのユニットの選択を解除
-			if(_units.FocusingUnit != null)
-			{
-				_units.FocusingUnit.IsFocusing = false;
-			}
-
 			// 自身に選択を割り当てる
 			IsFocusing = true;
 			

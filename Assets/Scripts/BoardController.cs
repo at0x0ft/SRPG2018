@@ -188,6 +188,9 @@ public class BoardController : MonoBehaviour
 	/// <param name="team"></param>
 	private void StartPlayer(Unit.Team team)
 	{
+		// 前のプレーヤーのハイライト情報を削除しておく
+		_map.ClearHighlight();
+
 		// セットプレイヤーのチームを記録
 		_units.CurrentPlayerTeam = team;
 

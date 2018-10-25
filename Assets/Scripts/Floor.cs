@@ -177,10 +177,9 @@ public class Floor : MonoBehaviour
 	/// </summary>
 	private void ClickBehaviorOnChecking()
 	{
-		while(_units.FocusingUnit != null) 
-		{
-			_units.FocusingUnit.IsFocusing = false;
-		}
+		// 何もない所をクリックしているため、ユニット選択を解除する
+		_units.ClearFocusingUnit();
+
 		// UnitInfoWindow.close();
 	}
 
