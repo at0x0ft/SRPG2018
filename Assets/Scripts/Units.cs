@@ -72,6 +72,14 @@ public class Units : MonoBehaviour
 	public Unit ActiveUnit { get; set; }
 
 	/// <summary>
+	/// 手番のユニットを休ませる
+	/// </summary>
+	public void MakeRestActiveUnit()
+	{
+		Order.Remove(ActiveUnit);
+	}
+
+	/// <summary>
 	/// 自軍のユニットを取得
 	/// </summary>
 	/// <returns>The player units.</returns>
@@ -108,15 +116,5 @@ public class Units : MonoBehaviour
 	{
 		// セットプレイヤー以外のプレイヤーの持つユニット全ての体力を見て勝敗を判定 (対戦人数2人の場合のみを想定した実装)
 		return !Characters.Where(c => c.Belonging == player).Any(c => c.Life > 0);
-	}
-
-	/// <summary>
-	/// ゲームを終了するメソッド
-	/// </summary>
-	public void FinishGame(Unit.Team loser)
-	{
-		// ゲーム終了処理は後ほど実装予定
-		Debug.Log("Game finished correctly!");  // 4debug
-		Application.Quit();
 	}
 }

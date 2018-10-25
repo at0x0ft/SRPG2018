@@ -394,8 +394,5 @@ public class Unit : MonoBehaviour
 			{
 				Destroy(gameObject);
 			});
-
-		// 勝敗判定を行い, 負けた場合はゲーム終了.
-		if(_units.JudgeLose(Belonging)) _units.FinishGame(Belonging);
 	}
 }

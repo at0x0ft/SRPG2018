@@ -92,21 +92,20 @@ public class BoardController : MonoBehaviour
 	/// </summary>
 	private void UpdateSet()
 	{
-			Set++;
+		Set++;
+		
+		// 更に, セットが3以上ならば, ターン数も更新し, 移動量も補充.
+		if(Set <= 2) return;
 
-			// 更に, セットが2以上ならば, ターン数も更新し, 移動量も補充.
-			if(Set > 2)
-			{
-				Turn++;
-				Set = 1;
+		Turn++;
+		Set = 1;
 
-				// ターン開始時に、移動量を回復させる
-				foreach(var unit in _units.Characters)
-				{
-					unit.MoveAmount = unit.MaxMoveAmount;
-					Debug.Log("move amount:" + unit.MoveAmount);	// 4debug
-				}
-			}
+		// ターン開始時に、移動量を回復させる
+		foreach(var unit in _units.Characters)
+		{
+			unit.MoveAmount = unit.MaxMoveAmount;
+			Debug.Log("move amount:" + unit.MoveAmount);	// 4debug
+		}
 	}
 
 	/// <summary>
@@ -163,7 +162,7 @@ public class BoardController : MonoBehaviour
 	/// <summary>
 	/// 自軍の先頭のユニットを展開するメソッド.
 	/// </summary>
-	private void StartUnitAction()
+	private void StartUnit()
 	{
 		// 自分の先頭のユニットを展開.
 		var activeUnit = _units.Order.FirstOrDefault();
@@ -172,8 +171,9 @@ public class BoardController : MonoBehaviour
 		// セットプレイヤーの先頭のユニット以外は行動済みとする
 		foreach(var unit in _units.Characters)
 		{
-			unit.IsMoved = unit != activeUnit;
+			unit.IsMoved = true;
 		}
+		activeUnit.IsMoved = false;
 
 		// 盤面の状態を戦況確認中に設定
 		_map.WarpBattleState(Map.BattleStates.Check);
@@ -209,7 +209,7 @@ public class BoardController : MonoBehaviour
 		_units.SetUnitsOrder();
 
 		// セットプレイヤーの持つユニットのうち先頭のユニットを展開.
-		StartUnitAction();
+		StartUnit();
 
 		// セットプレイヤーがAIならば, 画面をタッチできないように設定し, AIを走らせる.
 		if(_ais.ContainsKey(team))
@@ -233,11 +233,14 @@ public class BoardController : MonoBehaviour
 	/// </summary>
 	public void NextUnit()
 	{
-		// 行動が終了したユニットは順番から取り除く.
-		_units.Order.Remove(_units.ActiveUnit);
+		// 勝敗が決していたら終了する
+		JudgeGameFinish();
+
+		// 行動が終了したユニットを、次のターンまで休ませる
+		_units.MakeRestActiveUnit();
 
 		// まだ自軍のユニットが残っているのならば, 次のユニットに交代
-		if(_units.Order.Count > 0) StartUnitAction();
+		if(_units.Order.Count > 0) StartUnit();
 		// 自軍のユニット全てが行動終了したならば, 次のプレイヤーに交代
 		else NextPlayer();
 	}
@@ -250,5 +253,25 @@ public class BoardController : MonoBehaviour
 		// 次のTeamの設定 (現在対戦人数2人の時の場合のみを想定した実装)
 		var nextTeam = _units.CurrentPlayerTeam == Unit.Team.Player ? Unit.Team.Enemy : Unit.Team.Player;
 		StartPlayer(nextTeam);
+	}
+
+
+	/// <summary>
+	/// 勝敗判定を行い, 負けた場合はゲーム終了.
+	/// </summary>
+	public void JudgeGameFinish()
+	{
+		if(_units.JudgeLose(Unit.Team.Player)) FinishGame(Unit.Team.Player);
+		if(_units.JudgeLose(Unit.Team.Enemy)) FinishGame(Unit.Team.Enemy);
+	}
+
+	/// <summary>
+	/// ゲームを終了するメソッド
+	/// </summary>
+	private void FinishGame(Unit.Team loser)
+	{
+		// ゲーム終了処理は後ほど実装予定
+		Debug.Log("Game finished correctly!");  // 4debug
+		Application.Quit();
 	}
 }
