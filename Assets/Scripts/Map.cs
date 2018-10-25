@@ -20,6 +20,7 @@ public class Map : MonoBehaviour
 	public int WidthLimit { get; private set; }
 	public int HeightLimit { get; private set; }
 	public BattleStates BattleState { get; private set; }
+	public UI Ui{ get; private set; }
 
 	public List<Floor> Floors { get; private set; }
 
@@ -54,10 +55,11 @@ public class Map : MonoBehaviour
 		}
 	}
 
-	public void Initilize(BoardController bc, MoveController mc, Units units)
+	public void Initilize(BoardController bc, MoveController mc, Units units, UI ui)
 	{
 		_bc = bc;
 		_mc = mc;
+		Ui = ui;
 
 		// 戦闘全体の状態を初期化
 		BattleState = BattleStates.Check;
@@ -175,6 +177,10 @@ public class Map : MonoBehaviour
 	public void NextBattleState()
 	{
 		BattleState = (BattleStates)(((int)BattleState + 1) % 4);
+		if(BattleState==BattleStates.Load)
+		{
+			NextUnit();
+		}
 	}
 
 	/// <summary>

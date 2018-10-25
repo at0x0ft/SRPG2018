@@ -38,7 +38,7 @@ public class UnitInfoWindow : SubWindow
 	public void Show(Unit unit)
 	{
 		Hide();
-		_nameTextBox.text = unit.Name;
+		_nameTextBox.text = unit.gameObject.name;
 		_hpTextBox.text = unit.Life.ToString();
 		_positionTextBox.text = unit.Position.ToString();
 		_typeTextBox.text = unit.Type.ToString();

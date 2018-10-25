@@ -258,7 +258,7 @@ public class Unit : MonoBehaviour
 			_units.ClearFocusingUnit();
 
 			// UIで作成してもらう以下の関数を呼び出す。
-			// UnitInfoWindow.Close();
+			_map.Ui.UnitInfoWindow.Hide();
 
 			// MoveFazeへの移行条件
 			if(_units.ActiveUnit == this)
@@ -274,9 +274,9 @@ public class Unit : MonoBehaviour
 
 			// 自身に選択を割り当てる
 			IsFocusing = true;
-			
+
 			// UIで作成してもらう以下の関数を呼び出す。
-			// UnitInfoWindow.UpdateInfo(this);
+			_map.Ui.UnitInfoWindow.Show(this);
 		}
 	}
 
@@ -337,6 +337,8 @@ public class Unit : MonoBehaviour
 	private bool CanSelectTheAttack(Attack attack)
 	{
 		var kind = attack.Kind;
+		Debug.Log("kind:"+attack.Kind.ToString());
+		Debug.Log(Attack.Level.Low.ToString());
 		switch(AttackState)
 		{
 			case AttackStates.LittleAttack:

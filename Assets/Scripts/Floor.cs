@@ -182,7 +182,7 @@ public class Floor : MonoBehaviour
 		// 何もない所をクリックしているため、ユニット選択を解除する
 		_units.ClearFocusingUnit();
 
-		// UnitInfoWindow.Close();
+		_map.Ui.UnitInfoWindow.Hide();
 	}
 
 	/// <summary>
@@ -200,7 +200,7 @@ public class Floor : MonoBehaviour
 		var attackCommandList = _units.ActiveUnit.GetAttackCommandsList();
 
 		// 攻撃一覧画面を作成する(UIに任せる)
-		// AttackSelectWindow.Setup(attackCommandList);
+		_map.Ui.AttackSelectWindow.Show(attackCommandList);
 
 		// 場面を移動する
 		_map.NextBattleState();

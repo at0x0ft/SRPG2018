@@ -58,8 +58,9 @@ public class BoardController : MonoBehaviour
 
 		// 盤面とユニット, AttackControllerを作成
 		var ac = new AttackController(_map, _units, _damageCalculator);
-		_map.Initilize(this, _moveController, _units);
+		_map.Initilize(this, _moveController, _units, _ui);
 		_units.Initilize(_map, _moveController, ac);
+		_ui.Initialize(_units, ac);
 
 
 		// endCommandボタンが押下されたらmapインスタンスメソッドの持つNextSet()を実行
@@ -127,14 +128,11 @@ public class BoardController : MonoBehaviour
 	/// </summary>
 	/// <param name="team">次に動くチーム</param>
 	/// <param name="unit">更新するユニット</param>
-	private void UpdateMoveStatusOfUnit(Unit.Team team, Unit unit)
+	private void UpdateMoveStatusOfUnit(Unit unit)
 	{
-		// セットプレイヤー以外ユニットは行動済みとする
-		unit.IsMoved = team != unit.Belonging;
-
 		//セット開始時に、移動量を回復させる
 		//(コードの場所がここで良いのかは、一考の余地あり)
-		if(!unit.IsMoved && Set == 1)
+		if(Set == 1)
 		{
 			unit.MoveAmount = unit.MaxMoveAmount;
 			Debug.Log("move amount:" + unit.MoveAmount);
@@ -147,9 +145,6 @@ public class BoardController : MonoBehaviour
 	/// <param name="unit">更新するユニット</param>
 	private void UpdateAttackStateOfUnit(Unit unit)
 	{
-		// 直後に動くUnitだけ更新する(UpdateMoveStatusOfUnitの挙動より、以下の式が出る)
-		if(unit.IsMoved) return;
-
 		if(Set == 1)
 		{
 			unit.AttackState = Unit.AttackStates.LittleAttack;
@@ -184,6 +179,14 @@ public class BoardController : MonoBehaviour
 
 		// Unitsクラスに記憶.
 		_units.ActiveUnit = activeUnit;
+
+		// Unitの情報を,更新する
+		UpdateMoveStatusOfUnit(activeUnit);
+		UpdateAttackStateOfUnit(activeUnit);
+
+		// map,UIを初期化する
+		_map.ClearHighlight();
+		_ui.NextUnit();
 	}
 
 	/// <summary>
@@ -197,14 +200,6 @@ public class BoardController : MonoBehaviour
 
 		// セットプレイヤーのチームを記録
 		_units.CurrentPlayerTeam = team;
-
-		// 全てのUnitの情報を,更新する
-		foreach(var unit in _units.GetComponentsInChildren<Unit>())
-		{
-			UpdateMoveStatusOfUnit(team, unit);
-
-			UpdateAttackStateOfUnit(unit);
-		}
 
 		// プレイヤーの順番が一巡したら, セット数・ターン数を更新
 		if(_units.CurrentPlayerTeam == _startTeam) UpdateSet();
@@ -233,7 +228,7 @@ public class BoardController : MonoBehaviour
 		_ui.TurnSetInfoWindow.Show(Turn, Set);
 
 		// ユニット情報サブウィンドウを開く (targetUnitは, ターンプレイヤーの持つユニットのうち, 順番をソートした後に最初に来るユニット)
-		// _ui.UnitInfoWindow.ShowUnitInfoWindow(targetUnit);
+		//_ui.UnitInfoWindow.Show(_units.ActiveUnit);
 
 		Debug.Log("Arrange Finished."); // 4debug
 	}
