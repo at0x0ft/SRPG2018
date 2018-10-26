@@ -98,7 +98,7 @@ public class BoardController : MonoBehaviour
 	private void UpdateSet()
 	{
 		Set++;
-		
+
 		// 更に, セットが3以上ならば, ターン数も更新し, 移動量も補充.
 		if(Set <= 2) return;
 
