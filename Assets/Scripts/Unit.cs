@@ -258,11 +258,8 @@ public class Unit : MonoBehaviour
 			// 元々選択していたユニットの情報は不要になるので破棄
 			_units.ClearFocusingUnit();
 
-			// UIで作成してもらう以下の関数を呼び出す。
+			// UIで作成してもらう以下の関数を呼び出す。 (移動量サブウィンドウはそのままにしておく.)
 			_map.Ui.UnitInfoWindow.Hide();
-
-			// 移動量の情報サブウィンドウも非表示にする.
-			_map.Ui.MoveAmountInfoWindow.Hide();
 
 			// MoveFazeへの移行条件
 			if(_units.ActiveUnit == this)
@@ -319,7 +316,7 @@ public class Unit : MonoBehaviour
 	/// </summary>
 	public void OnClick()
 	{
-		Debug.Log(gameObject.name + " is clicked. AttackState is " + AttackState.ToString());
+		Debug.Log(gameObject.name + " is clicked. AttackState is " + AttackState.ToString());	// 4debug
 
 		// SetClickBehaviorで登録した関数を実行
 		ClickBehaviors[_map.BattleState]();
@@ -338,6 +335,9 @@ public class Unit : MonoBehaviour
 		// 相対座標と, transform座標を更新する.
 		var destLocalCoordinate = new Vector2Int(localX, localY);
 		CoordinatePair = new KeyValuePair<Vector2Int, Vector3>(destLocalCoordinate, _map.ConvertLocal2Tranform(destLocalCoordinate));
+
+		// 移動量サブウィンドウを再度表示
+		_map.Ui.MoveAmountInfoWindow.Show(MaxMoveAmount, MoveAmount);
 	}
 
 	/// <summary>
