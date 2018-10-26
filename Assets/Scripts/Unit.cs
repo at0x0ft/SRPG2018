@@ -94,7 +94,8 @@ public class Unit : MonoBehaviour
 	}
 
 	public int MaxMoveAmount { get; private set; }
-	public int MoveAmount { get; set; }
+	private int _moveAmount;	// 4debug (この値はpremasterにマージする時には消すこと.)
+	public int MoveAmount { get { return _moveAmount; } set { Debug.Log("[Debug] Updated as : " + value); _moveAmount = value; } }	// 4debug (この値は, premasterにマージする前に, 元に戻すこと.)
 	public AttackStates AttackState{ get; set; }
 	public KeyValuePair<Attack, int>? ChargingAttack { get; private set; }
 	private Dictionary<BattleStates, Action> ClickBehaviors;
@@ -260,6 +261,9 @@ public class Unit : MonoBehaviour
 			// UIで作成してもらう以下の関数を呼び出す。
 			_map.Ui.UnitInfoWindow.Hide();
 
+			// 移動量の情報サブウィンドウも非表示にする.
+			_map.Ui.MoveAmountInfoWindow.Hide();
+
 			// MoveFazeへの移行条件
 			if(_units.ActiveUnit == this)
 			{
@@ -277,6 +281,9 @@ public class Unit : MonoBehaviour
 
 			// UIで作成してもらう以下の関数を呼び出す。
 			_map.Ui.UnitInfoWindow.Show(this);
+
+			// 移動量情報を表すウィンドウも追加で呼び出す.
+			_map.Ui.MoveAmountInfoWindow.Show(MaxMoveAmount, MoveAmount);
 		}
 	}
 
@@ -325,6 +332,10 @@ public class Unit : MonoBehaviour
 	/// <param name="localY"></param>
 	public void MoveTo(int localX, int localY)
 	{
+		// ユニットの移動量を減らし,
+		MoveAmount -= Math.Abs(X - localX) + Math.Abs(Y - localY);
+
+		// 相対座標と, transform座標を更新する.
 		var destLocalCoordinate = new Vector2Int(localX, localY);
 		CoordinatePair = new KeyValuePair<Vector2Int, Vector3>(destLocalCoordinate, _map.ConvertLocal2Tranform(destLocalCoordinate));
 	}

@@ -239,7 +239,7 @@ public class Floor : MonoBehaviour
 	/// </summary>
 	public void OnClick()
 	{
-		Debug.Log(gameObject.name + " is clicked. BattleState is " + _map.BattleState.ToString());
+		Debug.Log(gameObject.name + " is clicked. BattleState is " + _map.BattleState.ToString());	// 4debug
 
 		ClickBehaviors[_map.BattleState]();
 	}

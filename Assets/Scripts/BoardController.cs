@@ -132,11 +132,14 @@ public class BoardController : MonoBehaviour
 	{
 		//セット開始時に、移動量を回復させる
 		//(コードの場所がここで良いのかは、一考の余地あり)
+		// memo:あたふた -> 移動量の更新は, UpdateSet()メソッド内, Turn更新時に更新しているのでここでは不要? (どちらを消すかは, 要議論.)
+		/*
 		if(Set == 1)
 		{
 			unit.MoveAmount = unit.MaxMoveAmount;
 			Debug.Log("move amount:" + unit.MoveAmount);
 		}
+		*/
 	}
 
 	/// <summary>
