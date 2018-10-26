@@ -336,7 +336,7 @@ public class Unit : MonoBehaviour
 		var destLocalCoordinate = new Vector2Int(localX, localY);
 		CoordinatePair = new KeyValuePair<Vector2Int, Vector3>(destLocalCoordinate, _map.ConvertLocal2Tranform(destLocalCoordinate));
 
-		// 移動量サブウィンドウを再度表示
+		// 移動量サブウィンドウを再度表示 (移動量の変化を見るため)
 		_map.Ui.MoveAmountInfoWindow.Show(MaxMoveAmount, MoveAmount);
 	}
 
