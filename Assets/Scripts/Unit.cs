@@ -94,7 +94,8 @@ public class Unit : MonoBehaviour
 	}
 
 	public int MaxMoveAmount { get; private set; }
-	public int MoveAmount { get; set; }
+	private int _moveAmount;	// 4debug (この値はpremasterにマージする時には消すこと.)
+	public int MoveAmount { get { return _moveAmount; } set { Debug.Log("[Debug] Updated as : " + value); _moveAmount = value; } }	// 4debug (この値は, premasterにマージする前に, 元に戻すこと.)
 	public AttackStates AttackState{ get; set; }
 	public KeyValuePair<Attack, int>? ChargingAttack { get; private set; }
 	private Dictionary<BattleStates, Action> ClickBehaviors;
@@ -257,7 +258,7 @@ public class Unit : MonoBehaviour
 			// 元々選択していたユニットの情報は不要になるので破棄
 			_units.ClearFocusingUnit();
 
-			// UIで作成してもらう以下の関数を呼び出す。
+			// UIで作成してもらう以下の関数を呼び出す。 (移動量サブウィンドウはそのままにしておく.)
 			_map.Ui.UnitInfoWindow.Hide();
 
 			// MoveFazeへの移行条件
@@ -277,6 +278,9 @@ public class Unit : MonoBehaviour
 
 			// UIで作成してもらう以下の関数を呼び出す。
 			_map.Ui.UnitInfoWindow.Show(this);
+
+			// 移動量情報を表すウィンドウも追加で呼び出す.
+			_map.Ui.MoveAmountInfoWindow.Show(MaxMoveAmount, MoveAmount);
 		}
 	}
 
@@ -312,12 +316,12 @@ public class Unit : MonoBehaviour
 	/// </summary>
 	public void OnClick()
 	{
-		Debug.Log(gameObject.name + " is clicked. AttackState is " + AttackState.ToString());
+		Debug.Log(gameObject.name + " is clicked. AttackState is " + AttackState.ToString());	// 4debug
 
 		// SetClickBehaviorで登録した関数を実行
 		ClickBehaviors[_map.BattleState]();
 	}
-	
+
 	/// <summary>
 	/// ユニットを(x, y)に移動
 	/// </summary>
@@ -325,8 +329,15 @@ public class Unit : MonoBehaviour
 	/// <param name="localY"></param>
 	public void MoveTo(int localX, int localY)
 	{
+		// ユニットの移動量を減らし,
+		MoveAmount -= Math.Abs(X - localX) + Math.Abs(Y - localY);
+
+		// 相対座標と, transform座標を更新する.
 		var destLocalCoordinate = new Vector2Int(localX, localY);
 		CoordinatePair = new KeyValuePair<Vector2Int, Vector3>(destLocalCoordinate, _map.ConvertLocal2Tranform(destLocalCoordinate));
+
+		// 移動量サブウィンドウを再度表示 (移動量の変化を見るため)
+		_map.Ui.MoveAmountInfoWindow.Show(MaxMoveAmount, MoveAmount);
 	}
 
 	/// <summary>

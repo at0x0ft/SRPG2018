@@ -182,7 +182,11 @@ public class Floor : MonoBehaviour
 		// 何もない所をクリックしているため、ユニット選択を解除する
 		_units.ClearFocusingUnit();
 
+		// ユニット詳細サブウィンドウを閉じる.
 		_map.Ui.UnitInfoWindow.Hide();
+
+		// 移動量サブウィンドウも閉じる
+		_map.Ui.MoveAmountInfoWindow.Hide();
 	}
 
 	/// <summary>
@@ -239,7 +243,7 @@ public class Floor : MonoBehaviour
 	/// </summary>
 	public void OnClick()
 	{
-		Debug.Log(gameObject.name + " is clicked. BattleState is " + _map.BattleState.ToString());
+		Debug.Log(gameObject.name + " is clicked. BattleState is " + _map.BattleState.ToString());	// 4debug
 
 		ClickBehaviors[_map.BattleState]();
 	}

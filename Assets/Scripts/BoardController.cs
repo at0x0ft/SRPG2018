@@ -51,7 +51,7 @@ public class BoardController : MonoBehaviour
 
 	private void Start()
 	{
-		CheckSerializedMember();	// 4debug
+		CheckSerializedMember();    // 4debug
 
 		// ユニット詳細情報サブウィンドウを一度閉じる
 		_ui.UnitInfoWindow.Hide();
@@ -98,9 +98,22 @@ public class BoardController : MonoBehaviour
 	private void UpdateSet()
 	{
 		Set++;
-		
-		// 更に, セットが3以上ならば, ターン数も更新し, 移動量も補充.
+
+		// === 第2セットの場合のユニットも含めた更新 ===
+
+		// 第2セットで, 小攻撃発動後では, 中攻撃を発動可能.
+		foreach(var unit in _units.Characters)
+		{
+			if(unit.AttackState == Unit.AttackStates.LittleAttack)
+			{
+				unit.AttackState = Unit.AttackStates.MiddleAttack;
+			}
+		}
+
+		// 第2セットでは, ターンの更新はしない. (以降, 第1セットの場合のみ)
 		if(Set <= 2) return;
+
+		// === 第1セットの場合のユニットも含めた更新 ===
 
 		Turn++;
 		Set = 1;
@@ -109,7 +122,10 @@ public class BoardController : MonoBehaviour
 		foreach(var unit in _units.Characters)
 		{
 			unit.MoveAmount = unit.MaxMoveAmount;
-			Debug.Log("move amount:" + unit.MoveAmount);	// 4debug
+			Debug.Log("move amount:" + unit.MoveAmount);    // 4debug
+
+			// 第1セットでは, Unitは弱攻撃と強攻撃の溜めが出来る.
+			unit.AttackState = Unit.AttackStates.LittleAttack;
 		}
 	}
 
@@ -122,42 +138,6 @@ public class BoardController : MonoBehaviour
 		_startTeam = _setPlayerFirst ? Unit.Team.Player : Unit.Team.Enemy;
 	}
 
-
-	/// <summary>
-	/// (セット毎に起こる、)ユニットの移動ステータスに関する更新
-	/// </summary>
-	/// <param name="team">次に動くチーム</param>
-	/// <param name="unit">更新するユニット</param>
-	private void UpdateMoveStatusOfUnit(Unit unit)
-	{
-		//セット開始時に、移動量を回復させる
-		//(コードの場所がここで良いのかは、一考の余地あり)
-		if(Set == 1)
-		{
-			unit.MoveAmount = unit.MaxMoveAmount;
-			Debug.Log("move amount:" + unit.MoveAmount);
-		}
-	}
-
-	/// <summary>
-	/// (セット毎に起こる、)ユニットの攻撃状態に関する更新
-	/// </summary>
-	/// <param name="unit">更新するユニット</param>
-	private void UpdateAttackStateOfUnit(Unit unit)
-	{
-		if(Set == 1)
-		{
-			unit.AttackState = Unit.AttackStates.LittleAttack;
-		}
-		else
-		{
-			if(unit.AttackState==Unit.AttackStates.LittleAttack)
-			{
-				unit.AttackState = Unit.AttackStates.MiddleAttack;
-			}
-		}
-	}
-
 	/// <summary>
 	/// 自軍の先頭のユニットを展開するメソッド.
 	/// </summary>
@@ -165,7 +145,7 @@ public class BoardController : MonoBehaviour
 	{
 		// 自分の先頭のユニットを展開.
 		var activeUnit = _units.Order.FirstOrDefault();
-		if(!activeUnit) Debug.LogError("[Error] : " + _units.CurrentPlayerTeam.ToString() +  "'s active unit is not Found!");	// 4debug
+		if(!activeUnit) Debug.LogError("[Error] : " + _units.CurrentPlayerTeam.ToString() + "'s active unit is not Found!");    // 4debug
 
 		// セットプレイヤーの先頭のユニット以外は行動済みとする
 		foreach(var unit in _units.Characters)
@@ -179,10 +159,6 @@ public class BoardController : MonoBehaviour
 
 		// Unitsクラスに記憶.
 		_units.ActiveUnit = activeUnit;
-
-		// Unitの情報を,更新する
-		UpdateMoveStatusOfUnit(activeUnit);
-		UpdateAttackStateOfUnit(activeUnit);
 
 		// map,UIを初期化する
 		_map.ClearHighlight();
@@ -259,7 +235,6 @@ public class BoardController : MonoBehaviour
 		var nextTeam = _units.CurrentPlayerTeam == Unit.Team.Player ? Unit.Team.Enemy : Unit.Team.Player;
 		StartPlayer(nextTeam);
 	}
-
 
 	/// <summary>
 	/// 勝敗判定を行い, 負けた場合はゲーム終了.
