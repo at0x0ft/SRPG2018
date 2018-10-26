@@ -57,9 +57,9 @@ public class UI : MonoBehaviour
 		get{ return _attackSelectWindow; }
 	}
 
-	public void Initialize(Units units, AttackController ac)
+	public void Initialize(Units units, AttackController ac, Map _map)
 	{
-		_attackSelectWindow.Initialize(units, ac, _attackInfoWindow);
+		_attackSelectWindow.Initialize(units, ac, _attackInfoWindow, _map);
 	}
 
 	/// <summary>
