@@ -34,7 +34,7 @@ public class AttackSelectWindow
 			if(!atkBtn) Debug.LogError("[Error] : atkBtn is not fully set!");
 		}
 
-		if(atkBoolPairs.Count != _attackBtns.Count) Debug.LogError("[Error] : atkBtn and attack number does not match!");
+		if(atkBoolPairs.Count != _attackBtns.Count) Debug.LogWarning("[Error] : atkBtn and attack number does not match!");
 	}
 
 	public void Show(List<KeyValuePair<Attack, bool>> atkBoolPairs)
