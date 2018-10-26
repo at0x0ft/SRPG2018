@@ -39,4 +39,27 @@ public class Type : MonoBehaviour
 	{
 		return _weak.Any(x => x.Name == x.Name);
 	}
+
+	// 以下, Typeクラスで==演算子を用いるための演算子オーバーロードメソッド群
+
+	public static bool operator ==(Type a, Type b)
+	{
+		return a.Name == b.Name;
+	}
+
+	public static bool operator !=(Type a, Type b)
+	{
+		return !(a == b);
+	}
+
+	public override bool Equals(object obj)
+	{
+		if(obj == null || this.GetType() != obj.GetType()) return false;
+		return this == (Type)obj;
+	}
+
+	public override int GetHashCode()
+	{
+		return Name.GetHashCode();
+	}
 }

@@ -317,7 +317,7 @@ public class Unit : MonoBehaviour
 		// SetClickBehaviorで登録した関数を実行
 		ClickBehaviors[_map.BattleState]();
 	}
-	
+
 	/// <summary>
 	/// ユニットを(x, y)に移動
 	/// </summary>

@@ -30,6 +30,13 @@ public class DamageCalculator : MonoBehaviour
 	[SerializeField]
 	private int _rockAvoidRate = 0;
 
+	[SerializeField]
+	private float _goodAtRate = 1.1f;
+	[SerializeField]
+	private float _notSoGoodOrBadAtRate = 1f;
+	[SerializeField]
+	private float _badAtRate = 0.9f;
+
 
 	// ==========関数==========
 
@@ -108,21 +115,31 @@ public class DamageCalculator : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 攻撃時の威力を計算
+	/// 得意補正の場合の倍率を計算して返すメソッド.
 	/// </summary>
-	public int AttackPower(Unit attacker, Attack attack)
+	/// <returns></returns>
+	public float GetGoodAtRate(Type attackType, Type ownType)
 	{
-		return Mathf.RoundToInt(attack.Power * (Mathf.Ceil((float)attacker.Life / (float)attacker.MaxLife * 10f) / 10f));
+		return attackType == ownType
+			? _goodAtRate
+			: attackType.IsStrongAgainst(ownType) || attackType.IsSlightlyStrongAgainst(ownType)
+			? _badAtRate
+			: _notSoGoodOrBadAtRate;
 	}
 
 	/// <summary>
 	/// ダメージを計算
 	/// </summary>
-	public int CalculateDamage(Unit attacker, Attack attack, Unit defender, Floor defenderFloor)
+	public int Calculate(Unit attacker, Attack attack, Unit defender, Floor defenderFloor)
 	{
 		// 取り敢えず, 暫定的にダメージ計算時に命中可否の判定を行うこととする. (命中可否を画面に通知するかどうかは, また別で考える)
 		if(!IsHit(attack, defenderFloor)) return 0;
 
-		return Mathf.RoundToInt(AttackPower(attacker, attack) * GetTypeAdvantageRate(attack.Type, defender.Type) * (1f - GetReduceRate(defenderFloor)));
+		// ダメージ = { (攻撃力 * attackの威力 * 相性補正 * 得意補正) / (防御力 * 地形効果防御補正) } * 乱数 * クリティカル補正
+		return Mathf.RoundToInt(
+			(attacker.AttackPower * attack.Power * GetTypeAdvantageRate(attack.Type, defender.Type) * GetGoodAtRate(attack.Type, attacker.Type))
+			/ (defender.Defence * (1f + GetReduceRate(defenderFloor)))
+			* Random.Range(0.85f, 1f)
+			);
 	}
 }
