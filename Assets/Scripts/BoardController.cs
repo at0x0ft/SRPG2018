@@ -35,14 +35,14 @@ public class BoardController : MonoBehaviour
 	/// <returns></returns>
 	private void CheckSerializedMember()
 	{
-		if(!_ui) Debug.LogError("[Error] : UI Canvas GameObject is not set!");
-		_ui.CheckSerializedMember();
-
 		if(!_map) Debug.LogError("[Error] : Map GameObject is not set!");
 		_map.CheckSerializedMember();
 
 		if(!_units) Debug.LogError("[Error] : Units GameObject is not set!");
 		_units.CheckSerializedMember();
+
+		if(!_ui) Debug.LogError("[Error] : UI Canvas GameObject is not set!");
+		_ui.CheckSerializedMember(_units);
 
 		if(!_moveController) Debug.LogError("[Error] : MoveController GameObject is not set!");
 		if(!_damageCalculator) Debug.LogError("[Error] : DamageCalculator GameObject is not set!");

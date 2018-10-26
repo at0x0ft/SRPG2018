@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEngine.UI;
 
-public class AttackSelectWindow
-: SubWindow
+public class AttackSelectWindow : SubWindow
 {
 	[SerializeField]
 	private List<Button> _attackBtns;
@@ -24,24 +23,28 @@ public class AttackSelectWindow
 	}
 
 	/// <summary>
-	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
+	/// [SerializedField]で定義されたメンバがnullか否かを判定し, 全てのユニットの持つ攻撃の数を表示しきれるかを確認するメソッド (4debug)
 	/// </summary>
 	/// <returns></returns>
-	public void CheckSerializedMember(List<KeyValuePair<Attack, bool>> atkBoolPairs)
+	public void CheckSerializedMember(Unit[] units)
 	{
+		// Buttonの指定し忘れを警告する.
 		foreach(var atkBtn in _attackBtns)
 		{
 			if(!atkBtn) Debug.LogError("[Error] : atkBtn is not fully set!");
 		}
 
-		if(atkBoolPairs.Count != _attackBtns.Count) Debug.LogWarning("[Error] : atkBtn and attack number does not match!");
+
+		// 攻撃の数が攻撃選択ウィンドウのボタンの数よりも多ければ, エラーとする. (全ての攻撃を表示しきれないため.)
+		if(units.Max(u => u.Attacks.Count) > _attackBtns.Count)
+		{
+			Debug.LogError("[Error] : Number of the attacks is over than that of the AttackSelectWindow's Button!");
+		}
 	}
 
 	public void Show(List<KeyValuePair<Attack, bool>> atkBoolPairs)
 	{
 		Hide();
-
-		CheckSerializedMember(atkBoolPairs);	// 4debug
 
 		// AttackSelectWindow内の攻撃のButtonを一度全て無効化する.
 		foreach(var button in _attackBtns)
@@ -53,9 +56,9 @@ public class AttackSelectWindow
 		{
 			var atk = atkBoolPairs[i].Key;
 			var canAttack = atkBoolPairs[i].Value;
-			Debug.Log(atk);	// 4debug
-			Debug.Log(atk.name);	// 4debug
-			Debug.Log(canAttack);	// 4debug
+			Debug.Log(atk); // 4debug
+			Debug.Log(atk.name);    // 4debug
+			Debug.Log(canAttack);   // 4debug
 
 			// 有効な攻撃のみ, ウィンドウに表示し, 追加する.
 			_attackBtns[i].gameObject.SetActive(canAttack);

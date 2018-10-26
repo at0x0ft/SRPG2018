@@ -66,7 +66,7 @@ public class UI : MonoBehaviour
 	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
 	/// </summary>
 	/// <returns></returns>
-	public void CheckSerializedMember()
+	public void CheckSerializedMember(Units units)
 	{
 		if(!_endCommandButton) Debug.LogError("[Error] : EndCommandButton is not set!");
 		if(!_touchBlocker) Debug.LogError("[Error] : Touch Blocker is not set!");
@@ -82,6 +82,9 @@ public class UI : MonoBehaviour
 
 		if(!_attackInfoWindow) Debug.LogError("[Error] : AttackInfoWindow is not set!");
 		_attackInfoWindow.CheckSerializedMember();
+
+		if(!_attackSelectWindow) Debug.LogError("[Error] : AttackInfoWindow is not set!");
+		_attackSelectWindow.CheckSerializedMember(units.GetComponentsInChildren<Unit>());
 	}
 
 	public void NextUnit()
