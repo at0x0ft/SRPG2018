@@ -11,16 +11,23 @@ public class AttackSelectWindow : SubWindow
 	[SerializeField]
 	private List<Button> _attackBtns;
 
-	private AttackInfoWindow _attackInfoWindow;
-	private AttackController _attackController;
 	private Units _units;
+	private AttackController _ac;
+	private RangeAttackNozzle _ran;
+	private AttackInfoWindow _aiw;
 	private Map _map;
 
-	public void Initialize(Units units, AttackController attackController, AttackInfoWindow attackInfoWindow, Map map)
+	public void Initialize(
+		Units units,
+		AttackController ac,
+		RangeAttackNozzle ran,
+		AttackInfoWindow aiw, 
+		Map map)
 	{
-		_attackInfoWindow = attackInfoWindow;
-		_attackController = attackController;
 		_units = units;
+		_ac = ac;
+		_aiw = aiw;
+		_ran = ran;
 		_map = map;
 	}
 
@@ -44,6 +51,30 @@ public class AttackSelectWindow : SubWindow
 		}
 	}
 
+	/// <summary>
+	/// 攻撃コマンドをクリックしたときのアクション
+	/// </summary>
+	/// <param name="atk"></param>
+	private void CommandButtonAction(Attack atk)
+	{
+		// 1.その詳細情報を表示し
+		_aiw.Show(atk);
+
+		// 2.マップのハイライトを初期化し
+		_map.ClearHighlight();
+
+		// 3.新しくハイライトを着色し
+		_ac.Highlight(_units.ActiveUnit, atk);
+
+		// 4.攻撃予定情報を更新する
+		_units.ActiveUnit.PlanningAttack = new KeyValuePair<Attack, int>(atk, 0);
+		Debug.Log(_units.ActiveUnit.PlanningAttack);
+
+		// 5.もし範囲攻撃なら、ノズルを追加する。
+		if(atk.Scale == Attack.AttackScale.Range) _ran.Show();
+		else _ran.Hide();
+	}
+
 	public void Show(List<KeyValuePair<Attack, bool>> atkBoolPairs)
 	{
 		Hide();
@@ -65,23 +96,7 @@ public class AttackSelectWindow : SubWindow
 			// 有効な攻撃のみ, ウィンドウに表示し, 追加する.
 			_attackBtns[i].gameObject.SetActive(canAttack);
 			_attackBtns[i].GetComponentInChildren<Text>().text = atk.name;
-
-			/// 攻撃コマンドをクリックされたら、
-			/// 1.その詳細情報を表示し、
-			/// 2.マップのハイライトを初期化し、（#48で実装済みのを取り込む）
-			/// 3.新しくハイライトを着色し、
-			/// 4.攻撃予定情報を更新する
-			_attackBtns[i].onClick.AddListener(() => {
-
-				_attackInfoWindow.Show(atk);// 1
-
-				_map.ClearHighlight();// 2
-
-				_attackController.Highlight(_units.ActiveUnit, atk);// 3
-				
-				_units.ActiveUnit.PlanningAttack = new KeyValuePair<Attack, int>(atk, 0);// 4
-				Debug.Log(_units.ActiveUnit.PlanningAttack);
-			});
+			_attackBtns[i].onClick.AddListener(() => CommandButtonAction(atk));
 		}
 
 		Show();

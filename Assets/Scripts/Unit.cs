@@ -291,8 +291,8 @@ public class Unit : MonoBehaviour
 	{
 		if(!Floor.IsAttackable) return;
 
-		// 強攻撃溜めの場合は、クリック発動をさせない
-		if(_units.ActiveUnit.PlanningAttack.Value.Key.Kind == Attack.Level.High) return;
+		// 範囲攻撃の場合は、クリック発動をさせない
+		if(_units.ActiveUnit.PlanningAttack.Value.Key.Scale==Attack.AttackScale.Range) return;
 
 		// 攻撃出来る場合は攻撃を開始する
 		bool success = _units.ActiveUnit.Attacking(this);

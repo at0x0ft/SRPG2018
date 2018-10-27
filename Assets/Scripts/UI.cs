@@ -66,8 +66,8 @@ public class UI : MonoBehaviour
 
 	public void Initialize(Units units, AttackController ac, Map map)
 	{
-		_attackSelectWindow.Initialize(units, ac, _attackInfoWindow, map);
 		_rangeAttackNozzle.Initialize(ac, units, map);
+		_attackSelectWindow.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
 	}
 
 	/// <summary>

@@ -15,8 +15,8 @@ public class RangeAttackNozzle : SubWindow
 
 	public void Initialize(AttackController ac, Units units, Map map)
 	{
-		_centerButton = transform.Find("ButtonFrame").GetComponent<Button>();
-		_circleButton = transform.Find("CircleButtonFrame").GetComponent<Button>();
+		_centerButton = transform.Find("TurnLabel").GetComponent<Button>();
+		_circleButton = transform.Find("CircleButton").GetComponent<Button>();
 
 		_ac = ac;
 		_units = units;
@@ -24,6 +24,7 @@ public class RangeAttackNozzle : SubWindow
 
 		_centerButton.onClick.AddListener(() => ActRangeAttack());
 		_circleButton.onClick.AddListener(() => RotateRangeHighLight());
+		//_centerButton.onClick.AddListener(() => RotateRangeHighLight());
 	}
 	
 
@@ -32,8 +33,9 @@ public class RangeAttackNozzle : SubWindow
 	/// </summary>
 	private void ActRangeAttack()
 	{
+		Debug.Log("ok");
 		// 中身が見当たらない場合は無視します
-		var attacker = _units.FocusingUnit;
+		var attacker = _units.ActiveUnit;
 		var attackInfo = attacker.PlanningAttack;
 		if(attackInfo == null) return;
 
@@ -54,8 +56,9 @@ public class RangeAttackNozzle : SubWindow
 	/// </summary>
 	private void RotateRangeHighLight()
 	{
+		Debug.Log("ok2");
 		// 中身が見当たらない場合は無視します
-		var attacker = _units.FocusingUnit;
+		var attacker = _units.ActiveUnit;
 		var attackInfo = attacker.PlanningAttack;
 		if(attackInfo == null) return;
 

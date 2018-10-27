@@ -217,12 +217,14 @@ public class AttackController
 {
 	private AC.SingleAttackController _sac;
 	private AC.RangeAttackController _rac;
+	private Map _map;
 
 	public AttackController(Map map, Units units, DamageCalculator dc)
 	{
 		var bac = new AC.BaseAttackController(dc, map, units);
 		_sac = new AC.SingleAttackController(map, bac);
 		_rac = new AC.RangeAttackController(map, units, bac);
+		_map = map;
 	}
 
 	/// <summary>
@@ -236,7 +238,9 @@ public class AttackController
 	/// <returns>単独攻撃:攻撃が出来るか否か, 範囲攻撃:攻撃する方角はどこか(東を0とした、反時計回り90°単位)</returns>
 	public int Highlight(Unit attacker, Attack attack, int befDir = -1, bool isClockwise = false)
 	{
-		Debug.Log("Attack scale ? " + attack.Scale);	// 4debug
+		Debug.Log("Attack scale ? " + attack.Scale);    // 4debug
+
+		_map.ClearHighlight();
 
 		if(attack.Scale == global::Attack.AttackScale.Single)
 		{
