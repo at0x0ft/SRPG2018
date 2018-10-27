@@ -75,7 +75,7 @@ public class AttackSelectWindow : SubWindow
 
 				_attackInfoWindow.Show(atk);// 1
 
-				_attackBtns[i].onClick.AddListener(() => _map.ClearHighlight());// 2
+				_map.ClearHighlight();// 2
 
 				_attackController.Highlight(_units.ActiveUnit, atk);// 3
 				
