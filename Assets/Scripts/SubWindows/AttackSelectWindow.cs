@@ -70,7 +70,7 @@ public class AttackSelectWindow : SubWindow
 			/// 1.その詳細情報を表示し、
 			/// 2.マップのハイライトを初期化し、（#48で実装済みのを取り込む）
 			/// 3.新しくハイライトを着色し、
-			/// 4.強攻撃溜め情報を更新する
+			/// 4.攻撃予定情報を更新する
 			_attackBtns[i].onClick.AddListener(() => {
 
 				_attackInfoWindow.Show(atk);// 1

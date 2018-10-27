@@ -212,9 +212,11 @@ public class Floor : MonoBehaviour
 
 	/// <summary>
 	/// 攻撃設定中の挙動
+	/// （範囲攻撃の場合はボタンで操作するので、出番は無い）
 	/// </summary>
 	private void ClickBehaviorOnAttacking()
 	{
+		/*
 		if(!IsAttackable) return;
 
 		Debug.Log(_units.ActiveUnit.PlanningAttack);
@@ -233,6 +235,7 @@ public class Floor : MonoBehaviour
 
 		// 攻撃アニメは時間がかかるだろうから、それが終わるまでLoadingStatusとする
 		_map.NextBattleState();
+		*/
 	}
 
 	/// <summary>
