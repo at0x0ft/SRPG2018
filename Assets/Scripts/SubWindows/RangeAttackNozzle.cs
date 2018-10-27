@@ -44,7 +44,7 @@ public class RangeAttackNozzle : SubWindow
 		if(attack.Scale == Attack.AttackScale.Single) return;
 
 		// 攻撃します
-		attacker.Attacking();
+		_ac.Attack(attacker, attack);
 
 		// 場面を進めます
 		_map.NextBattleState();

@@ -291,11 +291,15 @@ public class Unit : MonoBehaviour
 	{
 		if(!Floor.IsAttackable) return;
 
+		var attacker = _units.ActiveUnit;
+		var attack = attacker.PlanningAttack.Value.Key;
+		var scale = attack.Scale;
+
 		// 範囲攻撃の場合は、クリック発動をさせない
-		if(_units.ActiveUnit.PlanningAttack.Value.Key.Scale==Attack.AttackScale.Range) return;
+		if(scale == Attack.AttackScale.Range) return;
 
 		// 攻撃出来る場合は攻撃を開始する
-		bool success = _units.ActiveUnit.Attacking(this);
+		bool success = _ac.Attack(attacker, attack, this);
 
 		if(!success) return;
 
@@ -402,20 +406,6 @@ public class Unit : MonoBehaviour
 
 		// 不要な情報になったため、削除もしておく
 		PlanningAttack = null;
-	}
-
-	/// <summary>
-	/// 攻撃を行う
-	/// </summary>
-	/// <param name="target"></param>
-	/// <returns>攻撃成功</returns>
-	public bool Attacking(Unit target=null)
-	{
-		if(PlanningAttack == null || PlanningAttack.Value.Key == null) return false;
-
-		_ac.Attack(this, PlanningAttack.Value.Key, target);
-
-		return true;
 	}
 
 	/// <summary>
