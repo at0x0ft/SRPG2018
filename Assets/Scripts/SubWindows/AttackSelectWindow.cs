@@ -14,12 +14,14 @@ public class AttackSelectWindow : SubWindow
 	private AttackInfoWindow _attackInfoWindow;
 	private AttackController _attackController;
 	private Units _units;
+	private Map _map;
 
-	public void Initialize(Units units, AttackController attackController, AttackInfoWindow attackInfoWindow)
+	public void Initialize(Units units, AttackController attackController, AttackInfoWindow attackInfoWindow, Map map)
 	{
 		_attackInfoWindow = attackInfoWindow;
 		_attackController = attackController;
 		_units = units;
+		_map = map;
 	}
 
 	/// <summary>
@@ -72,6 +74,8 @@ public class AttackSelectWindow : SubWindow
 			_attackBtns[i].onClick.AddListener(() => {
 
 				_attackInfoWindow.Show(atk);// 1
+
+				_attackBtns[i].onClick.AddListener(() => _map.ClearHighlight());// 2
 
 				_attackController.Highlight(_units.ActiveUnit, atk);// 3
 				

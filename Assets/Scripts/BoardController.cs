@@ -60,7 +60,7 @@ public class BoardController : MonoBehaviour
 		var ac = new AttackController(_map, _units, _damageCalculator);
 		_map.Initilize(this, _moveController, _units, _ui);
 		_units.Initilize(_map, _moveController, ac);
-		_ui.Initialize(_units, ac);
+		_ui.Initialize(_units, ac, _map);
 
 
 		// endCommandボタンが押下されたらmapインスタンスメソッドの持つNextSet()を実行
