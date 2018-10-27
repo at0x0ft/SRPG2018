@@ -97,7 +97,7 @@ public class Unit : MonoBehaviour
 	private int _moveAmount;    // 4debug (この値はpremasterにマージする時には消すこと.)
 	public int MoveAmount { get { return _moveAmount; } set { Debug.Log("[Debug] Updated as : " + value); _moveAmount = value; } }  // 4debug (この値は, premasterにマージする前に, 元に戻すこと.)
 	public AttackStates AttackState { get; set; }
-	public KeyValuePair<Attack, int>? ChargingAttack { get; private set; }
+	public KeyValuePair<Attack, int>? PlanningAttack { get; set; }
 	private Dictionary<BattleStates, Action> ClickBehaviors;
 
 	/// <summary>
@@ -231,8 +231,8 @@ public class Unit : MonoBehaviour
 		// 移動量の初期化
 		MaxMoveAmount = mc.GetUnitMaxMoveAmount(this);
 
-		// 強攻撃溜め途中情報の初期化
-		ChargingAttack = null;
+		// 攻撃予定情報の初期化
+		PlanningAttack = null;
 
 		// 技の初期化
 		foreach(var attack in Attacks)
@@ -291,9 +291,13 @@ public class Unit : MonoBehaviour
 	{
 		if(!Floor.IsAttackable) return;
 
+		// 強攻撃溜めの場合は、クリック発動をさせない
+		if(_units.ActiveUnit.PlanningAttack.Value.Key.Kind == Attack.Level.High) return;
+
 		// 攻撃出来る場合は攻撃を開始する
-		// (attack情報をどこかで格納してほしい)
-		// _ac.Attack(_units.ActiveUnit, this, attack);
+		bool success = _units.ActiveUnit.Attacking(this);
+
+		if(!success) return;
 
 		// 攻撃が終わるまではLoadFaze
 		_map.NextBattleState();
@@ -384,23 +388,7 @@ public class Unit : MonoBehaviour
 		}
 		return res;
 	}
-
-	/// <summary>
-	/// 強攻撃を選択したときに、その設定を一時的に保持する
-	/// </summary>
-	/// <param name="attack">選択された,強攻撃</param>
-	/// <param name="attackDir">攻撃予定の方角</param>
-	/// <returns>引数が正しいかどうか(正しい:attack が,強攻撃)</returns>
-	public bool StrongAttackPrepare(Attack attack, int attackDir)
-	{
-		// TODO:attackが、強攻撃であることを確認する
-
-		ChargingAttack = new KeyValuePair<Attack, int>(attack, attackDir);
-		AttackState = AttackStates.Charging;
-
-		return true;
-	}
-
+	
 	/// <summary>
 	/// 攻撃を受けたときに、強攻撃溜め状態を解除させる
 	/// </summary>
@@ -413,7 +401,21 @@ public class Unit : MonoBehaviour
 		AttackState = AttackStates.Movable;
 
 		// 不要な情報になったため、削除もしておく
-		ChargingAttack = null;
+		PlanningAttack = null;
+	}
+
+	/// <summary>
+	/// 攻撃を行う
+	/// </summary>
+	/// <param name="target"></param>
+	/// <returns>攻撃成功</returns>
+	public bool Attacking(Unit target=null)
+	{
+		if(PlanningAttack == null || PlanningAttack.Value.Key == null) return false;
+
+		_ac.Attack(this, PlanningAttack.Value.Key, target);
+
+		return true;
 	}
 
 	/// <summary>

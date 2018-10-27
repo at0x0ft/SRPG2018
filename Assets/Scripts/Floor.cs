@@ -217,10 +217,19 @@ public class Floor : MonoBehaviour
 	{
 		if(!IsAttackable) return;
 
-		/*
-		 * if(！選択中攻撃が、範囲攻撃) return;
-		 * _units.ActiveUnit.Attack();
-		 */
+		Debug.Log(_units.ActiveUnit.PlanningAttack);
+		var atk = _units.ActiveUnit.PlanningAttack.Value.Key;
+
+		// 強攻撃溜めの場合は、クリック発動をさせない
+		if(atk.Kind == Attack.Level.High) return;
+
+		// 選択中攻撃が、単体攻撃の場合は攻撃しない
+		if(atk.Scale == Attack.AttackScale.Single) return;
+
+		// 範囲攻撃(弱/中)を実行！
+		bool success = _units.ActiveUnit.Attacking();
+
+		if(!success) return;
 
 		// 攻撃アニメは時間がかかるだろうから、それが終わるまでLoadingStatusとする
 		_map.NextBattleState();

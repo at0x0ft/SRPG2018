@@ -264,13 +264,11 @@ public class AttackController
 	/// <summary>
 	/// 攻撃を実行します
 	/// </summary>
-	/// <param name="map">便利関数を呼ぶため必要</param>
 	/// <param name="attacker">攻撃主体</param>
-	/// <param name="target">クリックされた攻撃先（マス座標）</param>
 	/// <param name="attack">攻撃内容</param>
-	/// <param name="units">便利関数を呼ぶため必要</param>
+	/// <param name="targetUnit">クリックされた攻撃先（マス座標）</param>
 	/// <returns>攻撃先に、そもそも敵が居たかどうか</returns>
-	public bool Attack(Unit attacker, Unit targetUnit, Attack attack)
+	public bool Attack(Unit attacker, Attack attack, Unit targetUnit=null)
 	{
 		if(attack.Scale == global::Attack.AttackScale.Single)
 		{

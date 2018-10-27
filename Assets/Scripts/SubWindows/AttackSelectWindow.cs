@@ -63,8 +63,21 @@ public class AttackSelectWindow : SubWindow
 			// 有効な攻撃のみ, ウィンドウに表示し, 追加する.
 			_attackBtns[i].gameObject.SetActive(canAttack);
 			_attackBtns[i].GetComponentInChildren<Text>().text = atk.name;
-			_attackBtns[i].onClick.AddListener(() => _attackInfoWindow.Show(atk));
-			_attackBtns[i].onClick.AddListener(() => _attackController.Highlight(_units.ActiveUnit, atk));
+
+			/// 攻撃コマンドをクリックされたら、
+			/// 1.その詳細情報を表示し、
+			/// 2.マップのハイライトを初期化し、（#48で実装済みのを取り込む）
+			/// 3.新しくハイライトを着色し、
+			/// 4.強攻撃溜め情報を更新する
+			_attackBtns[i].onClick.AddListener(() => {
+
+				_attackInfoWindow.Show(atk);// 1
+
+				_attackController.Highlight(_units.ActiveUnit, atk);// 3
+				
+				_units.ActiveUnit.PlanningAttack = new KeyValuePair<Attack, int>(atk, 0);// 4
+				Debug.Log(_units.ActiveUnit.PlanningAttack);
+			});
 		}
 
 		Show();
