@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-using BattleStates = Map.BattleStates;
-
 [RequireComponent(typeof(Button))]
 public class Floor : MonoBehaviour
 {
@@ -32,6 +30,7 @@ public class Floor : MonoBehaviour
 	private Map _map;
 	private Units _units;
 	private MoveController _mc;
+	private BattleStateController _bsc;
 	private Dictionary<BattleStates, Action> ClickBehaviors;
 
 	/// <summary>
@@ -153,11 +152,12 @@ public class Floor : MonoBehaviour
 	/// <param name="map"></param>
 	/// <param name="units"></param>
 	/// <param name="mc"></param>
-	public void Initialize(Map map, Units units, MoveController mc)
+	public void Initialize(Map map, Units units, MoveController mc, BattleStateController bsc)
 	{
 		_map = map;
 		_units = units;
 		_mc = mc;
+		_bsc = bsc;
 
 		_movableColor = _map.MovableColor;
 		_attackableColor = _map.AttackableColor;
@@ -207,7 +207,7 @@ public class Floor : MonoBehaviour
 		_map.Ui.AttackSelectWindow.Show(attackCommandList);
 
 		// 場面を移動する
-		_map.NextBattleState();
+		_bsc.NextBattleState();
 	}
 
 	/// <summary>
@@ -255,8 +255,8 @@ public class Floor : MonoBehaviour
 	/// </summary>
 	public void OnClick()
 	{
-		Debug.Log(gameObject.name + " is clicked. BattleState is " + _map.BattleState.ToString());	// 4debug
+		Debug.Log(gameObject.name + " is clicked. BattleState is " + _bsc.BattleState.ToString());	// 4debug
 
-		ClickBehaviors[_map.BattleState]();
+		ClickBehaviors[_bsc.BattleState]();
 	}
 }

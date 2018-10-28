@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using BattleStates = Map.BattleStates;
 
 [RequireComponent(typeof(Button))]
 public class Unit : MonoBehaviour
@@ -142,6 +141,7 @@ public class Unit : MonoBehaviour
 	private Map _map;
 	private Units _units;
 	private AttackController _ac;
+	private BattleStateController _bsc;
 
 	public bool IsFocusing { get; set; }
 
@@ -212,11 +212,12 @@ public class Unit : MonoBehaviour
 	/// <summary>
 	/// 初期化メソッド
 	/// </summary>
-	public void Initialize(Map map, Units units, MoveController mc, AttackController ac)
+	public void Initialize(Map map, Units units, MoveController mc, AttackController ac, BattleStateController bsc)
 	{
 		_map = map;
 		_units = units;
 		_ac = ac;
+		_bsc = bsc;
 
 		// ユニット自身がButtonとしての役割も持っており, 押下された時にOnClickメソッドの内容を実行する.
 		GetComponent<Button>().onClick.AddListener(OnClick);
@@ -265,7 +266,7 @@ public class Unit : MonoBehaviour
 			if(_units.ActiveUnit == this)
 			{
 				_map.HighlightMovableFloors(Floor, MoveAmount);
-				_map.NextBattleState();
+				_bsc.NextBattleState();
 			}
 		}
 		else
@@ -304,7 +305,7 @@ public class Unit : MonoBehaviour
 		if(!success) return;
 
 		// 攻撃が終わるまではLoadFaze
-		_map.NextBattleState();
+		_bsc.NextBattleState();
 	}
 
 	/// <summary>
@@ -327,7 +328,7 @@ public class Unit : MonoBehaviour
 		Debug.Log(gameObject.name + " is clicked. AttackState is " + AttackState.ToString());   // 4debug
 
 		// SetClickBehaviorで登録した関数を実行
-		ClickBehaviors[_map.BattleState]();
+		ClickBehaviors[_bsc.BattleState]();
 	}
 
 	/// <summary>

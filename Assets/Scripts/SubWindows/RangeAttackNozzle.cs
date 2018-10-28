@@ -12,8 +12,9 @@ public class RangeAttackNozzle : SubWindow
 	private AttackController _ac;
 	private Units _units;
 	private Map _map;
+	private BattleStateController _bsc;
 
-	public void Initialize(AttackController ac, Units units, Map map)
+	public void Initialize(AttackController ac, Units units, Map map, BattleStateController bsc)
 	{
 		_centerButton = transform.Find("TurnLabel").GetComponent<Button>();
 		_circleButton = transform.Find("CircleButton").GetComponent<Button>();
@@ -21,6 +22,7 @@ public class RangeAttackNozzle : SubWindow
 		_ac = ac;
 		_units = units;
 		_map = map;
+		_bsc = bsc;
 
 		_centerButton.onClick.AddListener(() => ActRangeAttack());
 		_circleButton.onClick.AddListener(() => RotateRangeHighLight());
@@ -47,7 +49,7 @@ public class RangeAttackNozzle : SubWindow
 		_ac.Attack(attacker, attack);
 
 		// 場面を進めます
-		_map.NextBattleState();
+		_bsc.NextBattleState();
 	}
 
 	/// <summary>

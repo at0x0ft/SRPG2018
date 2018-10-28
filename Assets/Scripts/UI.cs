@@ -64,9 +64,9 @@ public class UI : MonoBehaviour
 		get{ return _rangeAttackNozzle; }
 	}
 
-	public void Initialize(Units units, AttackController ac, Map map)
+	public void Initialize(Units units, AttackController ac, Map map, BattleStateController bsc)
 	{
-		_rangeAttackNozzle.Initialize(ac, units, map);
+		_rangeAttackNozzle.Initialize(ac, units, map, bsc);
 		_attackSelectWindow.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
 	}
 
