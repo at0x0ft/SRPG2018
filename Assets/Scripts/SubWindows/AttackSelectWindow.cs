@@ -82,19 +82,17 @@ public class AttackSelectWindow : SubWindow
 		// AttackSelectWindow内の攻撃のButtonを一度全て無効化する.
 		foreach(var button in _attackBtns)
 		{
-			button.gameObject.SetActive(false);
+			button.interactable = false;
 		}
 
 		for(int i = 0; i < atkBoolPairs.Count(); i++)
 		{
 			var atk = atkBoolPairs[i].Key;
 			var canAttack = atkBoolPairs[i].Value;
-			Debug.Log(atk); // 4debug
-			Debug.Log(atk.name);    // 4debug
-			Debug.Log(canAttack);   // 4debug
+			// Debug.Log("AttackInfo : " + atk + "canAttack is " + canAttack); // 4debug
 
 			// 有効な攻撃のみ, ウィンドウに表示し, 追加する.
-			_attackBtns[i].gameObject.SetActive(canAttack);
+			_attackBtns[i].interactable = canAttack;
 			_attackBtns[i].GetComponentInChildren<Text>().text = atk.name;
 			_attackBtns[i].onClick.AddListener(() => CommandButtonAction(atk));
 		}

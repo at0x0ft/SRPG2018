@@ -95,7 +95,7 @@ public class Unit : MonoBehaviour
 
 	public int MaxMoveAmount { get; private set; }
 	private int _moveAmount;    // 4debug (この値はpremasterにマージする時には消すこと.)
-	public int MoveAmount { get { return _moveAmount; } set { Debug.Log("[Debug] Updated as : " + value); _moveAmount = value; } }  // 4debug (この値は, premasterにマージする前に, 元に戻すこと.)
+	public int MoveAmount { get { return _moveAmount; } set { /*Debug.Log("[Debug] Updated as : " + value);*/ _moveAmount = value; } }  // 4debug (この値は, premasterにマージする前に, 元に戻すこと.)
 	public AttackStates AttackState { get; set; }
 	public KeyValuePair<Attack, int>? PlanningAttack { get; set; }
 	private Dictionary<BattleStates, Action> ClickBehaviors;
@@ -198,7 +198,7 @@ public class Unit : MonoBehaviour
 			var pair = _initialFloor.CoordinatePair;
 			if(pair.Key.x == 0 && pair.Key.y == 0 && pair.Value.x == 0 && pair.Value.y == 0 && pair.Value.z == 0)
 			{
-				Debug.Log("stay");  // 4debug
+				//Debug.Log("stay");  // 4debug
 				yield return new WaitForSeconds(0.1f);
 			}
 			else
@@ -356,8 +356,6 @@ public class Unit : MonoBehaviour
 	private bool CanSelectTheAttack(Attack attack)
 	{
 		var kind = attack.Kind;
-		Debug.Log("kind:" + attack.Kind.ToString());    // 4debug
-		Debug.Log(Attack.Level.Low.ToString()); // 4debug
 
 		// ユニットがどの攻撃が可能な状態かと, attackの種類を照合し, 攻撃可否を返す.
 		switch(AttackState)
