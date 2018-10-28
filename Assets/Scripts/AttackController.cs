@@ -155,15 +155,12 @@ namespace AC
 		/// <summary>
 		/// 攻撃可能ハイライトを初期設定する
 		/// </summary>
-		public int InitializeAttackableHighlight(Unit attacker, RangeAttack attack)
+		public int InitializeAttackableHighlight(Unit attacker, RangeAttack attack, int dir)
 		{
-			// 初期方角 : 陣営によって初期方角を変えるならここを変える
-			int startAttackDir = 0;
-
 			// 攻撃可能範囲をハイライト
-			_bac.SetAttackableHighlight(GetAttackable(attacker, attack, startAttackDir));
+			_bac.SetAttackableHighlight(GetAttackable(attacker, attack, dir));
 
-			return startAttackDir;
+			return dir;
 		}
 
 		/// <summary>
@@ -234,11 +231,11 @@ public class AttackController
 	/// <param name="attacker">攻撃主体</param>
 	/// <param name="attack">攻撃内容</param>
 	/// <param name="befDir">先程まで向いていた方角（任意）</param>
-	/// <param name="isClockwise">回転をする場合の方向</param>
+	/// <param name="isClockwise">回転をする場合の方向(入れなければ、回転しない)</param>
 	/// <returns>単独攻撃:攻撃が出来るか否か, 範囲攻撃:攻撃する方角はどこか(東を0とした、反時計回り90°単位)</returns>
-	public int Highlight(Unit attacker, Attack attack, int befDir = -1, bool isClockwise = false)
+	public int Highlight(Unit attacker, Attack attack, int befDir = 0, bool? isClockwise = null)
 	{
-		Debug.Log("Attack scale ? " + attack.Scale);    // 4debug
+		//Debug.Log("Attack scale ? " + attack.Scale);    // 4debug
 
 		_map.ClearHighlight();
 
@@ -249,13 +246,13 @@ public class AttackController
 		}
 		else if(attack.Scale == global::Attack.AttackScale.Range)
 		{
-			if(befDir == -1)
+			if(isClockwise == null)
 			{
-				return _rac.InitializeAttackableHighlight(attacker, (RangeAttack)attack);
+				return _rac.InitializeAttackableHighlight(attacker, (RangeAttack)attack, befDir);
 			}
 			else
 			{
-				return _rac.UpdateAttackableHighlight(attacker, (RangeAttack)attack, befDir, isClockwise);
+				return _rac.UpdateAttackableHighlight(attacker, (RangeAttack)attack, befDir, isClockwise.Value);
 			}
 		}
 		else
@@ -274,6 +271,7 @@ public class AttackController
 	/// <returns>攻撃先に、そもそも敵が居たかどうか</returns>
 	public bool Attack(Unit attacker, Attack attack, Unit targetUnit=null)
 	{
+		Debug.Log("攻撃:" + attack + "　が発動しました");
 		if(attack.Scale == global::Attack.AttackScale.Single)
 		{
 			return _sac.Attack(attacker, targetUnit, attack);
