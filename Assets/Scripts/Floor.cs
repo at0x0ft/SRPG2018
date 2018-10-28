@@ -209,35 +209,7 @@ public class Floor : MonoBehaviour
 		// 場面を移動する
 		_bsc.NextBattleState();
 	}
-
-	/// <summary>
-	/// 攻撃設定中の挙動
-	/// （範囲攻撃の場合はボタンで操作するので、出番は無い）
-	/// </summary>
-	private void ClickBehaviorOnAttacking()
-	{
-		/*
-		if(!IsAttackable) return;
-
-		Debug.Log(_units.ActiveUnit.PlanningAttack);
-		var atk = _units.ActiveUnit.PlanningAttack.Value.Key;
-
-		// 強攻撃溜めの場合は、クリック発動をさせない
-		if(atk.Kind == Attack.Level.High) return;
-
-		// 選択中攻撃が、単体攻撃の場合は攻撃しない
-		if(atk.Scale == Attack.AttackScale.Single) return;
-
-		// 範囲攻撃(弱/中)を実行！
-		bool success = _units.ActiveUnit.Attacking();
-
-		if(!success) return;
-
-		// 攻撃アニメは時間がかかるだろうから、それが終わるまでLoadingStatusとする
-		_map.NextBattleState();
-		*/
-	}
-
+	
 	/// <summary>
 	/// マスをクリックした場合の挙動を登録します
 	/// </summary>
@@ -246,7 +218,7 @@ public class Floor : MonoBehaviour
 		ClickBehaviors = new Dictionary<BattleStates, Action>();
 		ClickBehaviors[BattleStates.Check] = ClickBehaviorOnChecking;
 		ClickBehaviors[BattleStates.Move] = ClickBehaviorOnMoving;
-		ClickBehaviors[BattleStates.Attack] = ClickBehaviorOnAttacking;
+		ClickBehaviors[BattleStates.Attack] = () => { };
 		ClickBehaviors[BattleStates.Load] = () => { };
 	}
 

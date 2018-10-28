@@ -37,9 +37,7 @@ public class BattleStateController
 		_map = map;
 		_units = units;
 	}
-
-
-
+	
 	/// <summary>
 	/// 定石通りに戦闘状態を進める。
 	/// Check -> Move-> Attack -> Load
@@ -56,7 +54,7 @@ public class BattleStateController
 				var attack = _units.ActiveUnit.PlanningAttack;
 				if(attack != null && attack.Value.Key.Kind == Attack.Level.High)
 				{
-
+					
 				}
 				break;
 
