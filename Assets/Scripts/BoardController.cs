@@ -56,12 +56,11 @@ public class BoardController : MonoBehaviour
 
 		// ユニット詳細情報サブウィンドウを一度閉じる
 		_ui.UnitInfoWindow.Hide();
-
-		// 戦闘情報を作成
-		_bsc = new BattleStateController(this, _map, _units);
+		
 
 		// 盤面とユニット, AttackControllerを作成
 		var ac = new AttackController(_map, _units, _damageCalculator);
+		_bsc = new BattleStateController(ac, this, _map, _units);
 		_map.Initilize(_bsc, _moveController, _units, _ui);
 		_units.Initilize(_map, _moveController, ac, _bsc);
 		_ui.Initialize(_units, ac, _map, _bsc);
@@ -157,15 +156,15 @@ public class BoardController : MonoBehaviour
 		}
 		activeUnit.IsMoved = false;
 
-		// 盤面の状態を戦況確認中に設定
-		_bsc.WarpBattleState(BattleStates.Check);
-
 		// Unitsクラスに記憶.
 		_units.ActiveUnit = activeUnit;
 
 		// map,UIを初期化する
 		_map.ClearHighlight();
 		_ui.NextUnit();
+
+		// 盤面の状態を戦況確認中に設定
+		_bsc.WarpBattleState(BattleStates.Check);
 	}
 
 	/// <summary>

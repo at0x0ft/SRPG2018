@@ -45,9 +45,17 @@ public class RangeAttackNozzle : SubWindow
 		var attack = attackInfo.Value.Key;
 		if(attack.Scale == Attack.AttackScale.Single) return;
 
-		// 攻撃します
-		_ac.Attack(attacker, attack);
-
+		// 強攻撃の場合はこれでは攻撃しない!!!
+		if(attack.Kind == Attack.Level.High)
+		{
+			attacker.AttackState = Unit.AttackStates.Charging;
+		}
+		else
+		{
+			// 攻撃します
+			_ac.Attack(attacker, attack);
+		}
+		
 		// 場面を進めます
 		_bsc.NextBattleState();
 	}

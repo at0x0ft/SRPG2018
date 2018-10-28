@@ -299,11 +299,22 @@ public class Unit : MonoBehaviour
 		// 範囲攻撃の場合は、クリック発動をさせない
 		if(scale == Attack.AttackScale.Range) return;
 
+		// 強攻撃特殊処理!!!　場所だけ決めて、攻撃しない!!! (発動契機は、Set2開始時)
+		if(attack.Kind == Attack.Level.High)
+		{
+			var singleAttack = (SingleAttack)attack;
+
+			singleAttack.TargetPos = new Vector2Int(this.X, this.Y);
+
+			goto Finish;
+		}
+
 		// 攻撃出来る場合は攻撃を開始する
 		bool success = _ac.Attack(attacker, attack, this);
 
 		if(!success) return;
 
+	Finish:
 		// 攻撃が終わるまではLoadFaze
 		_bsc.NextBattleState();
 	}
@@ -325,7 +336,7 @@ public class Unit : MonoBehaviour
 	/// </summary>
 	public void OnClick()
 	{
-		Debug.Log(gameObject.name + " is clicked. AttackState is " + AttackState.ToString());   // 4debug
+		//Debug.Log(gameObject.name + " is clicked. AttackState is " + AttackState.ToString());   // 4debug
 
 		// SetClickBehaviorで登録した関数を実行
 		ClickBehaviors[_bsc.BattleState]();
