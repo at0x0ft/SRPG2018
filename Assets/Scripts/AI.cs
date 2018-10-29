@@ -17,9 +17,9 @@ using System;
 public class AI : MonoBehaviour
 {
 	// ==========固定値==========
-	const float MinWaitSeconds = 0.5f; // 各動作をした後、最低待つ時間
-	const float MaxWaitSeconds = 1.0f; // 最大待つ時間
-
+	const float MinWaitSeconds = 1.0f; // 各動作をした後、最低待つ時間
+	const float MaxWaitSeconds = 2.0f; // 最大待つ時間
+	
 	/// この記法、後々ランダム性に使うかも
 	/// [SerializeField, Range(0, 100)]
 	/// private int _randomizeAttackTarget = 50;
@@ -36,7 +36,7 @@ public class AI : MonoBehaviour
 
 
 	// ==========(一応)変数==========
-	Coroutine coroutine;
+	private Coroutine coroutine;
 
 	//関数格納
 	private Dictionary<BattleStates, Func<IEnumerator>> BattleStatesBehavior;
@@ -74,7 +74,7 @@ public class AI : MonoBehaviour
 	/// 現在の行動可能なユニットは, _units.ActiveUnitで参照できます.
 	/// </summary>
 	/// <returns></returns>
-	IEnumerator RunCoroutine()
+	private IEnumerator RunCoroutine()
 	{
 		// ずっとこれを毎秒繰り返すだけです（Enemyの手番の時は、個別の関数が動きます）
 		while(true)
@@ -99,7 +99,7 @@ public class AI : MonoBehaviour
 	/// <summary>
 	/// ActiveUnitをクリックするだけ
 	/// </summary>
-	IEnumerator CheckCoroutine()
+	private IEnumerator CheckCoroutine()
 	{
 		var attacker = _units.ActiveUnit;
 
@@ -118,19 +118,48 @@ public class AI : MonoBehaviour
 	/// <summary>
 	/// マンハッタン距離で、一番敵に近づけそうなやつをてきとーに選ぶ
 	/// </summary>
-	IEnumerator MoveCoroutine()
+	private IEnumerator MoveCoroutine()
 	{
+		BestNearestFloor().OnClick();
+
 		yield break;
 	}
 
+	/// <summary>
+	/// 一番Playerが近距離になるような場所を探します
+	/// </summary>
+	/// <returns>Playerが近距離になるマス</returns>
+	private Floor BestNearestFloor()
+	{
+		var players = _units.GetPlayerUnits().ToList();
+
+		return _map.GetMovableFloors()
+		.Aggregate(
+		(best, elem) => 
+		(DistanceToPlayer(players,best) <= DistanceToPlayer(players,elem)) 
+		? best : elem);
+	}
+	
+	/// <summary>
+	/// 特定のマスにおける、最寄りのプレイヤーの距離を調べる
+	/// </summary>
+	/// <param name="floor">調査対象</param>
+	/// <param name="player">プレイヤーユニット情報</param>
+	/// <returns>プレイヤーとの距離</returns>
+	private int DistanceToPlayer(List<Unit> players, Floor f)
+	{
+		return players.Select(p => Mathf.Abs(p.X - f.X) + Mathf.Abs(p.Y - f.Y)).Min();
+	}
+
+
 	// ==========Attack時==========
-	IEnumerator AttackCoroutine()
+	private IEnumerator AttackCoroutine()
 	{
 		yield break;
 	}
 
 	// ==========Load時==========
-	IEnumerator LoadCoroutine()
+	private IEnumerator LoadCoroutine()
 	{
 		yield break;
 	}
@@ -150,7 +179,7 @@ public class AI : MonoBehaviour
 	}
 
 
-	IEnumerator MoveAndAttackCoroutine(Unit unit)
+	private IEnumerator MoveAndAttackCoroutine(Unit unit)
 	{
 		// 移動可能な全てのマスまでの移動コストを取得
 		var moveCosts = _mc.GetMoveCostToAllFloors(_map, unit.Floor);
@@ -214,7 +243,7 @@ public class AI : MonoBehaviour
 		}
 	}
 
-	IEnumerator AttackIfPossibleCoroutine(Unit unit)
+	private IEnumerator AttackIfPossibleCoroutine(Unit unit)
 	{
 		var attackableFloors = _map.GetAttackableFloors();
 		if(0 < attackableFloors.Length)
@@ -247,7 +276,7 @@ public class AI : MonoBehaviour
 	/// <returns>The move coroutine.</returns>
 	/// <param name="unit">Unit.</param>
 	/// <param name="Floor">Floor.</param>
-	IEnumerator WaitMoveCoroutine(Unit unit, Floor Floor)
+	private IEnumerator WaitMoveCoroutine(Unit unit, Floor Floor)
 	{
 		while(true)
 		{
@@ -264,7 +293,7 @@ public class AI : MonoBehaviour
 	/// Battleシーンの終了を待つコルーチン
 	/// </summary>
 	/// <returns>The battle coroutine.</returns>
-	IEnumerator WaitBattleCoroutine()
+	private IEnumerator WaitBattleCoroutine()
 	{
 		while(true)
 		{
