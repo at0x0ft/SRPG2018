@@ -17,7 +17,8 @@ using System;
 public class AI : MonoBehaviour
 {
 	// ==========固定値==========
-	const float waitSeconds = 1f; // 各動作をした後、とりあえず待つ間隔
+	const float MinWaitSeconds = 0.5f; // 各動作をした後、最低待つ時間
+	const float MaxWaitSeconds = 1.0f; // 最大待つ時間
 
 	/// この記法、後々ランダム性に使うかも
 	/// [SerializeField, Range(0, 100)]
@@ -34,7 +35,7 @@ public class AI : MonoBehaviour
 	private Units _units;
 
 
-	// ==========変数==========
+	// ==========(一応)変数==========
 	Coroutine coroutine;
 
 	//関数格納
@@ -79,7 +80,7 @@ public class AI : MonoBehaviour
 		while(true)
 		{
 			// CPUリソースを沢山食べないでくださーい!!!（沢山は食べないよ!!!）
-			yield return new WaitForSeconds(waitSeconds);
+			yield return new WaitForSeconds(WaitSeconds());
 
 			var team = _units.ActiveUnit.Belonging;
 
@@ -100,12 +101,23 @@ public class AI : MonoBehaviour
 	/// </summary>
 	IEnumerator CheckCoroutine()
 	{
+		var attacker = _units.ActiveUnit;
+
+		// 1クリック
+		attacker.OnClick();
+		yield return new WaitForSeconds(WaitSeconds());
+
+		// 2クリック
+		attacker.OnClick();
 		
 		yield break;
 	}
 
 
 	// ==========Move時==========
+	/// <summary>
+	/// マンハッタン距離で、一番敵に近づけそうなやつをてきとーに選ぶ
+	/// </summary>
 	IEnumerator MoveCoroutine()
 	{
 		yield break;
@@ -125,6 +137,17 @@ public class AI : MonoBehaviour
 
 	// ==========共通項==========
 
+	/// <summary>
+	/// クリックするまでの時間が単調だと何かつまらないので、
+	/// 一様乱数でやりましょう
+	/// </summary>
+	/// <returns>待機時間</returns>
+	private float WaitSeconds()
+	{
+		var range = MaxWaitSeconds - MinWaitSeconds;
+		return MinWaitSeconds + range * UnityEngine.Random.value;
+
+	}
 
 
 	IEnumerator MoveAndAttackCoroutine(Unit unit)
