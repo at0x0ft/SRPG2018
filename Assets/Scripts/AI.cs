@@ -4,12 +4,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
 
+/// <summary>
+/// 各BattleStateが始まったときに、特定のアルゴリズムを実行するだけです。
+/// カスタマイズしたい場合は、Floor.cs/Unit.csのOnClick()辺りで使用している辞書型の真似がおすすめ。
+/// それ以上のことをしたい場合は、僕には分からないから頑張って。
+/// </summary>
 public class AI : MonoBehaviour
 {
 	// ==========固定値==========
+	const float waitSeconds = 1f; // 各動作をした後、とりあえず待つ間隔
+
 	/// この記法、後々ランダム性に使うかも
 	/// [SerializeField, Range(0, 100)]
 	/// private int _randomizeAttackTarget = 50;
+
 
 	// ==========参照要素==========
 	private AttackController _ac;
@@ -20,7 +28,9 @@ public class AI : MonoBehaviour
 	private UI _ui;
 	private Units _units;
 
-	// ==========変数==========
+
+	// ==========基盤関数==========
+	Coroutine coroutine;
 
 
 	// ==========基盤関数==========
@@ -40,7 +50,7 @@ public class AI : MonoBehaviour
 
 	public void Run()
 	{
-		StartCoroutine(RunCoroutine());
+		coroutine = StartCoroutine(RunCoroutine());
 	}
 
 	/// <summary>
@@ -50,7 +60,36 @@ public class AI : MonoBehaviour
 	/// <returns></returns>
 	IEnumerator RunCoroutine()
 	{
-		yield return new WaitForSeconds(0.5f);
+		// ずっとこれを毎秒繰り返すだけです（Enemyの手番の時は、個別の関数が動きます）
+		while(true)
+		{
+			// CPUリソースを沢山食べないでくださーい!!!（沢山は食べないよ!!!）
+			yield return new WaitForSeconds(waitSeconds);
+
+			var team = _units.ActiveUnit.Belonging;
+
+			// 手番じゃなければ待機
+			if(team==Unit.Team.Player)
+			{
+				continue;
+			}
+
+			// 手番の時は頑張るよ(Stateが変わるまでは、switch文から処理は抜け出ないようにします)
+			switch(_bsc.BattleState)
+			{
+				case BattleStates.Check:
+					break;
+				case BattleStates.Move:
+					break;
+				case BattleStates.Attack:
+					break;
+				case BattleStates.Load:
+					break;
+			}
+
+		}
+		// 終了判定をしても良いけど、まぁ面倒なのでBoardControllerに全部まかせりゅ(StopAI呼び出して)
+
 		// 行動可能なユニットを取得
 		var playerUnits = _units.GetPlayerUnits().OrderByDescending(x => x.Life);
 		var enemyUnits = _units.GetEnemyUnits();
@@ -215,5 +254,13 @@ public class AI : MonoBehaviour
 				// .Where(f => _mc.GetFloorCost(f) < _mc.MaxLimitCost));
 		}
 		return Floors.Distinct().ToArray();
+	}
+
+	/// <summary>
+	/// 戦闘終了時はこれを呼びましょう
+	/// </summary>
+	public void StopAI()
+	{
+		StopCoroutine(coroutine);
 	}
 }
