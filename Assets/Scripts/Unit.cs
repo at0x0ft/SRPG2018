@@ -286,6 +286,10 @@ public class Unit : MonoBehaviour
 	}
 
 	private void ClickBehaviorOnMoving() {
+		if(_units.ActiveUnit != this) return;
+
+		_map.ClearHighlight();
+
 		// 攻撃の使用可否一覧を取得
 		var attackCommandList = _units.ActiveUnit.GetAttackCommandsList();
 
