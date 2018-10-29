@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using System;
 
 /// <summary>
 /// 各BattleStateが始まったときに、特定のアルゴリズムを実行するだけです。
 /// カスタマイズしたい場合は、Floor.cs/Unit.csのOnClick()辺りで使用している辞書型の真似がおすすめ。
 /// それ以上のことをしたい場合は、僕には分からないから頑張って。
+/// 
+/// なお関数の相対位置が、他では下の関数から上の関数を呼ぶイメージになっていますが、
+/// ここでは上の関数から下の関数を呼ぶイメージになってます。
+/// 書きやすさを考えるとこうなってしまったため、相対位置の疑問は、一度完成してからお願いします。
 /// </summary>
 public class AI : MonoBehaviour
 {
@@ -29,8 +34,12 @@ public class AI : MonoBehaviour
 	private Units _units;
 
 
-	// ==========基盤関数==========
+	// ==========変数==========
 	Coroutine coroutine;
+
+	//関数格納
+	private Dictionary<BattleStates, Func<IEnumerator>> BattleStatesBehavior;
+
 
 
 	// ==========基盤関数==========
@@ -46,6 +55,12 @@ public class AI : MonoBehaviour
 		_mc = mc;
 		_ui = ui;
 		_units = units;
+
+		// 関数辞書の初期設定
+		BattleStatesBehavior[BattleStates.Check] = CheckCoroutine;
+		BattleStatesBehavior[BattleStates.Move] = MoveCoroutine;
+		BattleStatesBehavior[BattleStates.Attack] = AttackCoroutine;
+		BattleStatesBehavior[BattleStates.Load] = LoadCoroutine;
 	}
 
 	public void Run()
@@ -68,45 +83,49 @@ public class AI : MonoBehaviour
 
 			var team = _units.ActiveUnit.Belonging;
 
-			// 手番じゃなければ待機
-			if(team==Unit.Team.Player)
-			{
-				continue;
-			}
-
 			// 手番の時は頑張るよ(Stateが変わるまでは、switch文から処理は抜け出ないようにします)
-			switch(_bsc.BattleState)
+			if(team==Unit.Team.Enemy)
 			{
-				case BattleStates.Check:
-					break;
-				case BattleStates.Move:
-					break;
-				case BattleStates.Attack:
-					break;
-				case BattleStates.Load:
-					break;
+				yield return StartCoroutine(BattleStatesBehavior[_bsc.BattleState]());
 			}
-
 		}
 		// 終了判定をしても良いけど、まぁ面倒なのでBoardControllerに全部まかせりゅ(StopAI呼び出して)
-
-		// 行動可能なユニットを取得
-		var playerUnits = _units.GetPlayerUnits().OrderByDescending(x => x.Life);
-		var enemyUnits = _units.GetEnemyUnits();
-		if(playerUnits.Min(ou => enemyUnits.Min(eu => Mathf.Abs(ou.X - eu.X) + Mathf.Abs(ou.Y - eu.Y))) <= _detectionDistance)
-		{
-			// 敵ユニットが指定距離内に入ったら行動開始
-			foreach(var unit in playerUnits)
-			{
-				yield return MoveAndAttackCoroutine(unit);
-			}
-		}
-		yield return new WaitForSeconds(0.5f);
-		// 全ての操作が完了したらセット終了
-		_bc.NextUnit();
 	}
 
 	// ==========動作定義関数==========
+
+	// ==========Check時==========
+	/// <summary>
+	/// ActiveUnitをクリックするだけ
+	/// </summary>
+	IEnumerator CheckCoroutine()
+	{
+		
+		yield break;
+	}
+
+
+	// ==========Move時==========
+	IEnumerator MoveCoroutine()
+	{
+		yield break;
+	}
+
+	// ==========Attack時==========
+	IEnumerator AttackCoroutine()
+	{
+		yield break;
+	}
+
+	// ==========Load時==========
+	IEnumerator LoadCoroutine()
+	{
+		yield break;
+	}
+
+	// ==========共通項==========
+
+
 
 	IEnumerator MoveAndAttackCoroutine(Unit unit)
 	{
