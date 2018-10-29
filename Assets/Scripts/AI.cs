@@ -6,34 +6,36 @@ using System.Linq;
 
 public class AI : MonoBehaviour
 {
-	// 攻撃対象選択時のランダム性
-	[SerializeField, Range(0, 100)]
-	private int _randomizeAttackTarget = 50;
+	// ==========固定値==========
+	/// この記法、後々ランダム性に使うかも
+	/// [SerializeField, Range(0, 100)]
+	/// private int _randomizeAttackTarget = 50;
 
-	// 検知距離（これ以上近づいたら襲ってくる）
-	[SerializeField, Range(0, 100)]
-	private int _detectionDistance = 4;
-
-	// 地形効果の重視度合い
-	[SerializeField, Range(0, 100)]
-	private int _floorReduceRateImportance = 0;
-
+	// ==========参照要素==========
+	private AttackController _ac;
+	private BattleStateController _bsc;
 	private BoardController _bc;
 	private Map _map;
-	private Units _units;
 	private MoveController _mc;
-	private AttackController _ac;
+	private UI _ui;
+	private Units _units;
 
+	// ==========変数==========
+
+
+	// ==========基盤関数==========
 	/// <summary>
 	/// 初期化メソッド
 	/// </summary>
-	public void Initialize(BoardController bc, Map map, Units units, MoveController mc, AttackController ac)
+	public void Initialize(AttackController ac, BattleStateController bsc, BoardController bc, Map map, MoveController mc, UI ui, Units units)
 	{
+		_ac = ac;
+		_bsc = bsc;
 		_bc = bc;
 		_map = map;
-		_units = units;
 		_mc = mc;
-		_ac = ac;
+		_ui = ui;
+		_units = units;
 	}
 
 	public void Run()
@@ -41,10 +43,13 @@ public class AI : MonoBehaviour
 		StartCoroutine(RunCoroutine());
 	}
 
+	/// <summary>
+	/// メインループ
+	/// 現在の行動可能なユニットは, _units.ActiveUnitで参照できます.
+	/// </summary>
+	/// <returns></returns>
 	IEnumerator RunCoroutine()
 	{
-		// memo:現在の行動可能なユニットは, _units.ActiveUnitで参照できます.
-
 		yield return new WaitForSeconds(0.5f);
 		// 行動可能なユニットを取得
 		var playerUnits = _units.GetPlayerUnits().OrderByDescending(x => x.Life);
@@ -61,6 +66,8 @@ public class AI : MonoBehaviour
 		// 全ての操作が完了したらセット終了
 		_bc.NextUnit();
 	}
+
+	// ==========動作定義関数==========
 
 	IEnumerator MoveAndAttackCoroutine(Unit unit)
 	{
