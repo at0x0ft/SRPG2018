@@ -28,12 +28,12 @@ public class Units : MonoBehaviour
 	/// <param name="map"></param>
 	/// <param name="mc"></param>
 	/// <param name="ac"></param>
-	public void Initilize(Map map, MoveController mc, AttackController ac)
+	public void Initilize(Map map, MoveController mc, AttackController ac, BattleStateController bsc)
 	{
 		Characters = new List<Unit>();
 		foreach(var unit in transform.GetComponentsInChildren<Unit>())
 		{
-			unit.Initialize(map, this, mc, ac);
+			unit.Initialize(map, this, mc, ac,bsc);
 			Characters.Add(unit);
 		}
 	}

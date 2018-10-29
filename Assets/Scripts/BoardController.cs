@@ -25,6 +25,7 @@ public class BoardController : MonoBehaviour
 
 	private Dictionary<Unit.Team, AI> _ais = new Dictionary<Unit.Team, AI>();
 	private Unit.Team _startTeam;
+	private BattleStateController _bsc;
 
 	public int Turn { get; private set; }
 	public int Set { get; private set; }
@@ -35,14 +36,14 @@ public class BoardController : MonoBehaviour
 	/// <returns></returns>
 	private void CheckSerializedMember()
 	{
-		if(!_ui) Debug.LogError("[Error] : UI Canvas GameObject is not set!");
-		_ui.CheckSerializedMember();
-
 		if(!_map) Debug.LogError("[Error] : Map GameObject is not set!");
 		_map.CheckSerializedMember();
 
 		if(!_units) Debug.LogError("[Error] : Units GameObject is not set!");
 		_units.CheckSerializedMember();
+
+		if(!_ui) Debug.LogError("[Error] : UI Canvas GameObject is not set!");
+		_ui.CheckSerializedMember(_units);
 
 		if(!_moveController) Debug.LogError("[Error] : MoveController GameObject is not set!");
 		if(!_damageCalculator) Debug.LogError("[Error] : DamageCalculator GameObject is not set!");
@@ -55,13 +56,14 @@ public class BoardController : MonoBehaviour
 
 		// ユニット詳細情報サブウィンドウを一度閉じる
 		_ui.UnitInfoWindow.Hide();
+		
 
 		// 盤面とユニット, AttackControllerを作成
 		var ac = new AttackController(_map, _units, _damageCalculator);
-		_map.Initilize(this, _moveController, _units, _ui);
-		_units.Initilize(_map, _moveController, ac);
-		_ui.Initialize(_units, ac);
-
+		_bsc = new BattleStateController(ac, this, _map, _units);
+		_map.Initilize(_bsc, _moveController, _units, _ui);
+		_units.Initilize(_map, _moveController, ac, _bsc);
+		_ui.Initialize(_units, ac, _map, _bsc);
 
 		// endCommandボタンが押下されたらmapインスタンスメソッドの持つNextSet()を実行
 		_ui.EndCommandButton.onClick.AddListener(() => { NextUnit(); });
@@ -154,15 +156,15 @@ public class BoardController : MonoBehaviour
 		}
 		activeUnit.IsMoved = false;
 
-		// 盤面の状態を戦況確認中に設定
-		_map.WarpBattleState(Map.BattleStates.Check);
-
 		// Unitsクラスに記憶.
 		_units.ActiveUnit = activeUnit;
 
 		// map,UIを初期化する
 		_map.ClearHighlight();
 		_ui.NextUnit();
+
+		// 盤面の状態を戦況確認中に設定
+		_bsc.WarpBattleState(BattleStates.Check);
 	}
 
 	/// <summary>

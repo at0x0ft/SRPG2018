@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using BattleStates = Map.BattleStates;
 
 [RequireComponent(typeof(Button))]
 public class Unit : MonoBehaviour
@@ -94,10 +93,10 @@ public class Unit : MonoBehaviour
 	}
 
 	public int MaxMoveAmount { get; private set; }
-	private int _moveAmount;	// 4debug (この値はpremasterにマージする時には消すこと.)
-	public int MoveAmount { get { return _moveAmount; } set { Debug.Log("[Debug] Updated as : " + value); _moveAmount = value; } }	// 4debug (この値は, premasterにマージする前に, 元に戻すこと.)
-	public AttackStates AttackState{ get; set; }
-	public KeyValuePair<Attack, int>? ChargingAttack { get; private set; }
+	private int _moveAmount;    // 4debug (この値はpremasterにマージする時には消すこと.)
+	public int MoveAmount { get { return _moveAmount; } set { /*Debug.Log("[Debug] Updated as : " + value);*/ _moveAmount = value; } }  // 4debug (この値は, premasterにマージする前に, 元に戻すこと.)
+	public AttackStates AttackState { get; set; }
+	public KeyValuePair<Attack, int>? PlanningAttack { get; set; }
 	private Dictionary<BattleStates, Action> ClickBehaviors;
 
 	/// <summary>
@@ -142,6 +141,7 @@ public class Unit : MonoBehaviour
 	private Map _map;
 	private Units _units;
 	private AttackController _ac;
+	private BattleStateController _bsc;
 
 	public bool IsFocusing { get; set; }
 
@@ -198,7 +198,7 @@ public class Unit : MonoBehaviour
 			var pair = _initialFloor.CoordinatePair;
 			if(pair.Key.x == 0 && pair.Key.y == 0 && pair.Value.x == 0 && pair.Value.y == 0 && pair.Value.z == 0)
 			{
-				Debug.Log("stay");	// 4debug
+				//Debug.Log("stay");  // 4debug
 				yield return new WaitForSeconds(0.1f);
 			}
 			else
@@ -212,11 +212,12 @@ public class Unit : MonoBehaviour
 	/// <summary>
 	/// 初期化メソッド
 	/// </summary>
-	public void Initialize(Map map, Units units, MoveController mc, AttackController ac)
+	public void Initialize(Map map, Units units, MoveController mc, AttackController ac, BattleStateController bsc)
 	{
 		_map = map;
 		_units = units;
 		_ac = ac;
+		_bsc = bsc;
 
 		// ユニット自身がButtonとしての役割も持っており, 押下された時にOnClickメソッドの内容を実行する.
 		GetComponent<Button>().onClick.AddListener(OnClick);
@@ -231,8 +232,8 @@ public class Unit : MonoBehaviour
 		// 移動量の初期化
 		MaxMoveAmount = mc.GetUnitMaxMoveAmount(this);
 
-		// 強攻撃溜め途中情報の初期化
-		ChargingAttack = null;
+		// 攻撃予定情報の初期化
+		PlanningAttack = null;
 
 		// 技の初期化
 		foreach(var attack in Attacks)
@@ -265,7 +266,7 @@ public class Unit : MonoBehaviour
 			if(_units.ActiveUnit == this)
 			{
 				_map.HighlightMovableFloors(Floor, MoveAmount);
-				_map.NextBattleState();
+				_bsc.NextBattleState();
 			}
 		}
 		else
@@ -291,12 +292,31 @@ public class Unit : MonoBehaviour
 	{
 		if(!Floor.IsAttackable) return;
 
-		// 攻撃出来る場合は攻撃を開始する
-		// (attack情報をどこかで格納してほしい)
-		// _ac.Attack(_units.ActiveUnit, this, attack);
+		var attacker = _units.ActiveUnit;
+		var attack = attacker.PlanningAttack.Value.Key;
+		var scale = attack.Scale;
 
+		// 範囲攻撃の場合は、クリック発動をさせない
+		if(scale == Attack.AttackScale.Range) return;
+
+		// 強攻撃特殊処理!!!　場所だけ決めて、攻撃しない!!! (発動契機は、Set2開始時)
+		if(attack.Kind == Attack.Level.High)
+		{
+			var singleAttack = (SingleAttack)attack;
+
+			singleAttack.TargetPos = new Vector2Int(this.X, this.Y);
+
+			goto Finish;
+		}
+
+		// 攻撃出来る場合は攻撃を開始する
+		bool success = _ac.Attack(attacker, attack, this);
+
+		if(!success) return;
+
+	Finish:
 		// 攻撃が終わるまではLoadFaze
-		_map.NextBattleState();
+		_bsc.NextBattleState();
 	}
 
 	/// <summary>
@@ -316,10 +336,10 @@ public class Unit : MonoBehaviour
 	/// </summary>
 	public void OnClick()
 	{
-		Debug.Log(gameObject.name + " is clicked. AttackState is " + AttackState.ToString());	// 4debug
+		//Debug.Log(gameObject.name + " is clicked. AttackState is " + AttackState.ToString());   // 4debug
 
 		// SetClickBehaviorで登録した関数を実行
-		ClickBehaviors[_map.BattleState]();
+		ClickBehaviors[_bsc.BattleState]();
 	}
 
 	/// <summary>
@@ -348,8 +368,8 @@ public class Unit : MonoBehaviour
 	private bool CanSelectTheAttack(Attack attack)
 	{
 		var kind = attack.Kind;
-		Debug.Log("kind:"+attack.Kind.ToString());
-		Debug.Log(Attack.Level.Low.ToString());
+
+		// ユニットがどの攻撃が可能な状態かと, attackの種類を照合し, 攻撃可否を返す.
 		switch(AttackState)
 		{
 			case AttackStates.LittleAttack:
@@ -358,12 +378,12 @@ public class Unit : MonoBehaviour
 			case AttackStates.MiddleAttack:
 				return (kind == Attack.Level.Mid);
 
-			case AttackStates.Charging: // <-選択するまでもなく、強制発動にしましょう。
+			case AttackStates.Charging: // <- 選択するまでもなく、強制発動にしましょう。
 			case AttackStates.Movable:
 				return false;
 
 			default:
-				Debug.Log(attack.ToString() + " は未規定のAttackStateが設定されてます。");
+				Debug.Log(attack.ToString() + " は未規定のAttackStateが設定されてます。");    // 4debug
 				return false;
 		}
 	}
@@ -382,23 +402,7 @@ public class Unit : MonoBehaviour
 		}
 		return res;
 	}
-
-	/// <summary>
-	/// 強攻撃を選択したときに、その設定を一時的に保持する
-	/// </summary>
-	/// <param name="attack">選択された,強攻撃</param>
-	/// <param name="attackDir">攻撃予定の方角</param>
-	/// <returns>引数が正しいかどうか(正しい:attack が,強攻撃)</returns>
-	public bool StrongAttackPrepare(Attack attack, int attackDir)
-	{
-		// TODO:attackが、強攻撃であることを確認する
-
-		ChargingAttack = new KeyValuePair<Attack, int>(attack, attackDir);
-		AttackState = AttackStates.Charging;
-
-		return true;
-	}
-
+	
 	/// <summary>
 	/// 攻撃を受けたときに、強攻撃溜め状態を解除させる
 	/// </summary>
@@ -411,7 +415,7 @@ public class Unit : MonoBehaviour
 		AttackState = AttackStates.Movable;
 
 		// 不要な情報になったため、削除もしておく
-		ChargingAttack = null;
+		PlanningAttack = null;
 	}
 
 	/// <summary>
