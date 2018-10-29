@@ -153,14 +153,26 @@ public class AI : MonoBehaviour
 
 
 	// ==========Attack時==========
+	/// <summary>
+	/// 殴れるやつをてきとーに1つ選んで使う。
+	/// </summary>
 	private IEnumerator AttackCoroutine()
 	{
 		yield break;
 	}
 
 	// ==========Load時==========
+	/// <summary>
+	/// ただ待つだけ以外にやること無いやろｗｗｗ
+	/// (あったら書き換えて)
+	/// </summary>
 	private IEnumerator LoadCoroutine()
 	{
+		while(_bsc.BattleState==BattleStates.Load)
+		{
+			yield return new WaitForSeconds(WaitSeconds());
+		}
+
 		yield break;
 	}
 
