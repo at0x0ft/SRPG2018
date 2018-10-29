@@ -32,8 +32,3 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
-
-# Only Script, gitignore & attribute
-*.*
-!*.cs
-!*.gitignore

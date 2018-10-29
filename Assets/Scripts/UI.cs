@@ -57,9 +57,17 @@ public class UI : MonoBehaviour
 		get{ return _attackSelectWindow; }
 	}
 
-	public void Initialize(Units units, AttackController ac)
+	[SerializeField]
+	private RangeAttackNozzle _rangeAttackNozzle;
+	public RangeAttackNozzle RangeAttackNozzle
 	{
-		_attackSelectWindow.Initialize(units, ac, _attackInfoWindow);
+		get{ return _rangeAttackNozzle; }
+	}
+
+	public void Initialize(Units units, AttackController ac, Map map, BattleStateController bsc)
+	{
+		_rangeAttackNozzle.Initialize(ac, units, map, bsc);
+		_attackSelectWindow.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
 	}
 
 	/// <summary>

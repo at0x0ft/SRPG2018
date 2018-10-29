@@ -12,4 +12,7 @@ public class SingleAttack : Attack
 	{
 		Scale = AttackScale.Single;
 	}
+
+	// 強攻撃の場合に、場所を指定します
+	public Vector2Int TargetPos{ get; set; }
 }
