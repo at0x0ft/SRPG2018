@@ -33,7 +33,7 @@ public class RangeAttackNozzle : SubWindow
 	/// <summary>
 	/// 範囲攻撃のときに、Attack!ボタンを押したら、攻撃が始まります。
 	/// </summary>
-	private void ActRangeAttack()
+	public void ActRangeAttack()
 	{
 		Debug.Log("ok");
 		// 中身が見当たらない場合は無視します
@@ -64,7 +64,7 @@ public class RangeAttackNozzle : SubWindow
 	/// 範囲攻撃のときに、Attack!ボタンの周囲を押したら、攻撃範囲が回転します。
 	/// (素材が無いため、反時計回りのみとしてあります)
 	/// </summary>
-	private void RotateRangeHighLight()
+	public void RotateRangeHighLight()
 	{
 		Debug.Log("ok2");
 		// 中身が見当たらない場合は無視します

@@ -168,8 +168,18 @@ public class AI : MonoBehaviour
 		}
 		else
 		{
-			// 攻撃実行
+			// 攻撃の種類を選択
+			var attack = SelectAttack(attackableCommands);
 
+			// 攻撃の場所を選択（攻撃）
+			if(attack.Scale==Attack.AttackScale.Single)
+			{
+				SelectSingleAttackFloor();
+			}
+			else
+			{
+				yield return SelectRangeAttackDir((RangeAttack)attack);
+			}
 		}
 
 		yield break;
@@ -273,6 +283,63 @@ public class AI : MonoBehaviour
 	}
 
 	/// <summary>
+	/// 攻撃を選択し、クリックします。
+	/// </summary>
+	/// <param name="attackableCommands">攻撃候補</param>
+	/// <returns>選択した攻撃</returns>
+	private Attack SelectAttack(List<Attack> attackableCommands)
+	{
+		// 攻撃選択
+		int kind = UnityEngine.Random.Range(0, attackableCommands.Count());
+
+		var selectedCommands = attackableCommands[kind];
+
+		// 攻撃実行
+		_ui.AttackSelectWindow.SelectAttack(selectedCommands);
+
+		return selectedCommands;
+	}
+
+	/// <summary>
+	/// 単体攻撃の場合の、攻撃先を選びます
+	/// </summary>
+	private void SelectSingleAttackFloor()
+	{
+		var floorOnEnemy = _map.GetAttackableFloors()
+		.Where(floor => _units.GetUnit(floor.X, floor.Y) != null)
+		.ToList();
+
+		int kind = UnityEngine.Random.Range(0, floorOnEnemy.Count());
+
+		floorOnEnemy[kind].OnClick();
+	}
+
+	/// <summary>
+	/// 範囲攻撃の場合の、攻撃先を選びます
+	/// </summary>
+	private IEnumerator SelectRangeAttackDir(RangeAttack attack)
+	{
+		// 攻撃出来るまでくるくる回す
+		while(attack.IsRotatable)
+		{
+			var attackableFloors = _map.GetAttackableFloors()
+			.Select(floor => floor.CoordinatePair.Key)
+			.ToList();
+
+			if(IsPlayerIn(attackableFloors)) break;
+
+			_ui.RangeAttackNozzle.RotateRangeHighLight();
+
+			yield return new WaitForSeconds(WaitSeconds());
+		}
+
+		// 攻撃する
+		_ui.RangeAttackNozzle.ActRangeAttack();
+
+		yield break;
+	}
+
+	/// <summary>
 	/// ただ待つだけ以外にやること無いやろｗｗｗ
 	/// (あったら書き換えて)
 	/// </summary>
@@ -285,7 +352,6 @@ public class AI : MonoBehaviour
 
 		yield break;
 	}
-
 
 	// ==========共通項==========
 	/// <summary>
