@@ -57,6 +57,7 @@ public class AI : MonoBehaviour
 		_units = units;
 
 		// 関数辞書の初期設定
+		BattleStatesBehavior = new Dictionary<BattleStates, Func<IEnumerator>>();
 		BattleStatesBehavior[BattleStates.Check] = CheckCoroutine;
 		BattleStatesBehavior[BattleStates.Move] = MoveCoroutine;
 		BattleStatesBehavior[BattleStates.Attack] = AttackCoroutine;
@@ -82,7 +83,6 @@ public class AI : MonoBehaviour
 			yield return new WaitForSeconds(WaitSeconds());
 
 			var team = _units.ActiveUnit.Belonging;
-
 			// 手番の時は頑張るよ(Stateが変わるまでは、switch文から処理は抜け出ないようにします)
 			if(team==Unit.Team.Enemy)
 			{
@@ -91,8 +91,9 @@ public class AI : MonoBehaviour
 		}
 		// 終了判定をしても良いけど、まぁ面倒なのでBoardControllerに全部まかせりゅ(StopAI呼び出して)
 	}
+	
 
-	// ==========動作定義関数==========
+	// ==========Check Faze==========
 	/// <summary>
 	/// ActiveUnitをクリックするだけ
 	/// </summary>
@@ -110,12 +111,25 @@ public class AI : MonoBehaviour
 		yield break;
 	}
 	
+
+	// ==========Move Faze==========
 	/// <summary>
 	/// マンハッタン距離で、一番敵に近づけそうなやつをてきとーに選ぶ
 	/// </summary>
 	private IEnumerator MoveCoroutine()
 	{
-		BestNearestFloor().OnClick();
+		var nearest = BestNearestFloor();
+
+		if(nearest == null) 
+		{
+			// 動けないのでユニットの動作は終了
+			FinishUnitAction();
+		}
+		else
+		{
+			// 敵に這い寄れニャル子さん
+			nearest.OnClick();
+		}
 
 		yield break;
 	}
@@ -126,10 +140,14 @@ public class AI : MonoBehaviour
 	/// <returns>Playerが近距離になるマス</returns>
 	private Floor BestNearestFloor()
 	{
-		var players = _units.GetPlayerUnits().ToList();
+		var players = _units.GetEnemyUnits().ToList();
 
-		return _map.GetMovableFloors()
-		.Aggregate(
+		var movable = _map.GetMovableFloors();
+
+		// 移動できない場合
+		if(!movable.Any()) return null;
+
+		return movable.Aggregate(
 		(best, elem) => 
 		(DistanceToPlayer(players,best) <= DistanceToPlayer(players,elem)) 
 		? best : elem);
@@ -147,7 +165,9 @@ public class AI : MonoBehaviour
 		.Select(p => Mathf.Abs(p.X - f.X) + Mathf.Abs(p.Y - f.Y))
 		.Min();
 	}
-	
+
+
+	// ==========Attack Faze==========
 	/// <summary>
 	/// 殴れるやつをてきとーに1つ選んで使う。
 	/// </summary>
@@ -156,20 +176,16 @@ public class AI : MonoBehaviour
 		// 攻撃が当たるコマンド一覧
 		var attackableCommands = GetHitAttacks();
 
-		if(attackableCommands == null)
+		if(!attackableCommands.Any())
 		{
-			// Finishボタンのクリック
-			ExecuteEvents.Execute
-			(
-				target: _ui.EndCommandButton.gameObject,
-				eventData: new PointerEventData(EventSystem.current),
-				functor: ExecuteEvents.pointerClickHandler
-			);
+			FinishUnitAction();
 		}
 		else
 		{
 			// 攻撃の種類を選択
 			var attack = SelectAttack(attackableCommands);
+			
+			yield return new WaitForSeconds(WaitSeconds());
 
 			// 攻撃の場所を選択（攻撃）
 			if(attack.Scale==Attack.AttackScale.Single)
@@ -224,7 +240,7 @@ public class AI : MonoBehaviour
 	{
 		var range = attack.Range;
 
-		if(attack.Scale == Attack.AttackScale.Single ||	!((RangeAttack)attack).IsRotatable) 
+		if(attack.Scale == Attack.AttackScale.Single ||	!((RangeAttack)attack).IsRotatable)
 		{
 			return FixRange(now, range);
 		}
@@ -248,7 +264,7 @@ public class AI : MonoBehaviour
 
 				res = res.Union(fixedRotRange).ToList();
 			}
-
+			
 			return res;
 		}
 	}
@@ -305,13 +321,14 @@ public class AI : MonoBehaviour
 	/// </summary>
 	private void SelectSingleAttackFloor()
 	{
-		var floorOnEnemy = _map.GetAttackableFloors()
-		.Where(floor => _units.GetUnit(floor.X, floor.Y) != null)
+		var enemys = _map.GetAttackableFloors()
+		.Select(floor => _units.GetUnit(floor.X, floor.Y))
+		.Where(unit => unit != null)
 		.ToList();
 
-		int kind = UnityEngine.Random.Range(0, floorOnEnemy.Count());
+		int kind = UnityEngine.Random.Range(0, enemys.Count());
 
-		floorOnEnemy[kind].OnClick();
+		enemys[kind].OnClick();
 	}
 
 	/// <summary>
@@ -339,6 +356,8 @@ public class AI : MonoBehaviour
 		yield break;
 	}
 
+
+	// ==========Load Faze==========
 	/// <summary>
 	/// ただ待つだけ以外にやること無いやろｗｗｗ
 	/// (あったら書き換えて)
@@ -365,7 +384,21 @@ public class AI : MonoBehaviour
 
 		return MinWaitSeconds + range * UnityEngine.Random.value;
 	}
-			
+	
+	/// <summary>
+	/// ユニットの動作を終了させる
+	/// </summary>
+	private void FinishUnitAction()
+	{ 
+		// Finishボタンのクリック
+		ExecuteEvents.Execute
+		(
+			target: _ui.EndCommandButton.gameObject,
+			eventData: new PointerEventData(EventSystem.current),
+			functor: ExecuteEvents.pointerClickHandler
+		);
+	}
+
 	/// <summary>
 	/// 移動の終了を待つコルーチン
 	/// </summary>

@@ -62,9 +62,9 @@ public class Map : MonoBehaviour
 			Floors.Add(floor);
 		}
 
-		// いる?
-		// WidthLimit = Floors.Max(floor => floor.X);
-		// HeightLimit = Floors.Max(floor => floor.Y);
+		// いる
+		WidthLimit = Floors.Max(floor => floor.X);
+		HeightLimit = Floors.Max(floor => floor.Y);
 	}
 
 	/// <summary>
@@ -102,7 +102,7 @@ public class Map : MonoBehaviour
 	public void HighlightMovableFloors(Floor startFloor, int moveAmount)
 	{
 		var infos = _mc.GetRemainingMoveAmountInfos(this, startFloor, moveAmount);
-		Debug.Log("infos length : " + infos.Count); // 4debug
+		//Debug.Log("infos length : " + infos.Count); // 4debug
 
 		// 移動可能なマスを計算し, 一つずつマスを展開
 		foreach(var info in infos)
