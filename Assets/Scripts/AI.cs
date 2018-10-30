@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using System.Linq;
 using System;
 
@@ -143,7 +143,9 @@ public class AI : MonoBehaviour
 	/// <returns>プレイヤーとの距離</returns>
 	private int DistanceToPlayer(List<Unit> players, Floor f)
 	{
-		return players.Select(p => Mathf.Abs(p.X - f.X) + Mathf.Abs(p.Y - f.Y)).Min();
+		return players
+		.Select(p => Mathf.Abs(p.X - f.X) + Mathf.Abs(p.Y - f.Y))
+		.Min();
 	}
 	
 	/// <summary>
@@ -151,9 +153,125 @@ public class AI : MonoBehaviour
 	/// </summary>
 	private IEnumerator AttackCoroutine()
 	{
+		// 攻撃が当たるコマンド一覧
+		var attackableCommands = GetHitAttacks();
+
+		if(attackableCommands == null)
+		{
+			// Finishボタンのクリック
+			ExecuteEvents.Execute
+			(
+				target: _ui.EndCommandButton.gameObject,
+				eventData: new PointerEventData(EventSystem.current),
+				functor: ExecuteEvents.pointerClickHandler
+			);
+		}
+		else
+		{
+			// 攻撃実行
+
+		}
+
 		yield break;
 	}
+
+	/// <summary>
+	/// 距離的に当たる攻撃を探します
+	/// </summary>
+	/// <returns>距離的に当たる攻撃のリスト</returns>
+	private List<Attack> GetHitAttacks()
+	{
+		var attacker = _units.ActiveUnit;
+		var now = attacker.Floor.CoordinatePair.Key;
+
+		return attacker.GetAttackCommandsList()
+		.Where(pair => pair.Value)
+		.Select(pair => pair.Key)
+		.Where(attack => IsPlayerIn(AttackReach(now, attack)))
+		.ToList();
+	}
+
+	/// <summary>
+	/// プレイヤー陣営のユニットがどこかに居るかどうかを確認します
+	/// </summary>
+	/// <param name="floors">確認場所</param>
+	/// <returns>プレイヤー陣営がどこかに居る</returns>
+	private bool IsPlayerIn(List<Vector2Int> floors)
+	{
+		return floors
+		.Select(f => (_units.GetUnit(f.x, f.y)))
+		.Where(u => (u != null && u.Belonging == Unit.Team.Player))
+		.Count() > 0;
+	}
+
+	/// <summary>
+	/// 回転も含めた、攻撃が届く場所
+	/// </summary>
+	/// <param name="now">現在位置</param>
+	/// <param name="attack">攻撃の種類</param>
+	/// <returns>攻撃範囲</returns>
+	private List<Vector2Int> AttackReach(Vector2Int now, Attack attack)
+	{
+		var range = attack.Range;
+
+		if(attack.Scale == Attack.AttackScale.Single ||	!((RangeAttack)attack).IsRotatable) 
+		{
+			return FixRange(now, range);
+		}
+		else
+		{
+			var res = new List<Vector2Int>();
+
+			for(int dir = 0; dir < 4; dir++) 
+			{
+				int sinRot = (dir % 2 == 0) ? 0 : (2 - dir);
+				int cosRot = (dir % 2 == 1) ? 0 : (1 - dir);
+
+				//wikipedia,回転行列を参照
+				var rotRange = range
+				.Select(p => new Vector2Int(
+					p.x * cosRot - p.y * sinRot,
+					p.x * sinRot + p.y * cosRot))
+				.ToList();
+
+				var fixedRotRange = FixRange(now, rotRange);
+
+				res = res.Union(fixedRotRange).ToList();
+			}
+
+			return res;
+		}
+	}
+
+	/// <summary>
+	/// 攻撃範囲を、マス座標に落とし込みます
+	/// </summary>
+	/// <param name="now">現在位置</param>
+	/// <param name="attack">調べる攻撃</param>
+	/// <returns>攻撃範囲</returns>
+	private List<Vector2Int> FixRange(Vector2Int now, List<Vector2Int> range)
+	{
+		int hLim = _map.HeightLimit;
+		int wLim = _map.WidthLimit;
+
+		return range
+		.Select(r => r + now)
+		.Where(pos => (IsRange(pos.y, 0, hLim) && IsRange(pos.x, 0, wLim)))
+		.ToList();
+	}
 	
+	/// <summary>
+	/// 数値範囲チェック
+	/// </summary>
+	/// <param name="a">対象数値</param>
+	/// <param name="from">範囲（開始）</param>
+	/// <param name="to">範囲（終了）</param>
+	/// <returns>結果</returns>
+	private bool IsRange(int a, int from, int to)
+	{
+		return (from <= a && a < to);
+	}
+
 	/// <summary>
 	/// ただ待つだけ以外にやること無いやろｗｗｗ
 	/// (あったら書き換えて)
