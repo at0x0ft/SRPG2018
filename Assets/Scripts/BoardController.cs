@@ -60,7 +60,7 @@ public class BoardController : MonoBehaviour
 
 		// 盤面とユニット, AttackControllerを作成
 		var ac = new AttackController(_map, _units, _damageCalculator);
-		_bsc = new BattleStateController(ac, this, _map, _units);
+		_bsc = new BattleStateController(ac, this, _map, _units, _ui);
 		_map.Initilize(_bsc, _moveController, _units, _ui);
 		_units.Initilize(_map, _moveController, ac, _bsc);
 		_ui.Initialize(_units, ac, _map, _bsc);
@@ -205,7 +205,7 @@ public class BoardController : MonoBehaviour
 		}
 
 		// ターン/セット情報を表示
-		_ui.TurnSetInfoWindow.Show(Turn, Set);
+		_ui.TurnSetInfoWindow.Show(Turn, Set, _bsc.BattleState);
 
 		// ユニット情報サブウィンドウを開く (targetUnitは, ターンプレイヤーの持つユニットのうち, 順番をソートした後に最初に来るユニット)
 		//_ui.UnitInfoWindow.Show(_units.ActiveUnit);

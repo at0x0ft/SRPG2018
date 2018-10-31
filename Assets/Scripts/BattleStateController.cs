@@ -25,11 +25,12 @@ public class BattleStateController
 	private BoardController _bc;
 	private Map _map;
 	private Units _units;
+	private UI _ui;
 
 	/// <summary>
 	/// 必要な情報を取得
 	/// </summary>
-	public BattleStateController(AttackController ac, BoardController bc, Map map, Units units)
+	public BattleStateController(AttackController ac, BoardController bc, Map map, Units units, UI ui)
 	{
 		// 戦闘全体の状態を初期化
 		BattleState = BattleStates.Check;
@@ -38,6 +39,7 @@ public class BattleStateController
 		_bc = bc;
 		_map = map;
 		_units = units;
+		_ui = ui;
 	}
 	
 	/// <summary>
@@ -73,6 +75,9 @@ public class BattleStateController
 	/// <param name="battleStates"></param>
 	private void StartTreatmentPerBattleStates(BattleStates battleStates)
 	{
+		// ウィンドウ更新
+		_ui.TurnSetInfoWindow.UpdateStateInfo(battleStates);
+
 		// 各戦闘状態における、特殊処理
 		switch(BattleState)
 		{
