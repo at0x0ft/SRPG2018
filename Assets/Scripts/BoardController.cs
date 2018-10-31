@@ -88,10 +88,12 @@ public class BoardController : MonoBehaviour
 	/// <param name="team"></param>
 	private void SetAI(Unit.Team team, AttackController ac)
 	{
-		// AIインスタンスを初期化
-		_ai.Initialize(this, _map, _units, _moveController, ac);
+		// AIインスタンスを初期化&実行
+		_ai.Initialize(ac, _bsc, this, _map, _moveController, _ui, _units);
+		_ai.Run();
+		Debug.Log("running");
 		// AIと相手プレイヤーを対応付ける
-		_ais[team] = _ai;
+		//_ais[team] = _ai;
 	}
 
 	/// <summary>
@@ -124,7 +126,7 @@ public class BoardController : MonoBehaviour
 		foreach(var unit in _units.Characters)
 		{
 			unit.MoveAmount = unit.MaxMoveAmount;
-			Debug.Log("move amount:" + unit.MoveAmount);    // 4debug
+			//Debug.Log("move amount:" + unit.MoveAmount);    // 4debug
 
 			// 第1セットでは, Unitは弱攻撃と強攻撃の溜めが出来る.
 			unit.AttackState = Unit.AttackStates.LittleAttack;
@@ -192,8 +194,8 @@ public class BoardController : MonoBehaviour
 		if(_ais.ContainsKey(team))
 		{
 			_ui.TouchBlocker.SetActive(true);
-			var ai = _ais[team];
-			ai.Run();
+			//var ai = _ais[team];
+			//ai.Run();
 		}
 		else
 		{
@@ -208,7 +210,7 @@ public class BoardController : MonoBehaviour
 		// ユニット情報サブウィンドウを開く (targetUnitは, ターンプレイヤーの持つユニットのうち, 順番をソートした後に最初に来るユニット)
 		//_ui.UnitInfoWindow.Show(_units.ActiveUnit);
 
-		Debug.Log("Arrange Finished."); // 4debug
+		//Debug.Log("Arrange Finished."); // 4debug
 	}
 
 	/// <summary>

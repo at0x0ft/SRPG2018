@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEngine.UI;
@@ -16,6 +17,8 @@ public class AttackSelectWindow : SubWindow
 	private RangeAttackNozzle _ran;
 	private AttackInfoWindow _aiw;
 	private Map _map;
+
+	private List<KeyValuePair<Attack, bool>> _displayedAttacks;
 
 	public void Initialize(
 		Units units,
@@ -74,10 +77,37 @@ public class AttackSelectWindow : SubWindow
 		if(atk.Scale == Attack.AttackScale.Range) _ran.Show();
 		else _ran.Hide();
 	}
+	
+	/// <summary>
+	/// 目的の攻撃を選択します。AI.cs向けです
+	/// </summary>
+	/// <param name="attack">選んだ攻撃</param>
+	/// <returns>攻撃可否</returns>
+	public bool SelectAttack(Attack attack)
+	{
+		for(int i = 0; i < _displayedAttacks.Count(); i++) 
+		{
+			if(_displayedAttacks[i].Key == attack)
+			{
+				ExecuteEvents.Execute
+				(
+					target: _attackBtns[i].gameObject,
+					eventData: new PointerEventData(EventSystem.current),
+					functor: ExecuteEvents.pointerClickHandler
+				);
+
+				return true;
+			}
+		}
+
+		return false;
+	}
 
 	public void Show(List<KeyValuePair<Attack, bool>> atkBoolPairs)
 	{
 		Hide();
+
+		_displayedAttacks = atkBoolPairs;
 
 		// AttackSelectWindow内の攻撃のButtonを一度全て無効化する.
 		foreach(var button in _attackBtns)
