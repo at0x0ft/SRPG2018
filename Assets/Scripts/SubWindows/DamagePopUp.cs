@@ -15,7 +15,7 @@ public class DamagePopUp : MonoBehaviour
 	// 変数
 	private Text text;
 
-	public void Initialize(int damage)
+	private void Initialize(int damage)
 	{
 		// ダメージの記述
 		text = gameObject.GetComponent<Text>();
@@ -31,7 +31,7 @@ public class DamagePopUp : MonoBehaviour
 	/// </summary>
 	/// <param name="time">経過時間</param>
 	/// <returns>高さ</returns>
-	float CalcHeight(float time)
+	private float CalcHeight(float time)
 	{
 		float a = existTime;
 		float b = floatingHeight;
@@ -41,7 +41,7 @@ public class DamagePopUp : MonoBehaviour
 		return -alpha * Mathf.Pow(time - a / 2, 2) + b;
 	}
 	
-	IEnumerator Main()
+	private IEnumerator Main()
 	{
 		float time = 0f;
 
@@ -60,5 +60,17 @@ public class DamagePopUp : MonoBehaviour
 		Destroy(gameObject);
 
 		yield break;
+	}
+
+	/// <summary>
+	/// ダメージを受けたときの演出を出します
+	/// </summary>
+	/// <param name="parent">被ダメージユニットのTransform</param>
+	/// <param name="damage">ダメージ</param>
+	public void PopUpDamageInfo(Transform defender, int damage)
+	{
+		var popUp = Instantiate(gameObject, defender);
+
+		popUp.GetComponent<DamagePopUp>().Initialize(damage);
 	}
 }

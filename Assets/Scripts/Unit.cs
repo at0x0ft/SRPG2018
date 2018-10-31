@@ -432,20 +432,7 @@ public class Unit : MonoBehaviour
 		// 不要な情報になったため、削除もしておく
 		PlanningAttack = null;
 	}
-
-	/// <summary>
-	/// 攻撃を受けたときに、ダメージを表示します
-	/// </summary>
-	/// <param name="damage"></param>
-	private void DamagePopUp(int damage)
-	{
-		Debug.Log("calling " + damage);
-
-		var popUp = Instantiate(_map.Ui.DamagePopUp, gameObject.transform);
-
-		popUp.GetComponent<DamagePopUp>().Initialize(damage);
-	}
-
+	
 	/// <summary>
 	/// ダメージを与える
 	/// </summary>
@@ -455,7 +442,7 @@ public class Unit : MonoBehaviour
 
 		StrongAttackFailure();
 
-		DamagePopUp(damage);
+		_map.Ui.DamagePopUp.PopUpDamageInfo(transform, damage);
 
 		// 体力が0以下になったらユニットを消滅させる
 		if(Life <= 0) DestroyWithAnimate();
