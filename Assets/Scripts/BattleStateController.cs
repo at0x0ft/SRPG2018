@@ -83,6 +83,9 @@ public class BattleStateController
 		{
 			case BattleStates.Check:
 			    _ui.UnitInfoWindow.Show(_units.ActiveUnit);
+				_ui.MoveAmountInfoWindow.Show(
+					_units.ActiveUnit.MaxMoveAmount, _units.ActiveUnit.MoveAmount
+				);
 				if(!StrongAttackCondition()) break;
 
 				var attacker = _units.ActiveUnit;
