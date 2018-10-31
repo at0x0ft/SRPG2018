@@ -285,6 +285,21 @@ public class Unit : MonoBehaviour
 		}
 	}
 
+	private void ClickBehaviorOnMoving() {
+		if(_units.ActiveUnit != this) return;
+
+		_map.ClearHighlight();
+
+		// 攻撃の使用可否一覧を取得
+		var attackCommandList = _units.ActiveUnit.GetAttackCommandsList();
+
+		// 攻撃一覧画面を作成する(UIに任せる)
+		_map.Ui.AttackSelectWindow.Show(attackCommandList);
+
+		// 場面を移動する
+		_bsc.NextBattleState();
+	}
+
 	/// <summary>
 	/// 攻撃選択中のときに、ユニットをクリックした場合の挙動
 	/// </summary>
@@ -326,7 +341,7 @@ public class Unit : MonoBehaviour
 	{
 		ClickBehaviors = new Dictionary<BattleStates, Action>();
 		ClickBehaviors[BattleStates.Check] = ClickBehaviorOnChecking;
-		ClickBehaviors[BattleStates.Move] = () => { };
+		ClickBehaviors[BattleStates.Move] = ClickBehaviorOnMoving;
 		ClickBehaviors[BattleStates.Attack] = ClickBehaviorOnAttack;
 		ClickBehaviors[BattleStates.Load] = () => { };
 	}
