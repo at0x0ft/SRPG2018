@@ -23,6 +23,13 @@ public class UI : MonoBehaviour
 	}
 
 	[SerializeField]
+	private DamagePopUp _damagePopUp;
+	public DamagePopUp DamagePopUp
+	{
+		get{ return _damagePopUp; }
+	}
+
+	[SerializeField]
 	private TurnSetInfoWindow _turnSetInfoWindow;
 	public TurnSetInfoWindow TurnSetInfoWindow
 	{
