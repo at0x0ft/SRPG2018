@@ -56,7 +56,9 @@ public class BoardController : MonoBehaviour
 
 		// ユニット詳細情報サブウィンドウを一度閉じる
 		_ui.UnitInfoWindow.Hide();
-		
+
+		// 準備中は画面をクリックされないようにする
+		_ui.TouchBlocker.SetActive(true);
 
 		// 盤面とユニット, AttackControllerを作成
 		var ac = new AttackController(_map, _units, _damageCalculator);
@@ -189,16 +191,10 @@ public class BoardController : MonoBehaviour
 
 		// セットプレイヤーの持つユニットのうち先頭のユニットを展開.
 		StartUnit();
-
-		// セットプレイヤーがAIならば, 画面をタッチできないように設定し, AIを走らせる.
-		if(_ais.ContainsKey(team))
+		
+		// セットプレイヤーが人間なら画面タッチ不可を解除する.
+		if(!_ais.ContainsKey(team))
 		{
-			//var ai = _ais[team];
-			//ai.Run();
-		}
-		else
-		{
-			// セットプレイヤーが人間なら画面タッチ不可を解除する.
 			_ui.TouchBlocker.SetActive(false);
 			Debug.Log("touch blocker invalid.");
 		}
