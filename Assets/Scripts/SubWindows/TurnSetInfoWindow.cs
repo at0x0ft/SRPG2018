@@ -23,7 +23,7 @@ public class TurnSetInfoWindow : SubWindow
 	{
 		if(!_turnTextBox) Debug.LogError("[Error] : Turn TextBox is not set!");
 		if(!_setTextBox) Debug.LogError("[Error] : Set TextBox is not set!");
-		if(!_stateTextBox) Debug.LogError("[Error] : Set TextBox is not set!");
+		if(!_stateTextBox) Debug.LogError("[Error] : State TextBox is not set!");
 	}
 
 	public void Show(int turn, int set, BattleStates states)
