@@ -91,9 +91,9 @@ public class BoardController : MonoBehaviour
 		// AIインスタンスを初期化&実行
 		_ai.Initialize(ac, _bsc, this, _map, _moveController, _ui, _units);
 		_ai.Run();
-		Debug.Log("running");
+
 		// AIと相手プレイヤーを対応付ける
-		//_ais[team] = _ai;
+		_ais[team] = _ai;
 	}
 
 	/// <summary>
@@ -193,7 +193,6 @@ public class BoardController : MonoBehaviour
 		// セットプレイヤーがAIならば, 画面をタッチできないように設定し, AIを走らせる.
 		if(_ais.ContainsKey(team))
 		{
-			_ui.TouchBlocker.SetActive(true);
 			//var ai = _ais[team];
 			//ai.Run();
 		}
@@ -218,6 +217,11 @@ public class BoardController : MonoBehaviour
 	/// </summary>
 	public void NextUnit()
 	{
+		// 準備中は操作を出来ないようにする
+		_ui.TouchBlocker.SetActive(true);
+
+		Debug.Log("called");
+
 		// 勝敗が決していたら終了する
 		JudgeGameFinish();
 
@@ -256,6 +260,10 @@ public class BoardController : MonoBehaviour
 	{
 		// ゲーム終了処理は後ほど実装予定
 		Debug.Log("Game finished correctly!");  // 4debug
+
+		// ゲーム終了する前に、画面タッチ不可を解除する
+		_ui.TouchBlocker.SetActive(false);
+
 		Application.Quit();
 	}
 }
