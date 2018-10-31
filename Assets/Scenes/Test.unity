@@ -26851,6 +26851,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _endCommandButton: {fileID: 844781610}
   _touchBlocker: {fileID: 1395844252}
+  _damagePopUp: {fileID: 1880505479322902, guid: a4f7da84ae157dc4b81bb21151d9eda6,
+    type: 2}
   _turnSetInfoWindow: {fileID: 523639774}
   _unitInfoWindow: {fileID: 791872175}
   _moveAmountInfoWindow: {fileID: 982892777}
