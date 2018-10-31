@@ -116,18 +116,6 @@ public class MoveController : MonoBehaviour
 			// unitのGameObjectの実体の座標も変更する
 			unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y);
 
-			// 攻撃の選択
-
-			// 攻撃可能範囲のチェック
-			/* バグ対策の強制的対応（攻撃可否は置いといて、コマンドは選択させるようにすればよさそう）
-			var isAttackable = map.HighlightAttackableFloors(unit.Floor, unit.Attacks[0]);
-
-			// 攻撃可能なマスが無ければ行動済みにし, コマンド入力を終了
-			if(!isAttackable)
-			{
-				unit.IsMoved = true;
-			}
-			*/
 		});
 	}
 
