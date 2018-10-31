@@ -57,9 +57,6 @@ namespace AC
 		public void FinishAttack()
 		{
 			_map.ClearHighlight();
-
-			// 攻撃中のユニットが動き終わった
-			_units.ActiveUnit.IsMoved = true;
 		}
 	}
 

@@ -139,11 +139,7 @@ public class Map : MonoBehaviour
 	{
 		foreach(var Floor in Floors)
 		{
-			if(Floor.IsAttackable)
-			{
-				// 攻撃対象のユニットを選択不可に戻す.
-				if(Floor.Unit) Floor.Unit.GetComponent<Button>().interactable = false;
-			}
+			Floor.IsAttackable = false;
 			Floor.IsMovable = false;
 		}
 	}
