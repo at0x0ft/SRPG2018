@@ -6,26 +6,22 @@ public class DamagePopUp : MonoBehaviour
 {
 	// 固定値
 	[SerializeField]
-	private float existTime = 3.0f;
+	private float existTime = 2.0f;
 	[SerializeField]
-	private float floatingHeight = 20.0f;
+	private float floatingHeight = 30.0f;
 	[SerializeField]
 	private Color textColor = Color.red;
 
 	// 変数
-	private Vector3 _basePos;
 	private Text text;
 
-	public void Initialize(int damage, Vector3 basePos)
+	public void Initialize(int damage)
 	{
 		// ダメージの記述
 		text = gameObject.GetComponent<Text>();
 		text.text= damage.ToString();
 		text.color = textColor;
-
-		// 初期位置設定
-		_basePos = basePos;
-
+		
 		// 動作開始
 		StartCoroutine(Main());
 	}
@@ -40,8 +36,8 @@ public class DamagePopUp : MonoBehaviour
 		float a = existTime;
 		float b = floatingHeight;
 
-		float alpha = 4 * b / a * a;
-
+		float alpha = 4 * b / (a * a);
+		Debug.Log("alpha"+alpha);
 		return -alpha * Mathf.Pow(time - a / 2, 2) + b;
 	}
 	
@@ -49,13 +45,13 @@ public class DamagePopUp : MonoBehaviour
 	{
 		float time = 0f;
 
+		Vector3 now = new Vector3(0, 0, 0);
+
 		while(time<existTime)
 		{
-			float height = CalcHeight(time);
+			now.y = CalcHeight(time);
 
-			var tmp = _basePos;
-			tmp.y += height;
-			transform.position = tmp;
+			transform.localPosition = now;
 
 			yield return null;
 			time += Time.deltaTime;

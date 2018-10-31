@@ -439,9 +439,11 @@ public class Unit : MonoBehaviour
 	/// <param name="damage"></param>
 	private void DamagePopUp(int damage)
 	{
-		var popUp = Instantiate(_map.Ui.DamagePopUp);
+		Debug.Log("calling " + damage);
 
-		popUp.GetComponent<DamagePopUp>().Initialize(damage, transform.position);
+		var popUp = Instantiate(_map.Ui.DamagePopUp, gameObject.transform);
+
+		popUp.GetComponent<DamagePopUp>().Initialize(damage);
 	}
 
 	/// <summary>
