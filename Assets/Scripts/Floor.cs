@@ -181,12 +181,14 @@ public class Floor : MonoBehaviour
 	{
 		// 何もない所をクリックしているため、ユニット選択を解除する
 		_units.ClearFocusingUnit();
+		
+		// ユニット詳細サブウィンドウをアクティブユニットの内容にする.
+		_map.Ui.UnitInfoWindow.Show(_units.ActiveUnit);
 
-		// ユニット詳細サブウィンドウを閉じる.
-		_map.Ui.UnitInfoWindow.Hide();
-
-		// 移動量サブウィンドウも閉じる
-		_map.Ui.MoveAmountInfoWindow.Hide();
+		// 移動量サブウィンドウをアクティブユニットの内容にする.
+		_map.Ui.MoveAmountInfoWindow.Show(
+			_units.ActiveUnit.MaxMoveAmount, _units.ActiveUnit.MoveAmount
+		);
 	}
 
 	/// <summary>

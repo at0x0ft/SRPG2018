@@ -82,6 +82,7 @@ public class BattleStateController
 		switch(BattleState)
 		{
 			case BattleStates.Check:
+			    _ui.UnitInfoWindow.Show(_units.ActiveUnit);
 				if(!StrongAttackCondition()) break;
 
 				var attacker = _units.ActiveUnit;
