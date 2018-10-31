@@ -432,7 +432,7 @@ public class Unit : MonoBehaviour
 		// 不要な情報になったため、削除もしておく
 		PlanningAttack = null;
 	}
-
+	
 	/// <summary>
 	/// ダメージを与える
 	/// </summary>
@@ -441,6 +441,8 @@ public class Unit : MonoBehaviour
 		Life = Mathf.Max(0, Life - damage);
 
 		StrongAttackFailure();
+
+		_map.Ui.DamagePopUp.PopUpDamageInfo(transform, damage);
 
 		// 体力が0以下になったらユニットを消滅させる
 		if(Life <= 0) DestroyWithAnimate();
