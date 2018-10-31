@@ -56,6 +56,8 @@ public class RangeAttackNozzle : SubWindow
 			_ac.Attack(attacker, attack);
 		}
 		
+		Hide();
+
 		// 場面を進めます
 		_bsc.NextBattleState();
 	}
