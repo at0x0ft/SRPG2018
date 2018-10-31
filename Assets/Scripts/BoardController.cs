@@ -151,13 +151,6 @@ public class BoardController : MonoBehaviour
 		var activeUnit = _units.Order.FirstOrDefault();
 		if(!activeUnit) Debug.LogError("[Error] : " + _units.CurrentPlayerTeam.ToString() + "'s active unit is not Found!");    // 4debug
 
-		// セットプレイヤーの先頭のユニット以外は行動済みとする
-		foreach(var unit in _units.Characters)
-		{
-			unit.IsMoved = true;
-		}
-		activeUnit.IsMoved = false;
-
 		// Unitsクラスに記憶.
 		_units.ActiveUnit = activeUnit;
 
