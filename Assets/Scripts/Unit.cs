@@ -434,6 +434,17 @@ public class Unit : MonoBehaviour
 	}
 
 	/// <summary>
+	/// 攻撃を受けたときに、ダメージを表示します
+	/// </summary>
+	/// <param name="damage"></param>
+	private void DamagePopUp(int damage)
+	{
+		var popUp = Instantiate(_map.Ui.DamagePopUp);
+
+		popUp.GetComponent<DamagePopUp>().Initialize(damage, transform.position);
+	}
+
+	/// <summary>
 	/// ダメージを与える
 	/// </summary>
 	public void Damage(int damage)
@@ -441,6 +452,8 @@ public class Unit : MonoBehaviour
 		Life = Mathf.Max(0, Life - damage);
 
 		StrongAttackFailure();
+
+		DamagePopUp(damage);
 
 		// 体力が0以下になったらユニットを消滅させる
 		if(Life <= 0) DestroyWithAnimate();
