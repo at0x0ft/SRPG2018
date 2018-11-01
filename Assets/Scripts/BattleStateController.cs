@@ -82,14 +82,12 @@ public class BattleStateController
 		switch(BattleState)
 		{
 			case BattleStates.Check:
-			    _ui.UnitInfoWindow.Show(_units.ActiveUnit);
-				_ui.MoveAmountInfoWindow.Show(
-					_units.ActiveUnit.MaxMoveAmount, _units.ActiveUnit.MoveAmount
-				);
+			  _ui.UnitInfoWindow.Hide();
+				_ui.MoveAmountInfoWindow.Hide();
 				break;
-
+        
 			case BattleStates.Move:
-				// 強攻撃判定
+        // 強攻撃判定
 				if(!StrongAttackCondition()) break;
 
 				var attacker = _units.ActiveUnit;
