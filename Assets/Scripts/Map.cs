@@ -108,11 +108,7 @@ public class Map : MonoBehaviour
 		foreach(var info in infos)
 		{
 			var Floor = GetFloor(info.Key.X, info.Key.Y);
-			if(Floor.Unit == null)
-			{
-				// ユニットがいなければハイライト(=移動可能に)する
-				Floor.IsMovable = true;
-			}
+			Floor.IsMovable = true;
 		}
 	}
 
