@@ -25,7 +25,7 @@ public abstract class BasePopUp : MonoBehaviour
 	/// ポップアップの初期設定をした後、動作させます
 	/// </summary>
 	/// <param name="text">表示したい文章</param>
-	public void Initial(string text)
+	public void Initialize(string text)
 	{
 		gameObject.SetActive(true);
 
@@ -44,6 +44,14 @@ public abstract class BasePopUp : MonoBehaviour
 	/// </summary>
 	private void SetUpText(string text)
 	{
+		// テキスト長0のやつはTextが要らず、Imageのみを扱います。
+		if(text.Length == 0)
+		{
+			Destroy(transform.Find("Text").gameObject);
+			_text = null;
+			return;
+		}
+
 		_text = transform.Find("Text").GetComponent<Text>();
 		_text.text = text;
 		_text.color = textColor;
@@ -63,7 +71,15 @@ public abstract class BasePopUp : MonoBehaviour
 	{
 		_image = GetComponent<Image>();
 
-		_image.rectTransform.sizeDelta = _text.rectTransform.sizeDelta;
+		if(_text == null){
+			// 画像本位の大きさに調整する
+			_image.SetNativeSize();
+		}
+		else
+		{
+			// テキスト本位の大きさに調整する
+			_image.rectTransform.sizeDelta = _text.rectTransform.sizeDelta;
+		}
 	}
 
 	/// <summary>

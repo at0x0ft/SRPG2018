@@ -31,7 +31,7 @@ public class PopUpController : MonoBehaviour
 
 		string text = damage.ToString();
 
-		popUp.GetComponent<DamagePopUp>().Initial(text);
+		popUp.GetComponent<DamagePopUp>().Initialize(text);
 	}
 
 	public void CreateCutInPopUp(Unit.Team team)
@@ -40,6 +40,6 @@ public class PopUpController : MonoBehaviour
 
 		string text = "=== " + team.ToString() + " Order ===";
 
-		popUp.GetComponent<CutInPopUp>().Initial(text);
+		popUp.GetComponent<CutInPopUp>().Initialize(text);
 	}
 }
