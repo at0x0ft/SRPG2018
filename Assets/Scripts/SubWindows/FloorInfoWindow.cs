@@ -29,10 +29,10 @@ public class FloorInfoWindow : SubWindow
 		if(!_avoidTextBox) Debug.LogError("[Error] : Avo. TextBox is not set!");
 	}
 
-	public void Show(Floor floor, int cost, int defUp, int avoid)
+	public void Show(Floor.Feature floorFeature, int cost, int defUp, int avoid)
 	{
 		Hide();
-		_featTextBox.text = floor.Type.ToString();
+		_featTextBox.text = floorFeature.ToString();
 		_costTextBox.text = cost.ToString();
 		_defUpTextBox.text = defUp.ToString() + "%";
 		_avoidTextBox.text = avoid.ToString() + "%";

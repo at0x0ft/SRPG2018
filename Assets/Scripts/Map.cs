@@ -29,7 +29,7 @@ public class Map : MonoBehaviour
 	{
 		get { return _attackableColor; }
 	}
-	
+
 	private MoveController _mc;
 	private Units _units;
 
@@ -47,7 +47,7 @@ public class Map : MonoBehaviour
 		}
 	}
 
-	public void Initilize(BattleStateController bsc, MoveController mc, Units units, UI ui)
+	public void Initilize(BattleStateController bsc, MoveController mc, DamageCalculator dc, Units units, UI ui)
 	{
 		_mc = mc;
 		_units = units;
@@ -58,7 +58,7 @@ public class Map : MonoBehaviour
 		Floors = new List<Floor>();
 		foreach(var floor in transform.GetComponentsInChildren<Floor>())
 		{
-			floor.Initialize(this, units, mc,bsc);
+			floor.Initialize(this, units, mc, dc, bsc);
 			Floors.Add(floor);
 		}
 

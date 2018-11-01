@@ -30,6 +30,7 @@ public class Floor : MonoBehaviour
 	private Map _map;
 	private Units _units;
 	private MoveController _mc;
+	private DamageCalculator _dc;
 	private BattleStateController _bsc;
 	private Dictionary<BattleStates, Action> ClickBehaviors;
 
@@ -152,11 +153,12 @@ public class Floor : MonoBehaviour
 	/// <param name="map"></param>
 	/// <param name="units"></param>
 	/// <param name="mc"></param>
-	public void Initialize(Map map, Units units, MoveController mc, BattleStateController bsc)
+	public void Initialize(Map map, Units units, MoveController mc, DamageCalculator dc, BattleStateController bsc)
 	{
 		_map = map;
 		_units = units;
 		_mc = mc;
+		_dc = dc;
 		_bsc = bsc;
 
 		_movableColor = _map.MovableColor;
@@ -186,7 +188,7 @@ public class Floor : MonoBehaviour
 		_map.Ui.UnitInfoWindow.Hide();
 
 		// Floor詳細情報サブウィンドウを開く.
-		_map.Ui.FloorInfoWindow.Show();
+		_map.Ui.FloorInfoWindow.Show(Type, _mc.GetFloorCost(this), (int)(_dc.GetReduceRate(this) * 100), _dc.GetAvoidRate(this));
 
 		// 移動量サブウィンドウも閉じる
 		_map.Ui.MoveAmountInfoWindow.Hide();
