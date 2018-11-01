@@ -278,7 +278,7 @@ public class AttackController
 		if(attack.Scale == global::Attack.AttackScale.Single)
 		{
 			targets.Add(targetUnit.Floor);
-			
+			Debug.Log(targetUnit.Floor.transform.position);
 			res = _sac.Attack(attacker, targetUnit, attack);
 		}
 		else if(attack.Scale == global::Attack.AttackScale.Range)

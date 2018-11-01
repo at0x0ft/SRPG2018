@@ -53,7 +53,7 @@ public class PopUpController : MonoBehaviour
 	public void AttackEffectFactory(Unit attacker, List<Floor> targets, Attack attack)
 	{
 		// 攻撃エフェクトのファクトリーを、攻撃者とします。
-		var popUp = Instantiate(gameObject, attacker.transform);
+		var popUp = Instantiate(gameObject, _ui.transform);
 
 		popUp.GetComponent<AttackEffectFactory>().Initialize(attacker, targets, attack);
 	}

@@ -51,6 +51,7 @@ public class AttackEffectFactory : BasePopUp
 		_targets = targets;
 		_attacker = attacker;
 		_attack = attack;
+		gameObject.name = attack.name + "'s effect";
 
 		// AttackEffectKindを諸々と関連付けます
 		EffectKindAssociateFactoryFunc();
