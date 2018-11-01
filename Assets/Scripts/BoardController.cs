@@ -175,6 +175,9 @@ public class BoardController : MonoBehaviour
 
 		// セットプレイヤーのチームを記録
 		_units.CurrentPlayerTeam = team;
+		
+		// Teamが変わったので、CutInを表示
+		_ui.PopUp.CreateCutInPopUp(team);
 
 		// プレイヤーの順番が一巡したら, セット数・ターン数を更新
 		if(_units.CurrentPlayerTeam == _startTeam) UpdateSet();
