@@ -5,11 +5,18 @@ using System.Collections;
 /// PopUpの実体を作成するクラスです。
 /// --------------------------------
 /// 同じオブジェクトにアタッチしていると想定しているもの
-/// - Text(Script)
+/// - Image(背景画像)
 /// - DamagePopUp.cs
+/// - CutInPopUp.cs
+/// 
+/// 子オブジェクトにアタッチしていると想定しているもの
+/// - Text (名称:Text)
 /// </summary>
 public class PopUpController : MonoBehaviour
 {
+	[SerializeField]
+	private UI _ui;
+	
 	/// <summary>
 	/// ダメージのポップアップを作ります
 	/// </summary>
@@ -19,6 +26,17 @@ public class PopUpController : MonoBehaviour
 	{
 		var popUp = Instantiate(gameObject, defender);
 
-		popUp.GetComponent<DamagePopUp>().Initialize(damage.ToString());
+		string text = damage.ToString();
+
+		popUp.GetComponent<DamagePopUp>().Initial(text);
+	}
+
+	public void CreateCutInPopUp(Unit.Team team)
+	{
+		var popUp = Instantiate(gameObject, _ui.transform);
+
+		string text = "=== " + team.ToString() + " Order ===";
+
+		popUp.GetComponent<CutInPopUp>().Initial(text);
 	}
 }
