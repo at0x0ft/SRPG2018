@@ -185,6 +185,9 @@ public class Floor : MonoBehaviour
 		// ユニット詳細サブウィンドウを閉じる.
 		_map.Ui.UnitInfoWindow.Hide();
 
+		// Floor詳細情報サブウィンドウを開く.
+		_map.Ui.FloorInfoWindow.Show();
+
 		// 移動量サブウィンドウも閉じる
 		_map.Ui.MoveAmountInfoWindow.Hide();
 	}
@@ -209,7 +212,7 @@ public class Floor : MonoBehaviour
 		// 場面を移動する
 		_bsc.NextBattleState();
 	}
-	
+
 	/// <summary>
 	/// マスをクリックした場合の挙動を登録します
 	/// </summary>
