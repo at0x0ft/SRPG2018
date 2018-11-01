@@ -6,18 +6,29 @@ using System.Collections.Generic;
 
 public class RangeAttackNozzle : SubWindow
 {
+	public enum AccessReason
+	{
+		HighAttack, // 強攻撃の機能を求めている
+		RangeAttack // 範囲攻撃の機能を求めている
+	}
+
+
 	private Button _centerButton;
 	private Button _circleButton;
+	private Text _text;
 
 	private AttackController _ac;
 	private Units _units;
 	private Map _map;
 	private BattleStateController _bsc;
 
+	private AccessReason _reason;
+
 	public void Initialize(AttackController ac, Units units, Map map, BattleStateController bsc)
 	{
 		_centerButton = transform.Find("TurnLabel").GetComponent<Button>();
 		_circleButton = transform.Find("CircleButton").GetComponent<Button>();
+		_text = _centerButton.gameObject.GetComponent<Text>();
 
 		_ac = ac;
 		_units = units;
@@ -26,7 +37,6 @@ public class RangeAttackNozzle : SubWindow
 
 		_centerButton.onClick.AddListener(() => ActRangeAttack());
 		_circleButton.onClick.AddListener(() => RotateRangeHighLight());
-		//_centerButton.onClick.AddListener(() => RotateRangeHighLight());
 	}
 	
 
@@ -45,8 +55,8 @@ public class RangeAttackNozzle : SubWindow
 		var attack = attackInfo.Value.Key;
 		if(attack.Scale == Attack.AttackScale.Single) return;
 
-		// 強攻撃の場合はこれでは攻撃しない!!!
-		if(attack.Kind == Attack.Level.High)
+		// 強攻撃準備の場合はこれでは攻撃しない!!!
+		if(_reason == AccessReason.HighAttack)
 		{
 			attacker.AttackState = Unit.AttackStates.Charging;
 		}
@@ -69,6 +79,9 @@ public class RangeAttackNozzle : SubWindow
 	public void RotateRangeHighLight()
 	{
 		Debug.Log("ok2");
+		// 強溜め攻撃準備の時は、無視します
+		if(_reason == AccessReason.HighAttack) return;
+
 		// 中身が見当たらない場合は無視します
 		var attacker = _units.ActiveUnit;
 		var attackInfo = attacker.PlanningAttack;
@@ -88,5 +101,34 @@ public class RangeAttackNozzle : SubWindow
 
 		// 方角の更新をします
 		attacker.PlanningAttack = new KeyValuePair<Attack, int>(attack, newDir);
+	}
+
+	private void SetLabel(AccessReason reason)
+	{
+		switch(reason)
+		{
+			case AccessReason.HighAttack:
+				_text.text = "Charge!";
+				break;
+			case AccessReason.RangeAttack:
+				_text.text = "Attack!";
+				break;
+			default:
+				Debug.LogError("想定しないAccessReasonです");
+				break;
+		}
+	}
+
+	/// <summary>
+	/// 表示します
+	/// </summary>
+	/// <param name="reason">表示させる理由</param>
+	public void Show(AccessReason reason)
+	{
+		_reason = reason;
+
+		SetLabel(reason);
+
+		Show();
 	}
 }
