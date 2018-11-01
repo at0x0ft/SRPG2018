@@ -427,7 +427,7 @@ public class Unit : MonoBehaviour
 
 		StrongAttackFailure();
 
-		_map.Ui.DamagePopUp.PopUpDamageInfo(transform, damage);
+		_map.Ui.PopUp.CreateDamagePopUp(transform, damage);
 
 		// 体力が0以下になったらユニットを消滅させる
 		if(Life <= 0) DestroyWithAnimate();
