@@ -22,10 +22,14 @@ public enum AttackEffectKind
 /// </summary>
 public class AttackEffectController : BasePopUp
 {
+	// ==========定数==========
+	const string imagePath = "Sprites/AttackEffects/";
+
 	// ==========変数==========
 	private AttackEffectKind _effect;
 	private Unit _attacker;
 	private List<Floor> _targets;
+	private List<Sprite> _sprites;
 
 	private Dictionary<AttackEffectKind, Func<IEnumerator>> _effectFunc;
 
@@ -51,9 +55,37 @@ public class AttackEffectController : BasePopUp
 	/// </summary>
 	protected override IEnumerator Move()
 	{
-		yield break;
+		var enumerator = _effectFunc[_effect]();
+
+		yield return StartCoroutine(enumerator);
+	}
+
+	/// <summary>
+	/// imagePath以下にある、
+	/// name_{i}の形式の名前の画像ファイルを読み込みます。
+	/// </summary>
+	/// <param name="name">エフェクト共通名称</param>
+	/// <returns>画像リスト</returns>
+	private List<Sprite> GetSprites(string name)
+	{
+		List<Sprite> sprites = new List<Sprite>();
+
+		for(int i=1; ;i++)
+		{
+			var sprite = Resources.Load(imagePath + name + "_" + i, typeof(Sprite)) as Sprite;
+
+			if(sprite == null) break;
+			else sprites.Add(sprite);
+		}
+
+		return sprites;
 	}
 
 
 	// ==========個別変数==========
+	private IEnumerator Spiral()
+	{
+		
+		yield break;
+	}
 }
