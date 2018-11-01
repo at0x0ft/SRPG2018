@@ -32799,11 +32799,11 @@ MonoBehaviour:
   _normalRate: 1
   _slightlyWeakRate: 0.9
   _weakRate: 0.8
-  _normalReduceRate: 0
-  _forestReduceRate: 0.2
+  _normalReduceRate: 0.2
+  _forestReduceRate: 0
   _rockReduceRate: 0.5
-  _normalAvoidRate: 20
-  _forestAvoidRate: 10
+  _normalAvoidRate: 10
+  _forestAvoidRate: 20
   _rockAvoidRate: 0
   _goodAtRate: 1.1
   _notSoGoodOrBadAtRate: 1
