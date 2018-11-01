@@ -28,6 +28,7 @@ public class AttackEffectController : BasePopUp
 	// ==========変数==========
 	private AttackEffectKind _effect;
 	private Unit _attacker;
+	private Attack _attack;
 	private List<Floor> _targets;
 	private List<Sprite> _sprites;
 
@@ -36,7 +37,7 @@ public class AttackEffectController : BasePopUp
 
 	// ==========中心関数==========
 	/// <summary>
-	/// 攻撃エフェクト専用の初期設定です
+	/// 攻撃エフェクトファクトリーの初期設定です
 	/// </summary>
 	/// <param name="attacker">攻撃者</param>
 	/// <param name="targets">攻撃対象位置</param>
@@ -44,8 +45,9 @@ public class AttackEffectController : BasePopUp
 	public void Initialize(Unit attacker, List<Floor> targets, Attack attack)
 	{
 		_effect = attack.EffectKind;
-		_attacker = attacker;
 		_targets = targets;
+		_attacker = attacker;
+		_attack = attack;
 
 		Initialize("");
 	}
@@ -81,10 +83,53 @@ public class AttackEffectController : BasePopUp
 		return sprites;
 	}
 
+	/// <summary>
+	/// 実際にエフェクトを作る前に、情報に矛盾が無いかを検査します。
+	/// </summary>
+	/// <returns></returns>
+	private bool ValidityConfirmation()
+	{
+		string error = "";
+
+		// Q.1
+		if(_attack.Scale == Attack.AttackScale.Single && _targets.Count != 1)
+			error += " : 単体攻撃のはずが、複数箇所に攻撃アニメーションをしようとしています。" +
+					"PopUpController.AttackEffectFactoryの呼び出しの、第2引数を確認してください";
+
+		// Q.2
+		if(_sprites.Count == 0)
+			error += ":攻撃エフェクト画像がありません。" +
+			"画像の存在や,パスが通っているのかを確認してください。";
+		
+		// 結果
+		if(error.Length == 0)
+		{
+			return true;
+		}
+		else
+		{
+			error = "技名" + _attack.ToString() + error;
+			Debug.LogError(error);
+			return false;
+		}
+	}
 
 	// ==========個別変数==========
+
+	/// <summary>
+	/// 技:Spiralの攻撃エフェクトファクトリーの定義です(実装例)
+	/// </summary>
 	private IEnumerator Spiral()
 	{
+		// 画像取得
+		_sprites = GetSprites("tornado");
+
+		// 条件
+		ValidityConfirmation();
+
+		// エフェクト位置
+		var pos = _targets[0].transform.position;
+
 		
 		yield break;
 	}
