@@ -22,8 +22,9 @@ GameObject:
   - component: {fileID: 222815200818663200}
   - component: {fileID: 114030307013600338}
   - component: {fileID: 114508708441603504}
+  - component: {fileID: 114818569623972512}
   m_Layer: 5
-  m_Name: DamagePopUp
+  m_Name: PopUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,9 +75,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   existTime: 2
-  floatingHeight: 30
   textColor: {r: 1, g: 0, b: 0, a: 1}
-  text: {fileID: 0}
+  fontSize: 20
+  floatingHeight: 30
+--- !u!114 &114818569623972512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1784318350886690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2177d53ea6debf349bb46692d4790cb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &222815200818663200
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -92,7 +104,7 @@ RectTransform:
   m_GameObject: {fileID: 1784318350886690}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.8, y: 1.8, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
