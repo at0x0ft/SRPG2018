@@ -23,10 +23,10 @@ public class UI : MonoBehaviour
 	}
 
 	[SerializeField]
-	private DamagePopUp _damagePopUp;
-	public DamagePopUp DamagePopUp
+	private PopUpController _popUp;
+	public PopUpController PopUp
 	{
-		get{ return _damagePopUp; }
+		get{ return _popUp; }
 	}
 
 	[SerializeField]

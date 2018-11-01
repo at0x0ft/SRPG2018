@@ -145,21 +145,6 @@ public class Unit : MonoBehaviour
 
 	public bool IsFocusing { get; set; }
 
-	private bool _isMoved = false;
-	public bool IsMoved
-	{
-		get { return _isMoved; }
-		set
-		{
-			_isMoved = value;
-			GetComponent<Button>().interactable = !_isMoved;
-			if(_isMoved && IsFocusing)
-			{
-				OnClick();
-			}
-		}
-	}
-
 	/// <summary>
 	/// 初期配置マス
 	/// </summary>
@@ -445,7 +430,7 @@ public class Unit : MonoBehaviour
 
 		StrongAttackFailure();
 
-		_map.Ui.DamagePopUp.PopUpDamageInfo(transform, damage);
+		_map.Ui.PopUp.CreateDamagePopUp(transform, damage);
 
 		// 体力が0以下になったらユニットを消滅させる
 		if(Life <= 0) DestroyWithAnimate();

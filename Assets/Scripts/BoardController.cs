@@ -56,7 +56,9 @@ public class BoardController : MonoBehaviour
 
 		// ユニット詳細情報サブウィンドウを一度閉じる
 		_ui.UnitInfoWindow.Hide();
-
+    
+		// 準備中は画面をクリックされないようにする
+		_ui.TouchBlocker.SetActive(true);
 
 		// 盤面とユニット, AttackControllerを作成
 		var ac = new AttackController(_map, _units, _damageCalculator);
@@ -91,9 +93,9 @@ public class BoardController : MonoBehaviour
 		// AIインスタンスを初期化&実行
 		_ai.Initialize(ac, _bsc, this, _map, _moveController, _ui, _units);
 		_ai.Run();
-		Debug.Log("running");
+
 		// AIと相手プレイヤーを対応付ける
-		//_ais[team] = _ai;
+		_ais[team] = _ai;
 	}
 
 	/// <summary>
@@ -151,13 +153,6 @@ public class BoardController : MonoBehaviour
 		var activeUnit = _units.Order.FirstOrDefault();
 		if(!activeUnit) Debug.LogError("[Error] : " + _units.CurrentPlayerTeam.ToString() + "'s active unit is not Found!");    // 4debug
 
-		// セットプレイヤーの先頭のユニット以外は行動済みとする
-		foreach(var unit in _units.Characters)
-		{
-			unit.IsMoved = true;
-		}
-		activeUnit.IsMoved = false;
-
 		// Unitsクラスに記憶.
 		_units.ActiveUnit = activeUnit;
 
@@ -180,6 +175,9 @@ public class BoardController : MonoBehaviour
 
 		// セットプレイヤーのチームを記録
 		_units.CurrentPlayerTeam = team;
+		
+		// Teamが変わったので、CutInを表示
+		_ui.PopUp.CreateCutInPopUp(team);
 
 		// プレイヤーの順番が一巡したら, セット数・ターン数を更新
 		if(_units.CurrentPlayerTeam == _startTeam) UpdateSet();
@@ -189,17 +187,10 @@ public class BoardController : MonoBehaviour
 
 		// セットプレイヤーの持つユニットのうち先頭のユニットを展開.
 		StartUnit();
-
-		// セットプレイヤーがAIならば, 画面をタッチできないように設定し, AIを走らせる.
-		if(_ais.ContainsKey(team))
+		
+		// セットプレイヤーが人間なら画面タッチ不可を解除する.
+		if(!_ais.ContainsKey(team))
 		{
-			_ui.TouchBlocker.SetActive(true);
-			//var ai = _ais[team];
-			//ai.Run();
-		}
-		else
-		{
-			// セットプレイヤーが人間なら画面タッチ不可を解除する.
 			_ui.TouchBlocker.SetActive(false);
 			Debug.Log("touch blocker invalid.");
 		}
@@ -218,6 +209,11 @@ public class BoardController : MonoBehaviour
 	/// </summary>
 	public void NextUnit()
 	{
+		// 準備中は操作を出来ないようにする
+		_ui.TouchBlocker.SetActive(true);
+
+		Debug.Log("called");
+
 		// 勝敗が決していたら終了する
 		JudgeGameFinish();
 
@@ -256,6 +252,10 @@ public class BoardController : MonoBehaviour
 	{
 		// ゲーム終了処理は後ほど実装予定
 		Debug.Log("Game finished correctly!");  // 4debug
+
+		// ゲーム終了する前に、画面タッチ不可を解除する
+		_ui.TouchBlocker.SetActive(false);
+
 		Application.Quit();
 	}
 }
