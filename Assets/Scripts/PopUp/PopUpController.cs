@@ -21,6 +21,4 @@ public class PopUpController : MonoBehaviour
 
 		popUp.GetComponent<DamagePopUp>().Initialize(damage.ToString());
 	}
-
-
 }

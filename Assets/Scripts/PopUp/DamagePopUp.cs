@@ -52,6 +52,5 @@ public class DamagePopUp : BasePopUp
 			yield return null;
 			time += Time.deltaTime;
 		}
-		yield break;
 	}
 }
