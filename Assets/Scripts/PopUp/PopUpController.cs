@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// PopUpの実体を作成するクラスです。
@@ -41,5 +42,13 @@ public class PopUpController : MonoBehaviour
 		string text = "=== " + team.ToString() + " Order ===";
 
 		popUp.GetComponent<CutInPopUp>().Initialize(text);
+	}
+
+	public void AttackEffectPopUp(Unit attacker, List<Floor> targets, Attack attack)
+	{
+		// 攻撃エフェクトのファクトリーを、攻撃者とします。
+		var popUp = Instantiate(gameObject, attacker.transform);
+
+		popUp.GetComponent<AttackEffectController>().Initialize(attacker, targets, attack);
 	}
 }
