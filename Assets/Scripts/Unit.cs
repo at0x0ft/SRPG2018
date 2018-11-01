@@ -262,6 +262,9 @@ public class Unit : MonoBehaviour
 			// 自身に選択を割り当てる
 			IsFocusing = true;
 
+			// FloorInfoWindowは非表示にする.
+			_map.Ui.FloorInfoWindow.Hide();
+
 			// UIで作成してもらう以下の関数を呼び出す。
 			_map.Ui.UnitInfoWindow.Show(this);
 
@@ -402,7 +405,7 @@ public class Unit : MonoBehaviour
 		}
 		return res;
 	}
-	
+
 	/// <summary>
 	/// 攻撃を受けたときに、強攻撃溜め状態を解除させる
 	/// </summary>
@@ -417,7 +420,7 @@ public class Unit : MonoBehaviour
 		// 不要な情報になったため、削除もしておく
 		PlanningAttack = null;
 	}
-	
+
 	/// <summary>
 	/// ダメージを与える
 	/// </summary>
