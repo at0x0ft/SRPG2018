@@ -24,8 +24,6 @@ public enum AttackEffectKind
 /// </summary>
 public class AttackEffectFactory : BasePopUp
 {
-	// ==========定数==========
-	const string imagePath = "Sprites/AttackEffects/";
 
 	// ==========変数==========
 	private AttackEffectKind _effect;
@@ -88,7 +86,7 @@ public class AttackEffectFactory : BasePopUp
 		_sprites = GetSprites(_imageNames[_effect]);
 
 		// データの正当性確認
-		ValidityConfirmation();
+		ValidityConfirmation(_imageNames[_effect]);
 
 		// ファクトリーを実行
 		yield return StartCoroutine(_effectFuncs[_effect]());
@@ -98,18 +96,18 @@ public class AttackEffectFactory : BasePopUp
 	}
 
 	/// <summary>
-	/// imagePath以下にある、
-	/// name_{i}の形式の名前の画像ファイルを読み込みます。
+	/// 目的の名前の画像ファイルを読み込みます。
 	/// </summary>
 	/// <param name="name">エフェクト共通名称</param>
 	/// <returns>画像リスト</returns>
-	private List<Sprite> GetSprites(string name)
+	private List<Sprite> GetSprites(string attackName)
 	{
 		List<Sprite> sprites = new List<Sprite>();
 
 		for(int i = 1; ; i++)
 		{
-			var sprite = Resources.Load(imagePath + name + "_" + i, typeof(Sprite)) as Sprite;
+			var path = GetAttackEffectPath(attackName) + "_" + i;
+			var sprite = Resources.Load(path, typeof(Sprite)) as Sprite;
 
 			if(sprite == null) break;
 			else sprites.Add(sprite);
@@ -119,10 +117,22 @@ public class AttackEffectFactory : BasePopUp
 	}
 
 	/// <summary>
+	/// 攻撃エフェクト画像の凡その配置場所です
+	/// </summary>
+	/// <param name="name"></param>
+	/// <returns></returns>
+	private string GetAttackEffectPath(string attackName)
+	{
+		const string imagePath = "Sprites/";
+
+		return imagePath + _attacker.name + "/" + attackName;
+	}
+
+	/// <summary>
 	/// 実際にエフェクトを作る前に、情報に矛盾が無いかを検査します。
 	/// </summary>
 	/// <returns></returns>
-	private bool ValidityConfirmation()
+	private bool ValidityConfirmation(string attackName)
 	{
 		string error = "";
 
@@ -134,7 +144,9 @@ public class AttackEffectFactory : BasePopUp
 		// Q.2
 		if(_sprites.Count == 0)
 			error += ":攻撃エフェクト画像がありません。" +
-			"画像の存在や,パスが通っているのかを確認してください。";
+			"画像の存在や,パスが通っているのかを確認してください。" +
+			"現在捜査した画像パスは," + GetAttackEffectPath(attackName) +
+			"_1～ です";
 
 		// 結果
 		if(error.Length == 0)
