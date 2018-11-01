@@ -268,19 +268,37 @@ public class AttackController
 	/// <returns>攻撃先に、そもそも敵が居たかどうか</returns>
 	public bool Attack(Unit attacker, Attack attack, Unit targetUnit=null)
 	{
+		// 敵の有無
+		bool res = false;
+		// 攻撃範囲
+		List<Floor> targets = new List<Floor>();
+
 		Debug.Log("攻撃:" + attack + "　が発動しました");
+		
 		if(attack.Scale == global::Attack.AttackScale.Single)
 		{
-			return _sac.Attack(attacker, targetUnit, attack);
+			targets.Add(targetUnit.Floor);
+			
+			res = _sac.Attack(attacker, targetUnit, attack);
 		}
 		else if(attack.Scale == global::Attack.AttackScale.Range)
 		{
-			return _rac.Attack(attacker, attack);
+			foreach(var target in _map.GetAttackableFloors()) targets.Add(target);
+
+			res = _rac.Attack(attacker, attack);
 		}
 		else
 		{
 			Debug.Log("予定されていない型の攻撃がありました");
-			return false;
+			res = false;
 		}
+
+		// 攻撃が成功したなら、攻撃エフェクトを作動させる
+		if(res)
+		{
+			_map.Ui.PopUp.AttackEffectFactory(attacker, targets, attack);
+		}
+
+		return res;
 	}
 }
