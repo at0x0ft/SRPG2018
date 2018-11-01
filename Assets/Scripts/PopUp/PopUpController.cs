@@ -11,6 +11,9 @@ using System.Collections;
 /// 
 /// 子オブジェクトにアタッチしていると想定しているもの
 /// - Text (名称:Text)
+/// 
+/// これさえ守れば、PopUpFactory(現在これを実現しているprefab)は
+/// Hierarchy上のどこでも動きます。
 /// </summary>
 public class PopUpController : MonoBehaviour
 {

@@ -18,29 +18,59 @@ public abstract class BasePopUp : MonoBehaviour
 	protected int fontSize;
 
 	// 変数
+	protected Image _image;
 	protected Text _text;
 	
 	/// <summary>
 	/// ポップアップの初期設定をした後、動作させます
 	/// </summary>
 	/// <param name="text">表示したい文章</param>
-	public void Initialize(string text)
+	public void Initial(string text)
 	{
-		// text objectの初期設定
-		_text = gameObject.GetComponent<Text>();
+		gameObject.SetActive(true);
+
+		transform.localScale = new Vector3(1, 1, 1);
+
+		// テキストと背景画像の準備
+		SetUpText(text);
+		SetUpImage();
+		
+		// 動作開始
+		StartCoroutine(Act());
+	}
+
+	/// <summary>
+	/// TextObjectの初期設定
+	/// </summary>
+	private void SetUpText(string text)
+	{
+		_text = transform.Find("Text").GetComponent<Text>();
 		_text.text = text;
 		_text.color = textColor;
 		_text.fontSize = fontSize;
 
-		// 動作開始
-		StartCoroutine(Main());
+		//取得したTextをピッタリ収まるようにサイズ変更(Heightが長い状態)
+		_text.rectTransform.sizeDelta = new Vector2(_text.preferredWidth, _text.preferredHeight);
+
+		//再度、ピッタリ収まるようにサイズ変更(Heightもピッタリ合うように)
+		_text.rectTransform.sizeDelta = new Vector2(_text.preferredWidth, _text.preferredHeight);
+	}
+
+	/// <summary>
+	/// 背景画像の初期設定
+	/// </summary>
+	private void SetUpImage()
+	{
+		_image = GetComponent<Image>();
+
+		_image.rectTransform.sizeDelta = _text.rectTransform.sizeDelta;
 	}
 
 	/// <summary>
 	/// これを実行すれば、後は自動で後片付けまでしてくれます
 	/// </summary>
 	/// <returns></returns>
-	private IEnumerator Main()
+	private IEnumerator Act()
 	{
 		var coroutine = StartCoroutine(Move());
 
