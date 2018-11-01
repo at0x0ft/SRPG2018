@@ -32,9 +32,6 @@ public class AttackEffect : BasePopUp
 		_sprites = sprites;
 		_pos = pos;
 
-		// 画像書き換え
-		GetComponent<Image>().sprite = sprites[0];
-
 		// 動作開始
 		Initialize("");
 	}
@@ -45,9 +42,21 @@ public class AttackEffect : BasePopUp
 	/// <returns></returns>
 	protected override IEnumerator Move()
 	{
-		yield break;
+		var enumerator = _effectFunc[_effect]();
+
+		yield return StartCoroutine(enumerator);
 	}
 
 
 	// ==========個別変数==========
+	private IEnumerator Spiral()
+	{
+		// 画像更新
+		foreach(var sprite in _sprites)
+		{
+			_image.sprite = sprite;
+
+			yield return new WaitForSeconds(0.5f);
+		}
+	}
 }

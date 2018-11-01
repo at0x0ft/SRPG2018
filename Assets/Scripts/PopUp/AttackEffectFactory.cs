@@ -18,9 +18,11 @@ public enum AttackEffectKind
 
 /// <summary>
 /// 攻撃エフェクトを量産する場所です。
-/// エフェクトの発生場所や頻度などを操作します。
+/// エフェクトの発生場所や頻度,使用画像などを操作します。
+/// -------------------------
+/// 構造的に、上の関数が下の関数を呼び出す感じが読みやすかったのでそうしてます。
 /// </summary>
-public class AttackEffectController : BasePopUp
+public class AttackEffectFactory : BasePopUp
 {
 	// ==========定数==========
 	const string imagePath = "Sprites/AttackEffects/";
@@ -32,7 +34,8 @@ public class AttackEffectController : BasePopUp
 	private List<Floor> _targets;
 	private List<Sprite> _sprites;
 
-	private Dictionary<AttackEffectKind, Func<IEnumerator>> _effectFunc;
+	private Dictionary<AttackEffectKind, string> _imageNames;
+	private Dictionary<AttackEffectKind, Func<IEnumerator>> _effectFuncs;
 
 
 	// ==========中心関数==========
@@ -49,17 +52,48 @@ public class AttackEffectController : BasePopUp
 		_attacker = attacker;
 		_attack = attack;
 
+		// AttackEffectKindを諸々と関連付けます
+		EffectKindAssociateFactoryFunc();
+		EffectKindAssociateImageName();
+
+		// 動作開始
 		Initialize("");
 	}
 
+	/// <summary>
+	/// 攻撃エフェクト画像名を、各enumと対応付けます
+	/// </summary>
+	private void EffectKindAssociateImageName()
+	{
+		_imageNames = new Dictionary<AttackEffectKind, string>();
+		_imageNames[AttackEffectKind.Spiral] = "tornado";
+	}
+
+	/// <summary>
+	/// 攻撃エフェクト関数を、各enumと対応付けます
+	/// </summary>
+	private void EffectKindAssociateFactoryFunc()
+	{
+		_effectFuncs = new Dictionary<AttackEffectKind, Func<IEnumerator>>();
+		_effectFuncs[AttackEffectKind.Spiral] = Spiral;
+	}
+	
 	/// <summary>
 	/// 中心となる実行部分
 	/// </summary>
 	protected override IEnumerator Move()
 	{
-		var enumerator = _effectFunc[_effect]();
+		// 画像取得
+		_sprites = GetSprites(_imageNames[_effect]);
 
-		yield return StartCoroutine(enumerator);
+		// データの正当性確認
+		ValidityConfirmation();
+
+		// ファクトリーを実行
+		yield return StartCoroutine(_effectFuncs[_effect]());
+
+		// エフェクト(実体)終了待機
+		while(transform.childCount > 0) yield return null;
 	}
 
 	/// <summary>
@@ -72,7 +106,7 @@ public class AttackEffectController : BasePopUp
 	{
 		List<Sprite> sprites = new List<Sprite>();
 
-		for(int i=1; ;i++)
+		for(int i = 1; ; i++)
 		{
 			var sprite = Resources.Load(imagePath + name + "_" + i, typeof(Sprite)) as Sprite;
 
@@ -100,7 +134,7 @@ public class AttackEffectController : BasePopUp
 		if(_sprites.Count == 0)
 			error += ":攻撃エフェクト画像がありません。" +
 			"画像の存在や,パスが通っているのかを確認してください。";
-		
+
 		// 結果
 		if(error.Length == 0)
 		{
@@ -114,6 +148,7 @@ public class AttackEffectController : BasePopUp
 		}
 	}
 
+	
 	// ==========個別変数==========
 
 	/// <summary>
@@ -121,19 +156,12 @@ public class AttackEffectController : BasePopUp
 	/// </summary>
 	private IEnumerator Spiral()
 	{
-		// 画像取得
-		_sprites = GetSprites("tornado");
-
-		// 条件
-		ValidityConfirmation();
-
 		// エフェクト位置
 		var pos = _targets[0].transform.position;
 
 		// エフェクト作成
 		GetComponent<PopUpController>().AttackEffectPopUp(transform, _attack, _sprites, pos);
 
-		// エフェクト(実体)終了待機
-		while(transform.childCount > 0) yield return null;
+		yield break;
 	}
 }

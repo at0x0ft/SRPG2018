@@ -55,7 +55,7 @@ public class PopUpController : MonoBehaviour
 		// 攻撃エフェクトのファクトリーを、攻撃者とします。
 		var popUp = Instantiate(gameObject, attacker.transform);
 
-		popUp.GetComponent<AttackEffectController>().Initialize(attacker, targets, attack);
+		popUp.GetComponent<AttackEffectFactory>().Initialize(attacker, targets, attack);
 	}
 
 	/// <summary>
