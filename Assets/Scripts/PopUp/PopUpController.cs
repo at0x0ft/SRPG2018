@@ -44,11 +44,30 @@ public class PopUpController : MonoBehaviour
 		popUp.GetComponent<CutInPopUp>().Initialize(text);
 	}
 
-	public void AttackEffectPopUp(Unit attacker, List<Floor> targets, Attack attack)
+	/// <summary>
+	/// 攻撃エフェクトを発生させるオブジェクトを作成します(外部提供側)
+	/// </summary>
+	/// <param name="attacker">攻撃者</param>
+	/// <param name="targets">攻撃場所</param>
+	/// <param name="attack">攻撃内容</param>
+	public void AttackEffectFactory(Unit attacker, List<Floor> targets, Attack attack)
 	{
 		// 攻撃エフェクトのファクトリーを、攻撃者とします。
 		var popUp = Instantiate(gameObject, attacker.transform);
 
 		popUp.GetComponent<AttackEffectController>().Initialize(attacker, targets, attack);
+	}
+
+	/// <summary>
+	/// 攻撃エフェクトを"実際に"発生させます(内部使用側)
+	/// </summary>
+	/// <param name="parent">親オブジェクト(Factory)</param>
+	/// <param name="attack">攻撃内容</param>
+	public void AttackEffectPopUp(Transform parent, Attack attack)
+	{
+		// 攻撃エフェクトの親を、ファクトリーとします。
+		var popUp = Instantiate(gameObject, parent);
+
+		popUp.GetComponent<AttackEffect>().Initialize(attack);
 	}
 }

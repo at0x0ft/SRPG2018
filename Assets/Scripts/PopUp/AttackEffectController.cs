@@ -16,6 +16,10 @@ public enum AttackEffectKind
 	BackUp
 }
 
+/// <summary>
+/// 攻撃エフェクトを量産する場所です。
+/// エフェクトの発生場所や頻度などを操作します。
+/// </summary>
 public class AttackEffectController : BasePopUp
 {
 	// ==========変数==========
@@ -23,7 +27,7 @@ public class AttackEffectController : BasePopUp
 	private Unit _attacker;
 	private List<Floor> _targets;
 
-	private Dictionary<AttackEffectKind, Func<IEnumerator>> _EffectFunc;
+	private Dictionary<AttackEffectKind, Func<IEnumerator>> _effectFunc;
 
 
 	// ==========中心関数==========
