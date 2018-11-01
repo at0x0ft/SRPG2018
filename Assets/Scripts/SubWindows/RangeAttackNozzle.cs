@@ -51,9 +51,6 @@ public class RangeAttackNozzle : SubWindow
 		var attackInfo = attacker.PlanningAttack;
 		if(attackInfo == null) return;
 
-		// 単体攻撃の場合も無視します
-		var attack = attackInfo.Value.Key;
-		if(attack.Scale == Attack.AttackScale.Single) return;
 
 		// 強攻撃準備の場合はこれでは攻撃しない!!!
 		if(_reason == AccessReason.HighAttack)
@@ -62,6 +59,10 @@ public class RangeAttackNozzle : SubWindow
 		}
 		else
 		{
+			// 単体攻撃の場合も無視します
+			var attack = attackInfo.Value.Key;
+			if(attack.Scale == Attack.AttackScale.Single) return;
+
 			// 攻撃します
 			_ac.Attack(attacker, attack);
 		}
