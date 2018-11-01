@@ -63,11 +63,11 @@ public class PopUpController : MonoBehaviour
 	/// </summary>
 	/// <param name="parent">親オブジェクト(Factory)</param>
 	/// <param name="attack">攻撃内容</param>
-	public void AttackEffectPopUp(Transform parent, Attack attack)
+	public void AttackEffectPopUp(Transform parent, Attack attack, List<Sprite> sprites, Vector3 pos)
 	{
 		// 攻撃エフェクトの親を、ファクトリーとします。
 		var popUp = Instantiate(gameObject, parent);
 
-		popUp.GetComponent<AttackEffect>().Initialize(attack);
+		popUp.GetComponent<AttackEffect>().Initialize(attack, sprites, pos);
 	}
 }

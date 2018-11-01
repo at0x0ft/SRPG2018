@@ -130,7 +130,10 @@ public class AttackEffectController : BasePopUp
 		// エフェクト位置
 		var pos = _targets[0].transform.position;
 
-		
-		yield break;
+		// エフェクト作成
+		GetComponent<PopUpController>().AttackEffectPopUp(transform, _attack, _sprites, pos);
+
+		// エフェクト(実体)終了待機
+		while(transform.childCount > 0) yield return null;
 	}
 }
