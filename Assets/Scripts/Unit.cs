@@ -302,16 +302,27 @@ public class Unit : MonoBehaviour
 		// 範囲攻撃の場合は、クリック発動をさせない
 		if(scale == Attack.AttackScale.Range) return;
 
-		// 強攻撃特殊処理!!!　場所だけ決めて、攻撃しない!!! (発動契機は、Set2開始時)
+		// 強攻撃特殊処理!!! Charge前は攻撃しない!!! (発動契機は、Set2開始時)
 		if(attack.Kind == Attack.Level.High)
 		{
-			var singleAttack = (SingleAttack)attack;
+			switch(attacker.AttackState)
+			{
+				// Set1のときは、RangeNozzleButtonを押して、Chargeを始めるため、クリックを拒否します。
+				case AttackStates.LittleAttack:
+					return;
 
-			singleAttack.TargetPos = new Vector2Int(this.X, this.Y);
-
-			goto Finish;
+				// Set2で強攻撃が出来る場合は、攻撃します。
+				case AttackStates.Charging:
+					break;
+				
+				// 他はあり得ないです。
+				case AttackStates.MiddleAttack:
+				case AttackStates.Movable:
+					Debug.LogError("強攻撃が選択できないタイミングで、選択されています");
+					break;
+			}
 		}
-
+		
 		// 攻撃出来る場合は攻撃を開始する
 		bool success = _ac.Attack(attacker, attack, this);
 
