@@ -15,7 +15,7 @@ public abstract class BasePopUp : MonoBehaviour
 
 	// 変数
 	protected Image _image;
-	
+
 	/// <summary>
 	/// ポップアップの初期設定をした後、動作させます
 	/// </summary>
@@ -34,7 +34,7 @@ public abstract class BasePopUp : MonoBehaviour
 		// 動作開始
 		StartCoroutine(Act());
 	}
-	
+
 	/// <summary>
 	/// 背景画像の初期設定
 	/// </summary>
@@ -43,7 +43,7 @@ public abstract class BasePopUp : MonoBehaviour
 		_image = GetComponent<Image>();
 
 		// 画像本位の大きさに調整する
-		if(_image!=null)_image.SetNativeSize();
+		if(_image != null) _image.SetNativeSize();
 	}
 
 	/// <summary>

@@ -10,10 +10,10 @@ using UnityEngine.UI;
 /// - Image(背景画像)
 /// - DamagePopUp.cs
 /// - CutInPopUp.cs
-/// 
+///
 /// 子オブジェクトにアタッチしていると想定しているもの
 /// - Text (名称:Text)
-/// 
+///
 /// これさえ守れば、PopUpFactory(現在これを実現しているprefab)は
 /// Hierarchy上のどこでも動きます。
 /// </summary>
@@ -27,18 +27,18 @@ public class PopUpController : MonoBehaviour
 
 	[SerializeField]
 	private Image _image;
-	public Image image
-	{ 
+	public Image Image
+	{
 		get { return _image; }
 	}
-	
+
 	[SerializeField]
 	private Text _text;
-	public Text text
+	public Text Text
 	{
 		get { return _text; }
 	}
-	
+
 	/// <summary>
 	/// ダメージのポップアップを作ります
 	/// </summary>
@@ -47,7 +47,7 @@ public class PopUpController : MonoBehaviour
 	public void CreateDamagePopUp(Transform defender, int damage)
 	{
 		var popUp = Instantiate(gameObject, defender);
-		Debug.Log("called:" + damage);
+		Debug.Log("called:" + damage);  // 4debug
 		string text = damage.ToString();
 
 		popUp.GetComponent<DamagePopUp>().Initialize(text);

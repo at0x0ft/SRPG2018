@@ -32,7 +32,7 @@ public class CutInPopUp : BasePopUp
 	private void SetUp()
 	{
 		// 背景を変更
-		_image = _puc.image;
+		_image = _puc.Image;
 		_image.GetComponent<RectTransform>().sizeDelta = fieldSize; // size
 		_image.sprite = (Resources.Load("Sprites/blackout") as Sprite); // graphic
 		var imgC = Color.black;
@@ -40,7 +40,7 @@ public class CutInPopUp : BasePopUp
 		_image.color = imgC;
 
 		// 文字を変更
-		_text = _puc.text;
+		_text = _puc.Text;
 		_text.GetComponent<RectTransform>().sizeDelta = fieldSize; // size
 		_text.text = _info; // contents
 		_text.fontSize = _fontSize;  // font size

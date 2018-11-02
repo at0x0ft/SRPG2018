@@ -18,7 +18,7 @@ public class AttackEffect : BasePopUp
 	[SerializeField]
 	private readonly Vector2 BIG_IMAGE_SIZE = new Vector2(48, 48);
 	[SerializeField]
-	private readonly float effectSPF = 0.4f; // seconds per frame 
+	private readonly float effectSPF = 0.4f; // seconds per frame
 
 	// ==========変数==========
 	private AttackEffectKind _effect; // 攻撃の種類
@@ -54,7 +54,7 @@ public class AttackEffect : BasePopUp
 		// 動作開始
 		Initialize();
 	}
-	
+
 	/// <summary>
 	/// 中心となる実行部分
 	/// </summary>
@@ -65,7 +65,7 @@ public class AttackEffect : BasePopUp
 		_image.sprite = _sprites[0];
 		_image.enabled = true;
 		_image.rectTransform.sizeDelta = BASE_IMAGE_SIZE;
-		
+
 		var enumerator = _effectFunc[_effect]();
 
 		yield return StartCoroutine(enumerator);
@@ -126,7 +126,7 @@ public class AttackEffect : BasePopUp
 		if(allTime > 0) existTime = allTime;
 
 		float time = 0;
-		while(time<existTime)
+		while(time < existTime)
 		{
 			func(time);
 			yield return null;
@@ -142,10 +142,10 @@ public class AttackEffect : BasePopUp
 	{
 		// 位置設定
 		_rect.localPosition = _target;
-		
+
 		// 画像を操作しないなら、そのまま使う。
 		if(mySprites == null) mySprites = _sprites;
-		
+
 		// 画像更新
 		foreach(var sprite in _sprites)
 		{
@@ -164,7 +164,7 @@ public class AttackEffect : BasePopUp
 	private IEnumerator Spiral()
 	{
 		yield return StartCoroutine(SpriteLoop());
-		
+
 		_sprites.Reverse();
 
 		yield return StartCoroutine(SpriteLoop(_sprites));
@@ -182,13 +182,13 @@ public class AttackEffect : BasePopUp
 	private IEnumerator MARock()
 	{
 		const float FLY_HEIGHT = 10f;
-		
+
 		var attacker = _opt.Value;
 		float dx = _target.x - attacker.x;
 		float dy = _target.y - attacker.y;
 		float rad = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
 		transform.localEulerAngles = Quaternion.Euler(0f, 0f, rad) * Vector3.up;
-		
+
 		Action<float> func = (time) =>
 		{
 			float rate = Progress(time);
@@ -214,7 +214,7 @@ public class AttackEffect : BasePopUp
 	private IEnumerator OverBrrow()
 	{
 		//_rect.sizeDelta = BIG_IMAGE_SIZE;
-		
+
 		yield return StartCoroutine(SpriteLoop());
 	}
 
@@ -222,7 +222,7 @@ public class AttackEffect : BasePopUp
 	{
 		const float FLY_TIME = 4.0f;
 		const float DIVIDE_TIME = 1.3f;
-		
+
 		_rect.localPosition = _target;
 		_rect.sizeDelta = BIG_IMAGE_SIZE;
 
@@ -231,7 +231,7 @@ public class AttackEffect : BasePopUp
 			const float MAX_HEIGHT = 100;
 			Vector2 MAX_SIZE = new Vector2(64, 64);
 
-			var rate =  -4 * Mathf.Pow(Progress(time) - 0.5f, 2) + 1;
+			var rate = -4 * Mathf.Pow(Progress(time) - 0.5f, 2) + 1;
 			var pos = _target;
 			pos.y += MAX_HEIGHT * rate;
 
@@ -273,7 +273,7 @@ public class AttackEffect : BasePopUp
 			const float FLOAT_CYCLE = 2.0f; // 浮遊周期
 
 			var now = _target;
-			now.x -= MAX_DIST * (time / existTime); 
+			now.x -= MAX_DIST * (time / existTime);
 			var tmp = MAX_WIDTH * Mathf.Sin(ProgressPI(time, FLOAT_CYCLE));
 			now.y += tmp;
 			_rect.localPosition = now;
@@ -297,7 +297,7 @@ public class AttackEffect : BasePopUp
 
 		yield return StartCoroutine(MainRoop(func));
 	}
-	
+
 	private IEnumerator IcycleStaff()
 	{
 		// 徐々に表示するように設定
@@ -314,7 +314,7 @@ public class AttackEffect : BasePopUp
 			_image.fillAmount = Progress(time);
 			_rect.localPosition = pos;
 		};
-		
+
 		yield return StartCoroutine(MainRoop(func));
 	}
 
@@ -370,7 +370,7 @@ public class AttackEffect : BasePopUp
 		Action<float> func = (time) =>
 		{
 			float rate = Progress(time);
-			rate = 1- Mathf.Pow(1 - rate, 2);
+			rate = 1 - Mathf.Pow(1 - rate, 2);
 			transform.localPosition = Vector3.Lerp(attacker, _target, rate);
 		};
 

@@ -41,11 +41,11 @@ public class AttackEffectFactory : BasePopUp
 	private Attack _attack;
 	private List<Floor> _targets;
 	private List<Sprite> _sprites;
-	
+
 	private RectTransform _attackerRect;
 	private Dictionary<AttackEffectKind, string> _imageNames;
 	private Dictionary<AttackEffectKind, Func<IEnumerator>> _effectFuncs;
-	
+
 
 	// ==========準備関数==========
 	/// <summary>
@@ -259,7 +259,7 @@ public class AttackEffectFactory : BasePopUp
 	{
 		var pos = _attackerRect.localPosition;
 
-		for(int i=0;i<3;i++)
+		for(int i = 0; i < 3; i++)
 		{
 			MakeEffect(pos);
 
@@ -272,17 +272,17 @@ public class AttackEffectFactory : BasePopUp
 		var pos = _attackerRect.localPosition;
 
 		MakeEffect(pos);
-		
+
 		yield break;
 	}
-	
+
 	private IEnumerator NotesEdge()
 	{
 		var pos = _attackerRect.localPosition;
 
 		List<Sprite> sprite = new List<Sprite>();
 
-		for(int i=0;i<6;i++)
+		for(int i = 0; i < 6; i++)
 		{
 			sprite.Clear();
 			sprite.Add(_sprites[i % _sprites.Count]);
@@ -297,11 +297,11 @@ public class AttackEffectFactory : BasePopUp
 		// 大技は、他とは異なる時間をかけましょう。
 		const float allTime = 5.0f;
 		const float happenRate = 0.2f;
-		
+
 		List<Sprite> sprite = new List<Sprite>();
 
 		float time = 0;
-		while(time<allTime)
+		while(time < allTime)
 		{
 			sprite.Clear();
 
@@ -318,11 +318,11 @@ public class AttackEffectFactory : BasePopUp
 	{
 		const float allTime = 5.0f;
 		const float happenRate = 0.2f;
-		
+
 		List<Sprite> sprite = new List<Sprite>();
 
 		float time = 0;
-		while(time<allTime)
+		while(time < allTime)
 		{
 			sprite.Clear();
 
