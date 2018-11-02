@@ -156,6 +156,9 @@ public class BoardController : MonoBehaviour
 		// Unitsクラスに記憶.
 		_units.ActiveUnit = activeUnit;
 
+		// Activeユニットアイコンを動かす
+		_ui.ActiveUnitIcon.ChangeIconTarget(_units.ActiveUnit.transform);
+
 		// map,UIを初期化する
 		_map.ClearHighlight();
 		_ui.NextUnit();

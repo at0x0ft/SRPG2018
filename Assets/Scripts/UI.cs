@@ -23,6 +23,13 @@ public class UI : MonoBehaviour
 	}
 
 	[SerializeField]
+	private ActiveUnitIcon _activeUnitIcon;
+	public ActiveUnitIcon ActiveUnitIcon
+	{
+		get { return _activeUnitIcon; }
+	}
+
+	[SerializeField]
 	private PopUpController _popUp;
 	public PopUpController PopUp
 	{
@@ -87,6 +94,7 @@ public class UI : MonoBehaviour
 
 	public void Initialize(Units units, AttackController ac, Map map, BattleStateController bsc)
 	{
+		_activeUnitIcon.Initialize();
 		_rangeAttackNozzle.Initialize(ac, units, map, bsc);
 		_attackSelectWindow.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
 		_gameEndPanel.gameObject.SetActive(false);
@@ -101,6 +109,7 @@ public class UI : MonoBehaviour
 	{
 		if(!_endCommandButton) Debug.LogError("[Error] : EndCommandButton is not set!");
 		if(!_touchBlocker) Debug.LogError("[Error] : Touch Blocker is not set!");
+		if(!_activeUnitIcon) Debug.LogError("[Error] : ActiveUnitIcon is not set!");
 
 		if(!_turnSetInfoWindow) Debug.LogError("[Error] : TurnSetInfoWindow is not set!");
 		_turnSetInfoWindow.CheckSerializedMember();
