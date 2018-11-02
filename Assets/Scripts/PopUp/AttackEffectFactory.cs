@@ -40,8 +40,7 @@ public class AttackEffectFactory : BasePopUp
 	private Attack _attack;
 	private List<Floor> _targets;
 	private List<Sprite> _sprites;
-
-	private Dictionary<Unit.UnitNames, string> _imagePaths;
+	
 	private Dictionary<AttackEffectKind, string> _imageNames;
 	private Dictionary<AttackEffectKind, Func<IEnumerator>> _effectFuncs;
 
@@ -62,22 +61,11 @@ public class AttackEffectFactory : BasePopUp
 		gameObject.name = attack.name + "'s effect";
 
 		// 諸々を関連付けます
-		AssociateUnitNameWithImagePath();
 		AssociateEffectKindWithImageName();
 		AssociateEffectKindWithFactoryFunc();
 
 		// 動作開始
 		Initialize("");
-	}
-	
-	/// <summary>
-	/// 攻撃エフェクト画像パスを、ユニットの内部名称と対応付けます
-	/// </summary>
-	private void AssociateUnitNameWithImagePath()
-	{
-		_imagePaths = new Dictionary<Unit.UnitNames, string>();
-		_imagePaths[Unit.UnitNames.mis] = "mis/";
-		_imagePaths[Unit.UnitNames.mercury] = "mercury/";
 	}
 
 	/// <summary>
@@ -86,7 +74,23 @@ public class AttackEffectFactory : BasePopUp
 	private void AssociateEffectKindWithImageName()
 	{
 		_imageNames = new Dictionary<AttackEffectKind, string>();
+
+		// for みすちゃん
 		_imageNames[AttackEffectKind.Spiral] = "tornado";
+		_imageNames[AttackEffectKind.BackUp] = "hit_effect";
+		_imageNames[AttackEffectKind.MARock] = "rock";
+		_imageNames[AttackEffectKind.CPU] = "hit_effect";
+		_imageNames[AttackEffectKind.OverFlow] = "hit_effect";
+		_imageNames[AttackEffectKind.DeadLock] = "rock";
+
+		// for 水星ちゃん
+		_imageNames[AttackEffectKind.BubbleNotes] = "bubbleNotes";
+		_imageNames[AttackEffectKind.TrebulCreph] = "tone";
+		_imageNames[AttackEffectKind.IcicleStaff] = "ice";
+		_imageNames[AttackEffectKind.NotesEdge] = "edge";
+		_imageNames[AttackEffectKind.HellTone] = "hell";
+		_imageNames[AttackEffectKind.HolyLiric] = "holy";
+
 	}
 
 	/// <summary>
@@ -95,7 +99,12 @@ public class AttackEffectFactory : BasePopUp
 	private void AssociateEffectKindWithFactoryFunc()
 	{
 		_effectFuncs = new Dictionary<AttackEffectKind, Func<IEnumerator>>();
+
+		// for みすちゃん
 		_effectFuncs[AttackEffectKind.Spiral] = Spiral;
+
+		// for 水星ちゃん
+		//_effectFuncs[AttackEffectKind.]
 	}
 
 
@@ -149,7 +158,7 @@ public class AttackEffectFactory : BasePopUp
 	{
 		const string imageRoot = "Sprites/";
 
-		return imageRoot + _imagePaths[_attacker.UnitName] + _imageNames[_attack.EffectKind];
+		return imageRoot + _attacker.UnitName + "/" + _imageNames[_attack.EffectKind];
 	}
 
 	/// <summary>
@@ -199,5 +208,16 @@ public class AttackEffectFactory : BasePopUp
 		GetComponent<PopUpController>().AttackEffectPopUp(transform, _attack, _sprites, pos);
 
 		yield break;
+	}
+
+	private IEnumerator BubbleNotes()
+	{
+		var pos = _targets[0].transform.position;
+
+		for(int i=0;i<3;i++)
+		{
+			GetComponent<PopUpController>().AttackEffectPopUp(transform, _attack, _sprites, pos);
+			yield return new WaitForSeconds(0.2f);
+		}
 	}
 }
