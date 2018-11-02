@@ -6554,6 +6554,21 @@ Prefab:
     - target: {fileID: 114232093697081886, guid: 938aec73980fb344e954ecc51c6204d1,
         type: 2}
       propertyPath: _maxLife
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 224401045045772830, guid: 938aec73980fb344e954ecc51c6204d1,
+        type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224401045045772830, guid: 938aec73980fb344e954ecc51c6204d1,
+        type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224401045045772830, guid: 938aec73980fb344e954ecc51c6204d1,
+        type: 2}
+      propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
