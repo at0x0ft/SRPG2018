@@ -105,8 +105,15 @@ public class AttackEffectFactory : BasePopUp
 
 		// 特に凝ったことをしないエフェクト達
 		_effectFuncs[AttackEffectKind.Spiral] =
+		_effectFuncs[AttackEffectKind.BackUp] =
+		_effectFuncs[AttackEffectKind.CPU] =
+		_effectFuncs[AttackEffectKind.OverFlow] =
+		_effectFuncs[AttackEffectKind.DeadLock] =
 		_effectFuncs[AttackEffectKind.IcicleStaff] =
 		NormalEffectMaker;
+
+		// for みすちゃん
+		_effectFuncs[AttackEffectKind.MARock] = MARock;
 
 		// for 水星ちゃん
 		_effectFuncs[AttackEffectKind.BubbleNotes] = BubbleNotes;
@@ -235,6 +242,20 @@ public class AttackEffectFactory : BasePopUp
 
 
 	// ==========個別変数==========
+	// みすちゃん用
+	private IEnumerator MARock()
+	{
+		GetComponent<PopUpController>().AttackEffectPopUp(
+			transform,
+			_attack,
+			_sprites,
+			_targets[0].GetComponent<RectTransform>().localPosition,
+			_attackerRect.localPosition
+		);
+		yield break;
+	}
+
+	// 水星ちゃん用
 	private IEnumerator BubbleNotes()
 	{
 		var pos = _attackerRect.localPosition;
