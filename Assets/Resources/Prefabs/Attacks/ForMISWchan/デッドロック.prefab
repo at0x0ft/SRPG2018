@@ -54,6 +54,7 @@ MonoBehaviour:
   _name: "\u30C7\u30C3\u30C9\u30ED\u30C3\u30AF"
   _kind: 2
   _type: {fileID: 114928696413571736, guid: 43a080bff49961e4db4fe6a1b05c7abf, type: 2}
+  _effectKind: 5
   _power: 400
   _accuracy: 90
   _range:
