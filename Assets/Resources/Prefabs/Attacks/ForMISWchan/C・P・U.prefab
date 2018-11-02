@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4155422574529756}
-  - component: {fileID: 114167886185591416}
+  - component: {fileID: 114059043796223576}
   m_Layer: 0
   m_Name: "C\u30FBP\u30FBU"
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114167886185591416
+--- !u!114 &114059043796223576
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48,16 +48,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1699642365549052}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2c84b96720003e4eb6dbfecfe5b99bc, type: 3}
+  m_Script: {fileID: 11500000, guid: bc087992668157d48af319bc544f4c28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _name: "C\u30FBP\u30FBU"
   _kind: 1
   _type: {fileID: 114928696413571736, guid: 8baf576386dc34245ba2a70ad54626a4, type: 2}
-  _power: 400
+  _power: 120
   _accuracy: 90
   _range:
-  - {x: 1, y: 0}
   - {x: 0, y: 1}
+  - {x: 1, y: 0}
   - {x: 0, y: -1}
-  - {x: -1, y: 0}
+  _isRotatable: 0
