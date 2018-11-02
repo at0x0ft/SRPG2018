@@ -28,8 +28,12 @@ public class DamagePopUp : BasePopUp
 
 	public void Initialize(string info)
 	{
-		_text = GetComponent<PopUpController>().text;
+		_text = GetComponent<PopUpController>().Text;
 		_info = info;
+
+		// DamagePopUpならば, 背景を消す.
+		Debug.Log(GetComponentInChildren<Image>().gameObject.name + " is Image name."); // 4debug
+		GetComponentInChildren<Image>().gameObject.SetActive(false);
 
 		Initialize();
 	}
@@ -48,7 +52,7 @@ public class DamagePopUp : BasePopUp
 		Debug.Log("alpha"+alpha);
 		return -alpha * Mathf.Pow(time - a / 2, 2) + b;
 	}
-	
+
 	private void SetUpSize()
 	{
 		var rect = GetComponent<RectTransform>();
@@ -70,7 +74,7 @@ public class DamagePopUp : BasePopUp
 	{
 		float time = 0f;
 		Vector3 now = new Vector3(0, 0, 0);
-		
+
 		_text.text = _info;
 		SetUpSize();
 
