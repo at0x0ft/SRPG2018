@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1353846002098118}
+  m_RootGameObject: {fileID: 1541871981862044}
   m_IsPrefabAsset: 1
---- !u!1 &1353846002098118
+--- !u!1 &1541871981862044
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4670418388540896}
-  - component: {fileID: 114734659155255296}
+  - component: {fileID: 4656268389546610}
+  - component: {fileID: 114693521520550058}
   m_Layer: 0
-  m_Name: "\u30C7\u30C3\u30C9\u30ED\u30C3\u30AF"
+  m_Name: "\u3070\u3076\u308B\u306E\uFF5E\u3064\u266A"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4670418388540896
+--- !u!4 &4656268389546610
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1353846002098118}
+  m_GameObject: {fileID: 1541871981862044}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,25 +40,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114734659155255296
+--- !u!114 &114693521520550058
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1353846002098118}
+  m_GameObject: {fileID: 1541871981862044}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc087992668157d48af319bc544f4c28, type: 3}
+  m_Script: {fileID: 11500000, guid: d2c84b96720003e4eb6dbfecfe5b99bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: "\u30C7\u30C3\u30C9\u30ED\u30C3\u30AF"
-  _kind: 2
-  _type: {fileID: 114928696413571736, guid: 43a080bff49961e4db4fe6a1b05c7abf, type: 2}
-  _power: 400
-  _accuracy: 90
+  _name: "\u3070\u3076\u308B\u306E\uFF5E\u3064\u266A"
+  _kind: 0
+  _type: {fileID: 114928696413571736, guid: 8baf576386dc34245ba2a70ad54626a4, type: 2}
+  _power: 70
+  _accuracy: 95
   _range:
-  - {x: 0, y: 1}
-  - {x: 1, y: 0}
   - {x: -1, y: 0}
-  - {x: 0, y: -1}
-  _isRotatable: 0
+  - {x: -2, y: 0}
+  - {x: -3, y: 0}
