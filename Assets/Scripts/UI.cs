@@ -78,10 +78,19 @@ public class UI : MonoBehaviour
 		get{ return _rangeAttackNozzle; }
 	}
 
+	[SerializeField]
+	private GameEndPanel _gameEndPanel;
+	public GameEndPanel GameEndPanel
+	{
+		get { return _gameEndPanel; }
+	}
+
 	public void Initialize(Units units, AttackController ac, Map map, BattleStateController bsc)
 	{
 		_rangeAttackNozzle.Initialize(ac, units, map, bsc);
 		_attackSelectWindow.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
+		_gameEndPanel.gameObject.SetActive(false);
+		_gameEndPanel.Initialize();
 	}
 
 	/// <summary>
@@ -110,6 +119,8 @@ public class UI : MonoBehaviour
 
 		if(!_attackSelectWindow) Debug.LogError("[Error] : AttackInfoWindow is not set!");
 		_attackSelectWindow.CheckSerializedMember(units.GetComponentsInChildren<Unit>());
+
+		if(!_gameEndPanel) Debug.LogError("[Error] : GameEndPanel is not set!");
 	}
 
 	public void NextUnit()

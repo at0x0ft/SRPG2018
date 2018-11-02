@@ -56,7 +56,7 @@ public class BoardController : MonoBehaviour
 
 		// ユニット詳細情報サブウィンドウを一度閉じる
 		_ui.UnitInfoWindow.Hide();
-    
+
 		// 準備中は画面をクリックされないようにする
 		_ui.TouchBlocker.SetActive(true);
 
@@ -175,7 +175,7 @@ public class BoardController : MonoBehaviour
 
 		// セットプレイヤーのチームを記録
 		_units.CurrentPlayerTeam = team;
-		
+
 		// Teamが変わったので、CutInを表示
 		_ui.PopUp.CreateCutInPopUp(team);
 
@@ -187,7 +187,7 @@ public class BoardController : MonoBehaviour
 
 		// セットプレイヤーの持つユニットのうち先頭のユニットを展開.
 		StartUnit();
-		
+
 		// セットプレイヤーが人間なら画面タッチ不可を解除する.
 		if(!_ais.ContainsKey(team))
 		{
@@ -250,12 +250,15 @@ public class BoardController : MonoBehaviour
 	/// </summary>
 	private void FinishGame(Unit.Team loser)
 	{
-		// ゲーム終了処理は後ほど実装予定
+		if(loser == Unit.Team.Enemy) _ui.GameEndPanel.SetMessageWin();
+		else _ui.GameEndPanel.SetMessageLose();
+
 		Debug.Log("Game finished correctly!");  // 4debug
 
 		// ゲーム終了する前に、画面タッチ不可を解除する
 		_ui.TouchBlocker.SetActive(false);
 
-		Application.Quit();
+		// ゲーム終了画面を表示
+		_ui.GameEndPanel.gameObject.SetActive(true);
 	}
 }
