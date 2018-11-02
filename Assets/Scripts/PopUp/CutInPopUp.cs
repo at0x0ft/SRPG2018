@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 /// <summary>
 /// プレイヤーが変わるときに、そのカットインを表示させます。
@@ -9,36 +10,57 @@ public class CutInPopUp : BasePopUp
 {
 	// 固定値
 	[SerializeField]
-	protected float WaitTime;
+	protected int _fontSize = 60;
+	[SerializeField]
+	protected Color _textColor = Color.white;
+	[SerializeField]
+	protected Vector2 fieldSize = new Vector2(500, 100);
+
+	// 変数
+	private PopUpController _puc;
+	private Text _text;
+	private string _info;
+
+	public void Initialize(string info)
+	{
+		_puc = GetComponent<PopUpController>();
+		_info = info;
+
+		Initialize();
+	}
+
+	private void SetUp()
+	{
+		// 背景を変更
+		_image = _puc.image;
+		_image.GetComponent<RectTransform>().sizeDelta = fieldSize; // size
+		_image.sprite = (Resources.Load("Sprites/blackout") as Sprite); // graphic
+		var imgC = Color.black;
+		imgC.a = 0.5f;
+		_image.color = imgC;
+
+		// 文字を変更
+		_text = _puc.text;
+		_text.GetComponent<RectTransform>().sizeDelta = fieldSize; // size
+		_text.text = _info; // contents
+		_text.fontSize = _fontSize;  // font size
+		_text.fontStyle = FontStyle.BoldAndItalic;
+		_text.color = _textColor; // color
+	}
 
 	protected override IEnumerator Move()
 	{
+		SetUp();
+
 		float time = 0f;
-		float moveTime = (existTime - WaitTime) / 2;
 
-		Vector3 start = new Vector3(-90, 0, 0);
-		Vector3 mid = new Vector3(0, 0, 0);
-		Vector3 end = new Vector3(90, 0, 0);
+		Vector3 start = new Vector3(1000, 0, 0);
+		Vector3 end = new Vector3(-1000, 0, 0);
 
-		while(time < moveTime)
+		while(time < existTime)
 		{
-			float ratio = time / moveTime;
-			transform.eulerAngles = Vector3.Lerp(start, mid, ratio);
-
-			yield return null;
-			time += Time.deltaTime;
-		}
-
-		while(time < moveTime + WaitTime)
-		{
-			yield return null;
-			time += Time.deltaTime;
-		}
-
-		while(time<existTime)
-		{
-			float ratio = time - (moveTime + WaitTime) / moveTime;
-			transform.eulerAngles = Vector3.Lerp(mid, end, ratio);
+			float ratio = time / existTime;
+			transform.localPosition = Vector3.Lerp(start, end, ratio);
 
 			yield return null;
 			time += Time.deltaTime;
