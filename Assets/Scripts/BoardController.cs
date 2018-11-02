@@ -215,7 +215,7 @@ public class BoardController : MonoBehaviour
 		//Debug.Log("called");
 
 		// 勝敗が決していたら終了する
-		JudgeGameFinish();
+		if(JudgeGameFinish()) return;
 
 		// 行動が終了したユニットを、次のターンまで休ませる
 		_units.MakeRestActiveUnit();
@@ -239,10 +239,19 @@ public class BoardController : MonoBehaviour
 	/// <summary>
 	/// 勝敗判定を行い, 負けた場合はゲーム終了.
 	/// </summary>
-	public void JudgeGameFinish()
+	public bool JudgeGameFinish()
 	{
-		if(_units.JudgeLose(Unit.Team.Player)) FinishGame(Unit.Team.Player);
-		if(_units.JudgeLose(Unit.Team.Enemy)) FinishGame(Unit.Team.Enemy);
+		if(_units.JudgeLose(Unit.Team.Player))
+		{
+			FinishGame(Unit.Team.Player);
+			return true;
+		}
+		if(_units.JudgeLose(Unit.Team.Enemy))
+		{
+			FinishGame(Unit.Team.Enemy);
+			return true;
+		}
+		return false;
 	}
 
 	/// <summary>
