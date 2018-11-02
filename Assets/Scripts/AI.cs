@@ -176,29 +176,37 @@ public class AI : MonoBehaviour
 		// 攻撃が当たるコマンド一覧
 		var attackableCommands = GetHitAttacks();
 
-		if(!attackableCommands.Any())
+		// 使用するコマンド
+		Attack attack = null;
+		
+		if(attackableCommands.Any())
 		{
-			FinishUnitAction();
+			// 攻撃がある場合攻撃の種類を選択
+			attack = SelectAttack(attackableCommands);
+		}
+		else if(_ui.RangeAttackNozzle.gameObject.activeSelf)
+		{
+			// 強攻撃の後だったら、Attackボタンがあるので使用する。
+			attack = _units.ActiveUnit.PlanningAttack.Value.Key;
 		}
 		else
 		{
-			// 攻撃の種類を選択
-			var attack = SelectAttack(attackableCommands);
-			
-			yield return new WaitForSeconds(WaitSeconds());
-
-			// 攻撃の場所を選択（攻撃）
-			if(attack.Scale==Attack.AttackScale.Single)
-			{
-				SelectSingleAttackFloor();
-			}
-			else
-			{
-				yield return SelectRangeAttackDir((RangeAttack)attack);
-			}
+			FinishUnitAction();
+			yield break;
 		}
 
-		yield break;
+		
+		yield return new WaitForSeconds(WaitSeconds());
+		
+		// 攻撃の場所を選択（攻撃）
+		if(attack.Scale == Attack.AttackScale.Single)
+		{
+			SelectSingleAttackFloor();
+		}
+		else
+		{
+			yield return StartCoroutine(SelectRangeAttackDir((RangeAttack)attack));
+		}
 	}
 
 	/// <summary>

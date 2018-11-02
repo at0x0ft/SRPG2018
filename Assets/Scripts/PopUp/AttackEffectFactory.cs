@@ -158,8 +158,6 @@ public class AttackEffectFactory : BasePopUp
 		{
 			var path = basePath + "_" + i;
 			var sprite = Resources.Load(path, typeof(Sprite)) as Sprite;
-			Debug.Log(path);
-			Debug.Log(sprite);
 			if(sprite == null) break;
 			else sprites.Add(sprite);
 		}
