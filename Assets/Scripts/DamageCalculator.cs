@@ -67,7 +67,7 @@ public class DamageCalculator : MonoBehaviour
 	{
 		switch(floor.Type)
 		{
-			case Floor.Feature.Normal:
+			case Floor.Feature.Grass:
 				return _normalAvoidRate;
 			case Floor.Feature.Forest:
 				return _forestAvoidRate;
@@ -121,7 +121,7 @@ public class DamageCalculator : MonoBehaviour
 	{
 		switch(floor.Type)
 		{
-			case Floor.Feature.Normal:
+			case Floor.Feature.Grass:
 				return _normalReduceRate;
 			case Floor.Feature.Forest:
 				return _forestReduceRate;

@@ -58,7 +58,9 @@ public class MoveController : MonoBehaviour
 	{
 		switch(floor.Type)
 		{
-			case Floor.Feature.Normal:
+			case Floor.Feature.Unmovable:
+				return _maxLimitCost;
+			case Floor.Feature.Grass:
 				return _normalCost;
 			case Floor.Feature.Forest:
 				return _forestCost;

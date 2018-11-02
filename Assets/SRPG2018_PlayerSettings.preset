@@ -5,7 +5,7 @@ Preset:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: SRPG2018_PlayerSettings2
+  m_Name: SRPG2018_PlayerSettings
   m_TargetType:
     m_NativeTypeID: 129
     m_ManagedTypePPtr: {fileID: 0}
