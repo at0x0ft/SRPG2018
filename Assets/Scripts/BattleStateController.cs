@@ -82,32 +82,42 @@ public class BattleStateController
 		switch(BattleState)
 		{
 			case BattleStates.Check:
-			    _ui.UnitInfoWindow.Hide();
+				_ui.RangeAttackNozzle.Hide();
+				_ui.UnitInfoWindow.Hide();
 				_ui.MoveAmountInfoWindow.Hide();
+				break;
+        
+			case BattleStates.Move:
+        // 強攻撃判定
 				if(!StrongAttackCondition()) break;
 
 				var attacker = _units.ActiveUnit;
 				var attackInfo = attacker.PlanningAttack.Value;
 				var attack = attackInfo.Key;
 				var dir = attackInfo.Value;
+				
+				// 1.強攻撃の詳細情報を表示し
+				_ui.AttackInfoWindow.Show(attack);
 
-				//強攻撃範囲確認
-				_ac.Highlight(attacker, attack, dir);
+				// 2.マップのハイライトを初期化し
+				_map.ClearHighlight();
 
-				//強攻撃実行
-				if(attack.Scale == Attack.AttackScale.Single)
+				// 3.新しくハイライトを着色する.
+				_ac.Highlight(_units.ActiveUnit, attack, dir);
+
+				// 4.範囲攻撃なら、ノズルも出す
+				if(attack.Scale==Attack.AttackScale.Range)
 				{
-					var targetPos = ((SingleAttack)attack).TargetPos;
-					var targetUnit = _units.GetUnit(targetPos.x, targetPos.y);
-
-					if(targetUnit != null) _ac.Attack(attacker, attack, targetUnit);
-				}
-				else
-				{
-					_ac.Attack(attacker, attack);
+					_ui.RangeAttackNozzle.Show(RangeAttackNozzle.AccessReason.RangeAttack);
 				}
 
-				goto case BattleStates.Load;
+				// 5.Attackに移行する
+				NextBattleState();
+				break;
+
+			// 今は特にやることはない
+			case BattleStates.Attack:
+				break;
 
 			// 現在はアニメーションが無いため、すぐに次のユニットに行動権を譲る
 			case BattleStates.Load:

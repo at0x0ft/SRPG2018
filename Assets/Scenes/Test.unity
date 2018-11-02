@@ -19803,7 +19803,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Attack!
+  m_Text: 
 --- !u!222 &882818405
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -25994,7 +25994,7 @@ Prefab:
     - target: {fileID: 114909616215669594, guid: f34318d7976686d4babfc9cecc9602d8,
         type: 2}
       propertyPath: _attacks.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 224147555113624458, guid: f34318d7976686d4babfc9cecc9602d8,
         type: 2}
@@ -26123,7 +26123,7 @@ Prefab:
         type: 2}
       propertyPath: _attacks.Array.data[3]
       value: 
-      objectReference: {fileID: 114552704815467992, guid: b1e2894a7e46ece4bab122bb57974135,
+      objectReference: {fileID: 114968416149137720, guid: 26df6363d4a60594d864cfddf853d716,
         type: 2}
     - target: {fileID: 114909616215669594, guid: f34318d7976686d4babfc9cecc9602d8,
         type: 2}
