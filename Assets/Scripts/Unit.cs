@@ -18,6 +18,16 @@ public class Unit : MonoBehaviour
 		get { return _name; }
 	}
 
+	/// <summary>
+	/// 内部における、ユニットの名前
+	/// (ネタばれになるので表示には使わない)
+	/// </summary>
+	public enum UnitNames
+	{
+		mis,
+		mercury
+	}
+
 	public enum Team
 	{
 		Player,
@@ -38,6 +48,13 @@ public class Unit : MonoBehaviour
 		MiddleAttack, // 中攻撃ができる
 		Charging,     // 強攻撃のみできる（移動不可,強制攻撃）
 		Movable       // 攻撃不可
+	}
+
+	[SerializeField]
+	private UnitNames _unitName;
+	public UnitNames UnitName
+	{
+		get{ return _unitName; }
 	}
 
 	[SerializeField]

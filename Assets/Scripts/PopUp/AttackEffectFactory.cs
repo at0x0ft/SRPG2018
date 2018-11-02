@@ -8,12 +8,21 @@ using System.Collections.Generic;
 /// </summary>
 public enum AttackEffectKind
 {
-	CPU,
-	MARock,
-	OverFlow,
+	// みすちゃん用
 	Spiral,
+	BackUp,
+	MARock,
+	CPU,
+	OverFlow,
 	DeadLock,
-	BackUp
+
+	// 水星ちゃん用
+	BubbleNotes,
+	TrebulCreph,
+	IcicleStaff,
+	NotesEdge,
+	HellTone,
+	HolyLiric
 }
 
 /// <summary>
@@ -32,11 +41,12 @@ public class AttackEffectFactory : BasePopUp
 	private List<Floor> _targets;
 	private List<Sprite> _sprites;
 
+	private Dictionary<Unit.UnitNames, string> _imagePaths;
 	private Dictionary<AttackEffectKind, string> _imageNames;
 	private Dictionary<AttackEffectKind, Func<IEnumerator>> _effectFuncs;
 
 
-	// ==========中心関数==========
+	// ==========準備関数==========
 	/// <summary>
 	/// 攻撃エフェクトファクトリーの初期設定です
 	/// </summary>
@@ -51,18 +61,29 @@ public class AttackEffectFactory : BasePopUp
 		_attack = attack;
 		gameObject.name = attack.name + "'s effect";
 
-		// AttackEffectKindを諸々と関連付けます
-		EffectKindAssociateFactoryFunc();
-		EffectKindAssociateImageName();
+		// 諸々を関連付けます
+		AssociateUnitNameWithImagePath();
+		AssociateEffectKindWithImageName();
+		AssociateEffectKindWithFactoryFunc();
 
 		// 動作開始
 		Initialize("");
+	}
+	
+	/// <summary>
+	/// 攻撃エフェクト画像パスを、ユニットの内部名称と対応付けます
+	/// </summary>
+	private void AssociateUnitNameWithImagePath()
+	{
+		_imagePaths = new Dictionary<Unit.UnitNames, string>();
+		_imagePaths[Unit.UnitNames.mis] = "mis/";
+		_imagePaths[Unit.UnitNames.mercury] = "mercury/";
 	}
 
 	/// <summary>
 	/// 攻撃エフェクト画像名を、各enumと対応付けます
 	/// </summary>
-	private void EffectKindAssociateImageName()
+	private void AssociateEffectKindWithImageName()
 	{
 		_imageNames = new Dictionary<AttackEffectKind, string>();
 		_imageNames[AttackEffectKind.Spiral] = "tornado";
@@ -71,22 +92,24 @@ public class AttackEffectFactory : BasePopUp
 	/// <summary>
 	/// 攻撃エフェクト関数を、各enumと対応付けます
 	/// </summary>
-	private void EffectKindAssociateFactoryFunc()
+	private void AssociateEffectKindWithFactoryFunc()
 	{
 		_effectFuncs = new Dictionary<AttackEffectKind, Func<IEnumerator>>();
 		_effectFuncs[AttackEffectKind.Spiral] = Spiral;
 	}
-	
+
+
+	// ==========動作関数==========
 	/// <summary>
 	/// 中心となる実行部分
 	/// </summary>
 	protected override IEnumerator Move()
 	{
 		// 画像取得
-		_sprites = GetSprites(_imageNames[_effect]);
+		_sprites = GetSprites();
 
 		// データの正当性確認
-		ValidityConfirmation(_imageNames[_effect]);
+		ValidityConfirmation();
 
 		// ファクトリーを実行
 		yield return StartCoroutine(_effectFuncs[_effect]());
@@ -100,13 +123,14 @@ public class AttackEffectFactory : BasePopUp
 	/// </summary>
 	/// <param name="name">エフェクト共通名称</param>
 	/// <returns>画像リスト</returns>
-	private List<Sprite> GetSprites(string attackName)
+	private List<Sprite> GetSprites()
 	{
 		List<Sprite> sprites = new List<Sprite>();
+		var basePath = GetAttackEffectPath();
 
 		for(int i = 1; ; i++)
 		{
-			var path = GetAttackEffectPath(attackName) + "_" + i;
+			var path = basePath + "_" + i;
 			var sprite = Resources.Load(path, typeof(Sprite)) as Sprite;
 
 			if(sprite == null) break;
@@ -121,18 +145,18 @@ public class AttackEffectFactory : BasePopUp
 	/// </summary>
 	/// <param name="name"></param>
 	/// <returns></returns>
-	private string GetAttackEffectPath(string attackName)
+	private string GetAttackEffectPath()
 	{
-		const string imagePath = "Sprites/";
+		const string imageRoot = "Sprites/";
 
-		return imagePath + _attacker.name + "/" + attackName;
+		return imageRoot + _imagePaths[_attacker.UnitName] + _imageNames[_attack.EffectKind];
 	}
 
 	/// <summary>
 	/// 実際にエフェクトを作る前に、情報に矛盾が無いかを検査します。
 	/// </summary>
 	/// <returns></returns>
-	private bool ValidityConfirmation(string attackName)
+	private bool ValidityConfirmation()
 	{
 		string error = "";
 
@@ -145,7 +169,7 @@ public class AttackEffectFactory : BasePopUp
 		if(_sprites.Count == 0)
 			error += ":攻撃エフェクト画像がありません。" +
 			"画像の存在や,パスが通っているのかを確認してください。" +
-			"現在捜査した画像パスは," + GetAttackEffectPath(attackName) +
+			"現在捜査した画像パスは," + GetAttackEffectPath() +
 			"_1～ です";
 
 		// 結果
@@ -163,7 +187,6 @@ public class AttackEffectFactory : BasePopUp
 
 	
 	// ==========個別変数==========
-
 	/// <summary>
 	/// 技:Spiralの攻撃エフェクトファクトリーの定義です(実装例)
 	/// </summary>
