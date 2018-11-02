@@ -19,8 +19,6 @@ public class BoardController : MonoBehaviour
 	[SerializeField]
 	private AI _ai;
 	[SerializeField]
-	private ActiveUnitIcon _activeUnitIcon;
-	[SerializeField]
 	private bool _setAI = true;
 	[SerializeField]
 	private bool _setPlayerFirst = true;
@@ -58,7 +56,7 @@ public class BoardController : MonoBehaviour
 
 		// ユニット詳細情報サブウィンドウを一度閉じる
 		_ui.UnitInfoWindow.Hide();
-    
+
 		// 準備中は画面をクリックされないようにする
 		_ui.TouchBlocker.SetActive(true);
 
@@ -159,7 +157,7 @@ public class BoardController : MonoBehaviour
 		_units.ActiveUnit = activeUnit;
 
 		// Activeユニットアイコンを動かす
-		_activeUnitIcon.transform.parent = _units.ActiveUnit.transform;
+		_ui.ActiveUnitIcon.ChangeIconTarget(_units.ActiveUnit.transform);
 
 		// map,UIを初期化する
 		_map.ClearHighlight();
@@ -180,7 +178,7 @@ public class BoardController : MonoBehaviour
 
 		// セットプレイヤーのチームを記録
 		_units.CurrentPlayerTeam = team;
-		
+
 		// Teamが変わったので、CutInを表示
 		_ui.PopUp.CreateCutInPopUp(team);
 
@@ -192,7 +190,7 @@ public class BoardController : MonoBehaviour
 
 		// セットプレイヤーの持つユニットのうち先頭のユニットを展開.
 		StartUnit();
-		
+
 		// セットプレイヤーが人間なら画面タッチ不可を解除する.
 		if(!_ais.ContainsKey(team))
 		{

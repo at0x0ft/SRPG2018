@@ -10,10 +10,21 @@ public class ActiveUnitIcon : MonoBehaviour
 	[SerializeField]
 	private float _baseHeight = 20;
 
-	// Use this for initialization
-	void Start()
+	/// <summary>
+	/// 初期化メソッド
+	/// </summary>
+	public void Initialize()
 	{
 		StartCoroutine(Floating());
+	}
+
+	/// <summary>
+	/// Iconのターゲットを変えるメソッド
+	/// </summary>
+	/// <param name="unit"></param>
+	public void ChangeIconTarget(Transform unit)
+	{
+		transform.parent = unit;
 	}
 
 	IEnumerator Floating()
