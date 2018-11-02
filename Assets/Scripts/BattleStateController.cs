@@ -82,7 +82,8 @@ public class BattleStateController
 		switch(BattleState)
 		{
 			case BattleStates.Check:
-			  _ui.UnitInfoWindow.Hide();
+				_ui.RangeAttackNozzle.Hide();
+				_ui.UnitInfoWindow.Hide();
 				_ui.MoveAmountInfoWindow.Hide();
 				break;
         
