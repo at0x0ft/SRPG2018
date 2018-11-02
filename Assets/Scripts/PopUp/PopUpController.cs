@@ -93,6 +93,9 @@ public class PopUpController : MonoBehaviour
 		// 攻撃エフェクトの親を、ファクトリーとします。
 		var popUp = Instantiate(_image.gameObject, parent);
 
+		// 元のImageは不要なため消す.
+		_image.gameObject.SetActive(false);
+
 		popUp.GetComponent<AttackEffect>().Initialize(attack, sprites, pos, opt);
 	}
 }

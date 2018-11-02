@@ -27,7 +27,7 @@ public class AttackEffect : BasePopUp
 	private Vector3 _target;          // 演出の中心位置
 	private Vector3? _opt;            // 必要に応じて
 
-	RectTransform _rect; // Canvas上での情報
+	private RectTransform _rect; // Canvas上での情報
 	private Dictionary<AttackEffectKind, Func<IEnumerator>> _effectFunc;
 
 
