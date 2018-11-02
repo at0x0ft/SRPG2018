@@ -150,7 +150,8 @@ public class AttackEffectFactory : BasePopUp
 		{
 			var path = basePath + "_" + i;
 			var sprite = Resources.Load(path, typeof(Sprite)) as Sprite;
-
+			Debug.Log(path);
+			Debug.Log(sprite);
 			if(sprite == null) break;
 			else sprites.Add(sprite);
 		}
@@ -273,30 +274,39 @@ public class AttackEffectFactory : BasePopUp
 
 	private IEnumerator HellTone()
 	{
-		// 攻撃地点のシャッフル
-		_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList();
-
+		// 大技は、他とは異なる時間をかけましょう。
+		const float allTime = 5.0f;
+		const float happenRate = 0.2f;
+		
 		List<Sprite> sprite = new List<Sprite>();
 
-		foreach(var target in _targets)
+		float time = 0;
+		while(time<allTime)
 		{
 			sprite.Clear();
+
+			var target = _targets[UnityEngine.Random.Range(0, _targets.Count)];
 			sprite.Add(_sprites[UnityEngine.Random.Range(0, _sprites.Count)]);
 			MakeEffect(target.GetComponent<RectTransform>().localPosition, sprite);
-			yield return new WaitForSeconds(0.2f);
+
+			yield return new WaitForSeconds(happenRate);
+			time += happenRate;
 		}
 	}
 
 	private IEnumerator HolyLiryc()
 	{
-		// 攻撃地点のシャッフル
-		_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList();
-
+		const float allTime = 5.0f;
+		const float happenRate = 0.2f;
+		
 		List<Sprite> sprite = new List<Sprite>();
 
-		foreach(var target in _targets)
+		float time = 0;
+		while(time<allTime)
 		{
 			sprite.Clear();
+
+			var target = _targets[UnityEngine.Random.Range(0, _targets.Count)];
 			sprite.Add(_sprites[UnityEngine.Random.Range(0, _sprites.Count)]);
 			GetComponent<PopUpController>().AttackEffectPopUp(
 				transform,
@@ -305,7 +315,9 @@ public class AttackEffectFactory : BasePopUp
 				target.GetComponent<RectTransform>().localPosition,
 				_attackerRect.localPosition
 			);
-			yield return new WaitForSeconds(0.2f);
+
+			yield return new WaitForSeconds(happenRate);
+			time += happenRate;
 		}
 	}
 }

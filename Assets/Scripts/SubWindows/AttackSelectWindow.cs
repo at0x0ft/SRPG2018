@@ -71,7 +71,7 @@ public class AttackSelectWindow : SubWindow
 
 		// 4.攻撃予定情報を更新する
 		_units.ActiveUnit.PlanningAttack = new KeyValuePair<Attack, int>(atk, 0);
-		Debug.Log(_units.ActiveUnit.PlanningAttack);
+		//Debug.Log(_units.ActiveUnit.PlanningAttack);
 
 		// 5.もし範囲攻撃なら、ノズルを追加する。
 		if(atk.Scale == Attack.AttackScale.Range) _ran.Show();

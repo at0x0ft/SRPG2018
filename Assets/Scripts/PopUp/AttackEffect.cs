@@ -60,6 +60,7 @@ public class AttackEffect : BasePopUp
 	protected override IEnumerator Move()
 	{
 		// 画像を表示開始する
+		_image.sprite = _sprites[0];
 		_image.enabled = true;
 		_image.rectTransform.sizeDelta = BASE_IMAGE_SIZE;
 		
@@ -151,11 +152,9 @@ public class AttackEffect : BasePopUp
 
 	private IEnumerator BubbleNotes()
 	{
-		// 初期画像
-		_image.sprite = _sprites[0];
 		// 大きすぎるので調整
 		_image.rectTransform.sizeDelta = LITTLE_IMAGE_SIZE;
-		Debug.Log(_target);
+
 		// 毎フレームすること
 		Action<float> func = (time) =>
 		{
@@ -176,14 +175,15 @@ public class AttackEffect : BasePopUp
 
 	private IEnumerator TrebleCreph()
 	{
-		// 初期画像
-		_image.sprite = _sprites[0];
-
 		// 毎フレームすること
 		Action<float> func = (time) =>
 		{
-			var now = Quaternion.Euler(0f, 0f, ProgressPI(time)) * Vector3.up;
-			transform.eulerAngles = now;
+			const float RADIUS = 20f;
+			var dir = Quaternion.Euler(0f, 0f, Mathf.Rad2Deg * ProgressPI(time));
+			var pos = dir * Vector3.up * RADIUS;
+
+			_rect.localRotation = dir;
+			_rect.localPosition = _target + pos;
 		};
 
 		yield return StartCoroutine(MainRoop(func));
@@ -194,6 +194,7 @@ public class AttackEffect : BasePopUp
 		// 徐々に表示するように設定
 		_image.type = Image.Type.Filled;
 		_image.fillMethod = Image.FillMethod.Vertical;
+		_image.fillOrigin = (int)Image.OriginVertical.Top;
 
 		Action<float> func = (time) =>
 		{
@@ -202,6 +203,7 @@ public class AttackEffect : BasePopUp
 
 			pos.y -= height * (1 - Progress(time));
 			_image.fillAmount = Progress(time);
+			_rect.localPosition = pos;
 		};
 		
 		yield return StartCoroutine(MainRoop(func));
@@ -209,19 +211,23 @@ public class AttackEffect : BasePopUp
 
 	private IEnumerator NotesEdge()
 	{
-		// 回転させる
+		// 発生時刻を短くする(勢いが欲しい)
+		existTime = 0.6f;
+
+		// 画像の調整
+		_rect.sizeDelta = LITTLE_IMAGE_SIZE;
 		var rot = transform.eulerAngles;
 		rot.z = 90;
 		transform.eulerAngles = rot;
-		
+
 		// 毎フレームすること
 		Action<float> func = (time) =>
 		{
-			const float MAX_DIST = 30f;
+			const float MAX_DIST = 100f;
 
 			var pos = _target;
 			pos.x -= MAX_DIST * Progress(time);
-			transform.position = pos;
+			transform.localPosition = pos;
 		};
 
 		yield return StartCoroutine(MainRoop(func));
@@ -231,11 +237,11 @@ public class AttackEffect : BasePopUp
 	{
 		Action<float> func = (time) =>
 		{
-			const float MAX_HEIGHT = 10;
+			const float MAX_HEIGHT = 50;
 
 			var pos = _target;
-			pos.y += MAX_HEIGHT * (1 - Progress(time));
-			transform.position = pos;
+			pos.y += MAX_HEIGHT * (1 - Mathf.Pow(Progress(time), 3));
+			transform.localPosition = pos;
 		};
 
 		yield return StartCoroutine(MainRoop(func));
@@ -250,11 +256,13 @@ public class AttackEffect : BasePopUp
 		float dx = _target.x - attacker.x;
 		float dy = _target.y - attacker.y;
 		float rad = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
-		transform.eulerAngles = Quaternion.Euler(0f, 0f, rad) * Vector3.up;
+		transform.localEulerAngles = Quaternion.Euler(0f, 0f, rad) * Vector3.up;
 
 		Action<float> func = (time) =>
 		{
-			transform.position = Vector3.Lerp(attacker, _target, Progress(time));
+			float rate = Progress(time);
+			rate = 1- Mathf.Pow(1 - rate, 2);
+			transform.localPosition = Vector3.Lerp(attacker, _target, rate);
 		};
 
 		yield return StartCoroutine(MainRoop(func));

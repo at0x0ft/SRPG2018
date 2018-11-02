@@ -212,7 +212,7 @@ public class BoardController : MonoBehaviour
 		// 準備中は操作を出来ないようにする
 		_ui.TouchBlocker.SetActive(true);
 
-		Debug.Log("called");
+		//Debug.Log("called");
 
 		// 勝敗が決していたら終了する
 		JudgeGameFinish();
