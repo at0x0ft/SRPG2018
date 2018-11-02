@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 /// <summary>
 /// PopUpの実体を作成するクラスです。
@@ -20,6 +21,12 @@ public class PopUpController : MonoBehaviour
 {
 	[SerializeField]
 	private UI _ui;
+
+	[SerializeField]
+	private BoardController board;
+
+	[SerializeField]
+	private Image _image;
 	
 	/// <summary>
 	/// ダメージのポップアップを作ります
@@ -32,7 +39,7 @@ public class PopUpController : MonoBehaviour
 
 		string text = damage.ToString();
 
-		popUp.GetComponent<DamagePopUp>().Initialize(text);
+		popUp.GetComponent<DamagePopUp>().Initialize();
 	}
 
 	public void CreateCutInPopUp(Unit.Team team)
@@ -41,7 +48,7 @@ public class PopUpController : MonoBehaviour
 
 		string text = "=== " + team.ToString() + " Order ===";
 
-		popUp.GetComponent<CutInPopUp>().Initialize(text);
+		popUp.GetComponent<CutInPopUp>().Initialize();
 	}
 
 	/// <summary>
@@ -53,7 +60,7 @@ public class PopUpController : MonoBehaviour
 	public void AttackEffectFactory(Unit attacker, List<Floor> targets, Attack attack)
 	{
 		// 攻撃エフェクトのファクトリーを、攻撃者とします。
-		var popUp = Instantiate(gameObject, _ui.transform);
+		var popUp = Instantiate(gameObject, board.transform);
 
 		popUp.GetComponent<AttackEffectFactory>().Initialize(attacker, targets, attack);
 	}
@@ -63,11 +70,11 @@ public class PopUpController : MonoBehaviour
 	/// </summary>
 	/// <param name="parent">親オブジェクト(Factory)</param>
 	/// <param name="attack">攻撃内容</param>
-	public void AttackEffectPopUp(Transform parent, Attack attack, List<Sprite> sprites, Vector3 pos)
+	public void AttackEffectPopUp(Transform parent, Attack attack, List<Sprite> sprites, Vector3 pos, Vector3? opt = null)
 	{
 		// 攻撃エフェクトの親を、ファクトリーとします。
-		var popUp = Instantiate(gameObject, parent);
+		var popUp = Instantiate(_image.gameObject, parent);
 
-		popUp.GetComponent<AttackEffect>().Initialize(attack, sprites, pos);
+		popUp.GetComponent<AttackEffect>().Initialize(attack, sprites, pos, opt);
 	}
 }

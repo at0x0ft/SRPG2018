@@ -12,17 +12,20 @@ public class AttackEffect : BasePopUp
 {
 	// ==========定数==========
 	[SerializeField]
-	private readonly Vector2 imageSize = new Vector2(48, 48); // image size (px)
+	private readonly Vector2 BASE_IMAGE_SIZE = new Vector2(32, 32); // image size (px)
+	[SerializeField]
+	private readonly Vector2 LITTLE_IMAGE_SIZE =  new Vector2(16, 16);
 	[SerializeField]
 	private readonly float effectSPF = 0.4f; // seconds per frame 
 
 	// ==========変数==========
-	private AttackEffectKind _effect;
-	private Attack _attack;
-	private List<Sprite> _sprites;
-	private Vector3 _target;
-	private Vector3? _opt;
-	
+	private AttackEffectKind _effect; // 攻撃の種類
+	private Attack _attack;           // 攻撃の詳細
+	private List<Sprite> _sprites;    // エフェクト画像
+	private Vector3 _target;          // 演出の中心位置
+	private Vector3? _opt;            // 必要に応じて
+
+	RectTransform _rect; // Canvas上での情報
 	private Dictionary<AttackEffectKind, Func<IEnumerator>> _effectFunc;
 
 
@@ -41,12 +44,13 @@ public class AttackEffect : BasePopUp
 		_sprites = sprites;
 		_target = target;
 		_opt = opt;
+		_rect = GetComponent<RectTransform>();
 
 		// 対応付け
-		EffectKindAssociateFunc();
+		AssociateEffectKindWithFunc();
 
 		// 動作開始
-		Initialize("");
+		Initialize();
 	}
 	
 	/// <summary>
@@ -57,7 +61,7 @@ public class AttackEffect : BasePopUp
 	{
 		// 画像を表示開始する
 		_image.enabled = true;
-		_image.rectTransform.sizeDelta = imageSize;
+		_image.rectTransform.sizeDelta = BASE_IMAGE_SIZE;
 		
 		var enumerator = _effectFunc[_effect]();
 
@@ -99,7 +103,7 @@ public class AttackEffect : BasePopUp
 	/// <returns></returns>
 	private float ProgressPI(float time, float all = -1)
 	{
-		return 2 * Mathf.PI * Progress(time, all) * Mathf.Rad2Deg;
+		return 2 * Mathf.PI * Progress(time, all);
 	}
 
 	/// <summary>
@@ -125,7 +129,7 @@ public class AttackEffect : BasePopUp
 	private IEnumerator Spiral()
 	{
 		// 位置設定
-		transform.position = _target;
+		_rect.position = _target;
 		
 		// 画像更新
 		foreach(var sprite in _sprites)
@@ -149,19 +153,22 @@ public class AttackEffect : BasePopUp
 	{
 		// 初期画像
 		_image.sprite = _sprites[0];
-
+		// 大きすぎるので調整
+		_image.rectTransform.sizeDelta = LITTLE_IMAGE_SIZE;
+		Debug.Log(_target);
 		// 毎フレームすること
 		Action<float> func = (time) =>
 		{
 			// 固定値
-			const float MAX_DIST = 30.0f; // 飛行距離
-			const float MAX_WIDTH = 5.0f; // 上下浮遊範囲
-			const float FLOAT_CYCLE = 1.0f; // 浮遊周期
+			const float MAX_DIST = 100.0f; // 飛行距離
+			const float MAX_WIDTH = 20.0f; // 上下浮遊範囲
+			const float FLOAT_CYCLE = 2.0f; // 浮遊周期
 
 			var now = _target;
-			now.x -= MAX_DIST * (time / existTime);
-			now.y += MAX_WIDTH * Mathf.Sin(ProgressPI(time, FLOAT_CYCLE));
-			transform.position = now;
+			now.x -= MAX_DIST * (time / existTime); 
+			var tmp = MAX_WIDTH * Mathf.Sin(ProgressPI(time, FLOAT_CYCLE));
+			now.y += tmp;
+			_rect.localPosition = now;
 		};
 
 		yield return StartCoroutine(MainRoop(func));

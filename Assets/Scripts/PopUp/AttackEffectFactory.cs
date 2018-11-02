@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// 攻撃の種類の判別
@@ -41,9 +42,10 @@ public class AttackEffectFactory : BasePopUp
 	private List<Floor> _targets;
 	private List<Sprite> _sprites;
 	
+	private RectTransform _attackerRect;
 	private Dictionary<AttackEffectKind, string> _imageNames;
 	private Dictionary<AttackEffectKind, Func<IEnumerator>> _effectFuncs;
-
+	
 
 	// ==========準備関数==========
 	/// <summary>
@@ -59,13 +61,14 @@ public class AttackEffectFactory : BasePopUp
 		_attacker = attacker;
 		_attack = attack;
 		gameObject.name = attack.name + "'s effect";
+		_attackerRect = _attacker.GetComponent<RectTransform>();
 
 		// 諸々を関連付けます
 		AssociateEffectKindWithImageName();
 		AssociateEffectKindWithFactoryFunc();
 
 		// 動作開始
-		Initialize("");
+		Initialize();
 	}
 
 	/// <summary>
@@ -100,11 +103,17 @@ public class AttackEffectFactory : BasePopUp
 	{
 		_effectFuncs = new Dictionary<AttackEffectKind, Func<IEnumerator>>();
 
-		// for みすちゃん
-		_effectFuncs[AttackEffectKind.Spiral] = Spiral;
+		// 特に凝ったことをしないエフェクト達
+		_effectFuncs[AttackEffectKind.Spiral] =
+		_effectFuncs[AttackEffectKind.IcicleStaff] =
+		NormalEffectMaker;
 
 		// for 水星ちゃん
-		//_effectFuncs[AttackEffectKind.]
+		_effectFuncs[AttackEffectKind.BubbleNotes] = BubbleNotes;
+		_effectFuncs[AttackEffectKind.TrebulCreph] = TrebleCreph;
+		_effectFuncs[AttackEffectKind.NotesEdge] = NotesEdge;
+		_effectFuncs[AttackEffectKind.HellTone] = HellTone;
+		_effectFuncs[AttackEffectKind.HolyLiric] = HolyLiryc;
 	}
 
 
@@ -194,29 +203,108 @@ public class AttackEffectFactory : BasePopUp
 		}
 	}
 
-	
-	// ==========個別変数==========
 	/// <summary>
-	/// 技:Spiralの攻撃エフェクトファクトリーの定義です(実装例)
+	/// (お助け関数)
+	/// 特定の位置にエフェクトを作成します
 	/// </summary>
-	private IEnumerator Spiral()
+	/// <param name="pos">エフェクト作成位置</param>
+	private void MakeEffect(Vector3 target, List<Sprite> mySprites = null)
 	{
-		// エフェクト位置
-		var pos = _targets[0].transform.position;
+		GetComponent<PopUpController>().AttackEffectPopUp(
+			transform,
+			_attack,
+			(mySprites != null ? mySprites : _sprites),
+			target
+		);
+	}
 
-		// エフェクト作成
-		GetComponent<PopUpController>().AttackEffectPopUp(transform, _attack, _sprites, pos);
-
+	/// <summary>
+	/// (お助け関数)
+	/// 特定の位置達に、1通りの画像群で一斉にエフェクトを表現する
+	/// </summary>
+	/// <returns></returns>
+	private IEnumerator NormalEffectMaker()
+	{
+		foreach(var target in _targets)
+		{
+			MakeEffect(target.transform.localPosition);
+		}
 		yield break;
 	}
 
+
+	// ==========個別変数==========
 	private IEnumerator BubbleNotes()
 	{
-		var pos = _targets[0].transform.position;
+		var pos = _attackerRect.localPosition;
 
 		for(int i=0;i<3;i++)
 		{
-			GetComponent<PopUpController>().AttackEffectPopUp(transform, _attack, _sprites, pos);
+			MakeEffect(pos);
+
+			yield return new WaitForSeconds(0.2f);
+		}
+	}
+
+	private IEnumerator TrebleCreph()
+	{
+		var pos = _attackerRect.localPosition;
+
+		MakeEffect(pos);
+		
+		yield break;
+	}
+	
+	private IEnumerator NotesEdge()
+	{
+		var pos = _attackerRect.localPosition;
+
+		List<Sprite> sprite = new List<Sprite>();
+
+		for(int i=0;i<6;i++)
+		{
+			sprite.Clear();
+			sprite.Add(_sprites[i % _sprites.Count]);
+			MakeEffect(pos, sprite);
+		}
+
+		yield return null;
+	}
+
+	private IEnumerator HellTone()
+	{
+		// 攻撃地点のシャッフル
+		_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList();
+
+		List<Sprite> sprite = new List<Sprite>();
+
+		foreach(var target in _targets)
+		{
+			sprite.Clear();
+			sprite.Add(_sprites[UnityEngine.Random.Range(0, _sprites.Count)]);
+			MakeEffect(target.GetComponent<RectTransform>().localPosition, sprite);
+			yield return new WaitForSeconds(0.2f);
+		}
+	}
+
+	private IEnumerator HolyLiryc()
+	{
+		// 攻撃地点のシャッフル
+		_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList();
+
+		List<Sprite> sprite = new List<Sprite>();
+
+		foreach(var target in _targets)
+		{
+			sprite.Clear();
+			sprite.Add(_sprites[UnityEngine.Random.Range(0, _sprites.Count)]);
+			GetComponent<PopUpController>().AttackEffectPopUp(
+				transform,
+				_attack,
+				sprite,
+				target.GetComponent<RectTransform>().localPosition,
+				_attackerRect.localPosition
+			);
 			yield return new WaitForSeconds(0.2f);
 		}
 	}
