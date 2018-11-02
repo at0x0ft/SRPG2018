@@ -121,8 +121,10 @@ public class AttackEffect : BasePopUp
 	/// 毎フレームシンプルなことしかしない時に使える関数
 	/// </summary>
 	/// <param name="func">毎フレームすること</param>
-	private IEnumerator MainRoop(Action<float> func)
+	private IEnumerator MainRoop(Action<float> func, float allTime = -1)
 	{
+		if(allTime > 0) existTime = allTime;
+
 		float time = 0;
 		while(time<existTime)
 		{
@@ -218,9 +220,42 @@ public class AttackEffect : BasePopUp
 
 	private IEnumerator DeadLock()
 	{
+		const float FLY_TIME = 4.0f;
+		const float DIVIDE_TIME = 1.3f;
+		
+		_rect.localPosition = _target;
 		_rect.sizeDelta = BIG_IMAGE_SIZE;
 
-		yield return StartCoroutine(SpriteLoop());
+		Action<float> func = (time) =>
+		{
+			const float MAX_HEIGHT = 100;
+			Vector2 MAX_SIZE = new Vector2(64, 64);
+
+			var rate =  -4 * Mathf.Pow(Progress(time) - 0.5f, 2) + 1;
+			var pos = _target;
+			pos.y += MAX_HEIGHT * rate;
+
+			_rect.localPosition = pos;
+			_rect.sizeDelta = Vector2.Lerp(BIG_IMAGE_SIZE, MAX_SIZE, rate);
+		};
+
+		Action<float> func2 = (time) =>
+		{
+			const float MAX_DOWN = 3;
+			Vector2 MAX_SIZE = new Vector2(54, 54);
+
+			var pos = _target;
+			pos.y -= MAX_DOWN * Progress(time);
+
+			_rect.localPosition = pos;
+			_rect.sizeDelta = Vector2.Lerp(BIG_IMAGE_SIZE, MAX_SIZE, Progress(time));
+		};
+
+		yield return StartCoroutine(MainRoop(func, FLY_TIME));
+
+		_image.sprite = _sprites[1];
+
+		yield return StartCoroutine(MainRoop(func2, DIVIDE_TIME));
 	}
 
 	// 水星ちゃん用！
