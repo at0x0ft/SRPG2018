@@ -5,17 +5,16 @@ using UnityEngine.UI;
 public class HpBar : MonoBehaviour
 {
 	// 変数
-	Slider _slider;
-	
-	void Start()
+	private Slider _slider;
+
+	/// <summary>
+	/// 初期化メソッド
+	/// </summary>
+	/// <param name="maxHP"></param>
+	public void Initialize(float maxHP)
 	{
 		// スライダーを取得する
 		_slider = gameObject.GetComponent<Slider>();
-	}
-
-	// 関数
-	public void Initialize(float maxHP)
-	{
 		_slider.maxValue = maxHP;
 	}
 
