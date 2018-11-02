@@ -142,6 +142,7 @@ public class Unit : MonoBehaviour
 	private Units _units;
 	private AttackController _ac;
 	private BattleStateController _bsc;
+	private HpBar _hpBar;
 
 	public bool IsFocusing { get; set; }
 
@@ -206,6 +207,9 @@ public class Unit : MonoBehaviour
 
 		// ユニット自身がButtonとしての役割も持っており, 押下された時にOnClickメソッドの内容を実行する.
 		GetComponent<Button>().onClick.AddListener(OnClick);
+		_hpBar = transform.Find("HpBar").GetComponent<HpBar>();
+		_hpBar.Initialize(MaxLife);
+		_hpBar.SetHP(MaxLife);
 
 		// 初期配置マスにUnitを設定する
 		// CoordinatePair = _initialFloor.CoordinatePair;
@@ -427,6 +431,7 @@ public class Unit : MonoBehaviour
 	public void Damage(int damage)
 	{
 		Life = Mathf.Max(0, Life - damage);
+		_hpBar.SetHP(Life);
 
 		StrongAttackFailure();
 
