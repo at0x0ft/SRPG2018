@@ -14,7 +14,9 @@ public class AttackEffect : BasePopUp
 	[SerializeField]
 	private readonly Vector2 BASE_IMAGE_SIZE = new Vector2(32, 32); // image size (px)
 	[SerializeField]
-	private readonly Vector2 LITTLE_IMAGE_SIZE =  new Vector2(16, 16);
+	private readonly Vector2 LITTLE_IMAGE_SIZE = new Vector2(16, 16);
+	[SerializeField]
+	private readonly Vector2 BIG_IMAGE_SIZE = new Vector2(64, 64);
 	[SerializeField]
 	private readonly float effectSPF = 0.4f; // seconds per frame 
 
@@ -75,7 +77,10 @@ public class AttackEffect : BasePopUp
 	private void AssociateEffectKindWithFunc()
 	{
 		_effectFunc = new Dictionary<AttackEffectKind, Func<IEnumerator>>();
+		// みすちゃん
 		_effectFunc[AttackEffectKind.Spiral] = Spiral;
+
+		// 水星ちゃん
 		_effectFunc[AttackEffectKind.BubbleNotes] = BubbleNotes;
 		_effectFunc[AttackEffectKind.TrebulCreph] = TrebleCreph;
 		_effectFunc[AttackEffectKind.IcicleStaff] = IcycleStaff;
@@ -122,15 +127,17 @@ public class AttackEffect : BasePopUp
 		}
 	}
 
-	// ==========個別変数==========
 	/// <summary>
-	/// 技:Spiralの攻撃エフェクトの定義です(実装例)
+	/// 各画像をループさせて表示させて終了なだけの時に使える関数
 	/// </summary>
 	/// <returns></returns>
-	private IEnumerator Spiral()
+	private IEnumerator SpriteLoop(List<Sprite> mySprites = null)
 	{
 		// 位置設定
 		_rect.position = _target;
+		
+		// 画像を操作しないなら、そのまま使う。
+		if(mySprites == null) mySprites = _sprites;
 		
 		// 画像更新
 		foreach(var sprite in _sprites)
@@ -139,17 +146,79 @@ public class AttackEffect : BasePopUp
 
 			yield return new WaitForSeconds(effectSPF);
 		}
+	}
 
-		_sprites.Reverse();
+	// ==========個別変数==========
+	// みすちゃん用！
+	/// <summary>
+	/// 技:Spiralの攻撃エフェクトの定義です(実装例)
+	/// </summary>
+	/// <returns></returns>
+	private IEnumerator Spiral()
+	{
+		yield return StartCoroutine(SpriteLoop());
 		
-		foreach(var sprite in _sprites)
-		{
-			_image.sprite = sprite;
+		_sprites.Reverse();
 
-			yield return new WaitForSeconds(effectSPF);
+		yield return StartCoroutine(SpriteLoop(_sprites));
+	}
+
+	private IEnumerator BackUp()
+	{
+		yield return StartCoroutine(SpriteLoop());
+	}
+
+	/// <summary>
+	/// opt : 攻撃者の座標
+	/// </summary>
+	/// <returns></returns>
+	private IEnumerator MARock()
+	{
+		const float FLY_HEIGHT = 10f;
+		
+		var attacker = _opt.Value;
+		float dx = _target.x - attacker.x;
+		float dy = _target.y - attacker.y;
+		float rad = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
+		transform.localEulerAngles = Quaternion.Euler(0f, 0f, rad) * Vector3.up;
+		
+		Action<float> func = (time) =>
+		{
+			float rate = Progress(time);
+			float flyRate = -4 * Mathf.Pow(rate - 0.5f, 2) + 1;
+
+			var pos = Vector3.Lerp(attacker, _target, rate);
+			pos.y += flyRate * FLY_HEIGHT;
+
+			transform.localPosition = pos;
+		};
+
+		yield return StartCoroutine(MainRoop(func));
+	}
+
+	private IEnumerator CPU()
+	{
+		for(int i = 0; i < 3; i++)
+		{
+			yield return StartCoroutine(SpriteLoop());
 		}
 	}
 
+	private IEnumerator OverBrrow()
+	{
+		_rect.sizeDelta = BIG_IMAGE_SIZE;
+		
+		yield return StartCoroutine(SpriteLoop());
+	}
+
+	private IEnumerator DeadLock()
+	{
+		_rect.sizeDelta = BIG_IMAGE_SIZE;
+
+		yield return StartCoroutine(SpriteLoop());
+	}
+
+	// 水星ちゃん用！
 	private IEnumerator BubbleNotes()
 	{
 		// 大きすぎるので調整
