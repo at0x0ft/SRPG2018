@@ -27,6 +27,17 @@ public class PopUpController : MonoBehaviour
 
 	[SerializeField]
 	private Image _image;
+	public Image image
+	{ 
+		get { return _image; }
+	}
+	
+	[SerializeField]
+	private Text _text;
+	public Text text
+	{
+		get { return _text; }
+	}
 	
 	/// <summary>
 	/// ダメージのポップアップを作ります
@@ -36,10 +47,10 @@ public class PopUpController : MonoBehaviour
 	public void CreateDamagePopUp(Transform defender, int damage)
 	{
 		var popUp = Instantiate(gameObject, defender);
-
+		Debug.Log("called:" + damage);
 		string text = damage.ToString();
 
-		popUp.GetComponent<DamagePopUp>().Initialize();
+		popUp.GetComponent<DamagePopUp>().Initialize(text);
 	}
 
 	public void CreateCutInPopUp(Unit.Team team)
@@ -61,6 +72,9 @@ public class PopUpController : MonoBehaviour
 	{
 		// 攻撃エフェクトのファクトリーを、攻撃者とします。
 		var popUp = Instantiate(gameObject, board.transform);
+
+		// ファクトリーでは不要なTextを消します
+		Destroy(popUp.GetComponent<PopUpController>()._text.gameObject);
 
 		popUp.GetComponent<AttackEffectFactory>().Initialize(attacker, targets, attack);
 	}

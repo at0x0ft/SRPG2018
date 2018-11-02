@@ -22,12 +22,15 @@ public abstract class BasePopUp : MonoBehaviour
 	public void Initialize()
 	{
 		gameObject.SetActive(true);
+		Debug.Log(gameObject.name + " : " + GetComponent<RectTransform>().position);
 
 		transform.localScale = new Vector3(1, 1, 1);
 
 		// テキストと背景画像の準備
 		SetUpImage();
-		
+
+		Debug.Log(gameObject.name + " : " + GetComponent<RectTransform>().position);
+
 		// 動作開始
 		StartCoroutine(Act());
 	}
@@ -38,8 +41,9 @@ public abstract class BasePopUp : MonoBehaviour
 	private void SetUpImage()
 	{
 		_image = GetComponent<Image>();
+
 		// 画像本位の大きさに調整する
-		_image.SetNativeSize();
+		if(_image!=null)_image.SetNativeSize();
 	}
 
 	/// <summary>
