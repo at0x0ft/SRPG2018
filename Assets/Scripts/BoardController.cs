@@ -19,6 +19,8 @@ public class BoardController : MonoBehaviour
 	[SerializeField]
 	private AI _ai;
 	[SerializeField]
+	private ActiveUnitIcon _activeUnitIcon;
+	[SerializeField]
 	private bool _setAI = true;
 	[SerializeField]
 	private bool _setPlayerFirst = true;
@@ -155,6 +157,9 @@ public class BoardController : MonoBehaviour
 
 		// Unitsクラスに記憶.
 		_units.ActiveUnit = activeUnit;
+
+		// Activeユニットアイコンを動かす
+		_activeUnitIcon.transform.parent = _units.ActiveUnit.transform;
 
 		// map,UIを初期化する
 		_map.ClearHighlight();
