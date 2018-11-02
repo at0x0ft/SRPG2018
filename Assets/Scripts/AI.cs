@@ -9,7 +9,7 @@ using System;
 /// 各BattleStateが始まったときに、特定のアルゴリズムを実行するだけです。
 /// カスタマイズしたい場合は、Floor.cs/Unit.csのOnClick()辺りで使用している辞書型の真似がおすすめ。
 /// それ以上のことをしたい場合は、僕には分からないから頑張って。
-/// 
+///
 /// なお関数の相対位置が、他では下の関数から上の関数を呼ぶイメージになっていますが、
 /// ここでは上の関数から下の関数を呼ぶイメージになってます。
 /// 書きやすさを考えるとこうなってしまったため、相対位置の疑問は、一度完成してからお願いします。
@@ -19,7 +19,7 @@ public class AI : MonoBehaviour
 	// ==========固定値==========
 	const float MinWaitSeconds = 1.0f; // 各動作をした後、最低待つ時間
 	const float MaxWaitSeconds = 2.0f; // 最大待つ時間
-	
+
 	/// この記法、後々ランダム性に使うかも
 	/// [SerializeField, Range(0, 100)]
 	/// private int _randomizeAttackTarget = 50;
@@ -41,7 +41,7 @@ public class AI : MonoBehaviour
 	//関数格納
 	private Dictionary<BattleStates, Func<IEnumerator>> BattleStatesBehavior;
 
-	
+
 	// ==========基盤関数==========
 	/// <summary>
 	/// 初期化メソッド
@@ -84,14 +84,14 @@ public class AI : MonoBehaviour
 
 			var team = _units.ActiveUnit.Belonging;
 			// 手番の時は頑張るよ(Stateが変わるまでは、switch文から処理は抜け出ないようにします)
-			if(team==Unit.Team.Enemy)
+			if(team == Unit.Team.Enemy)
 			{
 				yield return StartCoroutine(BattleStatesBehavior[_bsc.BattleState]());
 			}
 		}
 		// 終了判定をしても良いけど、まぁ面倒なのでBoardControllerに全部まかせりゅ(StopAI呼び出して)
 	}
-	
+
 
 	// ==========Check Faze==========
 	/// <summary>
@@ -107,10 +107,10 @@ public class AI : MonoBehaviour
 
 		// 2クリック
 		attacker.OnClick();
-		
+
 		yield break;
 	}
-	
+
 
 	// ==========Move Faze==========
 	/// <summary>
@@ -120,7 +120,7 @@ public class AI : MonoBehaviour
 	{
 		var nearest = BestNearestFloor();
 
-		if(nearest == null) 
+		if(nearest == null)
 		{
 			// 動けないのでユニットの動作は終了
 			FinishUnitAction();
@@ -148,11 +148,11 @@ public class AI : MonoBehaviour
 		if(!movable.Any()) return null;
 
 		return movable.Aggregate(
-		(best, elem) => 
-		(DistanceToPlayer(players,best) <= DistanceToPlayer(players,elem)) 
+		(best, elem) =>
+		(DistanceToPlayer(players, best) <= DistanceToPlayer(players, elem))
 		? best : elem);
 	}
-	
+
 	/// <summary>
 	/// 特定のマスにおける、最寄りのプレイヤーの距離を調べる
 	/// </summary>
@@ -184,11 +184,11 @@ public class AI : MonoBehaviour
 		{
 			// 攻撃の種類を選択
 			var attack = SelectAttack(attackableCommands);
-			
+
 			yield return new WaitForSeconds(WaitSeconds());
 
 			// 攻撃の場所を選択（攻撃）
-			if(attack.Scale==Attack.AttackScale.Single)
+			if(attack.Scale == Attack.AttackScale.Single)
 			{
 				SelectSingleAttackFloor();
 			}
@@ -211,10 +211,10 @@ public class AI : MonoBehaviour
 		var now = attacker.Floor.CoordinatePair.Key;
 
 		return attacker.GetAttackCommandsList()
-		.Where(pair => pair.Value)
-		.Select(pair => pair.Key)
-		.Where(attack => IsPlayerIn(AttackReach(now, attack)))
-		.ToList();
+			.Where(pair => pair.Value)
+			.Select(pair => pair.Key)
+			.Where(attack => IsPlayerIn(AttackReach(now, attack)))
+			.ToList();
 	}
 
 	/// <summary>
@@ -240,7 +240,7 @@ public class AI : MonoBehaviour
 	{
 		var range = attack.Range;
 
-		if(attack.Scale == Attack.AttackScale.Single ||	!((RangeAttack)attack).IsRotatable)
+		if(attack.Scale == Attack.AttackScale.Single || !((RangeAttack)attack).IsRotatable)
 		{
 			return FixRange(now, range);
 		}
@@ -248,7 +248,7 @@ public class AI : MonoBehaviour
 		{
 			var res = new List<Vector2Int>();
 
-			for(int dir = 0; dir < 4; dir++) 
+			for(int dir = 0; dir < 4; dir++)
 			{
 				int sinRot = (dir % 2 == 0) ? 0 : (2 - dir);
 				int cosRot = (dir % 2 == 1) ? 0 : (1 - dir);
@@ -264,7 +264,7 @@ public class AI : MonoBehaviour
 
 				res = res.Union(fixedRotRange).ToList();
 			}
-			
+
 			return res;
 		}
 	}
@@ -285,7 +285,7 @@ public class AI : MonoBehaviour
 		.Where(pos => (IsRange(pos.y, 0, hLim) && IsRange(pos.x, 0, wLim)))
 		.ToList();
 	}
-	
+
 	/// <summary>
 	/// 数値範囲チェック
 	/// </summary>
@@ -364,7 +364,7 @@ public class AI : MonoBehaviour
 	/// </summary>
 	private IEnumerator LoadCoroutine()
 	{
-		while(_bsc.BattleState==BattleStates.Load)
+		while(_bsc.BattleState == BattleStates.Load)
 		{
 			yield return new WaitForSeconds(WaitSeconds());
 		}
@@ -384,12 +384,12 @@ public class AI : MonoBehaviour
 
 		return MinWaitSeconds + range * UnityEngine.Random.value;
 	}
-	
+
 	/// <summary>
 	/// ユニットの動作を終了させる
 	/// </summary>
 	private void FinishUnitAction()
-	{ 
+	{
 		// Finishボタンのクリック
 		ExecuteEvents.Execute
 		(

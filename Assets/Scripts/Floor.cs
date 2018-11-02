@@ -159,7 +159,7 @@ public class Floor : MonoBehaviour
 	/// </summary>
 	public void SetAttackableHighlight()
 	{
-		IsAttackable = true;
+		if(Type != Feature.Unmovable) IsAttackable = true;
 
 		// 攻撃対象を選択可能にする. (ユニットのステータスを表示する機能もあるため, いちいち選択可能/不可にする必要がない)
 		if(Unit) Unit.GetComponent<Button>().interactable = true;

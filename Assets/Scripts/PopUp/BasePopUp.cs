@@ -20,7 +20,7 @@ public abstract class BasePopUp : MonoBehaviour
 	// 変数
 	protected Image _image;
 	protected Text _text;
-	
+
 	/// <summary>
 	/// ポップアップの初期設定をした後、動作させます
 	/// </summary>
@@ -34,7 +34,7 @@ public abstract class BasePopUp : MonoBehaviour
 		// テキストと背景画像の準備
 		SetUpText(text);
 		SetUpImage();
-		
+
 		// 動作開始
 		StartCoroutine(Act());
 	}
@@ -48,12 +48,24 @@ public abstract class BasePopUp : MonoBehaviour
 		_text.text = text;
 		_text.color = textColor;
 		_text.fontSize = fontSize;
+		SetAnchorCenter(_text.rectTransform);
 
 		//取得したTextをピッタリ収まるようにサイズ変更(Heightが長い状態)
 		_text.rectTransform.sizeDelta = new Vector2(_text.preferredWidth, _text.preferredHeight);
 
 		//再度、ピッタリ収まるようにサイズ変更(Heightもピッタリ合うように)
 		_text.rectTransform.sizeDelta = new Vector2(_text.preferredWidth, _text.preferredHeight);
+	}
+
+
+	public static void SetAnchorCenter(RectTransform gameObj)
+	{
+		gameObj.anchorMin = new Vector2(0.5f, 0.5f);
+		gameObj.anchorMax = new Vector2(0.5f, 0.5f);
+		gameObj.pivot = new Vector2(0.5f, 0.5f);
+		gameObj.localPosition = new Vector3Int();
+		gameObj.localScale = new Vector3Int(1, 1, 1);
+		gameObj.anchoredPosition = new Vector2Int();
 	}
 
 	/// <summary>

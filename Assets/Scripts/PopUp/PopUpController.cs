@@ -8,10 +8,10 @@ using System.Collections;
 /// - Image(背景画像)
 /// - DamagePopUp.cs
 /// - CutInPopUp.cs
-/// 
+///
 /// 子オブジェクトにアタッチしていると想定しているもの
 /// - Text (名称:Text)
-/// 
+///
 /// これさえ守れば、PopUpFactory(現在これを実現しているprefab)は
 /// Hierarchy上のどこでも動きます。
 /// </summary>
@@ -19,7 +19,7 @@ public class PopUpController : MonoBehaviour
 {
 	[SerializeField]
 	private UI _ui;
-	
+
 	/// <summary>
 	/// ダメージのポップアップを作ります
 	/// </summary>
@@ -28,6 +28,9 @@ public class PopUpController : MonoBehaviour
 	public void CreateDamagePopUp(Transform defender, int damage)
 	{
 		var popUp = Instantiate(gameObject, defender);
+		BasePopUp.SetAnchorCenter(popUp.GetComponent<RectTransform>());
+		popUp.GetComponent<RectTransform>().localPosition = new Vector3();
+		Debug.Log("[Debug] : damage popUp pos = " + popUp.GetComponent<RectTransform>().anchoredPosition);	// 4debug
 
 		string text = damage.ToString();
 
@@ -37,6 +40,9 @@ public class PopUpController : MonoBehaviour
 	public void CreateCutInPopUp(Unit.Team team)
 	{
 		var popUp = Instantiate(gameObject, _ui.transform);
+		BasePopUp.SetAnchorCenter(popUp.GetComponent<RectTransform>());
+		popUp.GetComponent<RectTransform>().localPosition = new Vector3();
+		Debug.Log("[Debug] : popUp pos = " + popUp.GetComponent<RectTransform>().anchoredPosition); // 4debug
 
 		string text = "=== " + team.ToString() + " Order ===";
 
