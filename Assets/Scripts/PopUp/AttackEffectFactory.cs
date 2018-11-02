@@ -127,6 +127,7 @@ public class AttackEffectFactory : BasePopUp
 	// ==========動作関数==========
 	/// <summary>
 	/// 中心となる実行部分
+	/// 終了条件がこれなので、開始直後にInstanceを1つは複製しましょう
 	/// </summary>
 	protected override IEnumerator Move()
 	{
@@ -140,7 +141,7 @@ public class AttackEffectFactory : BasePopUp
 		yield return StartCoroutine(_effectFuncs[_effect]());
 
 		// エフェクト(実体)終了待機
-		while(transform.childCount > 0) yield return null;
+		while(transform.childCount > 1) yield return null;
 	}
 
 	/// <summary>

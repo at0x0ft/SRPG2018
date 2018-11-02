@@ -16,7 +16,7 @@ public class AttackEffect : BasePopUp
 	[SerializeField]
 	private readonly Vector2 LITTLE_IMAGE_SIZE = new Vector2(16, 16);
 	[SerializeField]
-	private readonly Vector2 BIG_IMAGE_SIZE = new Vector2(64, 64);
+	private readonly Vector2 BIG_IMAGE_SIZE = new Vector2(48, 48);
 	[SerializeField]
 	private readonly float effectSPF = 0.4f; // seconds per frame 
 
@@ -79,6 +79,11 @@ public class AttackEffect : BasePopUp
 		_effectFunc = new Dictionary<AttackEffectKind, Func<IEnumerator>>();
 		// みすちゃん
 		_effectFunc[AttackEffectKind.Spiral] = Spiral;
+		_effectFunc[AttackEffectKind.BackUp] = BackUp;
+		_effectFunc[AttackEffectKind.MARock] = MARock;
+		_effectFunc[AttackEffectKind.CPU] = CPU;
+		_effectFunc[AttackEffectKind.OverFlow] = OverBrrow;
+		_effectFunc[AttackEffectKind.DeadLock] = DeadLock;
 
 		// 水星ちゃん
 		_effectFunc[AttackEffectKind.BubbleNotes] = BubbleNotes;
@@ -134,7 +139,7 @@ public class AttackEffect : BasePopUp
 	private IEnumerator SpriteLoop(List<Sprite> mySprites = null)
 	{
 		// 位置設定
-		_rect.position = _target;
+		_rect.localPosition = _target;
 		
 		// 画像を操作しないなら、そのまま使う。
 		if(mySprites == null) mySprites = _sprites;
@@ -206,7 +211,7 @@ public class AttackEffect : BasePopUp
 
 	private IEnumerator OverBrrow()
 	{
-		_rect.sizeDelta = BIG_IMAGE_SIZE;
+		//_rect.sizeDelta = BIG_IMAGE_SIZE;
 		
 		yield return StartCoroutine(SpriteLoop());
 	}
