@@ -16,9 +16,6 @@ public class CreateFloors : EditorWindow
 
 	private Canvas _canvas;
 
-	private int _screenPaddingWidth = 100;
-	private int _screenPaddingHeight = 60;
-
 	private int _width = 20;
 	private int _height = 10;
 	private GameObject _parent;
@@ -41,9 +38,6 @@ public class CreateFloors : EditorWindow
 			_parent = GameObject.Find("Map");
 
 			_canvas = EditorGUILayout.ObjectField("UI Canvas", _canvas, typeof(Canvas), true) as Canvas;
-
-			_screenPaddingWidth = int.Parse(EditorGUILayout.TextField("Screen Marge Width ( = x)", _screenPaddingWidth.ToString()));
-			_screenPaddingHeight = int.Parse(EditorGUILayout.TextField("Screen Marge Height ( = y)", _screenPaddingHeight.ToString()));
 
 			_width = int.Parse(EditorGUILayout.TextField("Width ( = x)", _width.ToString()));
 			_height = int.Parse(EditorGUILayout.TextField("Height ( = y)", _height.ToString()));
@@ -79,7 +73,8 @@ public class CreateFloors : EditorWindow
 			DestroyImmediate(child.gameObject);
 		}
 
-		int pix = (int)Mathf.Min((_canvas.GetComponent<RectTransform>().sizeDelta.x - _screenPaddingWidth) / _width, (_canvas.GetComponent<RectTransform>().sizeDelta.y - _screenPaddingHeight) / _height);
+		int pix = (int)Mathf.Min(_parent.GetComponent<RectTransform>().sizeDelta.x / _width, _parent.GetComponent<RectTransform>().sizeDelta.y / _height);
+		_parent.GetComponent<RectTransform>().sizeDelta = new Vector2Int(pix * _width, pix * _height);
 
 		var floors = new List<GameObject> { _floor1, _floor2, _floor3, _floor4, _floor5 };
 		var pers = new List<int> { _per1, _per2, _per3, _per4, _per5 };
@@ -94,9 +89,16 @@ public class CreateFloors : EditorWindow
 				GameObject floor = Instantiate(floors[GetRandomIndex(pers)]);
 				floor.name = "(" + i.ToString() + ", " + j.ToString() + ")";
 				floor.transform.SetParent(_parent.transform);
-				floor.GetComponent<RectTransform>().sizeDelta = new Vector2Int(pix, pix);
-				floor.transform.localScale = new Vector3Int(1, 1, 1);
-				floor.GetComponent<Floor>().Generate(i, j, CalcLocal2Transform(i, j, pix));
+
+				// _parentオブジェクトのうち, 左下の角にanchorを設定する.
+				floor.GetComponent<RectTransform>().anchorMin = new Vector2Int();
+				floor.GetComponent<RectTransform>().anchorMax = new Vector2Int();
+				floor.GetComponent<RectTransform>().pivot = new Vector2Int();
+				floor.GetComponent<RectTransform>().localPosition = new Vector3Int();
+				floor.GetComponent<RectTransform>().localScale = new Vector3Int(1, 1, 1);
+
+				// _parentの左下の角から見て, floorの左下の角の座標が何になるかを設定する.
+				floor.GetComponent<RectTransform>().anchoredPosition = new Vector2Int(i * pix, j * pix);
 			}
 		}
 

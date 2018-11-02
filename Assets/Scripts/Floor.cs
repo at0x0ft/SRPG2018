@@ -98,18 +98,6 @@ public class Floor : MonoBehaviour
 	}
 
 	/// <summary>
-	/// CreateFloor.csでFloorを配置する時にのみ呼び出されるメソッド.
-	/// </summary>
-	/// <param name="localX"></param>
-	/// <param name="transformX"></param>
-	/// <param name="localY"></param>
-	/// <param name="transformY"></param>
-	public void Generate(int localX, int localY, Vector3 transformCoordinate)
-	{
-		CoordinatePair = new KeyValuePair<Vector2Int, Vector3>(new Vector2Int(localX, localY), transformCoordinate);
-	}
-
-	/// <summary>
 	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
 	/// </summary>
 	/// <returns></returns>

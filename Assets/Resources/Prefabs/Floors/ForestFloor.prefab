@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2841dc1178ad4b15bcbca00095568d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 1
+  _type: 2
   _highlight: {fileID: 114436073027527708}
 --- !u!222 &222428026639336830
 CanvasRenderer:
