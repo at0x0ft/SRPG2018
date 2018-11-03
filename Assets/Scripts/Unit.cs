@@ -456,14 +456,19 @@ public class Unit : MonoBehaviour
 	/// <summary>
 	/// ダメージを与える
 	/// </summary>
-	public void Damage(int damage)
+	public void Damage(int? damage)
 	{
-		Life = Mathf.Max(0, Life - damage);
+		// ダメージ表記をする
+		_map.Ui.PopUp.CreateDamagePopUp(transform, damage);
+
+		if(!damage.HasValue) return;
+		// 回避されてなかったら、ダメージ計算を行う
+
+		int damageInt = damage.Value;
+		Life = Mathf.Max(0, Life - damageInt);
 		_hpBar.SetHP(Life);
 
 		StrongAttackFailure();
-
-		_map.Ui.PopUp.CreateDamagePopUp(transform, damage);
 
 		// 体力が0以下になったらユニットを消滅させる
 		if(Life <= 0) DestroyWithAnimate();
