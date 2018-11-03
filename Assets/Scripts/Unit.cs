@@ -112,7 +112,6 @@ public class Unit : MonoBehaviour
 	public int MaxMoveAmount { get; private set; }
 	private int _moveAmount;    // 4debug (この値はpremasterにマージする時には消すこと.)
 	public int MoveAmount { get { return _moveAmount; } set { /*Debug.Log("[Debug] Updated as : " + value);*/ _moveAmount = value; } }  // 4debug (この値は, premasterにマージする前に, 元に戻すこと.)
-	public AttackStates AttackState { get; set; }
 	public KeyValuePair<Attack, int>? PlanningAttack { get; set; }
 	private Dictionary<BattleStates, Action> ClickBehaviors;
 
@@ -153,6 +152,25 @@ public class Unit : MonoBehaviour
 	public List<Attack> Attacks
 	{
 		get { return _attacks; }
+	}
+
+	private GameObject _strongAttackEffect;
+	private AttackStates _attackStates;
+	public AttackStates AttackState
+	{ 
+		get{ return _attackStates; }
+		set
+		{
+			_attackStates = value;
+			if(value==AttackStates.Charging)
+			{
+				_map.Ui.ChargeEffectController.AttachChargeEffect(this);
+			}
+			else
+			{
+				_map.Ui.ChargeEffectController.DetachChargeEffect(this);
+			}
+		}
 	}
 
 	private Map _map;
