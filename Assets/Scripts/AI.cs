@@ -17,8 +17,8 @@ using System;
 public class AI : MonoBehaviour
 {
 	// ==========固定値==========
-	const float MinWaitSeconds = 1.0f; // 各動作をした後、最低待つ時間
-	const float MaxWaitSeconds = 2.0f; // 最大待つ時間
+	const float MinWaitSeconds = 0.5f; // 各動作をした後、最低待つ時間
+	const float MaxWaitSeconds = 1.5f; // 最大待つ時間
 
 	/// この記法、後々ランダム性に使うかも
 	/// [SerializeField, Range(0, 100)]
