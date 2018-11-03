@@ -81,7 +81,7 @@ public class BoardController : MonoBehaviour
 		SetPlayerOrder();
 
 		// セット開始
-		StartPlayer(_startTeam);
+		StartPhase(_startTeam);
 	}
 
 	/// <summary>
@@ -168,10 +168,10 @@ public class BoardController : MonoBehaviour
 	}
 
 	/// <summary>
-	/// セット開始時の処理
+	/// フェイズ開始時の処理
 	/// </summary>
 	/// <param name="team"></param>
-	private void StartPlayer(Unit.Team team)
+	private void StartPhase(Unit.Team team)
 	{
 		// 前のプレーヤーのハイライト情報を削除しておく
 		_map.ClearHighlight();
@@ -226,17 +226,17 @@ public class BoardController : MonoBehaviour
 		// まだ自軍のユニットが残っているのならば, 次のユニットに交代
 		if(_units.Order.Count > 0) StartUnit();
 		// 自軍のユニット全てが行動終了したならば, 次のプレイヤーに交代
-		else NextPlayer();
+		else NextPhase();
 	}
 
 	/// <summary>
-	/// 次のプレイヤーに更新
+	/// 次のフェイズ
 	/// </summary>
-	private void NextPlayer()
+	private void NextPhase()
 	{
 		// 次のTeamの設定 (現在対戦人数2人の時の場合のみを想定した実装)
 		var nextTeam = _units.CurrentPlayerTeam == Unit.Team.Player ? Unit.Team.Enemy : Unit.Team.Player;
-		StartPlayer(nextTeam);
+		StartPhase(nextTeam);
 	}
 
 	/// <summary>

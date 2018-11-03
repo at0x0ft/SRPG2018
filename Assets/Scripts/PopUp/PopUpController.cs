@@ -61,7 +61,7 @@ public class PopUpController : MonoBehaviour
 	{
 		var popUp = Instantiate(gameObject, _ui.transform);
 
-		string text = team.ToString() + " Order";
+		string text = team.ToString() + " Phase";
 
 		popUp.GetComponent<CutInPopUp>().Initialize(text);
 	}
