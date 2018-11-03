@@ -153,6 +153,7 @@ public class BoardController : MonoBehaviour
 		var activeUnit = _units.Order.FirstOrDefault();
 		if(!activeUnit) Debug.LogError("[Error] : " + _units.CurrentPlayerTeam.ToString() + "'s active unit is not Found!");    // 4debug
 
+		Debug.Log(activeUnit);
 		// Unitsクラスに記憶.
 		_units.ActiveUnit = activeUnit;
 
@@ -165,6 +166,16 @@ public class BoardController : MonoBehaviour
 
 		// 盤面の状態を戦況確認中に設定
 		_bsc.WarpBattleState(BattleStates.Check);
+		
+		// ターン/セット情報を表示
+		_ui.TurnSetInfoWindow.Show(Turn, Set, _bsc.BattleState);
+
+		// プレイヤーが人間なら画面タッチ不可を解除する.
+		if(!_ais.ContainsKey(activeUnit.Belonging))
+		{
+			_ui.TouchBlocker.SetActive(false);
+			Debug.Log("touch blocker invalid.");
+		}
 	}
 
 	/// <summary>
@@ -190,21 +201,6 @@ public class BoardController : MonoBehaviour
 
 		// セットプレイヤーの持つユニットのうち先頭のユニットを展開.
 		StartUnit();
-
-		// セットプレイヤーが人間なら画面タッチ不可を解除する.
-		if(!_ais.ContainsKey(team))
-		{
-			_ui.TouchBlocker.SetActive(false);
-			Debug.Log("touch blocker invalid.");
-		}
-
-		// ターン/セット情報を表示
-		_ui.TurnSetInfoWindow.Show(Turn, Set, _bsc.BattleState);
-
-		// ユニット情報サブウィンドウを開く (targetUnitは, ターンプレイヤーの持つユニットのうち, 順番をソートした後に最初に来るユニット)
-		//_ui.UnitInfoWindow.Show(_units.ActiveUnit);
-
-		//Debug.Log("Arrange Finished."); // 4debug
 	}
 
 	/// <summary>
@@ -222,7 +218,8 @@ public class BoardController : MonoBehaviour
 
 		// 行動が終了したユニットを、次のターンまで休ませる
 		_units.MakeRestActiveUnit();
-
+		Debug.Log(_units.Order.Count);
+		Debug.Log(_units.ActiveUnit.name);
 		// まだ自軍のユニットが残っているのならば, 次のユニットに交代
 		if(_units.Order.Count > 0) StartUnit();
 		// 自軍のユニット全てが行動終了したならば, 次のプレイヤーに交代
