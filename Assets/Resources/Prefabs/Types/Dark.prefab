@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9df7b38f528fc4439cc18c69837c6a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _name: "\u95C7"
   _strong:
   - {fileID: 114928696413571736, guid: b8ed57c99ab9a41488850dbd6209597f, type: 2}
   _slightlyStrong:

@@ -35,8 +35,31 @@ public class TurnSetInfoWindow : SubWindow
 		Show();
 	}
 
-	public void UpdateStateInfo(BattleStates states)
+	public void UpdateStateInfo(BattleStates state)
 	{
-		_stateTextBox.text = states.ToString();
+		_stateTextBox.text = LocalizingState(state);
+	}
+
+	/// <summary>
+	/// 攻撃対象タイプを日本語化するメソッド.
+	/// </summary>
+	/// <param name="attackScale"></param>
+	/// <returns></returns>
+	private string LocalizingState(BattleStates state)
+	{
+		switch(state)
+		{
+			case BattleStates.Check:
+				return "戦況確認";
+			case BattleStates.Move:
+				return "移動";
+			case BattleStates.Attack:
+				return "攻撃";
+			case BattleStates.Load:
+				return "待機";
+			default:
+				Debug.LogError("[Error] : Unexpected BattleState has caught (in TurnSetInfoWindow.LocalizingState).");
+				return "";
+		}
 	}
 }

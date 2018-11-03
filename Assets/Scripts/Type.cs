@@ -7,6 +7,13 @@ using System.Linq;
 public class Type : MonoBehaviour
 {
 	[SerializeField]
+	private string _name;
+	public string Name
+	{
+		get { return _name; }
+	}
+
+	[SerializeField]
 	private List<Type> _strong;
 	[SerializeField]
 	private List<Type> _slightlyStrong;
@@ -15,9 +22,9 @@ public class Type : MonoBehaviour
 	[SerializeField]
 	private List<Type> _weak;
 
-	public string Name
+	public override string ToString()
 	{
-		get { return transform.name; }
+		return _name;
 	}
 
 	public bool IsStrongAgainst(Type type)

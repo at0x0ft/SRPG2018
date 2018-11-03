@@ -32,10 +32,29 @@ public class AttackInfoWindow : SubWindow
 	public void Show(Attack attack)
 	{
 		Hide();
-		_scaleTextBox.text = attack.Scale.ToString();
+		_scaleTextBox.text = LocalizingScale(attack.Scale);
 		_typeTextBox.text = attack.Type.ToString();
 		_powerBox.text = attack.Power.ToString();
 		_accuracyTextBox.text = attack.Accuracy.ToString();
 		Show();
+	}
+
+	/// <summary>
+	/// 攻撃対象タイプを日本語化するメソッド.
+	/// </summary>
+	/// <param name="attackScale"></param>
+	/// <returns></returns>
+	private string LocalizingScale(Attack.AttackScale attackScale)
+	{
+		switch(attackScale)
+		{
+			case Attack.AttackScale.Single:
+				return "単体";
+			case Attack.AttackScale.Range:
+				return "範囲";
+			default:
+				Debug.LogError("[Error] : Unexpected attack scale type has caught (in AttackInfoWindow.LocalizingScale).");
+				return "";
+		}
 	}
 }

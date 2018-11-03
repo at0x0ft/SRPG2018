@@ -10,7 +10,7 @@ public class Floor : MonoBehaviour
 {
 	public enum Feature
 	{
-		Normal,
+		Grass,
 		Forest,
 		Rock
 	}

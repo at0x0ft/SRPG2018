@@ -175,7 +175,7 @@ MonoBehaviour:
   _name: sui
   _unitName: 1
   _belonging: 1
-  _position: 2
+  _position: 1
   _type: {fileID: 114928696413571736, guid: 8baf576386dc34245ba2a70ad54626a4, type: 2}
   _maxLife: 800
   _attackPower: 400
