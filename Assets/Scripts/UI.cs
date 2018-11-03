@@ -37,6 +37,13 @@ public class UI : MonoBehaviour
 	}
 
 	[SerializeField]
+	private ChargeEffectController _chargeEffectController;
+	public ChargeEffectController ChargeEffectController
+	{
+		get{ return _chargeEffectController; }
+	}
+
+	[SerializeField]
 	private TurnSetInfoWindow _turnSetInfoWindow;
 	public TurnSetInfoWindow TurnSetInfoWindow
 	{

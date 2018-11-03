@@ -292,6 +292,12 @@ public class AttackController
 			Debug.Log("予定されていない型の攻撃がありました");
 			res = false;
 		}
+		
+		// 攻撃が強攻撃だったら、強攻撃エフェクトを消します
+		if(attack.Kind == global::Attack.Level.High)
+		{
+			_map.Ui.ChargeEffectController.DetachChargeEffect(attacker);
+		}
 
 		// 攻撃が成功したなら、攻撃エフェクトを作動させる
 		if(res)
