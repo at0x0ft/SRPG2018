@@ -21,7 +21,7 @@ public class ChargeEffectController : MonoBehaviour
 
 	private IEnumerator enumerator;
 
-	private void Start()
+	private void Awake()
 	{
 		_charger = new Dictionary<Unit, GameObject>();
 	}
