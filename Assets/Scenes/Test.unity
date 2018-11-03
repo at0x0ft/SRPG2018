@@ -6833,7 +6833,7 @@ Prefab:
         type: 2}
       propertyPath: _initialFloor
       value: 
-      objectReference: {fileID: 208633521}
+      objectReference: {fileID: 1815676006}
     - target: {fileID: 224934312421650922, guid: 938aec73980fb344e954ecc51c6204d1,
         type: 2}
       propertyPath: m_AnchorMax.y

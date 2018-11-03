@@ -70,7 +70,11 @@ public class RangeAttackNozzle : SubWindow
 			if(attack.Scale == Attack.AttackScale.Single) return;
 
 			// 攻撃します
-			_ac.Attack(attacker, attack);
+			if(!_ac.Attack(attacker, attack))
+			{
+				// normalpopup?
+				return;
+			}
 		}
 		
 		Hide();

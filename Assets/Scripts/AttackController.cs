@@ -39,7 +39,8 @@ namespace AC
 		/// <summary>
 		/// 特定のマスの敵を攻撃する
 		/// </summary>
-		public void AttackToUnit(Unit attacker, Unit defender, Attack attack)
+		/// <returns>敵がそもそも居たか</returns>
+		public bool AttackToUnit(Unit attacker, Unit defender, Attack attack)
 		{
 			// BattleSceneに移動してバトルをする (取り敢えず要らない)
 			// Battle_SceneController.attacker = attacker;
@@ -47,11 +48,15 @@ namespace AC
 			// BattleSceneに移動.
 			// SceneManager.LoadScene("Battle", LoadSceneMode.Additive);
 
+			if(attacker.Belonging == defender.Belonging) return false;
+
 			// ダメージ計算を行う
 			int? damage = _dc.Calculate(attacker, attack, defender, defender.Floor);
 
 			// ダメージを適用する
 			defender.Damage(damage);
+
+			return true;
 		}
 
 		public void FinishAttack()
@@ -104,7 +109,7 @@ namespace AC
 		{
 			if(targetUnit == null) return false;
 
-			_bac.AttackToUnit(attacker, targetUnit, attack);
+			if(_bac.AttackToUnit(attacker, targetUnit, attack) == false) return false;
 
 			_bac.FinishAttack();
 
@@ -196,11 +201,9 @@ namespace AC
 				// 敵Unitの存在判定を行い、
 				var defender = _units.GetUnit(attackRange.X, attackRange.Y);
 				if(defender == null) continue;
-				unitExist = true;
-				_bac.AttackToUnit(attacker, defender, attack);
+				if(_bac.AttackToUnit(attacker, defender, attack)) unitExist = true;
 			}
-
-			_bac.FinishAttack();
+			if(unitExist) _bac.FinishAttack();
 			return unitExist;
 		}
 	}
@@ -293,16 +296,16 @@ public class AttackController
 			res = false;
 		}
 		
-		// 攻撃が強攻撃だったら、強攻撃エフェクトを消します
-		if(attack.Kind == global::Attack.Level.High)
-		{
-			_map.Ui.ChargeEffectController.DetachChargeEffect(attacker);
-		}
-
 		// 攻撃が成功したなら、攻撃エフェクトを作動させる
 		if(res)
 		{
 			_map.Ui.PopUp.AttackEffectFactory(attacker, targets, attack);
+
+			// 攻撃が強攻撃だったら、強攻撃エフェクトを消します
+			if(attack.Kind == global::Attack.Level.High)
+			{
+				_map.Ui.ChargeEffectController.DetachChargeEffect(attacker);
+			}
 		}
 
 		return res;
