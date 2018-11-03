@@ -17,8 +17,10 @@ using System;
 public class AI : MonoBehaviour
 {
 	// ==========固定値==========
-	const float MinWaitSeconds = 0.5f; // 各動作をした後、最低待つ時間
-	const float MaxWaitSeconds = 1.5f; // 最大待つ時間
+	[SerializeField]
+	private float MinWaitSeconds = 1.0f; // 各動作をした後、最低待つ時間
+	[SerializeField]
+	private float MaxWaitSeconds = 3.0f; // 最大待つ時間
 
 	/// この記法、後々ランダム性に使うかも
 	/// [SerializeField, Range(0, 100)]
@@ -141,13 +143,15 @@ public class AI : MonoBehaviour
 	private Floor BestNearestFloor()
 	{
 		var players = _units.GetEnemyUnits().ToList();
-
+		var enemy = _units.ActiveUnit;
 		var movable = _map.GetMovableFloors();
 
 		// 移動できない場合
 		if(!movable.Any()) return null;
 
-		return movable.Aggregate(
+		return movable
+		.Where(f => f.Unit == null || f.Unit == enemy) // ユニットの居るマスには移動しない
+		.Aggregate(
 		(best, elem) =>
 		(DistanceToPlayer(players, best) <= DistanceToPlayer(players, elem))
 		? best : elem);
