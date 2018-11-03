@@ -44,11 +44,11 @@ public class PopUpController : MonoBehaviour
 	/// </summary>
 	/// <param name="defender">ダメージを受けたユニット</param>
 	/// <param name="damage">ダメージ量</param>
-	public void CreateDamagePopUp(Transform defender, int damage)
+	public void CreateDamagePopUp(Transform defender, int? damage)
 	{
 		var popUp = Instantiate(gameObject, defender);
-		Debug.Log("called:" + damage);  // 4debug
-		string text = damage.ToString();
+
+		string text = damage.HasValue ? damage.ToString() : "miss";
 
 		popUp.GetComponent<DamagePopUp>().Initialize(text);
 	}
