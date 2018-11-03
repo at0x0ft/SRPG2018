@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 public class RangeAttackNozzle : SubWindow
 {
+	[SerializeField]
+	private float HighLightSize = 500;
+
 	public enum AccessReason
 	{
 		HighAttack, // 強攻撃の機能を求めている
@@ -37,6 +40,9 @@ public class RangeAttackNozzle : SubWindow
 
 		_centerButton.onClick.AddListener(() => ActRangeAttack());
 		_circleButton.onClick.AddListener(() => RotateRangeHighLight());
+
+		// ハイライトエフェクトくっつけます
+		_map.Ui.ChargeEffectController.AlwaysAttachEffect(_centerButton.transform, HighLightSize);
 	}
 	
 

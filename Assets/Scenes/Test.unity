@@ -24805,6 +24805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509a8e40ebf0bb24ca4f3c7d379a09a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HighLightSize: 500
 --- !u!114 &1044302852
 MonoBehaviour:
   m_ObjectHideFlags: 0

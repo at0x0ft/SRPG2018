@@ -8,7 +8,7 @@ public class ChargeEffectController : MonoBehaviour
 	[SerializeField]
 	private float _LoopTime = 1.5f;
 	[SerializeField]
-	private float _MaxSize = 200f;
+	public float _MaxSize = 200f;
 	[SerializeField]
 	private float _MaxAlpha = 0.5f;
 
@@ -19,10 +19,13 @@ public class ChargeEffectController : MonoBehaviour
 	// チャージ者管理で使う画像
 	private Dictionary<Unit,GameObject> _charger;
 
+	private IEnumerator enumerator;
+
 	private void Start()
 	{
 		_charger = new Dictionary<Unit, GameObject>();
 	}
+
 
 	/// <summary>
 	/// チャージ演出をアタッチします
@@ -33,12 +36,26 @@ public class ChargeEffectController : MonoBehaviour
 	{
 		// 複製作成
 		var factory = Instantiate(gameObject, chargeUnit.transform);
-
+		
 		StartCoroutine(factory.GetComponent<ChargeEffectController>().MainLoop());
 
 		_charger.Add(chargeUnit, factory);
 	}
-	
+
+	/// <summary>
+	/// 一度アタッチしたら外さない場合はこっち
+	/// </summary>
+	/// <param name="parent">くっ付けたい場所</param>
+	public void AlwaysAttachEffect(Transform parent, float size = -1)
+	{
+		// 複製作成
+		var factory = Instantiate(gameObject, parent);
+		if(size > 0) factory.GetComponent<ChargeEffectController>()._MaxSize = size;
+
+		StartCoroutine(factory.GetComponent<ChargeEffectController>().MainLoop());
+		Debug.Log("here2");
+	}
+
 	/// <summary>
 	/// 攻撃を受けたり、強攻撃を解除したときに、チャージ演出を終了します
 	/// </summary>
@@ -55,8 +72,10 @@ public class ChargeEffectController : MonoBehaviour
 	private IEnumerator MainLoop()
 	{
 		var effect = Instantiate(_image.gameObject, transform);
-		
-		StartCoroutine(EffectLoop(effect));
+		Debug.Log("here3");
+
+		enumerator = EffectLoop(effect);
+		StartCoroutine(enumerator);
 
 		yield break;
 	}
@@ -71,6 +90,7 @@ public class ChargeEffectController : MonoBehaviour
 
 		while(true)
 		{
+			Debug.Log("here4");
 			float rate = Mathf.Sin(2 * Mathf.PI * time / _LoopTime);
 			rate = (rate + 1) / 2;
 			float size = _MaxSize * rate;
@@ -82,5 +102,13 @@ public class ChargeEffectController : MonoBehaviour
 			yield return null;
 			time += Time.deltaTime;
 		}
+	}
+
+	private void OnEnable()
+	{
+		Debug.Log("here1010");
+		Debug.Log(enumerator);
+		if(enumerator != null)
+			StartCoroutine(enumerator);
 	}
 }
