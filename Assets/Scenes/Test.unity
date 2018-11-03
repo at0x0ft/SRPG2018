@@ -2476,12 +2476,12 @@ Prefab:
     - target: {fileID: 224401045045772830, guid: 938aec73980fb344e954ecc51c6204d1,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 197.10002
+      value: 219
       objectReference: {fileID: 0}
     - target: {fileID: 224401045045772830, guid: 938aec73980fb344e954ecc51c6204d1,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 81.9
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 224401045045772830, guid: 938aec73980fb344e954ecc51c6204d1,
         type: 2}
@@ -3149,12 +3149,12 @@ Prefab:
     - target: {fileID: 224317815126877346, guid: 0d42e47d9ec277c49abd5ccaeb56f379,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -172.2
+      value: -193.9
       objectReference: {fileID: 0}
     - target: {fileID: 224317815126877346, guid: 0d42e47d9ec277c49abd5ccaeb56f379,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -54.5
+      value: 82.6
       objectReference: {fileID: 0}
     - target: {fileID: 224317815126877346, guid: 0d42e47d9ec277c49abd5ccaeb56f379,
         type: 2}
@@ -4707,7 +4707,6 @@ Transform:
   m_Children:
   - {fileID: 1403057062}
   - {fileID: 687497839}
-  - {fileID: 1103494236}
   - {fileID: 1411127265}
   - {fileID: 1964716129}
   m_Father: {fileID: 1150024739}
@@ -6787,7 +6786,7 @@ Prefab:
     - target: {fileID: 224401045045772830, guid: 938aec73980fb344e954ecc51c6204d1,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 81.9
+      value: -77
       objectReference: {fileID: 0}
     - target: {fileID: 224401045045772830, guid: 938aec73980fb344e954ecc51c6204d1,
         type: 2}
@@ -6833,7 +6832,7 @@ Prefab:
         type: 2}
       propertyPath: _initialFloor
       value: 
-      objectReference: {fileID: 1815676006}
+      objectReference: {fileID: 208633521}
     - target: {fileID: 224934312421650922, guid: 938aec73980fb344e954ecc51c6204d1,
         type: 2}
       propertyPath: m_AnchorMax.y
@@ -8987,12 +8986,12 @@ Prefab:
     - target: {fileID: 224317815126877346, guid: 0d42e47d9ec277c49abd5ccaeb56f379,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -195.4
+      value: -217.8
       objectReference: {fileID: 0}
     - target: {fileID: 224317815126877346, guid: 0d42e47d9ec277c49abd5ccaeb56f379,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -78.9
+      value: -7.9
       objectReference: {fileID: 0}
     - target: {fileID: 224317815126877346, guid: 0d42e47d9ec277c49abd5ccaeb56f379,
         type: 2}
@@ -9066,17 +9065,17 @@ Prefab:
     - target: {fileID: 224317815126877346, guid: 0d42e47d9ec277c49abd5ccaeb56f379,
         type: 2}
       propertyPath: m_LocalScale.x
-      value: 1.0000228
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224317815126877346, guid: 0d42e47d9ec277c49abd5ccaeb56f379,
         type: 2}
       propertyPath: m_LocalScale.y
-      value: 1.0000228
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224317815126877346, guid: 0d42e47d9ec277c49abd5ccaeb56f379,
         type: 2}
       propertyPath: m_LocalScale.z
-      value: 0.9998999
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114780026597872808, guid: 0d42e47d9ec277c49abd5ccaeb56f379,
         type: 2}
@@ -10610,7 +10609,7 @@ RectTransform:
   - {fileID: 507489751}
   - {fileID: 2138481587}
   m_Father: {fileID: 1150024739}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -26480,46 +26479,17 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1094684293}
   m_CullTransparentMesh: 0
---- !u!1 &1103494235
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1103494236}
-  - component: {fileID: 1103494237}
-  m_Layer: 0
-  m_Name: EnemyAI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1103494236
+--- !u!4 &1103494236 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1103494235}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 181863660}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1103494237
+  m_CorrespondingSourceObject: {fileID: 4390408389422342, guid: 80c042a0a78100840b2604d7b1b77f40,
+    type: 2}
+  m_PrefabInternal: {fileID: 1375997523}
+--- !u!114 &1103494237 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1103494235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 114438092222751004, guid: 80c042a0a78100840b2604d7b1b77f40,
+    type: 2}
+  m_PrefabInternal: {fileID: 1375997523}
   m_Script: {fileID: 11500000, guid: 19987030a4fb74f249bcb43156b24c21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1104196046
 GameObject:
   m_ObjectHideFlags: 0
@@ -27916,6 +27886,7 @@ RectTransform:
   - {fileID: 1401920474}
   - {fileID: 1778857780}
   - {fileID: 1395844253}
+  - {fileID: 1103494236}
   - {fileID: 453782090}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -32300,6 +32271,58 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1373335602}
   m_CullTransparentMesh: 0
+--- !u!1001 &1375997523
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1150024739}
+    m_Modifications:
+    - target: {fileID: 4390408389422342, guid: 80c042a0a78100840b2604d7b1b77f40, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 307.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 4390408389422342, guid: 80c042a0a78100840b2604d7b1b77f40, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -378.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4390408389422342, guid: 80c042a0a78100840b2604d7b1b77f40, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4390408389422342, guid: 80c042a0a78100840b2604d7b1b77f40, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4390408389422342, guid: 80c042a0a78100840b2604d7b1b77f40, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4390408389422342, guid: 80c042a0a78100840b2604d7b1b77f40, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4390408389422342, guid: 80c042a0a78100840b2604d7b1b77f40, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4390408389422342, guid: 80c042a0a78100840b2604d7b1b77f40, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 224769718087867350, guid: 80c042a0a78100840b2604d7b1b77f40,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224178898162588072, guid: 80c042a0a78100840b2604d7b1b77f40,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 80c042a0a78100840b2604d7b1b77f40, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1001 &1377822248
 Prefab:
   m_ObjectHideFlags: 0
@@ -33571,7 +33594,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 181863660}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1411127266
 MonoBehaviour:
@@ -44048,7 +44071,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 181863660}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1964716130
 MonoBehaviour:

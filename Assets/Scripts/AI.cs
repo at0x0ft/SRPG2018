@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Linq;
 using System;
+using UnityEngine.UI;
 
 /// <summary>
 /// 各BattleStateが始まったときに、特定のアルゴリズムを実行するだけです。
@@ -18,9 +19,9 @@ public class AI : MonoBehaviour
 {
 	// ==========固定値==========
 	[SerializeField]
-	private float MinWaitSeconds = 1.0f; // 各動作をした後、最低待つ時間
+	private float MinWaitSeconds = 0.1f; // 各動作をした後、最低待つ時間
 	[SerializeField]
-	private float MaxWaitSeconds = 3.0f; // 最大待つ時間
+	private float MaxWaitSeconds = 2.0f; // 最大待つ時間
 
 	/// この記法、後々ランダム性に使うかも
 	/// [SerializeField, Range(0, 100)]
@@ -36,15 +37,25 @@ public class AI : MonoBehaviour
 	private UI _ui;
 	private Units _units;
 
+	private Slider _speed;
+	
 
 	// ==========(一応)変数==========
 	private Coroutine coroutine;
+	private float waitSeconds;
 
 	//関数格納
 	private Dictionary<BattleStates, Func<IEnumerator>> BattleStatesBehavior;
 
 
 	// ==========基盤関数==========
+	private void Awake()
+	{
+		_speed = GetComponentInChildren<Slider>();
+		_speed.value = 0.5f;
+		waitSeconds = MaxWaitSeconds;
+	}
+
 	/// <summary>
 	/// 初期化メソッド
 	/// </summary>
@@ -392,9 +403,7 @@ public class AI : MonoBehaviour
 	/// <returns>待機時間</returns>
 	private float WaitSeconds()
 	{
-		var range = MaxWaitSeconds - MinWaitSeconds;
-
-		return MinWaitSeconds + range * UnityEngine.Random.value;
+		return waitSeconds * (1 + UnityEngine.Random.value);
 	}
 
 	/// <summary>
@@ -434,5 +443,11 @@ public class AI : MonoBehaviour
 	public void StopAI()
 	{
 		StopCoroutine(coroutine);
+	}
+
+	private void Update()
+	{
+		var v = _speed.value;
+		waitSeconds = Mathf.Lerp(MaxWaitSeconds, MinWaitSeconds, v);
 	}
 }
