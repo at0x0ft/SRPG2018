@@ -136,7 +136,7 @@ public class AI : MonoBehaviour
 		if(nearest == null)
 		{
 			// 動けないのでユニットの動作は終了
-			FinishUnitAction();
+			_units.ActiveUnit.Floor.OnClick();
 		}
 		else
 		{
@@ -160,8 +160,9 @@ public class AI : MonoBehaviour
 		// 移動できない場合
 		if(!movable.Any()) return null;
 
-		return movable
-		.Where(f => f.Unit == null || f.Unit == enemy) // ユニットの居るマスには移動しない
+		var tmp = movable.Where(f => f.Unit == null).ToList(); // ユニットの居るマスには移動しない
+		if(tmp == null) return null;
+		else return tmp
 		.Aggregate(
 		(best, elem) =>
 		(DistanceToPlayer(players, best) <= DistanceToPlayer(players, elem))
