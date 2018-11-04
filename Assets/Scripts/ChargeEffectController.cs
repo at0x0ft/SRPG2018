@@ -53,7 +53,6 @@ public class ChargeEffectController : MonoBehaviour
 		if(size > 0) factory.GetComponent<ChargeEffectController>()._MaxSize = size;
 
 		StartCoroutine(factory.GetComponent<ChargeEffectController>().MainLoop());
-		Debug.Log("here2");
 	}
 
 	/// <summary>
@@ -72,7 +71,6 @@ public class ChargeEffectController : MonoBehaviour
 	private IEnumerator MainLoop()
 	{
 		var effect = Instantiate(_image.gameObject, transform);
-		Debug.Log("here3");
 
 		enumerator = EffectLoop(effect);
 		StartCoroutine(enumerator);
@@ -90,7 +88,6 @@ public class ChargeEffectController : MonoBehaviour
 
 		while(true)
 		{
-			Debug.Log("here4");
 			float rate = Mathf.Sin(2 * Mathf.PI * time / _LoopTime);
 			rate = (rate + 1) / 2;
 			float size = _MaxSize * rate;
@@ -106,7 +103,6 @@ public class ChargeEffectController : MonoBehaviour
 
 	private void OnEnable()
 	{
-		Debug.Log("here1010");
 		Debug.Log(enumerator);
 		if(enumerator != null)
 			StartCoroutine(enumerator);
