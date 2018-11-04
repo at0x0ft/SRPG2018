@@ -1128,7 +1128,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Feat.\t:"
+  m_Text: "\u7A2E\u985E\t\t:"
 --- !u!222 &47435317
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1719,7 +1719,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Def.\u2191\t:"
+  m_Text: "\u5B88\u5099 \t:"
 --- !u!222 &68308665
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2814,7 +2814,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Atk.\t\t:"
+  m_Text: "\u653B\u6483\t\t:"
 --- !u!222 &110940306
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3579,7 +3579,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -50}
-  m_SizeDelta: {x: 240, y: 40}
+  m_SizeDelta: {x: 250, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &163092437
 MonoBehaviour:
@@ -3884,7 +3884,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -10, y: -10.000005}
-  m_SizeDelta: {x: 140, y: 40}
+  m_SizeDelta: {x: 80, y: 40}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &174948509
 MonoBehaviour:
@@ -3912,13 +3912,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: "\u5358\u4F53"
 --- !u!222 &174948510
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4188,7 +4188,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Avo.\t\t:"
+  m_Text: "\u56DE\u907F\t\t:"
 --- !u!222 &179766139
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4511,7 +4511,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Type\t:"
+  m_Text: "\u5C5E\u6027\t\t:"
 --- !u!222 &182158842
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6103,7 +6103,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -170}
-  m_SizeDelta: {x: 240, y: 40}
+  m_SizeDelta: {x: 250, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &248325241
 MonoBehaviour:
@@ -6576,6 +6576,11 @@ Prefab:
       propertyPath: _name
       value: "\u97F3\u7FBD\u6FAA"
       objectReference: {fileID: 0}
+    - target: {fileID: 114232093697081886, guid: 938aec73980fb344e954ecc51c6204d1,
+        type: 2}
+      propertyPath: _position
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 938aec73980fb344e954ecc51c6204d1, type: 2}
   m_IsPrefabAsset: 0
@@ -7002,7 +7007,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -50}
-  m_SizeDelta: {x: 155, y: 40}
+  m_SizeDelta: {x: 100, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &291717117
 MonoBehaviour:
@@ -7036,7 +7041,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Remain\t\t:"
+  m_Text: "\u6B8B\u308A\t\t:"
 --- !u!222 &291717118
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7621,7 +7626,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Acc.\t\t:"
+  m_Text: "\u547D\u4E2D\u7387\t:"
 --- !u!222 &349307440
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9604,7 +9609,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
@@ -9906,7 +9911,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -10}
-  m_SizeDelta: {x: 240, y: 40}
+  m_SizeDelta: {x: 250, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &431798189
 MonoBehaviour:
@@ -11850,7 +11855,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -10, y: -10}
-  m_SizeDelta: {x: 260, y: 260}
+  m_SizeDelta: {x: 270, y: 260}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &497487990
 MonoBehaviour:
@@ -12998,7 +13003,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -10, y: -130}
-  m_SizeDelta: {x: 100, y: 40}
+  m_SizeDelta: {x: 80, y: 40}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &526073484
 MonoBehaviour:
@@ -13026,7 +13031,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
@@ -14672,7 +14677,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -90}
-  m_SizeDelta: {x: 240, y: 40}
+  m_SizeDelta: {x: 250, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &590473491
 MonoBehaviour:
@@ -15206,7 +15211,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Name\t:"
+  m_Text: "\u540D\u524D\t\t:"
 --- !u!222 &621569778
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20786,7 +20791,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Type\t:"
+  m_Text: "\u5C5E\u6027\t\t:"
 --- !u!222 &900915536
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21308,7 +21313,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
@@ -21578,7 +21583,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
@@ -21820,7 +21825,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -10, y: -90}
-  m_SizeDelta: {x: 100, y: 40}
+  m_SizeDelta: {x: 80, y: 40}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &927425173
 MonoBehaviour:
@@ -21848,7 +21853,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
@@ -24723,7 +24728,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -30, y: 150}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1044302851
 MonoBehaviour:
@@ -27909,7 +27914,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -10, y: -10}
-  m_SizeDelta: {x: 25, y: 40}
+  m_SizeDelta: {x: 80, y: 40}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1171011155
 MonoBehaviour:
@@ -27937,7 +27942,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
@@ -28259,7 +28264,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -160}
-  m_SizeDelta: {x: 220, y: 180}
+  m_SizeDelta: {x: 200, y: 180}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1193650126
 MonoBehaviour:
@@ -30016,7 +30021,7 @@ Prefab:
     - target: {fileID: 224520615168207234, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 180
+      value: 240
       objectReference: {fileID: 0}
     - target: {fileID: 224520615168207234, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
@@ -30056,12 +30061,12 @@ Prefab:
     - target: {fileID: 224154199614867626, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 80
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 224740617416713418, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 80
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 114405287092795346, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
@@ -30116,7 +30121,7 @@ Prefab:
     - target: {fileID: 224513935532928484, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 80
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 114608219856601820, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
@@ -30126,21 +30131,46 @@ Prefab:
     - target: {fileID: 114270364193225844, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_Text
-      value: "Set\t :"
+      value: "\u30BB\u30C3\u30C8\t:"
       objectReference: {fileID: 0}
     - target: {fileID: 114404268614525612, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_Text
-      value: 'State :'
+      value: "\u73FE\u72B6\t\t:"
       objectReference: {fileID: 0}
     - target: {fileID: 114978839865745830, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_Text
-      value: 'Turn :'
+      value: "\u30BF\u30FC\u30F3\t:"
       objectReference: {fileID: 0}
     - target: {fileID: 1945802049960734, guid: 5135267bab318474aae1497cdab335d6, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224488432750203980, guid: 5135267bab318474aae1497cdab335d6,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 224641714809540470, guid: 5135267bab318474aae1497cdab335d6,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 224638239348290624, guid: 5135267bab318474aae1497cdab335d6,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 224638239348290624, guid: 5135267bab318474aae1497cdab335d6,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114608219856601820, guid: 5135267bab318474aae1497cdab335d6,
+        type: 2}
+      propertyPath: m_Text
+      value: "\u6226\u6CC1\u78BA\u8A8D"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5135267bab318474aae1497cdab335d6, type: 2}
@@ -30499,7 +30529,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -10}
-  m_SizeDelta: {x: 155, y: 40}
+  m_SizeDelta: {x: 100, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1334459409
 MonoBehaviour:
@@ -30533,7 +30563,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "MoveAount\t:"
+  m_Text: "\u79FB\u52D5\u91CF\t:"
 --- !u!222 &1334459410
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -30929,7 +30959,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Cost\t\t:"
+  m_Text: "\u30B3\u30B9\u30C8\t:"
 --- !u!222 &1342546257
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -31096,7 +31126,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -10, y: -129.99998}
-  m_SizeDelta: {x: 140, y: 40}
+  m_SizeDelta: {x: 80, y: 40}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1348103521
 MonoBehaviour:
@@ -31124,13 +31154,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 70
 --- !u!222 &1348103522
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -32371,7 +32401,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -10, y: -50.000004}
-  m_SizeDelta: {x: 25, y: 40}
+  m_SizeDelta: {x: 80, y: 40}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1396726431
 MonoBehaviour:
@@ -32399,7 +32429,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
@@ -33892,7 +33922,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
@@ -34009,7 +34039,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -1.1800003}
-  m_SizeDelta: {x: 130, y: 130}
+  m_SizeDelta: {x: 180, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1459766494
 MonoBehaviour:
@@ -34850,7 +34880,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -10, y: -10.000005}
-  m_SizeDelta: {x: 100, y: 40}
+  m_SizeDelta: {x: 80, y: 40}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1482841894
 MonoBehaviour:
@@ -34878,7 +34908,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
@@ -34928,7 +34958,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -210}
-  m_SizeDelta: {x: 240, y: 40}
+  m_SizeDelta: {x: 250, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1485576585
 MonoBehaviour:
@@ -35257,7 +35287,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -10, y: -50.000004}
-  m_SizeDelta: {x: 140, y: 40}
+  m_SizeDelta: {x: 80, y: 40}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1513864801
 MonoBehaviour:
@@ -35285,13 +35315,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: "\u98A8"
 --- !u!222 &1513864802
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -36825,7 +36855,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
@@ -37193,7 +37223,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -10, y: -50}
-  m_SizeDelta: {x: 100, y: 40}
+  m_SizeDelta: {x: 80, y: 40}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1652667334
 MonoBehaviour:
@@ -37221,7 +37251,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
@@ -37278,8 +37308,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -280, y: -10}
-  m_SizeDelta: {x: 260, y: 180}
+  m_AnchoredPosition: {x: -290, y: -10}
+  m_SizeDelta: {x: 200, y: 180}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1656798072
 MonoBehaviour:
@@ -37438,7 +37468,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Def.\t\t:"
+  m_Text: "\u5B88\u5099\t\t:"
 --- !u!222 &1664676028
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -37972,7 +38002,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Finish!
+  m_Text: "\u884C\u52D5\u7D42\u4E86"
 --- !u!222 &1685751083
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -38242,7 +38272,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -130}
-  m_SizeDelta: {x: 240, y: 40}
+  m_SizeDelta: {x: 250, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1697899135
 MonoBehaviour:
@@ -42409,7 +42439,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 70, y: 50}
+  m_SizeDelta: {x: 90, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1911608253
 MonoBehaviour:
@@ -42443,7 +42473,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Attack!
+  m_Text: "\u7BC4\u56F2\u653B\u6483"
 --- !u!222 &1911608254
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -42559,7 +42589,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Pow.\t:"
+  m_Text: "\u5A01\u529B\t\t:"
 --- !u!222 &1918706039
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -43132,7 +43162,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
@@ -43650,7 +43680,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Pos.\t\t:"
+  m_Text: "\u5F79\u5272\t\t:"
 --- !u!222 &1971427513
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -46334,7 +46364,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Target\t:"
+  m_Text: "\u5BFE\u8C61\t\t:"
 --- !u!222 &2110440799
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -46374,8 +46404,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -10, y: -89.999985}
-  m_SizeDelta: {x: 140, y: 40}
+  m_AnchoredPosition: {x: -10, y: -90}
+  m_SizeDelta: {x: 80, y: 40}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &2110583428
 MonoBehaviour:
@@ -46403,13 +46433,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 120
 --- !u!222 &2110583429
 CanvasRenderer:
   m_ObjectHideFlags: 0

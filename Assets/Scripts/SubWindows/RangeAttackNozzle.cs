@@ -44,7 +44,7 @@ public class RangeAttackNozzle : SubWindow
 		// ハイライトエフェクトくっつけます
 		_map.Ui.ChargeEffectController.AlwaysAttachEffect(_centerButton.transform, HighLightSize);
 	}
-	
+
 
 	/// <summary>
 	/// 範囲攻撃のときに、Attack!ボタンを押したら、攻撃が始まります。
@@ -72,7 +72,7 @@ public class RangeAttackNozzle : SubWindow
 			// 攻撃します
 			_ac.Attack(attacker, attack);
 		}
-		
+
 		Hide();
 
 		// 場面を進めます
@@ -85,7 +85,7 @@ public class RangeAttackNozzle : SubWindow
 	/// </summary>
 	public void RotateRangeHighLight()
 	{
-		Debug.Log("ok2");
+		Debug.Log("ok2");	// 4debug
 		// 強溜め攻撃準備の時は、無視します
 		if(_reason == AccessReason.HighAttack) return;
 
@@ -98,7 +98,7 @@ public class RangeAttackNozzle : SubWindow
 		int dir = attackInfo.Value.Value;
 		var attack = attackInfo.Value.Key;
 		if(attack.Scale == Attack.AttackScale.Single) return;
-		
+
 		// 回転できない場合も無視します
 		var rangeAttack = (RangeAttack)attack;
 		if(!rangeAttack.IsRotatable) return;
@@ -115,10 +115,10 @@ public class RangeAttackNozzle : SubWindow
 		switch(reason)
 		{
 			case AccessReason.HighAttack:
-				_text.text = "Charge!";
+				_text.text = "チャージ";
 				break;
 			case AccessReason.RangeAttack:
-				_text.text = "Attack!";
+				_text.text = "範囲攻撃";
 				break;
 			default:
 				Debug.LogError("想定しないAccessReasonです");

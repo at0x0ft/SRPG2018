@@ -54,8 +54,9 @@ public class BoardController : MonoBehaviour
 	{
 		CheckSerializedMember();    // 4debug
 
-		// ユニット詳細情報サブウィンドウを一度閉じる
+		// UnitInfoWindowとFloorInfoWindowを一度閉じる
 		_ui.UnitInfoWindow.Hide();
+		_ui.FloorInfoWindow.Hide();
 
 		// 準備中は画面をクリックされないようにする
 		_ui.TouchBlocker.SetActive(true);
