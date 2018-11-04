@@ -161,7 +161,7 @@ public class AI : MonoBehaviour
 		if(!movable.Any()) return null;
 
 		var tmp = movable.Where(f => f.Unit == null).ToList(); // ユニットの居るマスには移動しない
-		if(tmp == null) return null;
+		if(!tmp.Any()) return null;
 		else return tmp
 		.Aggregate(
 		(best, elem) =>
