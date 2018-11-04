@@ -367,7 +367,6 @@ public class Unit : MonoBehaviour
 
 		if(!success) return;
 
-	Finish:
 		// 攻撃が終わるまではLoadFaze
 		_bsc.NextBattleState();
 	}
