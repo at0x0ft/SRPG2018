@@ -90,6 +90,9 @@ public class MoveController : MonoBehaviour
 		return infos.Where(x => x.Value >= 0).ToDictionary(x => x.Key, x => x.Value);
 	}
 
+	public string state = "idle";
+	public string path;
+	public Image image;
 	/// <summary>
 	/// ユニットを対象のマスに移動
 	/// </summary>
@@ -107,6 +110,36 @@ public class MoveController : MonoBehaviour
 		for(var i = 1; i < routeFloors.Length; i++)
 		{
 			var routeFloor = routeFloors[i];
+			var presentFloor = routeFloors[i - 1];
+			int dx = routeFloor.X - presentFloor.X;
+			int dy = routeFloor.Y - presentFloor.Y;
+			if(dx == 1)
+			{
+				state = "right";
+			}
+			else if (dx == -1)
+			{
+				state = "left";
+			}
+			else if(dy == 1)
+			{
+				state = "usiro";
+			}
+			else if(dy == -1)
+			{
+				state = "mae";
+			}
+			else
+			{
+				state = "right";
+			}
+			path = "Sprites/" + unit.UnitName + "/" + state;
+			image = unit.GetComponent<Image>();
+			if(image == null)
+			{
+				Debug.Log("[Debug] image is null");
+			}
+			StartCoroutine("AttachMoveAnimation");
 			sequence.Append(unit.transform.DOMove(routeFloor.transform.position, 0.1f).SetEase(Ease.Linear));
 		}
 
@@ -117,6 +150,20 @@ public class MoveController : MonoBehaviour
 			unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y);
 
 		});
+	}
+
+	IEnumerator AttachMoveAnimation()
+	{
+		//移動時のアニメーションを付ける
+		var motion_1 = Resources.Load(path + "_1",typeof(Sprite))as Sprite;
+		Debug.Log("[Debug]" + motion_1.name);
+		image.sprite = motion_1;
+		yield return new WaitForSeconds(0.05f);
+		var motion_2 = Resources.Load(path + "_2",typeof(Sprite)) as Sprite;
+		Debug.Log("[Debug]" + motion_2.name);
+		image.sprite = motion_2;
+		yield return new WaitForSeconds(0.05f);
+
 	}
 
 	/// <summary>
