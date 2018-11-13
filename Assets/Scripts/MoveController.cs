@@ -123,11 +123,11 @@ public class MoveController : MonoBehaviour
 			}
 			else if(dy == 1)
 			{
-				state = "usiro";
+				state = "back";
 			}
 			else if(dy == -1)
 			{
-				state = "mae";
+				state = "front";
 			}
 			else
 			{
@@ -163,6 +163,7 @@ public class MoveController : MonoBehaviour
 		Debug.Log("[Debug]" + motion_2.name);
 		image.sprite = motion_2;
 		yield return new WaitForSeconds(0.05f);
+		image.sprite = Resources.Load(path, typeof(Sprite)) as Sprite;
 
 	}
 
