@@ -90,7 +90,7 @@ public class MoveController : MonoBehaviour
 		return infos.Where(x => x.Value >= 0).ToDictionary(x => x.Key, x => x.Value);
 	}
 
-	public string state = "idle";
+	public string state;
 	public string path;
 	public Image image;
 	/// <summary>
@@ -105,9 +105,18 @@ public class MoveController : MonoBehaviour
 
 		// 移動の際の描画ライブラリインスタンスを初期化
 		var sequence = DOTween.Sequence();
+		image = unit.GetComponent<Image>();
+		if (image == null)
+		{
+			Debug.Log("[Debug] image is null");
+		}
+
+		state = "idle";
+		path = "Sprites/" + unit.UnitName + "/" + state;
+		//1回も移動しない場合もあるのでここで一旦定義
 
 		// 移動経路に沿って移動
-		for(var i = 1; i < routeFloors.Length; i++)
+		for (var i = 1; i < routeFloors.Length; i++)
 		{
 			var routeFloor = routeFloors[i];
 			var presentFloor = routeFloors[i - 1];
@@ -134,18 +143,14 @@ public class MoveController : MonoBehaviour
 				state = "right";
 			}
 			path = "Sprites/" + unit.UnitName + "/" + state;
-			image = unit.GetComponent<Image>();
-			if(image == null)
-			{
-				Debug.Log("[Debug] image is null");
-			}
 			StartCoroutine("AttachMoveAnimation");
-			sequence.Append(unit.transform.DOMove(routeFloor.transform.position, 0.1f).SetEase(Ease.Linear));
+			sequence.Append(unit.transform.DOMove(routeFloor.transform.position, 0.25f).SetEase(Ease.Linear));
 		}
 
 		// 移動が完了したら
 		sequence.OnComplete(() =>
 		{
+			image.sprite = Resources.Load(path, typeof(Sprite)) as Sprite;
 			// unitのGameObjectの実体の座標も変更する
 			unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y);
 
@@ -158,12 +163,12 @@ public class MoveController : MonoBehaviour
 		var motion_1 = Resources.Load(path + "_1",typeof(Sprite))as Sprite;
 		Debug.Log("[Debug]" + motion_1.name);
 		image.sprite = motion_1;
-		yield return new WaitForSeconds(0.05f);
+		yield return new WaitForSeconds(0.125f);
 		var motion_2 = Resources.Load(path + "_2",typeof(Sprite)) as Sprite;
 		Debug.Log("[Debug]" + motion_2.name);
 		image.sprite = motion_2;
-		yield return new WaitForSeconds(0.05f);
-		image.sprite = Resources.Load(path, typeof(Sprite)) as Sprite;
+		yield return new WaitForSeconds(0.125f);
+		yield break;
 
 	}
 
