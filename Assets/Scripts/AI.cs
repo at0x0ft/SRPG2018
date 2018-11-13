@@ -38,7 +38,7 @@ public class AI : MonoBehaviour
 	private Units _units;
 
 	private Slider _speed;
-	
+
 
 	// ==========(一応)変数==========
 	private Coroutine coroutine;
@@ -263,8 +263,8 @@ public class AI : MonoBehaviour
 	private List<Vector2Int> AttackReach(Vector2Int now, Attack attack)
 	{
 		var range = attack.Range;
-
-		if(attack.Scale == Attack.AttackScale.Single || !((RangeAttack)attack).IsRotatable)
+		// already true for debug.
+		if(true || attack.Scale == Attack.AttackScale.Single || !((RangeAttack)attack).IsRotatable)
 		{
 			return FixRange(now, range);
 		}
