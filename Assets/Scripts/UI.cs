@@ -145,4 +145,19 @@ public class UI : MonoBehaviour
 		_attackInfoWindow.Hide();
 		_attackSelectWindow.Hide();
 	}
+
+	/// <summary>
+	/// RectTransformを持つgameObjectのAnchorを中央にする静的メソッド
+	/// </summary>
+	/// <param name="gameObject"></param>
+	public static void SetAnchorCenter(RectTransform gameObject)
+	{
+		gameObject.anchorMin = new Vector2(0.5f, 0.5f);
+		gameObject.anchorMax = new Vector2(0.5f, 0.5f);
+		gameObject.pivot = new Vector2(0.5f, 0.5f);
+		gameObject.localPosition = new Vector3Int();
+		// localScaleは, 元の画像サイズを保持するため, 敢えて修正しないこととする.
+		// gameObject.localScale = new Vector3Int(1, 1, 1);
+		gameObject.anchoredPosition = new Vector2Int();
+	}
 }
