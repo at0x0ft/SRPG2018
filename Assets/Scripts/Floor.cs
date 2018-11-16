@@ -117,35 +117,29 @@ public class Floor : MonoBehaviour
 		if(!_highlight) Debug.LogError("[Error] : HighLight is not set!");
 	}
 
-	private void Start()
-	{
-		// マス自身がボタンの役割を果たしており, これをクリックした時にOnClickメソッドを実行するように設定する.
-		GetComponent<Button>().onClick.AddListener(OnClick);
-
-		// CoordinatePairの初期化
-		_coordinatePair = new KeyValuePair<Vector2Int, Vector3>(ParseLocalCoordinateFromName(), transform.localPosition);
-
-		// マスをクリックしたときの挙動の初期化
-		SetClickBehavior();
-	}
-
 	/// <summary>
-	/// 名前からローカル座標を読み出し, Vector2Int型のオブジェクトとして返すメソッド
+	/// Floorの相対座標が適切かどうかを判定し, 適切でならばCoordinatePairに記録, 不適であればLogでErrorとする.
 	/// </summary>
+	/// <param name="mapSizeInt"></param>
 	/// <returns></returns>
-	private Vector2Int ParseLocalCoordinateFromName()
+	public void CheckPositionCorrect(Vector2Int floorSize)
 	{
-		// パターンにマッチしない座標であれば, 警告し終了する.
-		if(!Regex.IsMatch(transform.name, @"^\(\d+, \d+\)$"))
+		var ownPosition = GetComponent<RectTransform>().anchoredPosition;
+		var ownAnchoredPosInt = new Vector2Int((int)ownPosition.x, (int)ownPosition.y) + floorSize;
+
+		Debug.Log("[Debug] : " + gameObject.name + "'s position = " + ownPosition);   // 4debug
+
+		if(ownAnchoredPosInt.x % floorSize.x != 0 && ownAnchoredPosInt.y % floorSize.y != 0)
 		{
-			Debug.LogWarning("[Error] Floor Name Format (Coordinate) Exception : " + transform.name);
-			Application.Quit();
+			Debug.LogError("[Error] : " + gameObject.name + "'s relative coordinate is incorrect!");	// 4debug
+			return;
 		}
+		var coordinate = new Vector2Int(ownAnchoredPosInt.x / floorSize.x, ownAnchoredPosInt.y / floorSize.y);
 
-		string[] coors = transform.name.Split(new string[] { "(", ",", " ", "　", ")" }, StringSplitOptions.RemoveEmptyEntries);
-		return new Vector2Int(int.Parse(coors[0]), int.Parse(coors[1]));
+		Debug.Log("[Debug] : res = " + coordinate);	// 4debug
+
+		_coordinatePair = new KeyValuePair<Vector2Int, Vector3>(coordinate, ownPosition);
 	}
-
 
 	/// <summary>
 	/// 初期化メソッド
@@ -163,6 +157,12 @@ public class Floor : MonoBehaviour
 
 		_movableColor = _map.MovableColor;
 		_attackableColor = _map.AttackableColor;
+
+		// マス自身がボタンの役割を果たしており, これをクリックした時にOnClickメソッドを実行するように設定する.
+		GetComponent<Button>().onClick.AddListener(OnClick);
+
+		// マスをクリックしたときの挙動の初期化
+		SetClickBehavior();
 	}
 
 	/// <summary>
