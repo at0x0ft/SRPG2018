@@ -25,7 +25,7 @@ public class ActiveUnitIcon : MonoBehaviour
 	public void ChangeIconTarget(Transform unit)
 	{
 		transform.parent = unit;
-		UI.SetAnchorCenter(transform.GetComponent<RectTransform>());
+		UI.SetAnchorCenter(GetComponent<RectTransform>());
 	}
 
 	private IEnumerator Floating()

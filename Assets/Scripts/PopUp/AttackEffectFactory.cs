@@ -214,13 +214,13 @@ public class AttackEffectFactory : BasePopUp
 	/// (お助け関数)
 	/// 特定の位置にエフェクトを作成します
 	/// </summary>
-	/// <param name="pos">エフェクト作成位置</param>
+	/// <param name="target">エフェクト作成位置</param>
 	private void MakeEffect(Vector3 target, List<Sprite> mySprites = null)
 	{
 		GetComponent<PopUpController>().AttackEffectPopUp(
 			transform,
 			_attack,
-			(mySprites != null ? mySprites : _sprites),
+			(mySprites ?? _sprites),
 			target
 		);
 	}
