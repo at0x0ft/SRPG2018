@@ -23,7 +23,7 @@ public class PopUpController : MonoBehaviour
 	private UI _ui;
 
 	[SerializeField]
-	private BoardController board;
+	private BoardController _board;
 
 	[SerializeField]
 	private Image _image;
@@ -75,11 +75,15 @@ public class PopUpController : MonoBehaviour
 	public void AttackEffectFactory(Unit attacker, List<Floor> targets, Attack attack)
 	{
 		// 攻撃エフェクトのファクトリーを、攻撃者とします。
-		var popUp = Instantiate(gameObject, board.transform);
+		var popUp = Instantiate(gameObject, _board.transform);
 
 		// ファクトリーでは不要なTextを消します
 		Destroy(popUp.GetComponent<PopUpController>()._text.gameObject);
 
+		// popUpのanchorを左下に設定.
+		UI.SetAnchorLeftBottom(popUp.GetComponent<RectTransform>());
+
+		// 初期化
 		popUp.GetComponent<AttackEffectFactory>().Initialize(attacker, targets, attack);
 	}
 

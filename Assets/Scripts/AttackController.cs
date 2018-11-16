@@ -274,7 +274,7 @@ public class AttackController
 		List<Floor> targets = new List<Floor>();
 
 		Debug.Log("攻撃:" + attack + "　が発動しました");
-		
+
 		if(attack.Scale == global::Attack.AttackScale.Single)
 		{
 			targets.Add(targetUnit.Floor);
@@ -289,10 +289,10 @@ public class AttackController
 		}
 		else
 		{
-			Debug.Log("予定されていない型の攻撃がありました");
+			Debug.Log("予定されていない型の攻撃がありました");	// 4debug
 			res = false;
 		}
-		
+
 		// 攻撃が強攻撃だったら、強攻撃エフェクトを消します
 		if(attack.Kind == global::Attack.Level.High)
 		{

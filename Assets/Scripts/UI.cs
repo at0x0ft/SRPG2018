@@ -155,9 +155,18 @@ public class UI : MonoBehaviour
 		gameObject.anchorMin = new Vector2(0.5f, 0.5f);
 		gameObject.anchorMax = new Vector2(0.5f, 0.5f);
 		gameObject.pivot = new Vector2(0.5f, 0.5f);
-		gameObject.localPosition = new Vector3Int();
-		// localScaleは, 元の画像サイズを保持するため, 敢えて修正しないこととする.
-		// gameObject.localScale = new Vector3Int(1, 1, 1);
-		gameObject.anchoredPosition = new Vector2Int();
+		gameObject.localPosition = Vector3Int.zero;
+	}
+
+	/// <summary>
+	/// RectTransformを持つgameObjectのAnchorを左下にする静的メソッド
+	/// </summary>
+	/// <param name="gameObject"></param>
+	public static void SetAnchorLeftBottom(RectTransform gameObject)
+	{
+		gameObject.anchorMin = Vector2Int.zero;
+		gameObject.anchorMax = Vector2Int.zero;
+		gameObject.pivot = Vector2Int.zero;
+		gameObject.localPosition = Vector3Int.zero;
 	}
 }

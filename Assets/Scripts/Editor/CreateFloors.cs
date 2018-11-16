@@ -120,15 +120,12 @@ public class CreateFloors : EditorWindow
 				floor.name = "(" + i.ToString() + ", " + j.ToString() + ")";
 				floor.transform.SetParent(_parent.transform);
 
-				// Resize the floor Object
+				// Resize the floor object
 				floor.GetComponent<RectTransform>().sizeDelta = new Vector2Int(pix, pix);
-
-				// _parentオブジェクトのうち, 左下の角にanchorを設定する.
-				floor.GetComponent<RectTransform>().anchorMin = new Vector2Int();
-				floor.GetComponent<RectTransform>().anchorMax = new Vector2Int();
-				floor.GetComponent<RectTransform>().pivot = new Vector2Int();
-				floor.GetComponent<RectTransform>().localPosition = new Vector3Int(i * pix, j * pix, 0);
 				floor.GetComponent<RectTransform>().localScale = new Vector3Int(1, 1, 1);
+
+				// Set anchor left bottom.
+				UI.SetAnchorLeftBottom(floor.GetComponent<RectTransform>());
 
 				// _parentの左下の角から見て, floorの左下の角の座標が何になるかを設定する.
 				floor.GetComponent<RectTransform>().anchoredPosition = new Vector2Int(i * pix, j * pix);

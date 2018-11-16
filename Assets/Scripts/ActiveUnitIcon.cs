@@ -26,6 +26,7 @@ public class ActiveUnitIcon : MonoBehaviour
 	{
 		transform.parent = unit;
 		UI.SetAnchorCenter(GetComponent<RectTransform>());
+		GetComponent<RectTransform>().anchoredPosition = new Vector2Int();
 	}
 
 	private IEnumerator Floating()
