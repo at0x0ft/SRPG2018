@@ -95,7 +95,6 @@ public class MoveController : MonoBehaviour
 		idle,right,left,back,front
 	}
 
-	public string state;
 	public string path;
 	public Image image;
 	Sprite motion_1;
@@ -118,8 +117,7 @@ public class MoveController : MonoBehaviour
 			Debug.Log("[Debug] image is null");
 		}
 
-		state = State.idle.ToString();
-		path = "Sprites/" + unit.UnitName + "/" + state;
+		path = "Sprites/" + unit.UnitName + "/" + State.idle.ToString();
 		//1回も移動しない場合もあるのでここで一旦定義
 		//foreach(var name in Enum.GetNames(typeof(State)))
 		//{
@@ -138,27 +136,7 @@ public class MoveController : MonoBehaviour
 			var presentFloor = routeFloors[i - 1];
 			Vector2Int diffCor = routeFloor.CoordinatePair.Key - presentFloor.CoordinatePair.Key;
 			Debug.Log("[Debug] diffCor " + diffCor);
-			if (diffCor.x == 1 && diffCor.y == 0)
-			{
-				state = State.right.ToString();
-			}
-			else if (diffCor.x == -1 && diffCor.y == 0)
-			{
-				state = State.left.ToString();
-			}
-			else if (diffCor.x == 0 && diffCor.y == 1)
-			{
-				state = State.back.ToString();
-			}
-			else if (diffCor.x == 0 && diffCor.y == -1)
-			{
-				state = State.front.ToString();
-			}
-			else
-			{
-				state = State.right.ToString();
-			}
-			path = "Sprites/" + unit.UnitName + "/" + state;
+			path = "Sprites/" + unit.UnitName + "/" + JudgeState(diffCor);
 			motion_1 = Resources.Load(path + "_1", typeof(Sprite)) as Sprite;
 			Debug.Log("[Debug]" + motion_1.name);
 			motion_2 = Resources.Load(path + "_2", typeof(Sprite)) as Sprite;
@@ -171,12 +149,40 @@ public class MoveController : MonoBehaviour
 		// 移動が完了したら
 		sequence.OnComplete(() =>
 		{
-			image.sprite = Resources.Load("Sprites/" + unit.UnitName + "/" + "idle", typeof(Sprite)) as Sprite;
+			image.sprite = Resources.Load("Sprites/" + unit.UnitName + "/" + State.idle.ToString(), typeof(Sprite)) as Sprite;
 			//image.sprite = Resources.Load(path, typeof(Sprite)) as Sprite;
 			// unitのGameObjectの実体の座標も変更する
 			unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y);
 
 		});
+	}
+
+	private string JudgeState(Vector2Int diffCoor)
+	{
+
+		//1マス移動したときの変化量を受け取って
+		//状態を文字列で返す関数
+		if (diffCoor.x == 1 && diffCoor.y == 0)
+		{
+			return State.right.ToString();
+		}
+		else if (diffCoor.x == -1 && diffCoor.y == 0)
+		{
+			return State.left.ToString();
+		}
+		else if (diffCoor.x == 0 && diffCoor.y == 1)
+		{
+			return State.back.ToString();
+		}
+		else if (diffCoor.x == 0 && diffCoor.y == -1)
+		{
+			return State.front.ToString();
+		}
+		else
+		{
+			return State.right.ToString();
+		}
+
 	}
 
 	IEnumerator AttachMoveAnimation()
