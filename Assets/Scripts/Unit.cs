@@ -142,7 +142,7 @@ public class Unit : MonoBehaviour
 		}
 		set
 		{
-			transform.localPosition = value.Value;
+			GetComponent<RectTransform>().anchoredPosition = value.Value;
 			_coordinatePair = value;
 		}
 	}
@@ -157,7 +157,7 @@ public class Unit : MonoBehaviour
 	private GameObject _strongAttackEffect;
 	private AttackStates _attackStates;
 	public AttackStates AttackState
-	{ 
+	{
 		get{ return _attackStates; }
 		set
 		{
@@ -247,7 +247,7 @@ public class Unit : MonoBehaviour
 		_hpBar.SetHP(MaxLife);
 
 		// 初期配置マスにUnitを設定する
-		// CoordinatePair = _initialFloor.CoordinatePair;
+		CoordinatePair = _initialFloor.CoordinatePair;
 		StartCoroutine(SetInitialPosition());
 
 		// 体力の初期化
@@ -353,7 +353,7 @@ public class Unit : MonoBehaviour
 				// Set2で強攻撃が出来る場合は、攻撃します。
 				case AttackStates.Charging:
 					break;
-				
+
 				// 他はあり得ないです。
 				case AttackStates.MiddleAttack:
 				case AttackStates.Movable:
@@ -361,7 +361,7 @@ public class Unit : MonoBehaviour
 					break;
 			}
 		}
-		
+
 		// 攻撃出来る場合は攻撃を開始する
 		bool success = _ac.Attack(attacker, attack, this);
 

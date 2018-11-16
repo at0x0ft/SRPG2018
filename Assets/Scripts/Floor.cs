@@ -125,9 +125,7 @@ public class Floor : MonoBehaviour
 	public void CheckPositionCorrect(Vector2Int floorSize)
 	{
 		var ownPosition = GetComponent<RectTransform>().anchoredPosition;
-		var ownAnchoredPosInt = new Vector2Int((int)ownPosition.x, (int)ownPosition.y) + floorSize;
-
-		Debug.Log("[Debug] : " + gameObject.name + "'s position = " + ownPosition);   // 4debug
+		var ownAnchoredPosInt = new Vector2Int((int)ownPosition.x, (int)ownPosition.y);
 
 		if(ownAnchoredPosInt.x % floorSize.x != 0 && ownAnchoredPosInt.y % floorSize.y != 0)
 		{
@@ -135,8 +133,6 @@ public class Floor : MonoBehaviour
 			return;
 		}
 		var coordinate = new Vector2Int(ownAnchoredPosInt.x / floorSize.x, ownAnchoredPosInt.y / floorSize.y);
-
-		Debug.Log("[Debug] : res = " + coordinate);	// 4debug
 
 		_coordinatePair = new KeyValuePair<Vector2Int, Vector3>(coordinate, ownPosition);
 	}
