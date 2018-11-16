@@ -90,6 +90,11 @@ public class MoveController : MonoBehaviour
 		return infos.Where(x => x.Value >= 0).ToDictionary(x => x.Key, x => x.Value);
 	}
 
+	enum State
+	{
+		idle,right,left,back,front
+	}
+
 	public string state;
 	public string path;
 	public Image image;
@@ -113,9 +118,18 @@ public class MoveController : MonoBehaviour
 			Debug.Log("[Debug] image is null");
 		}
 
-		state = "idle";
+		state = State.idle.ToString();
 		path = "Sprites/" + unit.UnitName + "/" + state;
 		//1回も移動しない場合もあるのでここで一旦定義
+		//foreach(var name in Enum.GetNames(typeof(State)))
+		//{
+		//	Debug.Log("[Debug] trying "+name);
+		//}
+
+		//Debug.Log("[Debug] trying " + State.front.ToString());
+		//文字列変換のやり方
+
+		//Debug.Log("[Debug] trying" + (State)2);
 
 		// 移動経路に沿って移動
 		for (var i = 1; i < routeFloors.Length; i++)
@@ -126,23 +140,23 @@ public class MoveController : MonoBehaviour
 			Debug.Log("[Debug] diffCor " + diffCor);
 			if (diffCor.x == 1 && diffCor.y == 0)
 			{
-				state = "right";
+				state = State.right.ToString();
 			}
 			else if (diffCor.x == -1 && diffCor.y == 0)
 			{
-				state = "left";
+				state = State.left.ToString();
 			}
 			else if (diffCor.x == 0 && diffCor.y == 1)
 			{
-				state = "back";
+				state = State.back.ToString();
 			}
 			else if (diffCor.x == 0 && diffCor.y == -1)
 			{
-				state = "front";
+				state = State.front.ToString();
 			}
 			else
 			{
-				state = "right";
+				state = State.right.ToString();
 			}
 			path = "Sprites/" + unit.UnitName + "/" + state;
 			motion_1 = Resources.Load(path + "_1", typeof(Sprite)) as Sprite;
