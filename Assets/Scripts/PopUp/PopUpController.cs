@@ -88,7 +88,7 @@ public class PopUpController : MonoBehaviour
 	public void AttackEffectFactory(Unit attacker, List<Floor> targets, Attack attack)
 	{
 		// 攻撃エフェクトのファクトリーを、攻撃者とします。
-		var popUp = Instantiate(gameObject, _bc.transform);
+		var popUp = InstantiateWithInitialize(gameObject, _bc.transform);
 
 		// ファクトリーでは不要なTextを消します
 		Destroy(popUp.GetComponent<PopUpController>().Text.gameObject);
