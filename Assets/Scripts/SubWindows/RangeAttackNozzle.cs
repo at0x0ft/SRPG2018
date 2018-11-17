@@ -15,7 +15,6 @@ public class RangeAttackNozzle : SubWindow
 		RangeAttack // 範囲攻撃の機能を求めている
 	}
 
-
 	private Button _centerButton;
 	private Button _circleButton;
 	private Text _text;

@@ -35,20 +35,17 @@ public class PopUpController : MonoBehaviour
 		_ui = ui;
 		Image = GetComponentInChildren<Image>();
 		Text = GetComponentInChildren<Text>();
-		Debug.Log("[Debug] : Image = " + Image.gameObject.name + ", Text = " + Text.gameObject.name);	// 4debug
 	}
 
 	/// <summary>
-	/// GameObjectの生成と, 初期化を行うメソッド
+	/// 自身のGameObjectの複製と初期化を行うメソッド
 	/// </summary>
-	/// <param name="gameObject"></param>
-	/// <param name="defender"></param>
+	/// <param name="parent"></param>
 	/// <returns></returns>
-	private GameObject InstantiateWithInitialize(GameObject gameObject, Transform defender)
+	private GameObject Duplicate(Transform parent)
 	{
-		var res = Instantiate(gameObject, defender);
+		var res = Instantiate(gameObject, parent);
 		res.GetComponent<PopUpController>().Initialize(_bc, _ui);
-		Debug.Log("[Debug] : Image = " + res.GetComponent<PopUpController>().Image);	// 4debug
 		return res;
 	}
 
@@ -59,7 +56,7 @@ public class PopUpController : MonoBehaviour
 	/// <param name="damage">ダメージ量</param>
 	public void CreateDamagePopUp(Transform defender, int? damage)
 	{
-		var popUp = InstantiateWithInitialize(gameObject, defender);
+		var popUp = Duplicate(defender);
 
 		string text = damage.HasValue ? damage.ToString() : "miss";
 
@@ -72,7 +69,7 @@ public class PopUpController : MonoBehaviour
 	/// <param name="team"></param>
 	public void CreateCutInPopUp(Unit.Team team)
 	{
-		var popUp = InstantiateWithInitialize(gameObject, _ui.transform);
+		var popUp = Duplicate(_ui.transform);
 
 		string text = team.ToString() + " Phase";
 
@@ -88,7 +85,7 @@ public class PopUpController : MonoBehaviour
 	public void AttackEffectFactory(Unit attacker, List<Floor> targets, Attack attack)
 	{
 		// 攻撃エフェクトのファクトリーを、攻撃者とします。
-		var popUp = InstantiateWithInitialize(gameObject, _bc.transform);
+		var popUp = Duplicate(_bc.transform);
 
 		// ファクトリーでは不要なTextを消します
 		Destroy(popUp.GetComponent<PopUpController>().Text.gameObject);

@@ -13,7 +13,6 @@ public class ChargeEffectController : MonoBehaviour
 	private float _MaxAlpha = 0.5f;
 
 	// チャージ演出で使う画像
-	[SerializeField]
 	private Image _image;
 
 	// チャージ者管理で使う画像
@@ -26,11 +25,25 @@ public class ChargeEffectController : MonoBehaviour
 		_charger = new Dictionary<Unit, GameObject>();
 	}
 
+	/// <summary>
+	/// 初期化メソッド
+	/// </summary>
 	public void Initialize()
 	{
 		_image = GetComponentInChildren<Image>();
 	}
 
+	/// <summary>
+	/// 自身のGameObjectの複製と初期化を同時に行うメソッド
+	/// </summary>
+	/// <param name="parent"></param>
+	/// <returns></returns>
+	private GameObject Duplicate(Transform parent)
+	{
+		var res = Instantiate(gameObject, parent);
+		res.GetComponent<ChargeEffectController>().Initialize();
+		return res;
+	}
 
 	/// <summary>
 	/// チャージ演出をアタッチします
@@ -40,7 +53,7 @@ public class ChargeEffectController : MonoBehaviour
 	public void AttachChargeEffect(Unit chargeUnit)
 	{
 		// 複製作成
-		var factory = Instantiate(gameObject, chargeUnit.transform);
+		var factory = Duplicate(chargeUnit.transform);
 
 		StartCoroutine(factory.GetComponent<ChargeEffectController>().MainLoop());
 
@@ -54,7 +67,7 @@ public class ChargeEffectController : MonoBehaviour
 	public void AlwaysAttachEffect(Transform parent, float size = -1)
 	{
 		// 複製作成
-		var factory = Instantiate(gameObject, parent);
+		var factory = Duplicate(parent);
 		if(size > 0) factory.GetComponent<ChargeEffectController>()._MaxSize = size;
 
 		StartCoroutine(factory.GetComponent<ChargeEffectController>().MainLoop());
