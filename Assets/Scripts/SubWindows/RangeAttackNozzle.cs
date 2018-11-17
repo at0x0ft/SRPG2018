@@ -42,7 +42,7 @@ public class RangeAttackNozzle : SubWindow
 		_circleButton.onClick.AddListener(() => RotateRangeHighLight());
 
 		// ハイライトエフェクトくっつけます
-		_map.Ui.ChargeEffectController.AlwaysAttachEffect(_centerButton.transform, HighLightSize);
+		_map.UI.ChargeEffectController.AlwaysAttachEffect(_centerButton.transform, HighLightSize);
 	}
 
 

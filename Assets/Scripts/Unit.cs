@@ -54,7 +54,7 @@ public class Unit : MonoBehaviour
 	private UnitNames _unitName;
 	public UnitNames UnitName
 	{
-		get{ return _unitName; }
+		get { return _unitName; }
 	}
 
 	[SerializeField]
@@ -158,17 +158,17 @@ public class Unit : MonoBehaviour
 	private AttackStates _attackStates;
 	public AttackStates AttackState
 	{
-		get{ return _attackStates; }
+		get { return _attackStates; }
 		set
 		{
 			_attackStates = value;
-			if(value==AttackStates.Charging)
+			if(value == AttackStates.Charging)
 			{
-				_map.Ui.ChargeEffectController.AttachChargeEffect(this);
+				_map.UI.ChargeEffectController.AttachChargeEffect(this);
 			}
 			else
 			{
-				_map.Ui.ChargeEffectController.DetachChargeEffect(this);
+				_map.UI.ChargeEffectController.DetachChargeEffect(this);
 			}
 		}
 	}
@@ -284,7 +284,7 @@ public class Unit : MonoBehaviour
 			_units.ClearFocusingUnit();
 
 			// UIで作成してもらう以下の関数を呼び出す。 (移動量サブウィンドウはそのままにしておく.)
-			_map.Ui.UnitInfoWindow.Hide();
+			_map.UI.UnitInfoWindow.Hide();
 
 			// MoveFazeへの移行条件
 			if(_units.ActiveUnit == this)
@@ -302,17 +302,18 @@ public class Unit : MonoBehaviour
 			IsFocusing = true;
 
 			// FloorInfoWindowは非表示にする.
-			_map.Ui.FloorInfoWindow.Hide();
+			_map.UI.FloorInfoWindow.Hide();
 
 			// UIで作成してもらう以下の関数を呼び出す。
-			_map.Ui.UnitInfoWindow.Show(this);
+			_map.UI.UnitInfoWindow.Show(this);
 
 			// 移動量情報を表すウィンドウも追加で呼び出す.
-			_map.Ui.MoveAmountInfoWindow.Show(MaxMoveAmount, MoveAmount);
+			_map.UI.MoveAmountInfoWindow.Show(MaxMoveAmount, MoveAmount);
 		}
 	}
 
-	private void ClickBehaviorOnMoving() {
+	private void ClickBehaviorOnMoving()
+	{
 		if(_units.ActiveUnit != this) return;
 
 		_map.ClearHighlight();
@@ -321,7 +322,7 @@ public class Unit : MonoBehaviour
 		var attackCommandList = _units.ActiveUnit.GetAttackCommandsList();
 
 		// 攻撃一覧画面を作成する(UIに任せる)
-		_map.Ui.AttackSelectWindow.Show(attackCommandList);
+		_map.UI.AttackSelectWindow.Show(attackCommandList);
 
 		// 場面を移動する
 		_bsc.NextBattleState();
@@ -367,7 +368,7 @@ public class Unit : MonoBehaviour
 
 		if(!success) return;
 
-	Finish:
+		Finish:
 		// 攻撃が終わるまではLoadFaze
 		_bsc.NextBattleState();
 	}
@@ -410,7 +411,7 @@ public class Unit : MonoBehaviour
 		CoordinatePair = new KeyValuePair<Vector2Int, Vector3>(destLocalCoordinate, _map.ConvertLocal2Tranform(destLocalCoordinate));
 
 		// 移動量サブウィンドウを再度表示 (移動量の変化を見るため)
-		_map.Ui.MoveAmountInfoWindow.Show(MaxMoveAmount, MoveAmount);
+		_map.UI.MoveAmountInfoWindow.Show(MaxMoveAmount, MoveAmount);
 	}
 
 	/// <summary>
@@ -477,7 +478,7 @@ public class Unit : MonoBehaviour
 	public void Damage(int? damage)
 	{
 		// ダメージ表記をする
-		_map.Ui.PopUp.CreateDamagePopUp(transform, damage);
+		_map.UI.PopUpController.CreateDamagePopUp(transform, damage);
 
 		if(!damage.HasValue) return;
 		// 回避されてなかったら、ダメージ計算を行う

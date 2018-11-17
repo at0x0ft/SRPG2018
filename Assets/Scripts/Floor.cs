@@ -181,13 +181,13 @@ public class Floor : MonoBehaviour
 		_units.ClearFocusingUnit();
 
 		// ユニット詳細サブウィンドウを閉じる.
-		_map.Ui.UnitInfoWindow.Hide();
+		_map.UI.UnitInfoWindow.Hide();
 
 		// Floor詳細情報サブウィンドウを開く.
-		_map.Ui.FloorInfoWindow.Show(Type, _mc.GetFloorCost(this), (int)(_dc.GetReduceRate(this) * 100), _dc.GetAvoidRate(this));
+		_map.UI.FloorInfoWindow.Show(Type, _mc.GetFloorCost(this), (int)(_dc.GetReduceRate(this) * 100), _dc.GetAvoidRate(this));
 
 		// 移動量サブウィンドウも閉じる
-		_map.Ui.MoveAmountInfoWindow.Hide();
+		_map.UI.MoveAmountInfoWindow.Hide();
 	}
 
 	/// <summary>
@@ -205,7 +205,7 @@ public class Floor : MonoBehaviour
 		var attackCommandList = _units.ActiveUnit.GetAttackCommandsList();
 
 		// 攻撃一覧画面を作成する(UIに任せる)
-		_map.Ui.AttackSelectWindow.Show(attackCommandList);
+		_map.UI.AttackSelectWindow.Show(attackCommandList);
 
 		// 場面を移動する
 		_bsc.NextBattleState();

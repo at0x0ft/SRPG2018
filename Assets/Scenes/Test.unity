@@ -24668,7 +24668,7 @@ MonoBehaviour:
   _endCommandButton: {fileID: 844781610}
   _touchBlocker: {fileID: 1395844252}
   _activeUnitIcon: {fileID: 1778857781}
-  _popUp: {fileID: 1206793614}
+  _popUpController: {fileID: 1206793614}
   _chargeEffectController: {fileID: 1532108555}
   _turnSetInfoWindow: {fileID: 523639774}
   _unitInfoWindow: {fileID: 791872175}
@@ -26359,10 +26359,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2177d53ea6debf349bb46692d4790cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ui: {fileID: 1150024740}
-  _board: {fileID: 0}
-  _image: {fileID: 1577890393}
-  _text: {fileID: 1023888843}
 --- !u!1 &1222841862
 GameObject:
   m_ObjectHideFlags: 0
@@ -36162,6 +36158,14 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1744682139762094, guid: 936c1f1529c4ba94d9e077fa60d134da, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1460467097201034, guid: 936c1f1529c4ba94d9e077fa60d134da, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 936c1f1529c4ba94d9e077fa60d134da, type: 2}

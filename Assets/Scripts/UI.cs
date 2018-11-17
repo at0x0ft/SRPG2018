@@ -30,10 +30,10 @@ public class UI : MonoBehaviour
 	}
 
 	[SerializeField]
-	private PopUpController _popUp;
-	public PopUpController PopUp
+	private PopUpController _popUpController;
+	public PopUpController PopUpController
 	{
-		get{ return _popUp; }
+		get{ return _popUpController; }
 	}
 
 	[SerializeField]
@@ -99,15 +99,6 @@ public class UI : MonoBehaviour
 		get { return _gameEndPanel; }
 	}
 
-	public void Initialize(Units units, AttackController ac, Map map, BattleStateController bsc)
-	{
-		_activeUnitIcon.Initialize();
-		_rangeAttackNozzle.Initialize(ac, units, map, bsc);
-		_attackSelectWindow.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
-		_gameEndPanel.gameObject.SetActive(false);
-		_gameEndPanel.Initialize();
-	}
-
 	/// <summary>
 	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
 	/// </summary>
@@ -117,6 +108,8 @@ public class UI : MonoBehaviour
 		if(!_endCommandButton) Debug.LogError("[Error] : EndCommandButton is not set!");
 		if(!_touchBlocker) Debug.LogError("[Error] : Touch Blocker is not set!");
 		if(!_activeUnitIcon) Debug.LogError("[Error] : ActiveUnitIcon is not set!");
+		if(!_popUpController) Debug.LogError("[Error] : PopUpController is not set!");
+		if(!_chargeEffectController) Debug.LogError("[Error] : ChargeEffectController is not set!");
 
 		if(!_turnSetInfoWindow) Debug.LogError("[Error] : TurnSetInfoWindow is not set!");
 		_turnSetInfoWindow.CheckSerializedMember();
@@ -137,6 +130,24 @@ public class UI : MonoBehaviour
 		_attackSelectWindow.CheckSerializedMember(units.GetComponentsInChildren<Unit>());
 
 		if(!_gameEndPanel) Debug.LogError("[Error] : GameEndPanel is not set!");
+	}
+
+	/// <summary>
+	/// 初期化メソッド
+	/// </summary>
+	/// <param name="units"></param>
+	/// <param name="ac"></param>
+	/// <param name="map"></param>
+	/// <param name="bsc"></param>
+	public void Initialize(BoardController bc, Units units, AttackController ac, Map map, BattleStateController bsc)
+	{
+		_activeUnitIcon.Initialize();
+		_popUpController.Initialize(bc, this);
+		_chargeEffectController.Initialize();
+		_rangeAttackNozzle.Initialize(ac, units, map, bsc);
+		_attackSelectWindow.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
+		_gameEndPanel.gameObject.SetActive(false);
+		_gameEndPanel.Initialize();
 	}
 
 	public void NextUnit()

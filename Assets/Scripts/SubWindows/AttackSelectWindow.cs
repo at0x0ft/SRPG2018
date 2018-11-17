@@ -24,7 +24,7 @@ public class AttackSelectWindow : SubWindow
 		Units units,
 		AttackController ac,
 		RangeAttackNozzle ran,
-		AttackInfoWindow aiw, 
+		AttackInfoWindow aiw,
 		Map map)
 	{
 		_units = units;
@@ -79,7 +79,7 @@ public class AttackSelectWindow : SubWindow
 			_ran.Show(RangeAttackNozzle.AccessReason.HighAttack);
 
 			//(Set2だったら問題)
-			if(_units.ActiveUnit.AttackState!=Unit.AttackStates.LittleAttack)
+			if(_units.ActiveUnit.AttackState != Unit.AttackStates.LittleAttack)
 				Debug.LogError("Set2で強攻撃を選択できるようになってはいませんか？");
 		}
 		else if(atk.Scale == Attack.AttackScale.Range)
@@ -92,7 +92,7 @@ public class AttackSelectWindow : SubWindow
 			_ran.Hide();
 		}
 	}
-	
+
 	/// <summary>
 	/// 目的の攻撃を選択します。AI.cs向けです
 	/// </summary>
@@ -100,7 +100,7 @@ public class AttackSelectWindow : SubWindow
 	/// <returns>攻撃可否</returns>
 	public bool SelectAttack(Attack attack)
 	{
-		for(int i = 0; i < _displayedAttacks.Count(); i++) 
+		for(int i = 0; i < _displayedAttacks.Count(); i++)
 		{
 			if(_displayedAttacks[i].Key == attack)
 			{

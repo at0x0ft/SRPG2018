@@ -11,7 +11,7 @@ public class Map : MonoBehaviour
 	public int WidthLimit { get; private set; }
 	public int HeightLimit { get; private set; }
 	public Vector2Int FloorSize { get; private set; }
-	public UI Ui{ get; private set; }
+	public UI UI { get; private set; }
 
 	public List<Floor> Floors { get; private set; }
 
@@ -38,8 +38,6 @@ public class Map : MonoBehaviour
 	/// <returns></returns>
 	public void CheckSerializedMember()
 	{
-		if(_movableColor == null) Debug.LogError("[Error] : Movable Color is not set!");
-		if(_attackableColor == null) Debug.LogError("[Error] : Attackable Color is not set!");
 		// FloorSizeを初期化
 		FloorSize = new Vector2Int();
 
@@ -81,7 +79,7 @@ public class Map : MonoBehaviour
 	{
 		_mc = mc;
 		_units = units;
-		Ui = ui;
+		UI = ui;
 
 		// マス全てをFloorsに登録
 		Floors = new List<Floor>();
@@ -97,7 +95,7 @@ public class Map : MonoBehaviour
 			.Select(c => new Vector2Int((int)c.x, (int)c.y))
 			.Distinct().Count()
 			> 1)
-		WidthLimit = Floors.Max(floor => floor.X);
+			WidthLimit = Floors.Max(floor => floor.X);
 		HeightLimit = Floors.Max(floor => floor.Y);
 	}
 

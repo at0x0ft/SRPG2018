@@ -19,24 +19,23 @@ using UnityEngine.UI;
 /// </summary>
 public class PopUpController : MonoBehaviour
 {
-	[SerializeField]
+	private BoardController _bc;
 	private UI _ui;
+	public Image Image { get; private set; }
+	public Text Text { get; private set; }
 
-	[SerializeField]
-	private BoardController _board;
-
-	[SerializeField]
-	private Image _image;
-	public Image Image
+	/// <summary>
+	/// 初期化メソッド
+	/// </summary>
+	/// <param name="bc"></param>
+	/// <param name="ui"></param>
+	public void Initialize(BoardController bc, UI ui)
 	{
-		get { return _image; }
-	}
-
-	[SerializeField]
-	private Text _text;
-	public Text Text
-	{
-		get { return _text; }
+		_bc = bc;
+		_ui = ui;
+		Image = GetComponentInChildren<Image>();
+		Text = GetComponentInChildren<Text>();
+		Debug.Log("[Debug] : Image = " + Image.gameObject.name + ", Text = " + Text.gameObject.name);	// 4debug
 	}
 
 	/// <summary>
@@ -75,10 +74,10 @@ public class PopUpController : MonoBehaviour
 	public void AttackEffectFactory(Unit attacker, List<Floor> targets, Attack attack)
 	{
 		// 攻撃エフェクトのファクトリーを、攻撃者とします。
-		var popUp = Instantiate(gameObject, _board.transform);
+		var popUp = Instantiate(gameObject, _bc.transform);
 
 		// ファクトリーでは不要なTextを消します
-		Destroy(popUp.GetComponent<PopUpController>()._text.gameObject);
+		Destroy(popUp.GetComponent<PopUpController>().Text.gameObject);
 
 		// popUpのanchorを左下に設定.
 		UI.SetAnchorLeftBottom(popUp.GetComponent<RectTransform>());
@@ -95,10 +94,10 @@ public class PopUpController : MonoBehaviour
 	public void AttackEffectPopUp(Transform parent, Attack attack, List<Sprite> sprites, Vector3 pos, Vector3? opt = null)
 	{
 		// 攻撃エフェクトの親を、ファクトリーとします。
-		var popUp = Instantiate(_image.gameObject, parent);
+		var popUp = Instantiate(Image.gameObject, parent);
 
 		// 元のImageは不要なため消す.
-		_image.gameObject.SetActive(false);
+		Image.gameObject.SetActive(false);
 
 		popUp.GetComponent<AttackEffect>().Initialize(attack, sprites, pos, opt);
 	}
