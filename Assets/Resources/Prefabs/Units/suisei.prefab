@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 114203118150593932}
   - component: {fileID: 114768215680186374}
   m_Layer: 5
-  m_Name: suisei 1
+  m_Name: suisei
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
