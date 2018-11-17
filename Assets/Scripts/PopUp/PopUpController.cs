@@ -39,13 +39,27 @@ public class PopUpController : MonoBehaviour
 	}
 
 	/// <summary>
+	/// GameObjectの生成と, 初期化を行うメソッド
+	/// </summary>
+	/// <param name="gameObject"></param>
+	/// <param name="defender"></param>
+	/// <returns></returns>
+	private GameObject InstantiateWithInitialize(GameObject gameObject, Transform defender)
+	{
+		var res = Instantiate(gameObject, defender);
+		res.GetComponent<PopUpController>().Initialize(_bc, _ui);
+		Debug.Log("[Debug] : Image = " + res.GetComponent<PopUpController>().Image);	// 4debug
+		return res;
+	}
+
+	/// <summary>
 	/// ダメージのポップアップを作ります
 	/// </summary>
 	/// <param name="defender">ダメージを受けたユニット</param>
 	/// <param name="damage">ダメージ量</param>
 	public void CreateDamagePopUp(Transform defender, int? damage)
 	{
-		var popUp = Instantiate(gameObject, defender);
+		var popUp = InstantiateWithInitialize(gameObject, defender);
 
 		string text = damage.HasValue ? damage.ToString() : "miss";
 
@@ -58,7 +72,7 @@ public class PopUpController : MonoBehaviour
 	/// <param name="team"></param>
 	public void CreateCutInPopUp(Unit.Team team)
 	{
-		var popUp = Instantiate(gameObject, _ui.transform);
+		var popUp = InstantiateWithInitialize(gameObject, _ui.transform);
 
 		string text = team.ToString() + " Phase";
 

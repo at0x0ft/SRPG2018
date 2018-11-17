@@ -26,6 +26,11 @@ public class ChargeEffectController : MonoBehaviour
 		_charger = new Dictionary<Unit, GameObject>();
 	}
 
+	public void Initialize()
+	{
+		_image = GetComponentInChildren<Image>();
+	}
+
 
 	/// <summary>
 	/// チャージ演出をアタッチします
@@ -36,7 +41,7 @@ public class ChargeEffectController : MonoBehaviour
 	{
 		// 複製作成
 		var factory = Instantiate(gameObject, chargeUnit.transform);
-		
+
 		StartCoroutine(factory.GetComponent<ChargeEffectController>().MainLoop());
 
 		_charger.Add(chargeUnit, factory);
