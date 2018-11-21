@@ -208,29 +208,6 @@ public class Unit : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 初期配置マスにUnitを設定. (デッドロック回避のため遅延処理)
-	/// </summary>
-	IEnumerator SetInitialPosition()
-	{
-		// （参照先の値が初期化された後に実行しなければいけないため、遅延処理しています。
-		//  デッドロックが怖いため、あくまで暫定的です。）
-		while(true)
-		{
-			var pair = _initialFloor.CoordinatePair;
-			if(pair.Key.x == 0 && pair.Key.y == 0 && pair.Value.x == 0 && pair.Value.y == 0 && pair.Value.z == 0)
-			{
-				//Debug.Log("stay");  // 4debug
-				yield return new WaitForSeconds(0.1f);
-			}
-			else
-			{
-				CoordinatePair = pair;
-				break;
-			}
-		}
-	}
-
-	/// <summary>
 	/// 初期化メソッド
 	/// </summary>
 	public void Initialize(Map map, Units units, MoveController mc, AttackController ac, BattleStateController bsc)
@@ -248,7 +225,6 @@ public class Unit : MonoBehaviour
 
 		// 初期配置マスにUnitを設定する
 		CoordinatePair = _initialFloor.CoordinatePair;
-		StartCoroutine(SetInitialPosition());
 
 		// 体力の初期化
 		Life = MaxLife;
