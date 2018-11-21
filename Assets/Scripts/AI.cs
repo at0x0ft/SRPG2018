@@ -52,7 +52,7 @@ public class AI : MonoBehaviour
 	private void Awake()
 	{
 		_speed = GetComponentInChildren<Slider>();
-		_speed.value = 0.5f;
+		if(_speed != null) _speed.value = 0.5f; // 1vs1では速度バーが無かったため
 		waitSeconds = MaxWaitSeconds;
 	}
 
@@ -448,7 +448,10 @@ public class AI : MonoBehaviour
 
 	private void Update()
 	{
-		var v = _speed.value;
-		waitSeconds = Mathf.Lerp(MaxWaitSeconds, MinWaitSeconds, v);
+		if(_speed!=null) //　1vs1では速度バーが無かったため
+		{
+			var v = _speed.value;
+			waitSeconds = Mathf.Lerp(MaxWaitSeconds, MinWaitSeconds, v);
+		}
 	}
 }
