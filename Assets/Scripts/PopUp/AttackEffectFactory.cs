@@ -234,7 +234,7 @@ public class AttackEffectFactory : BasePopUp
 	{
 		foreach(var target in _targets)
 		{
-			MakeEffect(target.transform.localPosition);
+			MakeEffect(target.CoordinatePair.Value);
 		}
 		yield break;
 	}

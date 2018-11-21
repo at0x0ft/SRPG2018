@@ -92,6 +92,7 @@ public class PopUpController : MonoBehaviour
 
 		// popUpのanchorを左下に設定.
 		UI.SetAnchorLeftBottom(popUp.GetComponent<RectTransform>());
+		popUp.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
 		// 初期化
 		popUp.GetComponent<AttackEffectFactory>().Initialize(attacker, targets, attack);

@@ -56,7 +56,7 @@ public class Floor : MonoBehaviour
 		}
 		private set
 		{
-			transform.localPosition = value.Value;
+			GetComponent<RectTransform>().anchoredPosition = value.Value;
 			_coordinatePair = value;
 		}
 	}
