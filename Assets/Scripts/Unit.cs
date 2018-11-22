@@ -375,10 +375,11 @@ public class Unit : MonoBehaviour
 	/// </summary>
 	/// <param name="localX"></param>
 	/// <param name="localY"></param>
-	public void MoveTo(int localX, int localY)
+	/// <param name="cost"></param>
+	public void MoveTo(int localX, int localY, int cost)
 	{
 		// ユニットの移動量を減らし,
-		MoveAmount -= Math.Abs(X - localX) + Math.Abs(Y - localY);
+		MoveAmount -= cost;
 
 		// 相対座標と, transform座標を更新する.
 		var destLocalCoordinate = new Vector2Int(localX, localY);
