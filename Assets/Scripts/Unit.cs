@@ -110,8 +110,7 @@ public class Unit : MonoBehaviour
 	}
 
 	public int MaxMoveAmount { get; private set; }
-	private int _moveAmount;    // 4debug (この値はpremasterにマージする時には消すこと.)
-	public int MoveAmount { get { return _moveAmount; } set { /*Debug.Log("[Debug] Updated as : " + value);*/ _moveAmount = value; } }  // 4debug (この値は, premasterにマージする前に, 元に戻すこと.)
+	public int MoveAmount { get; set; }
 	public KeyValuePair<Attack, int>? PlanningAttack { get; set; }
 	private Dictionary<BattleStates, Action> ClickBehaviors;
 
