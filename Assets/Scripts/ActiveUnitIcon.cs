@@ -24,7 +24,7 @@ public class ActiveUnitIcon : MonoBehaviour
 	/// <param name="unit"></param>
 	public void ChangeIconTarget(Transform unit)
 	{
-		transform.parent = unit;
+		transform.SetParent(unit);
 		UI.SetAnchorCenter(GetComponent<RectTransform>());
 		GetComponent<RectTransform>().anchoredPosition = new Vector2Int();
 	}

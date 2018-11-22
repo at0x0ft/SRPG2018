@@ -30,7 +30,6 @@ public class Map : MonoBehaviour
 	}
 
 	private MoveController _mc;
-	private Units _units;
 
 	/// <summary>
 	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
@@ -78,7 +77,6 @@ public class Map : MonoBehaviour
 	public void Initilize(BattleStateController bsc, MoveController mc, DamageCalculator dc, Units units, UI ui)
 	{
 		_mc = mc;
-		_units = units;
 		UI = ui;
 
 		// マス全てをFloorsに登録

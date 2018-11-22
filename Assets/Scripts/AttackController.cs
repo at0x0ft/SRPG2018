@@ -12,16 +12,13 @@ namespace AC
 
 		private DamageCalculator _dc;
 		private Map _map;
-		private Units _units;
-
 
 		// ==========関数==========
 
-		public BaseAttackController(DamageCalculator dc, Map map, Units units)
+		public BaseAttackController(DamageCalculator dc, Map map)
 		{
 			_dc = dc;
 			_map = map;
-			_units = units;
 		}
 
 		/// <summary>
@@ -215,7 +212,7 @@ public class AttackController
 
 	public AttackController(Map map, Units units, DamageCalculator dc)
 	{
-		var bac = new AC.BaseAttackController(dc, map, units);
+		var bac = new AC.BaseAttackController(dc, map);
 		_sac = new AC.SingleAttackController(map, bac);
 		_rac = new AC.RangeAttackController(map, units, bac);
 		_map = map;

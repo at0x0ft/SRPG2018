@@ -195,6 +195,8 @@ public class AttackEffect : BasePopUp
 			var pos = Vector3.Lerp(attacker, _target, rate);
 			pos.y += flyRate * FLY_HEIGHT;
 
+			Debug.Log("[Debug] : In MARock, Vector3 attacker = " + attacker + ", _target = " + _target + ", rate = " + rate);	// 4debug
+
 			_rect.anchoredPosition = pos;
 		};
 
