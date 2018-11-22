@@ -293,16 +293,16 @@ public class AttackController
 			res = false;
 		}
 
-		// 攻撃が強攻撃だったら、強攻撃エフェクトを消します
-		if(attack.Kind == global::Attack.Level.High)
-		{
-			_map.UI.ChargeEffectController.DetachChargeEffect(attacker);
-		}
-
 		// 攻撃が成功したなら、攻撃エフェクトを作動させる
 		if(res)
 		{
 			_map.UI.PopUpController.AttackEffectFactory(attacker, targets, attack);
+
+			// 攻撃が強攻撃だったら、強攻撃エフェクトを消します
+			if(attack.Kind == global::Attack.Level.High)
+			{
+				_map.UI.ChargeEffectController.DetachChargeEffect(attacker);
+			}
 		}
 
 		return res;
