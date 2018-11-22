@@ -7,18 +7,19 @@ using UnityEngine.UI;
 /// PopUpの実体を作成するクラスです。
 /// --------------------------------
 /// 同じオブジェクトにアタッチしていると想定しているもの
-/// - Image(背景画像)
 /// - DamagePopUp.cs
 /// - CutInPopUp.cs
 ///
 /// 子オブジェクトにアタッチしていると想定しているもの
 /// - Text (名称:Text)
+/// - AttackEffectFactory(以降 : AEF)
 ///
 /// これさえ守れば、PopUpFactory(現在これを実現しているprefab)は
 /// Hierarchy上のどこでも動きます。
 /// </summary>
 public class PopUpController : MonoBehaviour
 {
+	private AttackEffectFactory _aef;
 	private BoardController _bc;
 	private UI _ui;
 	private Vector2Int _floorSize;
@@ -35,6 +36,7 @@ public class PopUpController : MonoBehaviour
 		_bc = bc;
 		_ui = ui;
 		_floorSize = floorSize;
+		_aef = GetComponentInChildren<AttackEffectFactory>();
 		Image = GetComponentInChildren<Image>();
 		Text = GetComponentInChildren<Text>();
 	}
@@ -79,43 +81,21 @@ public class PopUpController : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 攻撃エフェクトを発生させるオブジェクトを作成します(外部提供側)
+	/// 攻撃エフェクトを発生させるオブジェクトを作成します
 	/// </summary>
 	/// <param name="attacker">攻撃者</param>
 	/// <param name="targets">攻撃場所</param>
 	/// <param name="attack">攻撃内容</param>
-	public void AttackEffectFactory(Unit attacker, List<Floor> targets, Attack attack)
+	public void CreateAttackEffectFactory(Unit attacker, List<Floor> targets, Attack attack)
 	{
-		// 攻撃エフェクトのファクトリーを、攻撃者とします。
-		var popUp = Duplicate(_bc.transform);
-
-		// ファクトリーでは不要なTextを消します
-		Destroy(popUp.GetComponent<PopUpController>().Text.gameObject);
-
+		// 攻撃エフェクトのファクトリーを複製します
+		var popUp = Instantiate(_aef.gameObject, _bc.transform);
+		
 		// popUpのanchorを左下に設定.
 		UI.SetAnchorLeftBottom(popUp.GetComponent<RectTransform>());
 		popUp.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
 		// 初期化
-		popUp.GetComponent<AttackEffectFactory>().Initialize(attacker, targets, attack);
-	}
-
-	/// <summary>
-	/// 攻撃エフェクトを"実際に"発生させます(内部使用側)
-	/// </summary>
-	/// <param name="parent">親オブジェクト(Factory)</param>
-	/// <param name="attack">攻撃内容</param>
-	public void AttackEffectPopUp(Transform parent, Attack attack, List<Sprite> sprites, Vector3 pos, Vector3? opt = null)
-	{
-		// 攻撃エフェクトの親を、ファクトリーとします。
-		var popUp = Instantiate(Image.gameObject, parent);
-
-		// 元のImageは不要なため消す.
-		Image.gameObject.SetActive(false);
-
-		// popUp画像(Image)のanchorを左下に設定.
-		UI.SetAnchorLeftBottom(popUp.GetComponent<RectTransform>());
-
-		popUp.GetComponent<AttackEffect>().Initialize(attack, sprites, _floorSize, pos, opt);
+		popUp.GetComponent<AttackEffectFactory>().Initialize(attacker, targets, _floorSize, attack);
 	}
 }

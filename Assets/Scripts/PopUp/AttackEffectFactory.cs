@@ -32,19 +32,22 @@ public enum AttackEffectKind
 /// -------------------------
 /// 構造的に、上の関数が下の関数を呼び出す感じが読みやすかったのでそうしてます。
 /// </summary>
-public class AttackEffectFactory : BasePopUp
+public class AttackEffectFactory : MonoBehaviour
 {
-
 	// ==========変数==========
 	private AttackEffectKind _effect;
 	private Unit _attacker;
 	private Attack _attack;
 	private List<Floor> _targets;
 	private List<Sprite> _sprites;
+	private Vector2Int _floorSize;
 
+	private AttackEffect _ae;
 	private RectTransform _attackerRect;
+
 	private Dictionary<AttackEffectKind, string> _imageNames;
-	private Dictionary<AttackEffectKind, Func<IEnumerator>> _effectFuncs;
+	private Dictionary<AttackEffectKind, Action> _effectFuncs;
+
 
 
 	// ==========準備関数==========
@@ -54,23 +57,37 @@ public class AttackEffectFactory : BasePopUp
 	/// <param name="attacker">攻撃者</param>
 	/// <param name="targets">攻撃対象位置</param>
 	/// <param name="attack">エフェクトを付ける攻撃</param>
-	public void Initialize(Unit attacker, List<Floor> targets, Attack attack)
+	public void Initialize(Unit attacker, List<Floor> targets, Vector2Int floorSize, Attack attack)
 	{
-		_effect = attack.EffectKind;
-		_targets = targets;
-		_attacker = attacker;
-		_attack = attack;
-		gameObject.name = attack.name + "'s effect";
-		_attackerRect = _attacker.GetComponent<RectTransform>();
+		DataPreparation(attacker, targets, floorSize, attack);
 
-		// 諸々を関連付けます
-		AssociateEffectKindWithImageName();
-		AssociateEffectKindWithFactoryFunc();
+		ValidityConfirmation();
 
-		// 動作開始
-		Initialize();
+		// ファクトリーを実行
+		_effectFuncs[_effect]();
 	}
 
+	/// <summary>
+	/// 今後使用する変数の初期設定を行います
+	/// </summary>
+	private void DataPreparation(Unit attacker, List<Floor> targets, Vector2Int _floorSize, Attack attack)
+	{
+		// 引数処理
+		_effect = attack.EffectKind; // 攻撃エフェクトの種類
+		_targets = targets;          // 攻撃先一覧
+		_attacker = attacker;        // 攻撃者
+		_attack = attack;            // 攻撃内容
+		_floorSize = _floorSize;     // 1マスの大きさ
+		gameObject.name = attack.name + "'s effect";
+
+		// クラス内部処理
+		_ae = GetComponentInChildren<AttackEffect>();            // 攻撃エフェクトの金型
+		_attackerRect = _attacker.GetComponent<RectTransform>(); // 攻撃起点情報
+		AssociateEffectKindWithImageName();                      // エフェクト画像の初期設定
+		AssociateEffectKindWithFactoryFunc();                    // エフェクト動作の初期設定
+		_sprites = GetSprites();                                 // 画像取り込み
+	}
+	
 	/// <summary>
 	/// 攻撃エフェクト画像名を、各enumと対応付けます
 	/// </summary>
@@ -101,7 +118,7 @@ public class AttackEffectFactory : BasePopUp
 	/// </summary>
 	private void AssociateEffectKindWithFactoryFunc()
 	{
-		_effectFuncs = new Dictionary<AttackEffectKind, Func<IEnumerator>>();
+		_effectFuncs = new Dictionary<AttackEffectKind, Action>();
 
 		// 特に凝ったことをしないエフェクト達
 		_effectFuncs[AttackEffectKind.Spiral] =
@@ -121,27 +138,6 @@ public class AttackEffectFactory : BasePopUp
 		_effectFuncs[AttackEffectKind.NotesEdge] = NotesEdge;
 		_effectFuncs[AttackEffectKind.HellTone] = HellTone;
 		_effectFuncs[AttackEffectKind.HolyLiric] = HolyLiryc;
-	}
-
-
-	// ==========動作関数==========
-	/// <summary>
-	/// 中心となる実行部分
-	/// 終了条件がこれなので、開始直後にInstanceを1つは複製しましょう
-	/// </summary>
-	protected override IEnumerator Move()
-	{
-		// 画像取得
-		_sprites = GetSprites();
-
-		// データの正当性確認
-		ValidityConfirmation();
-
-		// ファクトリーを実行
-		yield return StartCoroutine(_effectFuncs[_effect]());
-
-		// エフェクト(実体)終了待機
-		while(transform.childCount > 1) yield return null;
 	}
 
 	/// <summary>
@@ -210,15 +206,28 @@ public class AttackEffectFactory : BasePopUp
 		}
 	}
 
+
+
+	// ==========動作定義補助関数==========
 	/// <summary>
-	/// (お助け関数)
+	/// 特定の位置達に、1通りの画像群で一斉にエフェクトを表現する
+	/// </summary>
+	/// <returns></returns>
+	private void NormalEffectMaker()
+	{
+		foreach(var target in _targets)
+		{
+			MakeEffect(target.CoordinatePair.Value);
+		}
+	}
+
+	/// <summary>
 	/// 特定の位置にエフェクトを作成します
 	/// </summary>
 	/// <param name="target">エフェクト作成位置</param>
 	private void MakeEffect(Vector3 target, List<Sprite> mySprites = null)
 	{
-		GetComponent<PopUpController>().AttackEffectPopUp(
-			transform,
+		AttackEffectPopUp(
 			_attack,
 			(mySprites ?? _sprites),
 			target
@@ -226,21 +235,23 @@ public class AttackEffectFactory : BasePopUp
 	}
 
 	/// <summary>
-	/// (お助け関数)
-	/// 特定の位置達に、1通りの画像群で一斉にエフェクトを表現する
+	/// 攻撃エフェクトを"実際に"発生させます
 	/// </summary>
-	/// <returns></returns>
-	private IEnumerator NormalEffectMaker()
+	/// <param name="attack">攻撃内容</param>
+	public void AttackEffectPopUp(Attack attack, List<Sprite> sprites, Vector3 pos, Vector3? opt = null)
 	{
-		foreach(var target in _targets)
-		{
-			MakeEffect(target.CoordinatePair.Value);
-		}
-		yield break;
+		// 攻撃エフェクトの親に、自身を設定します
+		var effect = Instantiate(_ae.gameObject, transform);
+		
+		// popUp画像(Image)のanchorを左下に設定.
+		UI.SetAnchorLeftBottom(effect.GetComponent<RectTransform>());
+
+		effect.GetComponent<AttackEffect>().Initialize(attack, sprites, , pos, opt);
 	}
 
 
-	// ==========個別変数==========
+
+	// ==========動作定義関数==========
 	// みすちゃん用
 	private IEnumerator MARock()
 	{
