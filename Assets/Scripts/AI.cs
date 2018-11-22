@@ -159,8 +159,8 @@ public class AI : MonoBehaviour
 		.ToList();
 		var enemy = _units.ActiveUnit;
 		var movable = _map.GetMovableFloors();
-		Debug.Log(players.Count);	// 4debug
-		// 移動できない場合
+		Debug.Log(players.Count);   // 4debug
+									// 移動できない場合
 		if(!movable.Any()) return null;
 
 		var tmp = movable.Where(f => f.Unit == null).ToList(); // ユニットの居るマスには移動しない
@@ -238,10 +238,10 @@ public class AI : MonoBehaviour
 		var attacker = _units.ActiveUnit;
 
 		return attacker.GetAttackCommandsList()
-		.Where(pair => pair.Value)
-		.Select(pair => pair.Key)
-		.Where(attack => CanHitAttack(attack))
-		.ToList();
+			.Where(pair => pair.Value)
+			.Select(pair => pair.Key)
+			.Where(attack => CanHitAttack(attack))
+			.ToList();
 	}
 
 	/// <summary>
