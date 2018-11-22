@@ -197,12 +197,13 @@ public class Unit : MonoBehaviour
 	/// <returns></returns>
 	public void CheckSerializedMember()
 	{
-		if(MaxLife < 0) Debug.LogWarning("[Warning] : MaxLife is 0 or negative value!");
-		if(!_type) Debug.LogError("[Error] : Type is not set!");
-		if(!_initialFloor) Debug.LogError("[Error] : InitialFloor is not set!");
+		if(MaxLife < 0) Debug.LogWarning("[Warning] : " + gameObject.name + "'s MaxLife is 0 or negative value!");
+		if(!_type) Debug.LogError("[Error] : " + gameObject.name + "'s Type is not set!");
+		if(!_initialFloor) Debug.LogError("[Error] : " + gameObject.name + "'s initialFloor is not set!");
+		if(_initialFloor.Type == Floor.Feature.Unmovable) Debug.LogError("[Error] : " + gameObject.name + "'s initialFloor is Unmovable!");
 		foreach(var attack in Attacks)
 		{
-			if(!attack) Debug.LogError("[Error] : Attack is not fully set!");
+			if(!attack) Debug.LogError("[Error] : " + gameObject.name + "'s attack is not fully set!");
 		}
 	}
 
