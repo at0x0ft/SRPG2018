@@ -29,8 +29,6 @@ public abstract class BasePopUp : MonoBehaviour
 		// テキストと背景画像の準備
 		SetUpImage();
 
-		Debug.Log(gameObject.name + " : " + GetComponent<RectTransform>().position);
-
 		// 動作開始
 		StartCoroutine(Act());
 	}

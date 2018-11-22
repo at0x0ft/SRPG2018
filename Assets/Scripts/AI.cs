@@ -235,10 +235,10 @@ public class AI : MonoBehaviour
 		var now = attacker.Floor.CoordinatePair.Key;
 
 		return attacker.GetAttackCommandsList()
-		.Where(pair => pair.Value)
-		.Select(pair => pair.Key)
-		.Where(attack => IsPlayerIn(AttackReach(now, attack)))
-		.ToList();
+			.Where(pair => pair.Value)
+			.Select(pair => pair.Key)
+			.Where(attack => IsPlayerIn(AttackReach(now, attack)))
+			.ToList();
 	}
 
 	/// <summary>

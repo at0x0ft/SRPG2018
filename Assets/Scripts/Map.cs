@@ -136,8 +136,8 @@ public class Map : MonoBehaviour
 		// 移動可能なマスを計算し, 一つずつマスを展開
 		foreach(var info in infos)
 		{
-			var Floor = GetFloor(info.Key.X, info.Key.Y);
-			Floor.IsMovable = true;
+			var floor = GetFloor(info.Key.X, info.Key.Y);
+			if(floor.Type != Floor.Feature.Unmovable) floor.IsMovable = true;
 		}
 	}
 
@@ -162,10 +162,13 @@ public class Map : MonoBehaviour
 	/// </summary>
 	public void ClearHighlight()
 	{
-		foreach(var Floor in Floors)
+		foreach(var floor in Floors)
 		{
-			Floor.IsAttackable = false;
-			Floor.IsMovable = false;
+			if(floor.Type != Floor.Feature.Unmovable)
+			{
+				floor.IsAttackable = false;
+				floor.IsMovable = false;
+			}
 		}
 	}
 
