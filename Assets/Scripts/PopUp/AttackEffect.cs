@@ -304,7 +304,7 @@ public class AttackEffect : MonoBehaviour
 		);
 	}
 
-	private Sequence NotesEdge()
+	private void NotesEdge()
 	{
 		const float MAX_DIST = 100f;  // 飛距離
 		const float existTime = 0.6f; // 表示時間
@@ -315,50 +315,47 @@ public class AttackEffect : MonoBehaviour
 		rot.z = 90;
 		transform.eulerAngles = rot;
 
-		// 毎フレームすること
-		Action<float> func = (time) =>
-		{
-
-			var pos = _target;
-			pos.x -= MAX_DIST * Progress(time);
-			_rect.anchoredPosition = pos;
-		};
-
-		yield return StartCoroutine(MainRoop(func));
+		_seq.
+		Append(
+			_rect.DOLocalMoveX(-MAX_DIST, existTime)
+			.SetRelative()
+		);
 	}
 
-	private Sequence HellTone()
+	private void HellTone()
 	{
-		Action<float> func = (time) =>
-		{
-			const float MAX_HEIGHT = 50;
+		const float FALL_TIME = 3f;  // 落下時間
+		const float MAX_HEIGHT = 50; // 落下距離
 
-			var pos = _target;
-			pos.y += MAX_HEIGHT * (1 - Mathf.Pow(Progress(time), 3));
-			_rect.anchoredPosition = pos;
-		};
+		var tmp = _rect.localPosition;
+		tmp.y += MAX_HEIGHT;
+		_rect.localPosition = tmp;
 
-		yield return StartCoroutine(MainRoop(func));
+		_seq.
+		Append(
+			_rect.DOLocalMoveY(-MAX_HEIGHT, FALL_TIME)
+			.SetRelative()
+			.SetEase(Ease.InCubic)
+		);
 	}
 
 	/// <summary>
 	/// opt:攻撃者の座標
 	/// </summary>
-	private Sequence HolyLiric()
+	private void HolyLiric()
 	{
+		const float FLY_TIME = 3.0f;
 		var attacker = _opt.Value;
 		float dx = _target.x - attacker.x;
 		float dy = _target.y - attacker.y;
 		float rad = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
 		transform.localEulerAngles = Quaternion.Euler(0f, 0f, rad) * Vector3.up;
+		var dpos = _target - attacker;
 
-		Action<float> func = (time) =>
-		{
-			float rate = Progress(time);
-			rate = 1 - Mathf.Pow(1 - rate, 2);
-			_rect.anchoredPosition = Vector3.Lerp(attacker, _target, rate);
-		};
-
-		yield return StartCoroutine(MainRoop(func));
+		_seq.Append(
+			_rect.DOMove(dpos, FLY_TIME)
+			.SetRelative()
+			.SetEase(Ease.InQuint)
+		);
 	}
 }
