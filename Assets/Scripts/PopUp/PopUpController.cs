@@ -111,6 +111,9 @@ public class PopUpController : MonoBehaviour
 		// 元のImageは不要なため消す.
 		Image.gameObject.SetActive(false);
 
+		// popUp画像(Image)のanchorを左下に設定.
+		UI.SetAnchorLeftBottom(popUp.GetComponent<RectTransform>());
+
 		popUp.GetComponent<AttackEffect>().Initialize(attack, sprites, pos, opt);
 	}
 }

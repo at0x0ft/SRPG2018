@@ -90,7 +90,7 @@ public class ChargeEffectController : MonoBehaviour
 	private IEnumerator MainLoop()
 	{
 		var effect = Instantiate(_image.gameObject, transform);
-		Debug.Log("here3");
+		Debug.Log("here3");	// 4debug
 
 		enumerator = EffectLoop(effect);
 		StartCoroutine(enumerator);

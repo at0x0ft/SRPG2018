@@ -66,8 +66,6 @@ public class AttackEffect : BasePopUp
 		_image.enabled = true;
 		_image.rectTransform.sizeDelta = BASE_IMAGE_SIZE;
 
-		UI.SetAnchorCenter(_image.rectTransform);
-
 		var enumerator = _effectFunc[_effect]();
 
 		yield return StartCoroutine(enumerator);
@@ -143,7 +141,7 @@ public class AttackEffect : BasePopUp
 	private IEnumerator SpriteLoop(List<Sprite> mySprites = null)
 	{
 		// 位置設定
-		_rect.localPosition = _target;
+		_rect.anchoredPosition = _target;
 
 		// 画像を操作しないなら、そのまま使う。
 		if(mySprites == null) mySprites = _sprites;
@@ -199,7 +197,7 @@ public class AttackEffect : BasePopUp
 			var pos = Vector3.Lerp(attacker, _target, rate);
 			pos.y += flyRate * FLY_HEIGHT;
 
-			GetComponent<RectTransform>().anchoredPosition = pos;
+			_rect.anchoredPosition = pos;
 		};
 
 		yield return StartCoroutine(MainRoop(func));
@@ -225,7 +223,7 @@ public class AttackEffect : BasePopUp
 		const float FLY_TIME = 4.0f;
 		const float DIVIDE_TIME = 1.3f;
 
-		_rect.localPosition = _target;
+		_rect.anchoredPosition = _target;
 		_rect.sizeDelta = BIG_IMAGE_SIZE;
 
 		Action<float> func = (time) =>
@@ -237,7 +235,7 @@ public class AttackEffect : BasePopUp
 			var pos = _target;
 			pos.y += MAX_HEIGHT * rate;
 
-			_rect.localPosition = pos;
+			_rect.anchoredPosition = pos;
 			_rect.sizeDelta = Vector2.Lerp(BIG_IMAGE_SIZE, MAX_SIZE, rate);
 		};
 
@@ -249,7 +247,7 @@ public class AttackEffect : BasePopUp
 			var pos = _target;
 			pos.y -= MAX_DOWN * Progress(time);
 
-			_rect.localPosition = pos;
+			_rect.anchoredPosition = pos;
 			_rect.sizeDelta = Vector2.Lerp(BIG_IMAGE_SIZE, MAX_SIZE, Progress(time));
 		};
 
@@ -278,7 +276,7 @@ public class AttackEffect : BasePopUp
 			now.x -= MAX_DIST * (time / existTime);
 			var tmp = MAX_WIDTH * Mathf.Sin(ProgressPI(time, FLOAT_CYCLE));
 			now.y += tmp;
-			_rect.localPosition = now;
+			_rect.anchoredPosition = now;
 		};
 
 		yield return StartCoroutine(MainRoop(func));
@@ -294,7 +292,7 @@ public class AttackEffect : BasePopUp
 			var pos = dir * Vector3.up * RADIUS;
 
 			_rect.localRotation = dir;
-			_rect.localPosition = _target + pos;
+			_rect.anchoredPosition = _target + pos;
 		};
 
 		yield return StartCoroutine(MainRoop(func));
@@ -314,7 +312,7 @@ public class AttackEffect : BasePopUp
 
 			pos.y -= height * (1 - Progress(time));
 			_image.fillAmount = Progress(time);
-			_rect.localPosition = pos;
+			_rect.anchoredPosition = pos;
 		};
 
 		yield return StartCoroutine(MainRoop(func));
@@ -338,7 +336,7 @@ public class AttackEffect : BasePopUp
 
 			var pos = _target;
 			pos.x -= MAX_DIST * Progress(time);
-			GetComponent<RectTransform>().anchoredPosition = pos;
+			_rect.anchoredPosition = pos;
 		};
 
 		yield return StartCoroutine(MainRoop(func));
@@ -352,7 +350,7 @@ public class AttackEffect : BasePopUp
 
 			var pos = _target;
 			pos.y += MAX_HEIGHT * (1 - Mathf.Pow(Progress(time), 3));
-			GetComponent<RectTransform>().anchoredPosition = pos;
+			_rect.anchoredPosition = pos;
 		};
 
 		yield return StartCoroutine(MainRoop(func));
@@ -373,7 +371,7 @@ public class AttackEffect : BasePopUp
 		{
 			float rate = Progress(time);
 			rate = 1 - Mathf.Pow(1 - rate, 2);
-			GetComponent<RectTransform>().anchoredPosition = Vector3.Lerp(attacker, _target, rate);
+			_rect.anchoredPosition = Vector3.Lerp(attacker, _target, rate);
 		};
 
 		yield return StartCoroutine(MainRoop(func));
