@@ -104,20 +104,21 @@ public class MoveController : MonoBehaviour
 
 		// 移動の際の描画ライブラリインスタンスを初期化
 		var sequence = DOTween.Sequence();
+		var totalCost = 0;
 
-		// 移動経路に沿って移動
+		// 移動経路に沿って移動し, 掛かったコストを足していく.
 		for(var i = 1; i < routeFloors.Length; i++)
 		{
 			var routeFloor = routeFloors[i];
 			sequence.Append(unit.transform.DOMove(routeFloor.transform.position, 0.1f).SetEase(Ease.Linear));
+			totalCost += GetFloorCost(routeFloors[i]);
 		}
 
 		// 移動が完了したら
 		sequence.OnComplete(() =>
 		{
-			// unitのGameObjectの実体の座標も変更する
-			unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y);
-
+			// unitのGameObjectの実体の座標も変更し, ユニットの移動可能量を減らす.
+			unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y, totalCost);
 		});
 	}
 
@@ -139,7 +140,7 @@ public class MoveController : MonoBehaviour
 			throw new ArgumentException(string.Format("destFloor(x:{0}, y:{1}) is not movable.", destFloor.X, destFloor.Y));
 		}
 
-		// 終点から逆探索・始点からの順番に直し, Floor配列に変換して返す
+		// 終点から逆探索・始点からの順番に直し, FloorとCostのDictを
 		return RevTraceRoute(infos, destFloor, (nowMoveAmount, prevCost) => nowMoveAmount + prevCost).Keys.ToArray();
 	}
 
@@ -268,7 +269,7 @@ public class MoveController : MonoBehaviour
 			// 一つ前のマス・移動可能量/コストのペアをDictに追加
 			route[prevKV.Key] = prevMoveCost;
 		}
-		// Dictの順番を終点→始点から始点→終点に変換して返す
+		// Dictの順番を終点->始点から始点->終点に変換して返す
 		return route.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
 	}
 }
