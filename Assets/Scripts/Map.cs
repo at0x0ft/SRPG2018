@@ -86,15 +86,8 @@ public class Map : MonoBehaviour
 			floor.Initialize(this, units, mc, dc, bsc);
 			Floors.Add(floor);
 		}
-
-		/* 何この変更
-		// いる
-		if(Floors
-			.Select(f => f.GetComponent<RectTransform>().sizeDelta)
-			.Select(c => new Vector2Int((int)c.x, (int)c.y))
-			.Distinct().Count()
-			> 1)
-		*/
+		
+		// マップの大きさを取得
 		WidthLimit = Floors.Max(floor => floor.X);
 		HeightLimit = Floors.Max(floor => floor.Y);
 	}
