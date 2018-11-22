@@ -110,7 +110,7 @@ public class MoveController : MonoBehaviour
 		var routeFloors = CalculateRouteFloors(map, unit.Floor, destFloor, unit.MoveAmount);
 
 		// 移動の際の描画ライブラリインスタンスを初期化
-		var sequence = DOTween.Sequence();
+		//var sequence = DOTween.Sequence();
 		image = unit.GetComponent<Image>();
 		if (image == null)
 		{
@@ -130,31 +130,35 @@ public class MoveController : MonoBehaviour
 		//Debug.Log("[Debug] trying" + (State)2);
 
 		// 移動経路に沿って移動
-		for (var i = 1; i < routeFloors.Length; i++)
-		{
-			var routeFloor = routeFloors[i];
-			var presentFloor = routeFloors[i - 1];
-			Vector2Int diffCor = routeFloor.CoordinatePair.Key - presentFloor.CoordinatePair.Key;
-			Debug.Log("[Debug] diffCor " + diffCor);
-			path = "Sprites/" + unit.UnitName + "/" + JudgeState(diffCor);
-			motion_1 = Resources.Load(path + "_1", typeof(Sprite)) as Sprite;
-			Debug.Log("[Debug]" + motion_1.name);
-			motion_2 = Resources.Load(path + "_2", typeof(Sprite)) as Sprite;
-			Debug.Log("[Debug]" + motion_2.name);
+		StartCoroutine(OparateAnimation(routeFloors,unit));
 
-			StartCoroutine("AttachMoveAnimation");
-			sequence.Append(unit.transform.DOMove(routeFloor.transform.position, 0.25f).SetEase(Ease.Linear));
-		}
+		//for (var i = 1; i < routeFloors.Length; i++)
+		//{
+		//	var routeFloor = routeFloors[i];
+		//	var presentFloor = routeFloors[i - 1];
+		//	Vector2Int diffCor = routeFloor.CoordinatePair.Key - presentFloor.CoordinatePair.Key;
+		//	Debug.Log("[Debug] diffCor " + diffCor);
+		//	path = "Sprites/" + unit.UnitName + "/" + JudgeState(diffCor);
+		//	motion_1 = Resources.Load(path + "_1", typeof(Sprite)) as Sprite;
+		//	Debug.Log("[Debug]" + motion_1.name);
+		//	motion_2 = Resources.Load(path + "_2", typeof(Sprite)) as Sprite;
+		//	Debug.Log("[Debug]" + motion_2.name);
+
+		//	StartCoroutine(AttachMoveAnimation());
+		//	sequence.Append(unit.transform.DOMove(routeFloor.transform.position, 0.25f).SetEase(Ease.Linear));
+		//}
 
 		// 移動が完了したら
-		sequence.OnComplete(() =>
-		{
-			image.sprite = Resources.Load("Sprites/" + unit.UnitName + "/" + State.idle.ToString(), typeof(Sprite)) as Sprite;
-			//image.sprite = Resources.Load(path, typeof(Sprite)) as Sprite;
-			// unitのGameObjectの実体の座標も変更する
-			unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y);
+		//sequence.OnComplete(() =>
+		//{
+		//	image.sprite = Resources.Load("Sprites/" + unit.UnitName + "/" + State.idle.ToString(), typeof(Sprite)) as Sprite;
+		//	//image.sprite = Resources.Load(path, typeof(Sprite)) as Sprite;
+		//	// unitのGameObjectの実体の座標も変更する
+		//	unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y);
+		//});
 
-		});
+		//unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y);
+
 	}
 
 	private string JudgeState(Vector2Int diffCoor)
@@ -185,6 +189,43 @@ public class MoveController : MonoBehaviour
 
 	}
 
+	IEnumerator OparateAnimation(Floor[] routeFloors,Unit unit)
+	{
+		var sequence = DOTween.Sequence();
+
+		for (var i = 1; i < routeFloors.Length; i++)
+		{
+			var routeFloor = routeFloors[i];
+			var presentFloor = routeFloors[i - 1];
+			Vector2Int diffCor = routeFloor.CoordinatePair.Key - presentFloor.CoordinatePair.Key;
+			Debug.Log("[Debug] diffCor " + diffCor);
+			path = "Sprites/" + unit.UnitName + "/" + JudgeState(diffCor);
+			motion_1 = Resources.Load(path + "_1", typeof(Sprite)) as Sprite;
+			Debug.Log("[Debug]" + motion_1.name);
+			motion_2 = Resources.Load(path + "_2", typeof(Sprite)) as Sprite;
+			Debug.Log("[Debug]" + motion_2.name);
+
+			sequence.Append(unit.transform.DOMove(routeFloor.transform.position, 0.25f).SetEase(Ease.Linear));
+			yield return StartCoroutine(AttachMoveAnimation());
+		}
+
+		image.sprite = Resources.Load("Sprites/" + unit.UnitName + "/" + State.idle.ToString(), typeof(Sprite)) as Sprite;
+
+		unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y);
+
+		//sequence.OnComplete(() =>
+		//{
+		//	image.sprite = Resources.Load("Sprites/" + unit.UnitName + "/" + State.idle.ToString(), typeof(Sprite)) as Sprite;
+		//	//image.sprite = Resources.Load(path, typeof(Sprite)) as Sprite;
+		//	// unitのGameObjectの実体の座標も変更する
+		//	unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y);
+
+		//});
+
+
+	}
+
+
 	IEnumerator AttachMoveAnimation()
 	{
 		//移動時のアニメーションを付ける
@@ -192,7 +233,6 @@ public class MoveController : MonoBehaviour
 		//Debug.Log("[Debug]" + motion_1.name);
 		//var motion_2 = Resources.Load(path + "_2", typeof(Sprite)) as Sprite;
 		//Debug.Log("[Debug]" + motion_2.name);
-
 		image.sprite = motion_1;
 		yield return new WaitForSeconds(0.125f);
 		image.sprite = motion_2;
