@@ -52,7 +52,7 @@ public class DamagePopUp : BasePopUp
 		float b = _floatingHeight;
 
 		float alpha = 4 * b / (a * a);
-		// Debug.Log("alpha" + alpha);
+		// Debug.Log("alpha" + alpha);	// 4debug
 		return -alpha * Mathf.Pow(time - a / 2, 2) + b;
 	}
 

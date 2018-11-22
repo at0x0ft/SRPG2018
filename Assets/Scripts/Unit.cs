@@ -476,6 +476,7 @@ public class Unit : MonoBehaviour
 		GetComponent<Button>().enabled = false;
 		transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
 			{
+				_units.Characters.Remove(this);
 				Destroy(gameObject);
 			});
 	}

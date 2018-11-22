@@ -22,7 +22,6 @@ public abstract class BasePopUp : MonoBehaviour
 	public void Initialize()
 	{
 		gameObject.SetActive(true);
-		Debug.Log(gameObject.name + " : " + GetComponent<RectTransform>().position);
 
 		transform.localScale = new Vector3(1, 1, 1);
 

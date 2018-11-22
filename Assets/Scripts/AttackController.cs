@@ -254,7 +254,7 @@ public class AttackController
 		}
 		else
 		{
-			Debug.Log("予測されていない型の攻撃が行われました");
+			Debug.Log("予測されていない型の攻撃が行われました");	// 4debug
 			return -1;
 		}
 	}
@@ -273,12 +273,12 @@ public class AttackController
 		// 攻撃範囲
 		List<Floor> targets = new List<Floor>();
 
-		Debug.Log("攻撃:" + attack + "　が発動しました");
+		Debug.Log("攻撃:" + attack + " が発動しました");	// 4debug
 
 		if(attack.Scale == global::Attack.AttackScale.Single)
 		{
 			targets.Add(targetUnit.Floor);
-			Debug.Log(targetUnit.Floor.transform.position);
+			Debug.Log(targetUnit.Floor.transform.position);	// 4debug
 			res = _sac.Attack(attacker, targetUnit, attack);
 		}
 		else if(attack.Scale == global::Attack.AttackScale.Range)
