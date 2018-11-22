@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 
 /// <summary>
 /// 攻撃の種類の判別
@@ -34,6 +35,8 @@ public enum AttackEffectKind
 /// </summary>
 public class AttackEffectFactory : MonoBehaviour
 {
+	const float DestroyCheckInterval = 0.5f; 
+	
 	// ==========変数==========
 	private AttackEffectKind _effect;
 	private Unit _attacker;
@@ -65,19 +68,22 @@ public class AttackEffectFactory : MonoBehaviour
 
 		// ファクトリーを実行
 		_effectFuncs[_effect]();
+
+		// 終了条件を設定
+		StartCoroutine(Finalizer());
 	}
 
 	/// <summary>
 	/// 今後使用する変数の初期設定を行います
 	/// </summary>
-	private void DataPreparation(Unit attacker, List<Floor> targets, Vector2Int _floorSize, Attack attack)
+	private void DataPreparation(Unit attacker, List<Floor> targets, Vector2Int floorSize, Attack attack)
 	{
 		// 引数処理
 		_effect = attack.EffectKind; // 攻撃エフェクトの種類
 		_targets = targets;          // 攻撃先一覧
 		_attacker = attacker;        // 攻撃者
 		_attack = attack;            // 攻撃内容
-		_floorSize = _floorSize;     // 1マスの大きさ
+		_floorSize = floorSize;     // 1マスの大きさ
 		gameObject.name = attack.name + "'s effect";
 
 		// クラス内部処理
@@ -205,6 +211,19 @@ public class AttackEffectFactory : MonoBehaviour
 			return false;
 		}
 	}
+	
+	/// <summary>
+	/// このファクトリーの消滅条件です
+	/// </summary>
+	private IEnumerator Finalizer()
+	{
+		do
+		{
+			yield return new WaitForSeconds(DestroyCheckInterval);
+		} while(transform.childCount > 1); // 金型があるため、最低1個は子オブジェクトがある
+
+		Destroy(gameObject);
+	}
 
 
 
@@ -225,9 +244,9 @@ public class AttackEffectFactory : MonoBehaviour
 	/// 特定の位置にエフェクトを作成します
 	/// </summary>
 	/// <param name="target">エフェクト作成位置</param>
-	private void MakeEffect(Vector3 target, List<Sprite> mySprites = null)
+	private GameObject MakeEffect(Vector3 target, List<Sprite> mySprites = null)
 	{
-		AttackEffectPopUp(
+		return AttackEffectPopUp(
 			_attack,
 			(mySprites ?? _sprites),
 			target
@@ -238,7 +257,7 @@ public class AttackEffectFactory : MonoBehaviour
 	/// 攻撃エフェクトを"実際に"発生させます
 	/// </summary>
 	/// <param name="attack">攻撃内容</param>
-	public void AttackEffectPopUp(Attack attack, List<Sprite> sprites, Vector3 pos, Vector3? opt = null)
+	public GameObject AttackEffectPopUp(Attack attack, List<Sprite> sprites, Vector3 pos, Vector3? opt = null)
 	{
 		// 攻撃エフェクトの親に、自身を設定します
 		var effect = Instantiate(_ae.gameObject, transform);
@@ -246,109 +265,113 @@ public class AttackEffectFactory : MonoBehaviour
 		// popUp画像(Image)のanchorを左下に設定.
 		UI.SetAnchorLeftBottom(effect.GetComponent<RectTransform>());
 
-		effect.GetComponent<AttackEffect>().Initialize(attack, sprites, , pos, opt);
+		effect.GetComponent<AttackEffect>().Initialize(attack, sprites, _floorSize, pos, opt);
+
+		return effect;
 	}
 
 
 
 	// ==========動作定義関数==========
+	// 数秒待機するなどの処理をする場合は、DOTWEENを使いましょう
+	// ttps://gist.github.com/anzfactory/da73149ba91626ba796d598578b163cc#loop
 	// みすちゃん用
-	private IEnumerator MARock()
+	private void MARock()
 	{
-		GetComponent<PopUpController>().AttackEffectPopUp(
-			transform,
+		AttackEffectPopUp(
 			_attack,
 			_sprites,
 			_targets[0].GetComponent<RectTransform>().anchoredPosition,
 			_attackerRect.anchoredPosition
 		);
-		yield break;
 	}
 
 	// 水星ちゃん用
-	private IEnumerator BubbleNotes()
+	private void BubbleNotes()
 	{
 		var pos = _attackerRect.anchoredPosition;
-
-		for(int i = 0; i < 3; i++)
-		{
-			MakeEffect(pos);
-
-			yield return new WaitForSeconds(0.2f);
-		}
+		
+		DOTween.Sequence()
+		.AppendCallback(() => MakeEffect(pos))  // MakeEffect(pos)が呼ばれるのを
+		.AppendInterval(0.2f)                   // 0.2秒毎にするのを
+		.SetLoops(3);                           // 3回繰り返す
 	}
 
-	private IEnumerator TrebleCreph()
+	private void TrebleCreph()
 	{
+		const float effectTime = 2.0f;
+
+		var rect = GetComponent<RectTransform>();
 		var pos = _attackerRect.anchoredPosition;
+		var obj = MakeEffect(pos);
 
-		MakeEffect(pos);
-
-		yield break;
+		DOTween.Sequence()
+		.Append(
+			rect.DORotate(new Vector3(0, 0, 359f), effectTime, RotateMode.FastBeyond360)
+			.SetEase(Ease.InOutQuad)
+		).OnComplete(
+			() => Destroy(obj)
+		);
 	}
 
-	private IEnumerator NotesEdge()
+	private void NotesEdge()
 	{
 		var pos = _attackerRect.anchoredPosition;
 
 		List<Sprite> sprite = new List<Sprite>();
-
+		
 		for(int i = 0; i < 6; i++)
 		{
 			sprite.Clear();
 			sprite.Add(_sprites[i % _sprites.Count]);
 			MakeEffect(pos, sprite);
 		}
-
-		yield return null;
 	}
 
-	private IEnumerator HellTone()
+	private void HellTone()
 	{
-		// 大技は、他とは異なる時間をかけましょう。
-		const float allTime = 5.0f;
-		const float happenRate = 0.2f;
-
+		const float allTime = 5.0f;     // 大技が終了するまでの時間
+		const float happenRate = 0.2f;  // 大技の個々のエフェクトの発生間隔
 		List<Sprite> sprite = new List<Sprite>();
-
-		float time = 0;
-		while(time < allTime)
+		
+		var seq = DOTween.Sequence()
+		.AppendCallback(() =>
 		{
 			sprite.Clear();
-
 			var target = _targets[UnityEngine.Random.Range(0, _targets.Count)];
 			sprite.Add(_sprites[UnityEngine.Random.Range(0, _sprites.Count)]);
 			MakeEffect(target.GetComponent<RectTransform>().anchoredPosition, sprite);
+		})
+		.AppendInterval(happenRate)
+		.SetLoops(-1);
 
-			yield return new WaitForSeconds(happenRate);
-			time += happenRate;
-		}
+		// 上のループの終了条件
+		DOVirtual.DelayedCall(allTime, () => seq.Kill());
 	}
 
-	private IEnumerator HolyLiryc()
+	private void HolyLiryc()
 	{
 		const float allTime = 5.0f;
 		const float happenRate = 0.2f;
-
 		List<Sprite> sprite = new List<Sprite>();
 
-		float time = 0;
-		while(time < allTime)
+		var seq = DOTween.Sequence()
+		.AppendCallback(() =>
 		{
 			sprite.Clear();
 
 			var target = _targets[UnityEngine.Random.Range(0, _targets.Count)];
 			sprite.Add(_sprites[UnityEngine.Random.Range(0, _sprites.Count)]);
-			GetComponent<PopUpController>().AttackEffectPopUp(
-				transform,
+			AttackEffectPopUp(
 				_attack,
 				sprite,
 				target.GetComponent<RectTransform>().anchoredPosition,
 				_attackerRect.anchoredPosition
 			);
+		})
+		.AppendInterval(happenRate)
+		.SetLoops(-1);
 
-			yield return new WaitForSeconds(happenRate);
-			time += happenRate;
-		}
+		DOVirtual.DelayedCall(allTime, () => seq.Kill());
 	}
 }
