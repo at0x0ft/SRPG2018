@@ -58,6 +58,8 @@ public class MoveController : MonoBehaviour
 	{
 		switch (floor.Type)
 		{
+			case Floor.Feature.Unmovable:
+				return _maxLimitCost;
 			case Floor.Feature.Grass:
 				return _normalCost;
 			case Floor.Feature.Forest:
@@ -192,10 +194,15 @@ public class MoveController : MonoBehaviour
 	IEnumerator OparateAnimation(Floor[] routeFloors,Unit unit)
 	{
 		var sequence = DOTween.Sequence();
+		var totalCost = 0;
 
-		for (var i = 1; i < routeFloors.Length; i++)
+		// 移動経路に沿って移動し, 掛かったコストを足していく.
+		for(var i = 1; i < routeFloors.Length; i++)
 		{
 			var routeFloor = routeFloors[i];
+			sequence.Append(unit.transform.DOMove(routeFloor.transform.position, 0.1f).SetEase(Ease.Linear));
+			totalCost += GetFloorCost(routeFloors[i]);
+
 			var presentFloor = routeFloors[i - 1];
 			Vector2Int diffCor = routeFloor.CoordinatePair.Key - presentFloor.CoordinatePair.Key;
 			Debug.Log("[Debug] diffCor " + diffCor);
@@ -211,14 +218,14 @@ public class MoveController : MonoBehaviour
 
 		image.sprite = Resources.Load("Sprites/" + unit.UnitName + "/" + State.idle.ToString(), typeof(Sprite)) as Sprite;
 
-		unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y);
+		unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y, totalCost);
 
 		//sequence.OnComplete(() =>
 		//{
 		//	image.sprite = Resources.Load("Sprites/" + unit.UnitName + "/" + State.idle.ToString(), typeof(Sprite)) as Sprite;
 		//	//image.sprite = Resources.Load(path, typeof(Sprite)) as Sprite;
 		//	// unitのGameObjectの実体の座標も変更する
-		//	unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y);
+		//	unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y, totalCost);
 
 		//});
 
@@ -259,7 +266,7 @@ public class MoveController : MonoBehaviour
 			throw new ArgumentException(string.Format("destFloor(x:{0}, y:{1}) is not movable.", destFloor.X, destFloor.Y));
 		}
 
-		// 終点から逆探索・始点からの順番に直し, Floor配列に変換して返す
+		// 終点から逆探索・始点からの順番に直し, FloorとCostのDictを
 		return RevTraceRoute(infos, destFloor, (nowMoveAmount, prevCost) => nowMoveAmount + prevCost).Keys.ToArray();
 	}
 
@@ -340,7 +347,7 @@ public class MoveController : MonoBehaviour
 				if (aroundFloor == null ||
 					infos.Any(info => info.Key.X == aroundFloor.X && info.Key.Y == aroundFloor.Y) ||
 					appendInfos.Any(ainfo => ainfo.Key.X == aroundFloor.X && ainfo.Key.Y == aroundFloor.Y) ||
-					(aroundFloor.Unit && aroundFloor.Unit.Belonging != targetUnitTeam)
+					aroundFloor.Unit
 					)
 				{
 					// マップに存在しない, または既に計算済みのマス, 経路に敵軍が存在する場合はパス
@@ -388,7 +395,7 @@ public class MoveController : MonoBehaviour
 			// 一つ前のマス・移動可能量/コストのペアをDictに追加
 			route[prevKV.Key] = prevMoveCost;
 		}
-		// Dictの順番を終点→始点から始点→終点に変換して返す
+		// Dictの順番を終点->始点から始点->終点に変換して返す
 		return route.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
 	}
 }

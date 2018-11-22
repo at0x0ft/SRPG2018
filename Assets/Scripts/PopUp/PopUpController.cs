@@ -19,24 +19,36 @@ using UnityEngine.UI;
 /// </summary>
 public class PopUpController : MonoBehaviour
 {
-	[SerializeField]
+	private BoardController _bc;
 	private UI _ui;
+	private Vector2Int _floorSize;
+	public Image Image { get; private set; }
+	public Text Text { get; private set; }
 
-	[SerializeField]
-	private BoardController board;
-
-	[SerializeField]
-	private Image _image;
-	public Image Image
+	/// <summary>
+	/// 初期化メソッド
+	/// </summary>
+	/// <param name="bc"></param>
+	/// <param name="ui"></param>
+	public void Initialize(BoardController bc, UI ui, Vector2Int floorSize)
 	{
-		get { return _image; }
+		_bc = bc;
+		_ui = ui;
+		_floorSize = floorSize;
+		Image = GetComponentInChildren<Image>();
+		Text = GetComponentInChildren<Text>();
 	}
 
-	[SerializeField]
-	private Text _text;
-	public Text Text
+	/// <summary>
+	/// 自身のGameObjectの複製と初期化を行うメソッド
+	/// </summary>
+	/// <param name="parent"></param>
+	/// <returns></returns>
+	private GameObject Duplicate(Transform parent)
 	{
-		get { return _text; }
+		var res = Instantiate(gameObject, parent);
+		res.GetComponent<PopUpController>().Initialize(_bc, _ui, _floorSize);
+		return res;
 	}
 
 	/// <summary>
@@ -46,7 +58,7 @@ public class PopUpController : MonoBehaviour
 	/// <param name="damage">ダメージ量</param>
 	public void CreateDamagePopUp(Transform defender, int? damage)
 	{
-		var popUp = Instantiate(gameObject, defender);
+		var popUp = Duplicate(defender);
 
 		string text = damage.HasValue ? damage.ToString() : "miss";
 
@@ -59,7 +71,7 @@ public class PopUpController : MonoBehaviour
 	/// <param name="team"></param>
 	public void CreateCutInPopUp(Unit.Team team)
 	{
-		var popUp = Instantiate(gameObject, _ui.transform);
+		var popUp = Duplicate(_ui.transform);
 
 		string text = team.ToString() + " Phase";
 
@@ -75,11 +87,16 @@ public class PopUpController : MonoBehaviour
 	public void AttackEffectFactory(Unit attacker, List<Floor> targets, Attack attack)
 	{
 		// 攻撃エフェクトのファクトリーを、攻撃者とします。
-		var popUp = Instantiate(gameObject, board.transform);
+		var popUp = Duplicate(_bc.transform);
 
 		// ファクトリーでは不要なTextを消します
-		Destroy(popUp.GetComponent<PopUpController>()._text.gameObject);
+		Destroy(popUp.GetComponent<PopUpController>().Text.gameObject);
 
+		// popUpのanchorを左下に設定.
+		UI.SetAnchorLeftBottom(popUp.GetComponent<RectTransform>());
+		popUp.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+
+		// 初期化
 		popUp.GetComponent<AttackEffectFactory>().Initialize(attacker, targets, attack);
 	}
 
@@ -91,11 +108,14 @@ public class PopUpController : MonoBehaviour
 	public void AttackEffectPopUp(Transform parent, Attack attack, List<Sprite> sprites, Vector3 pos, Vector3? opt = null)
 	{
 		// 攻撃エフェクトの親を、ファクトリーとします。
-		var popUp = Instantiate(_image.gameObject, parent);
+		var popUp = Instantiate(Image.gameObject, parent);
 
 		// 元のImageは不要なため消す.
-		_image.gameObject.SetActive(false);
+		Image.gameObject.SetActive(false);
 
-		popUp.GetComponent<AttackEffect>().Initialize(attack, sprites, pos, opt);
+		// popUp画像(Image)のanchorを左下に設定.
+		UI.SetAnchorLeftBottom(popUp.GetComponent<RectTransform>());
+
+		popUp.GetComponent<AttackEffect>().Initialize(attack, sprites, _floorSize, pos, opt);
 	}
 }

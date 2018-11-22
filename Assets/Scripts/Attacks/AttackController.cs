@@ -12,16 +12,13 @@ namespace AC
 
 		private DamageCalculator _dc;
 		private Map _map;
-		private Units _units;
-
 
 		// ==========関数==========
 
-		public BaseAttackController(DamageCalculator dc, Map map, Units units)
+		public BaseAttackController(DamageCalculator dc, Map map)
 		{
 			_dc = dc;
 			_map = map;
-			_units = units;
 		}
 
 		/// <summary>
@@ -39,7 +36,8 @@ namespace AC
 		/// <summary>
 		/// 特定のマスの敵を攻撃する
 		/// </summary>
-		public void AttackToUnit(Unit attacker, Unit defender, Attack attack)
+		/// <returns>敵がそもそも居たか</returns>
+		public bool AttackToUnit(Unit attacker, Unit defender, Attack attack)
 		{
 			// BattleSceneに移動してバトルをする (取り敢えず要らない)
 			// Battle_SceneController.attacker = attacker;
@@ -47,11 +45,15 @@ namespace AC
 			// BattleSceneに移動.
 			// SceneManager.LoadScene("Battle", LoadSceneMode.Additive);
 
+			if(attacker.Belonging == defender.Belonging) return false;
+
 			// ダメージ計算を行う
 			int? damage = _dc.Calculate(attacker, attack, defender, defender.Floor);
 
 			// ダメージを適用する
 			defender.Damage(damage);
+
+			return true;
 		}
 
 		public void FinishAttack()
@@ -104,7 +106,7 @@ namespace AC
 		{
 			if(targetUnit == null) return false;
 
-			_bac.AttackToUnit(attacker, targetUnit, attack);
+			if(_bac.AttackToUnit(attacker, targetUnit, attack) == false) return false;
 
 			_bac.FinishAttack();
 
@@ -196,11 +198,9 @@ namespace AC
 				// 敵Unitの存在判定を行い、
 				var defender = _units.GetUnit(attackRange.X, attackRange.Y);
 				if(defender == null) continue;
-				unitExist = true;
-				_bac.AttackToUnit(attacker, defender, attack);
+				if(_bac.AttackToUnit(attacker, defender, attack)) unitExist = true;
 			}
-
-			_bac.FinishAttack();
+			if(unitExist) _bac.FinishAttack();
 			return unitExist;
 		}
 	}
@@ -215,7 +215,7 @@ public class AttackController
 
 	public AttackController(Map map, Units units, DamageCalculator dc)
 	{
-		var bac = new AC.BaseAttackController(dc, map, units);
+		var bac = new AC.BaseAttackController(dc, map);
 		_sac = new AC.SingleAttackController(map, bac);
 		_rac = new AC.RangeAttackController(map, units, bac);
 		_map = map;
@@ -254,7 +254,7 @@ public class AttackController
 		}
 		else
 		{
-			Debug.Log("予測されていない型の攻撃が行われました");
+			Debug.Log("予測されていない型の攻撃が行われました");	// 4debug
 			return -1;
 		}
 	}
@@ -273,12 +273,12 @@ public class AttackController
 		// 攻撃範囲
 		List<Floor> targets = new List<Floor>();
 
-		Debug.Log("攻撃:" + attack + "　が発動しました");
-		
+		Debug.Log("攻撃:" + attack + " が発動しました");	// 4debug
+
 		if(attack.Scale == global::Attack.AttackScale.Single)
 		{
 			targets.Add(targetUnit.Floor);
-			Debug.Log(targetUnit.Floor.transform.position);
+			Debug.Log(targetUnit.Floor.transform.position);	// 4debug
 			res = _sac.Attack(attacker, targetUnit, attack);
 		}
 		else if(attack.Scale == global::Attack.AttackScale.Range)
@@ -289,20 +289,20 @@ public class AttackController
 		}
 		else
 		{
-			Debug.Log("予定されていない型の攻撃がありました");
+			Debug.Log("予定されていない型の攻撃がありました");	// 4debug
 			res = false;
-		}
-		
-		// 攻撃が強攻撃だったら、強攻撃エフェクトを消します
-		if(attack.Kind == global::Attack.Level.High)
-		{
-			_map.Ui.ChargeEffectController.DetachChargeEffect(attacker);
 		}
 
 		// 攻撃が成功したなら、攻撃エフェクトを作動させる
 		if(res)
 		{
-			_map.Ui.PopUp.AttackEffectFactory(attacker, targets, attack);
+			_map.UI.PopUpController.AttackEffectFactory(attacker, targets, attack);
+
+			// 攻撃が強攻撃だったら、強攻撃エフェクトを消します
+			if(attack.Kind == global::Attack.Level.High)
+			{
+				_map.UI.ChargeEffectController.DetachChargeEffect(attacker);
+			}
 		}
 
 		return res;

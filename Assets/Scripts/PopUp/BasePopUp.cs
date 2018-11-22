@@ -22,14 +22,11 @@ public abstract class BasePopUp : MonoBehaviour
 	public void Initialize()
 	{
 		gameObject.SetActive(true);
-		Debug.Log(gameObject.name + " : " + GetComponent<RectTransform>().position);
 
 		transform.localScale = new Vector3(1, 1, 1);
 
 		// テキストと背景画像の準備
 		SetUpImage();
-
-		Debug.Log(gameObject.name + " : " + GetComponent<RectTransform>().position);
 
 		// 動作開始
 		StartCoroutine(Act());

@@ -13,7 +13,6 @@ public class ChargeEffectController : MonoBehaviour
 	private float _MaxAlpha = 0.5f;
 
 	// チャージ演出で使う画像
-	[SerializeField]
 	private Image _image;
 
 	// チャージ者管理で使う画像
@@ -26,6 +25,25 @@ public class ChargeEffectController : MonoBehaviour
 		_charger = new Dictionary<Unit, GameObject>();
 	}
 
+	/// <summary>
+	/// 初期化メソッド
+	/// </summary>
+	public void Initialize()
+	{
+		_image = GetComponentInChildren<Image>();
+	}
+
+	/// <summary>
+	/// 自身のGameObjectの複製と初期化を同時に行うメソッド
+	/// </summary>
+	/// <param name="parent"></param>
+	/// <returns></returns>
+	private GameObject Duplicate(Transform parent)
+	{
+		var res = Instantiate(gameObject, parent);
+		res.GetComponent<ChargeEffectController>().Initialize();
+		return res;
+	}
 
 	/// <summary>
 	/// チャージ演出をアタッチします
@@ -35,8 +53,8 @@ public class ChargeEffectController : MonoBehaviour
 	public void AttachChargeEffect(Unit chargeUnit)
 	{
 		// 複製作成
-		var factory = Instantiate(gameObject, chargeUnit.transform);
-		
+		var factory = Duplicate(chargeUnit.transform);
+
 		StartCoroutine(factory.GetComponent<ChargeEffectController>().MainLoop());
 
 		_charger.Add(chargeUnit, factory);
@@ -49,11 +67,10 @@ public class ChargeEffectController : MonoBehaviour
 	public void AlwaysAttachEffect(Transform parent, float size = -1)
 	{
 		// 複製作成
-		var factory = Instantiate(gameObject, parent);
+		var factory = Duplicate(parent);
 		if(size > 0) factory.GetComponent<ChargeEffectController>()._MaxSize = size;
 
 		StartCoroutine(factory.GetComponent<ChargeEffectController>().MainLoop());
-		Debug.Log("here2");
 	}
 
 	/// <summary>
@@ -72,7 +89,7 @@ public class ChargeEffectController : MonoBehaviour
 	private IEnumerator MainLoop()
 	{
 		var effect = Instantiate(_image.gameObject, transform);
-		Debug.Log("here3");
+		Debug.Log("here3");	// 4debug
 
 		enumerator = EffectLoop(effect);
 		StartCoroutine(enumerator);
@@ -90,7 +107,6 @@ public class ChargeEffectController : MonoBehaviour
 
 		while(true)
 		{
-			Debug.Log("here4");
 			float rate = Mathf.Sin(2 * Mathf.PI * time / _LoopTime);
 			rate = (rate + 1) / 2;
 			float size = _MaxSize * rate;
@@ -106,8 +122,7 @@ public class ChargeEffectController : MonoBehaviour
 
 	private void OnEnable()
 	{
-		Debug.Log("here1010");
-		Debug.Log(enumerator);
+		Debug.Log(enumerator);	// 4debug
 		if(enumerator != null)
 			StartCoroutine(enumerator);
 	}

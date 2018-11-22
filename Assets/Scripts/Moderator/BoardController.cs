@@ -66,7 +66,7 @@ public class BoardController : MonoBehaviour
 		_bsc = new BattleStateController(ac, this, _map, _units, _ui);
 		_map.Initilize(_bsc, _moveController, _damageCalculator, _units, _ui);
 		_units.Initilize(_map, _moveController, ac, _bsc);
-		_ui.Initialize(_units, ac, _map, _bsc);
+		_ui.Initialize(this, _units, ac, _map, _bsc);
 
 		// endCommandボタンが押下されたらmapインスタンスメソッドの持つNextSet()を実行
 		_ui.EndCommandButton.onClick.AddListener(() => { NextUnit(); });
@@ -154,6 +154,7 @@ public class BoardController : MonoBehaviour
 		var activeUnit = _units.Order.FirstOrDefault();
 		if(!activeUnit) Debug.LogError("[Error] : " + _units.CurrentPlayerTeam.ToString() + "'s active unit is not Found!");    // 4debug
 
+		Debug.Log(activeUnit);	// 4debug
 		// Unitsクラスに記憶.
 		_units.ActiveUnit = activeUnit;
 
@@ -166,6 +167,16 @@ public class BoardController : MonoBehaviour
 
 		// 盤面の状態を戦況確認中に設定
 		_bsc.WarpBattleState(BattleStates.Check);
+
+		// ターン/セット情報を表示
+		_ui.TurnSetInfoWindow.Show(Turn, Set, _bsc.BattleState);
+
+		// プレイヤーが人間なら画面タッチ不可を解除する.
+		if(!_ais.ContainsKey(activeUnit.Belonging))
+		{
+			_ui.TouchBlocker.SetActive(false);
+			Debug.Log("touch blocker invalid.");	// 4debug
+		}
 	}
 
 	/// <summary>
@@ -181,7 +192,7 @@ public class BoardController : MonoBehaviour
 		_units.CurrentPlayerTeam = team;
 
 		// Teamが変わったので、CutInを表示
-		_ui.PopUp.CreateCutInPopUp(team);
+		_ui.PopUpController.CreateCutInPopUp(team);
 
 		// プレイヤーの順番が一巡したら, セット数・ターン数を更新
 		if(_units.CurrentPlayerTeam == _startTeam) UpdateSet();
@@ -191,21 +202,6 @@ public class BoardController : MonoBehaviour
 
 		// セットプレイヤーの持つユニットのうち先頭のユニットを展開.
 		StartUnit();
-
-		// セットプレイヤーが人間なら画面タッチ不可を解除する.
-		if(!_ais.ContainsKey(team))
-		{
-			_ui.TouchBlocker.SetActive(false);
-			Debug.Log("touch blocker invalid.");
-		}
-
-		// ターン/セット情報を表示
-		_ui.TurnSetInfoWindow.Show(Turn, Set, _bsc.BattleState);
-
-		// ユニット情報サブウィンドウを開く (targetUnitは, ターンプレイヤーの持つユニットのうち, 順番をソートした後に最初に来るユニット)
-		//_ui.UnitInfoWindow.Show(_units.ActiveUnit);
-
-		//Debug.Log("Arrange Finished."); // 4debug
 	}
 
 	/// <summary>
@@ -216,14 +212,15 @@ public class BoardController : MonoBehaviour
 		// 準備中は操作を出来ないようにする
 		_ui.TouchBlocker.SetActive(true);
 
-		//Debug.Log("called");
+		//Debug.Log("called");	// 4debug
 
 		// 勝敗が決していたら終了する
 		if(JudgeGameFinish()) return;
 
 		// 行動が終了したユニットを、次のターンまで休ませる
 		_units.MakeRestActiveUnit();
-
+		Debug.Log(_units.Order.Count);	// 4debug
+		Debug.Log(_units.ActiveUnit.name);	// 4debug
 		// まだ自軍のユニットが残っているのならば, 次のユニットに交代
 		if(_units.Order.Count > 0) StartUnit();
 		// 自軍のユニット全てが行動終了したならば, 次のプレイヤーに交代

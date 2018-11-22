@@ -10,6 +10,7 @@ public class Floor : MonoBehaviour
 {
 	public enum Feature
 	{
+		Unmovable,
 		Grass,
 		Forest,
 		Rock
@@ -56,7 +57,7 @@ public class Floor : MonoBehaviour
 		}
 		private set
 		{
-			transform.localPosition = value.Value;
+			GetComponent<RectTransform>().anchoredPosition = value.Value;
 			_coordinatePair = value;
 		}
 	}
@@ -97,18 +98,6 @@ public class Floor : MonoBehaviour
 	}
 
 	/// <summary>
-	/// CreateFloor.csでFloorを配置する時にのみ呼び出されるメソッド.
-	/// </summary>
-	/// <param name="localX"></param>
-	/// <param name="transformX"></param>
-	/// <param name="localY"></param>
-	/// <param name="transformY"></param>
-	public void Generate(int localX, int localY, Vector3 transformCoordinate)
-	{
-		CoordinatePair = new KeyValuePair<Vector2Int, Vector3>(new Vector2Int(localX, localY), transformCoordinate);
-	}
-
-	/// <summary>
 	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
 	/// </summary>
 	/// <returns></returns>
@@ -117,35 +106,25 @@ public class Floor : MonoBehaviour
 		if(!_highlight) Debug.LogError("[Error] : HighLight is not set!");
 	}
 
-	private void Start()
-	{
-		// マス自身がボタンの役割を果たしており, これをクリックした時にOnClickメソッドを実行するように設定する.
-		GetComponent<Button>().onClick.AddListener(OnClick);
-
-		// CoordinatePairの初期化
-		_coordinatePair = new KeyValuePair<Vector2Int, Vector3>(ParseLocalCoordinateFromName(), transform.localPosition);
-
-		// マスをクリックしたときの挙動の初期化
-		SetClickBehavior();
-	}
-
 	/// <summary>
-	/// 名前からローカル座標を読み出し, Vector2Int型のオブジェクトとして返すメソッド
+	/// Floorの相対座標が適切かどうかを判定し, 適切でならばCoordinatePairに記録, 不適であればLogでErrorとする.
 	/// </summary>
+	/// <param name="mapSizeInt"></param>
 	/// <returns></returns>
-	private Vector2Int ParseLocalCoordinateFromName()
+	public void CheckPositionCorrect(Vector2Int floorSize)
 	{
-		// パターンにマッチしない座標であれば, 警告し終了する.
-		if(!Regex.IsMatch(transform.name, @"^\(\d+, \d+\)$"))
+		var ownPosition = GetComponent<RectTransform>().anchoredPosition;
+		var ownAnchoredPosInt = new Vector2Int((int)ownPosition.x, (int)ownPosition.y);
+
+		if(ownAnchoredPosInt.x % floorSize.x != 0 && ownAnchoredPosInt.y % floorSize.y != 0)
 		{
-			Debug.LogWarning("[Error] Floor Name Format (Coordinate) Exception : " + transform.name);
-			Application.Quit();
+			Debug.LogError("[Error] : " + gameObject.name + "'s relative coordinate is incorrect!");	// 4debug
+			return;
 		}
+		var coordinate = new Vector2Int(ownAnchoredPosInt.x / floorSize.x, ownAnchoredPosInt.y / floorSize.y);
 
-		string[] coors = transform.name.Split(new string[] { "(", ",", " ", "　", ")" }, StringSplitOptions.RemoveEmptyEntries);
-		return new Vector2Int(int.Parse(coors[0]), int.Parse(coors[1]));
+		_coordinatePair = new KeyValuePair<Vector2Int, Vector3>(coordinate, ownPosition);
 	}
-
 
 	/// <summary>
 	/// 初期化メソッド
@@ -163,6 +142,12 @@ public class Floor : MonoBehaviour
 
 		_movableColor = _map.MovableColor;
 		_attackableColor = _map.AttackableColor;
+
+		// マス自身がボタンの役割を果たしており, これをクリックした時にOnClickメソッドを実行するように設定する.
+		GetComponent<Button>().onClick.AddListener(OnClick);
+
+		// マスをクリックしたときの挙動の初期化
+		SetClickBehavior();
 	}
 
 	/// <summary>
@@ -170,7 +155,7 @@ public class Floor : MonoBehaviour
 	/// </summary>
 	public void SetAttackableHighlight()
 	{
-		IsAttackable = true;
+		if(Type != Feature.Unmovable) IsAttackable = true;
 
 		// 攻撃対象を選択可能にする. (ユニットのステータスを表示する機能もあるため, いちいち選択可能/不可にする必要がない)
 		if(Unit) Unit.GetComponent<Button>().interactable = true;
@@ -185,13 +170,13 @@ public class Floor : MonoBehaviour
 		_units.ClearFocusingUnit();
 
 		// ユニット詳細サブウィンドウを閉じる.
-		_map.Ui.UnitInfoWindow.Hide();
+		_map.UI.UnitInfoWindow.Hide();
 
 		// Floor詳細情報サブウィンドウを開く.
-		_map.Ui.FloorInfoWindow.Show(Type, _mc.GetFloorCost(this), (int)(_dc.GetReduceRate(this) * 100), _dc.GetAvoidRate(this));
+		_map.UI.FloorInfoWindow.Show(Type, _mc.GetFloorCost(this), (int)(_dc.GetReduceRate(this) * 100), _dc.GetAvoidRate(this));
 
 		// 移動量サブウィンドウも閉じる
-		_map.Ui.MoveAmountInfoWindow.Hide();
+		_map.UI.MoveAmountInfoWindow.Hide();
 	}
 
 	/// <summary>
@@ -209,7 +194,7 @@ public class Floor : MonoBehaviour
 		var attackCommandList = _units.ActiveUnit.GetAttackCommandsList();
 
 		// 攻撃一覧画面を作成する(UIに任せる)
-		_map.Ui.AttackSelectWindow.Show(attackCommandList);
+		_map.UI.AttackSelectWindow.Show(attackCommandList);
 
 		// 場面を移動する
 		_bsc.NextBattleState();

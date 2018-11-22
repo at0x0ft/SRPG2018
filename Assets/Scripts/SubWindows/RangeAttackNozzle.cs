@@ -15,7 +15,6 @@ public class RangeAttackNozzle : SubWindow
 		RangeAttack // 範囲攻撃の機能を求めている
 	}
 
-
 	private Button _centerButton;
 	private Button _circleButton;
 	private Text _text;
@@ -42,7 +41,7 @@ public class RangeAttackNozzle : SubWindow
 		_circleButton.onClick.AddListener(() => RotateRangeHighLight());
 
 		// ハイライトエフェクトくっつけます
-		_map.Ui.ChargeEffectController.AlwaysAttachEffect(_centerButton.transform, HighLightSize);
+		_map.UI.ChargeEffectController.AlwaysAttachEffect(_centerButton.transform, HighLightSize);
 	}
 
 
@@ -51,7 +50,7 @@ public class RangeAttackNozzle : SubWindow
 	/// </summary>
 	public void ActRangeAttack()
 	{
-		Debug.Log("ok");
+		Debug.Log("ok");	// 4debug
 		// 中身が見当たらない場合は無視します
 		var attacker = _units.ActiveUnit;
 		var attackInfo = attacker.PlanningAttack;
@@ -70,7 +69,11 @@ public class RangeAttackNozzle : SubWindow
 			if(attack.Scale == Attack.AttackScale.Single) return;
 
 			// 攻撃します
-			_ac.Attack(attacker, attack);
+			if(!_ac.Attack(attacker, attack))
+			{
+				// normalpopup?
+				return;
+			}
 		}
 
 		Hide();
