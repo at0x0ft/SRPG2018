@@ -12,16 +12,13 @@ namespace AC
 
 		private DamageCalculator _dc;
 		private Map _map;
-		private Units _units;
-
 
 		// ==========関数==========
 
-		public BaseAttackController(DamageCalculator dc, Map map, Units units)
+		public BaseAttackController(DamageCalculator dc, Map map)
 		{
 			_dc = dc;
 			_map = map;
-			_units = units;
 		}
 
 		/// <summary>
@@ -218,7 +215,7 @@ public class AttackController
 
 	public AttackController(Map map, Units units, DamageCalculator dc)
 	{
-		var bac = new AC.BaseAttackController(dc, map, units);
+		var bac = new AC.BaseAttackController(dc, map);
 		_sac = new AC.SingleAttackController(map, bac);
 		_rac = new AC.RangeAttackController(map, units, bac);
 		_map = map;
@@ -277,7 +274,7 @@ public class AttackController
 		List<Floor> targets = new List<Floor>();
 
 		Debug.Log("攻撃:" + attack + "　が発動しました");
-		
+
 		if(attack.Scale == global::Attack.AttackScale.Single)
 		{
 			targets.Add(targetUnit.Floor);
@@ -292,20 +289,20 @@ public class AttackController
 		}
 		else
 		{
-			Debug.Log("予定されていない型の攻撃がありました");
+			Debug.Log("予定されていない型の攻撃がありました");	// 4debug
 			res = false;
 		}
-		
+
+		// 攻撃が強攻撃だったら、強攻撃エフェクトを消します
+		if(attack.Kind == global::Attack.Level.High)
+		{
+			_map.UI.ChargeEffectController.DetachChargeEffect(attacker);
+		}
+
 		// 攻撃が成功したなら、攻撃エフェクトを作動させる
 		if(res)
 		{
-			_map.Ui.PopUp.AttackEffectFactory(attacker, targets, attack);
-
-			// 攻撃が強攻撃だったら、強攻撃エフェクトを消します
-			if(attack.Kind == global::Attack.Level.High)
-			{
-				_map.Ui.ChargeEffectController.DetachChargeEffect(attacker);
-			}
+			_map.UI.PopUpController.AttackEffectFactory(attacker, targets, attack);
 		}
 
 		return res;

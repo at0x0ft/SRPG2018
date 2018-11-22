@@ -66,7 +66,7 @@ public class BoardController : MonoBehaviour
 		_bsc = new BattleStateController(ac, this, _map, _units, _ui);
 		_map.Initilize(_bsc, _moveController, _damageCalculator, _units, _ui);
 		_units.Initilize(_map, _moveController, ac, _bsc);
-		_ui.Initialize(_units, ac, _map, _bsc);
+		_ui.Initialize(this, _units, ac, _map, _bsc);
 
 		// endCommandボタンが押下されたらmapインスタンスメソッドの持つNextSet()を実行
 		_ui.EndCommandButton.onClick.AddListener(() => { NextUnit(); });
@@ -192,7 +192,7 @@ public class BoardController : MonoBehaviour
 		_units.CurrentPlayerTeam = team;
 
 		// Teamが変わったので、CutInを表示
-		_ui.PopUp.CreateCutInPopUp(team);
+		_ui.PopUpController.CreateCutInPopUp(team);
 
 		// プレイヤーの順番が一巡したら, セット数・ターン数を更新
 		if(_units.CurrentPlayerTeam == _startTeam) UpdateSet();

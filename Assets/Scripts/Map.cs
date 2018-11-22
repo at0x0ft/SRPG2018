@@ -8,11 +8,10 @@ using UnityEngine.SceneManagement;
 
 public class Map : MonoBehaviour
 {
-
-	// 要整理
 	public int WidthLimit { get; private set; }
 	public int HeightLimit { get; private set; }
-	public UI Ui{ get; private set; }
+	public Vector2Int FloorSize { get; private set; }
+	public UI UI { get; private set; }
 
 	public List<Floor> Floors { get; private set; }
 
@@ -31,7 +30,6 @@ public class Map : MonoBehaviour
 	}
 
 	private MoveController _mc;
-	private Units _units;
 
 	/// <summary>
 	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
@@ -39,20 +37,47 @@ public class Map : MonoBehaviour
 	/// <returns></returns>
 	public void CheckSerializedMember()
 	{
-		if(_movableColor == null) Debug.LogError("[Error] : Movable Color is not set!");
-		if(_attackableColor == null) Debug.LogError("[Error] : Attackable Color is not set!");
+		// FloorSizeを初期化
+		FloorSize = new Vector2Int();
+
+		var mapSize = GetComponent<RectTransform>().sizeDelta;
+		var mapSizeInt = new Vector2Int((int)mapSize.x, (int)mapSize.y);
 		foreach(var floor in transform.GetComponentsInChildren<Floor>())
 		{
 			floor.CheckSerializedMember();
+
+			// 各々のsizeが一致しているかチェックする
+			if(!JudgeFloorSize(floor)) Debug.LogError("[Error] : Each floor size is not the same on " + floor.gameObject.name + " !");
+
+			// 各々のfloorのposがsizeで割り切れるかをチェックする.
+			floor.CheckPositionCorrect(FloorSize);
 		}
+
+		// MapのsizeがFloorのsizeの倍数になっているかどうかをチェックする.
+		if(mapSizeInt.x % FloorSize.x != 0 && mapSizeInt.y % FloorSize.y != 0) Debug.Log("[Error] : Map's RectTransform size is not correct!");
+	}
+
+	/// <summary>
+	/// floorの大きさが今までのfloorの大きさと一致しているか確認し, 一致している場合には記録しておくメソッド.
+	/// </summary>
+	/// <param name="floor"></param>
+	/// <returns></returns>
+	private bool JudgeFloorSize(Floor floor)
+	{
+		var floorSizefloat = floor.GetComponent<RectTransform>().sizeDelta;
+		var floorSizeInt = new Vector2Int((int)floorSizefloat.x, (int)floorSizefloat.y);
+		if(FloorSize == new Vector2Int())
+		{
+			FloorSize = floorSizeInt;
+			return true;
+		}
+		return FloorSize == floorSizeInt;
 	}
 
 	public void Initilize(BattleStateController bsc, MoveController mc, DamageCalculator dc, Units units, UI ui)
 	{
 		_mc = mc;
-		_units = units;
-		Ui = ui;
-
+		UI = ui;
 
 		// マス全てをFloorsに登録
 		Floors = new List<Floor>();
@@ -63,7 +88,12 @@ public class Map : MonoBehaviour
 		}
 
 		// いる
-		WidthLimit = Floors.Max(floor => floor.X);
+		if(Floors
+			.Select(f => f.GetComponent<RectTransform>().sizeDelta)
+			.Select(c => new Vector2Int((int)c.x, (int)c.y))
+			.Distinct().Count()
+			> 1)
+			WidthLimit = Floors.Max(floor => floor.X);
 		HeightLimit = Floors.Max(floor => floor.Y);
 	}
 
@@ -102,7 +132,6 @@ public class Map : MonoBehaviour
 	public void HighlightMovableFloors(Floor startFloor, int moveAmount)
 	{
 		var infos = _mc.GetRemainingMoveAmountInfos(this, startFloor, moveAmount);
-		//Debug.Log("infos length : " + infos.Count); // 4debug
 
 		// 移動可能なマスを計算し, 一つずつマスを展開
 		foreach(var info in infos)

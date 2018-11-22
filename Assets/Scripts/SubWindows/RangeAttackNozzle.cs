@@ -15,7 +15,6 @@ public class RangeAttackNozzle : SubWindow
 		RangeAttack // 範囲攻撃の機能を求めている
 	}
 
-
 	private Button _centerButton;
 	private Button _circleButton;
 	private Text _text;
@@ -42,7 +41,7 @@ public class RangeAttackNozzle : SubWindow
 		_circleButton.onClick.AddListener(() => RotateRangeHighLight());
 
 		// ハイライトエフェクトくっつけます
-		_map.Ui.ChargeEffectController.AlwaysAttachEffect(_centerButton.transform, HighLightSize);
+		_map.UI.ChargeEffectController.AlwaysAttachEffect(_centerButton.transform, HighLightSize);
 	}
 
 

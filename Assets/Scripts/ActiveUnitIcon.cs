@@ -24,10 +24,12 @@ public class ActiveUnitIcon : MonoBehaviour
 	/// <param name="unit"></param>
 	public void ChangeIconTarget(Transform unit)
 	{
-		transform.parent = unit;
+		transform.SetParent(unit);
+		UI.SetAnchorCenter(GetComponent<RectTransform>());
+		GetComponent<RectTransform>().anchoredPosition = new Vector2Int();
 	}
 
-	IEnumerator Floating()
+	private IEnumerator Floating()
 	{
 		float time = 0;
 
@@ -35,7 +37,7 @@ public class ActiveUnitIcon : MonoBehaviour
 		{
 			var pos = Vector3.zero;
 			pos.y = _floatHeight * Mathf.Sin(2 * Mathf.PI * (time / _floatLoop)) + _baseHeight;
-			transform.localPosition = pos;
+			transform.GetComponent<RectTransform>().anchoredPosition = pos;
 
 			yield return null;
 			time += Time.deltaTime;

@@ -35,6 +35,9 @@ public class DamagePopUp : BasePopUp
 		Debug.Log(GetComponentInChildren<Image>().gameObject.name + " is Image name."); // 4debug
 		GetComponentInChildren<Image>().gameObject.SetActive(false);
 
+		// Anchorを中央に設定する.
+		UI.SetAnchorCenter(GetComponent<RectTransform>());
+
 		Initialize();
 	}
 
@@ -49,12 +52,15 @@ public class DamagePopUp : BasePopUp
 		float b = _floatingHeight;
 
 		float alpha = 4 * b / (a * a);
-		Debug.Log("alpha"+alpha);
+		// Debug.Log("alpha" + alpha);
 		return -alpha * Mathf.Pow(time - a / 2, 2) + b;
 	}
 
 	private void SetUpSize()
 	{
+		// FontSizeを設定.
+		GetComponentInChildren<Text>().fontSize = _fontSize;
+
 		var rect = GetComponent<RectTransform>();
 		var textRect = _text.GetComponent<RectTransform>();
 
@@ -78,11 +84,11 @@ public class DamagePopUp : BasePopUp
 		_text.text = _info;
 		SetUpSize();
 
-		while(time<existTime)
+		while(time < existTime)
 		{
 			now.y = CalcHeight(time);
 
-			transform.localPosition = now;
+			GetComponent<RectTransform>().anchoredPosition = now;
 
 			yield return null;
 			time += Time.deltaTime;

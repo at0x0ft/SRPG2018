@@ -214,13 +214,13 @@ public class AttackEffectFactory : BasePopUp
 	/// (お助け関数)
 	/// 特定の位置にエフェクトを作成します
 	/// </summary>
-	/// <param name="pos">エフェクト作成位置</param>
+	/// <param name="target">エフェクト作成位置</param>
 	private void MakeEffect(Vector3 target, List<Sprite> mySprites = null)
 	{
 		GetComponent<PopUpController>().AttackEffectPopUp(
 			transform,
 			_attack,
-			(mySprites != null ? mySprites : _sprites),
+			(mySprites ?? _sprites),
 			target
 		);
 	}
@@ -234,7 +234,7 @@ public class AttackEffectFactory : BasePopUp
 	{
 		foreach(var target in _targets)
 		{
-			MakeEffect(target.transform.localPosition);
+			MakeEffect(target.CoordinatePair.Value);
 		}
 		yield break;
 	}
@@ -248,8 +248,8 @@ public class AttackEffectFactory : BasePopUp
 			transform,
 			_attack,
 			_sprites,
-			_targets[0].GetComponent<RectTransform>().localPosition,
-			_attackerRect.localPosition
+			_targets[0].GetComponent<RectTransform>().anchoredPosition,
+			_attackerRect.anchoredPosition
 		);
 		yield break;
 	}
@@ -257,7 +257,7 @@ public class AttackEffectFactory : BasePopUp
 	// 水星ちゃん用
 	private IEnumerator BubbleNotes()
 	{
-		var pos = _attackerRect.localPosition;
+		var pos = _attackerRect.anchoredPosition;
 
 		for(int i = 0; i < 3; i++)
 		{
@@ -269,7 +269,7 @@ public class AttackEffectFactory : BasePopUp
 
 	private IEnumerator TrebleCreph()
 	{
-		var pos = _attackerRect.localPosition;
+		var pos = _attackerRect.anchoredPosition;
 
 		MakeEffect(pos);
 
@@ -278,7 +278,7 @@ public class AttackEffectFactory : BasePopUp
 
 	private IEnumerator NotesEdge()
 	{
-		var pos = _attackerRect.localPosition;
+		var pos = _attackerRect.anchoredPosition;
 
 		List<Sprite> sprite = new List<Sprite>();
 
@@ -307,7 +307,7 @@ public class AttackEffectFactory : BasePopUp
 
 			var target = _targets[UnityEngine.Random.Range(0, _targets.Count)];
 			sprite.Add(_sprites[UnityEngine.Random.Range(0, _sprites.Count)]);
-			MakeEffect(target.GetComponent<RectTransform>().localPosition, sprite);
+			MakeEffect(target.GetComponent<RectTransform>().anchoredPosition, sprite);
 
 			yield return new WaitForSeconds(happenRate);
 			time += happenRate;
@@ -332,8 +332,8 @@ public class AttackEffectFactory : BasePopUp
 				transform,
 				_attack,
 				sprite,
-				target.GetComponent<RectTransform>().localPosition,
-				_attackerRect.localPosition
+				target.GetComponent<RectTransform>().anchoredPosition,
+				_attackerRect.anchoredPosition
 			);
 
 			yield return new WaitForSeconds(happenRate);

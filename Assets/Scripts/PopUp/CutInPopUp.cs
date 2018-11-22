@@ -60,7 +60,7 @@ public class CutInPopUp : BasePopUp
 		while(time < existTime)
 		{
 			float ratio = time / existTime;
-			transform.localPosition = Vector3.Lerp(start, end, ratio);
+			GetComponent<RectTransform>().anchoredPosition = Vector3.Lerp(start, end, ratio);
 
 			yield return null;
 			time += Time.deltaTime;
