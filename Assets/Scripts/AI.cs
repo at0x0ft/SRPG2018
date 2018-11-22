@@ -159,7 +159,7 @@ public class AI : MonoBehaviour
 		.ToList();
 		var enemy = _units.ActiveUnit;
 		var movable = _map.GetMovableFloors();
-		Debug.Log(players.Count);
+		Debug.Log(players.Count);	// 4debug
 		// 移動できない場合
 		if(!movable.Any()) return null;
 

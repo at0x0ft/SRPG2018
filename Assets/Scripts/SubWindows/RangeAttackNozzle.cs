@@ -50,7 +50,7 @@ public class RangeAttackNozzle : SubWindow
 	/// </summary>
 	public void ActRangeAttack()
 	{
-		Debug.Log("ok");
+		Debug.Log("ok");	// 4debug
 		// 中身が見当たらない場合は無視します
 		var attacker = _units.ActiveUnit;
 		var attackInfo = attacker.PlanningAttack;

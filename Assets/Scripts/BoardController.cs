@@ -154,7 +154,7 @@ public class BoardController : MonoBehaviour
 		var activeUnit = _units.Order.FirstOrDefault();
 		if(!activeUnit) Debug.LogError("[Error] : " + _units.CurrentPlayerTeam.ToString() + "'s active unit is not Found!");    // 4debug
 
-		Debug.Log(activeUnit);
+		Debug.Log(activeUnit);	// 4debug
 		// Unitsクラスに記憶.
 		_units.ActiveUnit = activeUnit;
 
@@ -167,7 +167,7 @@ public class BoardController : MonoBehaviour
 
 		// 盤面の状態を戦況確認中に設定
 		_bsc.WarpBattleState(BattleStates.Check);
-		
+
 		// ターン/セット情報を表示
 		_ui.TurnSetInfoWindow.Show(Turn, Set, _bsc.BattleState);
 
@@ -175,7 +175,7 @@ public class BoardController : MonoBehaviour
 		if(!_ais.ContainsKey(activeUnit.Belonging))
 		{
 			_ui.TouchBlocker.SetActive(false);
-			Debug.Log("touch blocker invalid.");
+			Debug.Log("touch blocker invalid.");	// 4debug
 		}
 	}
 
@@ -212,15 +212,15 @@ public class BoardController : MonoBehaviour
 		// 準備中は操作を出来ないようにする
 		_ui.TouchBlocker.SetActive(true);
 
-		//Debug.Log("called");
+		//Debug.Log("called");	// 4debug
 
 		// 勝敗が決していたら終了する
 		if(JudgeGameFinish()) return;
 
 		// 行動が終了したユニットを、次のターンまで休ませる
 		_units.MakeRestActiveUnit();
-		Debug.Log(_units.Order.Count);
-		Debug.Log(_units.ActiveUnit.name);
+		Debug.Log(_units.Order.Count);	// 4debug
+		Debug.Log(_units.ActiveUnit.name);	// 4debug
 		// まだ自軍のユニットが残っているのならば, 次のユニットに交代
 		if(_units.Order.Count > 0) StartUnit();
 		// 自軍のユニット全てが行動終了したならば, 次のプレイヤーに交代

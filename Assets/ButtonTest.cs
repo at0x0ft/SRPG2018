@@ -11,7 +11,7 @@ public class ButtonTest : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		_btn.onClick.AddListener(() => { Debug.Log("debug: Clicked!"); });
+		_btn.onClick.AddListener(() => { Debug.Log("debug: Clicked!");	/* 4debug */ });
 	}
 
 	// Update is called once per frame
