@@ -277,7 +277,7 @@ public class AI : MonoBehaviour
 	private List<Vector2Int> AttackReach(Vector2Int now, Attack attack)
 	{
 		var range = attack.Range;
-		// already true for debug.
+		// always true for debug.
 		if(true || attack.Scale == Attack.AttackScale.Single || !((RangeAttack)attack).IsRotatable)
 		{
 			return FixRange(now, range);
