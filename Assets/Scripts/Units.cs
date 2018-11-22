@@ -6,7 +6,7 @@ using System.Linq;
 
 public class Units : MonoBehaviour
 {
-	public List<Unit> Characters { get; private set; }
+	public List<Unit> Characters { get; private set; }// 注:倒れたキャラを含む
 	public Unit.Team CurrentPlayerTeam { get; set; }
 	public List<Unit> Order { get; private set; }
 

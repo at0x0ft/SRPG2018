@@ -153,13 +153,16 @@ public class AI : MonoBehaviour
 	/// <returns>Playerが近距離になるマス</returns>
 	private Floor BestNearestFloor()
 	{
-		var players = _units.GetEnemyUnits().ToList();
+		// 生きているプレイヤーに限定する
+		var players = _units.GetEnemyUnits()
+		.Where(player => player.Life > 0)
+		.ToList();
 		var enemy = _units.ActiveUnit;
 		var movable = _map.GetMovableFloors();
-
+		Debug.Log(players.Count);
 		// 移動できない場合
 		if(!movable.Any()) return null;
-
+		
 		var tmp = movable.Where(f => f.Unit == null).ToList(); // ユニットの居るマスには移動しない
 		if(!tmp.Any()) return null;
 		else return tmp
