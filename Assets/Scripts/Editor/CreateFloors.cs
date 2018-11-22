@@ -19,14 +19,15 @@ public class CreateFloors : EditorWindow
 	private int _width = 20;
 	private int _height = 10;
 	private GameObject _parent;
+	private GameObject _units;
 	private GameObject _floor1;
 	private GameObject _floor2;
 	private GameObject _floor3;
 	private GameObject _floor4;
 	private GameObject _floor5;
-	private int _per1 = 0;
-	private int _per2 = 0;
-	private int _per3 = 0;
+	private int _per1 = 20;
+	private int _per2 = 70;
+	private int _per3 = 10;
 	private int _per4 = 0;
 	private int _per5 = 0;
 
@@ -34,15 +35,33 @@ public class CreateFloors : EditorWindow
 	{
 		try
 		{
+			// Default objects settings
 			_canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 			_parent = GameObject.Find("Map");
+			_units = GameObject.Find("Units");
+			Debug.Log("[Debug] : Num of units = " + _units.GetComponentsInChildren<Unit>().Count(u => u.GetComponent<RectTransform>()));    // 4debug
+			try
+			{
+				var prefabFloors = Resources.LoadAll<Floor>("Prefabs/Floors/").Select(f => f.gameObject).ToArray();
+				if(prefabFloors.Count() > 5) Debug.LogWarning("[Warn] : Prefab floor is too math! (Need to increase CreateFloor class's member or decrease assigning floors.)");
+				_floor1 = prefabFloors[0];
+				_floor2 = prefabFloors[1];
+				_floor3 = prefabFloors[2];
+				_floor4 = prefabFloors[3];
+				_floor5 = prefabFloors[4];
+			}
+			catch(System.IndexOutOfRangeException)
+			{
+				// Not so care about this exception.
+			}
 
 			_canvas = EditorGUILayout.ObjectField("UI Canvas", _canvas, typeof(Canvas), true) as Canvas;
 
 			_width = int.Parse(EditorGUILayout.TextField("Width ( = x)", _width.ToString()));
 			_height = int.Parse(EditorGUILayout.TextField("Height ( = y)", _height.ToString()));
 
-			_parent = EditorGUILayout.ObjectField("Parent", _parent, typeof(GameObject), true) as GameObject;
+			_parent = EditorGUILayout.ObjectField("Parent", _parent, typeof(Map), true) as GameObject;
+			_units = EditorGUILayout.ObjectField("Units", _units, typeof(Units), true) as GameObject;
 
 			_floor1 = EditorGUILayout.ObjectField("Floor Prefab 1 (need)", _floor1, typeof(GameObject), true) as GameObject;
 			_per1 = int.Parse(EditorGUILayout.TextField("percentage of Prefab 1 (need)", _per1.ToString()));
@@ -74,13 +93,24 @@ public class CreateFloors : EditorWindow
 		}
 
 		int pix = (int)Mathf.Min(_parent.GetComponent<RectTransform>().sizeDelta.x / _width, _parent.GetComponent<RectTransform>().sizeDelta.y / _height);
+		Debug.Log("[Debug] : pix = " + pix);	// 4debug
+
+		// Resize the parent's sizeDelta.
 		_parent.GetComponent<RectTransform>().sizeDelta = new Vector2Int(pix * _width, pix * _height);
+		// Resize the units' sizeDelta.
+		_units.GetComponentsInChildren<Unit>().Select(u => u.GetComponent<RectTransform>().sizeDelta = new Vector2Int(pix, pix));
+		foreach(var unit in _units.GetComponentsInChildren<Unit>())
+		{
+			unit.GetComponent<RectTransform>().sizeDelta = new Vector2Int(pix, pix);
+		}
 
 		var floors = new List<GameObject> { _floor1, _floor2, _floor3, _floor4, _floor5 };
 		var pers = new List<int> { _per1, _per2, _per3, _per4, _per5 };
-		pers.RemoveAll(x => floors.Where(y => y == null)
-								  .Select(z => floors.IndexOf(z))
-								  .Contains(pers.IndexOf(x)));
+		pers.RemoveAll(x =>
+			floors.Where(y => y == null)
+			.Select(z => floors.IndexOf(z))
+			.Contains(pers.IndexOf(x))
+		);
 		floors.RemoveAll(x => x == null);
 		for(int j = 0; j < _height; j++)
 		{
@@ -90,19 +120,19 @@ public class CreateFloors : EditorWindow
 				floor.name = "(" + i.ToString() + ", " + j.ToString() + ")";
 				floor.transform.SetParent(_parent.transform);
 
-				// _parentオブジェクトのうち, 左下の角にanchorを設定する.
-				floor.GetComponent<RectTransform>().anchorMin = new Vector2Int();
-				floor.GetComponent<RectTransform>().anchorMax = new Vector2Int();
-				floor.GetComponent<RectTransform>().pivot = new Vector2Int();
-				floor.GetComponent<RectTransform>().localPosition = new Vector3Int();
+				// Resize the floor object
+				floor.GetComponent<RectTransform>().sizeDelta = new Vector2Int(pix, pix);
 				floor.GetComponent<RectTransform>().localScale = new Vector3Int(1, 1, 1);
+
+				// Set anchor left bottom.
+				UI.SetAnchorLeftBottom(floor.GetComponent<RectTransform>());
 
 				// _parentの左下の角から見て, floorの左下の角の座標が何になるかを設定する.
 				floor.GetComponent<RectTransform>().anchoredPosition = new Vector2Int(i * pix, j * pix);
 			}
 		}
 
-		Debug.Log("CreateFloors.cs : Create " + _parent.transform.childCount + " floors in " + _parent.name);
+		Debug.Log("[Debug] : CreateFloors.cs : Create " + _parent.transform.childCount + " floors in " + _parent.name);	// 4debug
 	}
 
 	private static int GetRandomIndex(List<int> weightTable)

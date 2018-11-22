@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Linq;
 using System;
+using UnityEngine.UI;
 
 /// <summary>
 /// 各BattleStateが始まったときに、特定のアルゴリズムを実行するだけです。
@@ -17,8 +18,10 @@ using System;
 public class AI : MonoBehaviour
 {
 	// ==========固定値==========
-	const float MinWaitSeconds = 1.0f; // 各動作をした後、最低待つ時間
-	const float MaxWaitSeconds = 2.0f; // 最大待つ時間
+	[SerializeField]
+	private float MinWaitSeconds = 0.1f; // 各動作をした後、最低待つ時間
+	[SerializeField]
+	private float MaxWaitSeconds = 2.0f; // 最大待つ時間
 
 	/// この記法、後々ランダム性に使うかも
 	/// [SerializeField, Range(0, 100)]
@@ -34,15 +37,25 @@ public class AI : MonoBehaviour
 	private UI _ui;
 	private Units _units;
 
+	private Slider _speed;
+
 
 	// ==========(一応)変数==========
 	private Coroutine coroutine;
+	private float waitSeconds;
 
 	//関数格納
 	private Dictionary<BattleStates, Func<IEnumerator>> BattleStatesBehavior;
 
 
 	// ==========基盤関数==========
+	private void Awake()
+	{
+		_speed = GetComponentInChildren<Slider>();
+		if(_speed != null) _speed.value = 0.5f; // 1vs1では速度バーが無かったため
+		waitSeconds = MaxWaitSeconds;
+	}
+
 	/// <summary>
 	/// 初期化メソッド
 	/// </summary>
@@ -123,7 +136,7 @@ public class AI : MonoBehaviour
 		if(nearest == null)
 		{
 			// 動けないのでユニットの動作は終了
-			FinishUnitAction();
+			_units.ActiveUnit.Floor.OnClick();
 		}
 		else
 		{
@@ -141,13 +154,16 @@ public class AI : MonoBehaviour
 	private Floor BestNearestFloor()
 	{
 		var players = _units.GetEnemyUnits().ToList();
-
+		var enemy = _units.ActiveUnit;
 		var movable = _map.GetMovableFloors();
 
 		// 移動できない場合
 		if(!movable.Any()) return null;
 
-		return movable.Aggregate(
+		var tmp = movable.Where(f => f.Unit == null).ToList(); // ユニットの居るマスには移動しない
+		if(!tmp.Any()) return null;
+		else return tmp
+		.Aggregate(
 		(best, elem) =>
 		(DistanceToPlayer(players, best) <= DistanceToPlayer(players, elem))
 		? best : elem);
@@ -176,29 +192,37 @@ public class AI : MonoBehaviour
 		// 攻撃が当たるコマンド一覧
 		var attackableCommands = GetHitAttacks();
 
-		if(!attackableCommands.Any())
+		// 使用するコマンド
+		Attack attack = null;
+
+		if(attackableCommands.Any())
 		{
-			FinishUnitAction();
+			// 攻撃がある場合攻撃の種類を選択
+			attack = SelectAttack(attackableCommands);
+		}
+		else if(_ui.RangeAttackNozzle.gameObject.activeSelf)
+		{
+			// 強攻撃の後だったら、Attackボタンがあるので使用する。
+			attack = _units.ActiveUnit.PlanningAttack.Value.Key;
 		}
 		else
 		{
-			// 攻撃の種類を選択
-			var attack = SelectAttack(attackableCommands);
-
-			yield return new WaitForSeconds(WaitSeconds());
-
-			// 攻撃の場所を選択（攻撃）
-			if(attack.Scale == Attack.AttackScale.Single)
-			{
-				SelectSingleAttackFloor();
-			}
-			else
-			{
-				yield return SelectRangeAttackDir((RangeAttack)attack);
-			}
+			FinishUnitAction();
+			yield break;
 		}
 
-		yield break;
+
+		yield return new WaitForSeconds(WaitSeconds());
+
+		// 攻撃の場所を選択（攻撃）
+		if(attack.Scale == Attack.AttackScale.Single)
+		{
+			SelectSingleAttackFloor();
+		}
+		else
+		{
+			yield return StartCoroutine(SelectRangeAttackDir((RangeAttack)attack));
+		}
 	}
 
 	/// <summary>
@@ -239,8 +263,8 @@ public class AI : MonoBehaviour
 	private List<Vector2Int> AttackReach(Vector2Int now, Attack attack)
 	{
 		var range = attack.Range;
-
-		if(attack.Scale == Attack.AttackScale.Single || !((RangeAttack)attack).IsRotatable)
+		// already true for debug.
+		if(true || attack.Scale == Attack.AttackScale.Single || !((RangeAttack)attack).IsRotatable)
 		{
 			return FixRange(now, range);
 		}
@@ -380,9 +404,7 @@ public class AI : MonoBehaviour
 	/// <returns>待機時間</returns>
 	private float WaitSeconds()
 	{
-		var range = MaxWaitSeconds - MinWaitSeconds;
-
-		return MinWaitSeconds + range * UnityEngine.Random.value;
+		return waitSeconds * (1 + UnityEngine.Random.value);
 	}
 
 	/// <summary>
@@ -422,5 +444,14 @@ public class AI : MonoBehaviour
 	public void StopAI()
 	{
 		StopCoroutine(coroutine);
+	}
+
+	private void Update()
+	{
+		if(_speed!=null) //　1vs1では速度バーが無かったため
+		{
+			var v = _speed.value;
+			waitSeconds = Mathf.Lerp(MaxWaitSeconds, MinWaitSeconds, v);
+		}
 	}
 }

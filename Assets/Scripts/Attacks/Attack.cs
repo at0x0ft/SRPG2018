@@ -16,8 +16,8 @@ public abstract class Attack : MonoBehaviour
 	// 攻撃の規模
 	public enum AttackScale
 	{
-		Single,	// 単体攻撃
-		Range	// 範囲攻撃
+		Single, // 単体攻撃
+		Range   // 範囲攻撃
 	}
 
 	public AttackScale Scale { get; protected set; }
@@ -25,9 +25,9 @@ public abstract class Attack : MonoBehaviour
 	// 攻撃の強さ
 	public enum Level
 	{
-		Low,		// 弱攻撃
-		Mid,		// 中攻撃
-		High		// 強攻撃
+		Low,        // 弱攻撃
+		Mid,        // 中攻撃
+		High        // 強攻撃
 	}
 
 	[SerializeField]
@@ -47,6 +47,15 @@ public abstract class Attack : MonoBehaviour
 	{
 		get { return _type; }
 	}
+
+	// 攻撃エフェクトの種類
+	[SerializeField]
+	protected AttackEffectKind _effectKind;
+	public AttackEffectKind EffectKind
+	{
+		get{ return _effectKind; }
+	}
+	
 
 	// 攻撃力
 	[SerializeField]

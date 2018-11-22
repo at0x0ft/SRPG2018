@@ -184,10 +184,10 @@ public class DamageCalculator : MonoBehaviour
 	/// <summary>
 	/// ダメージを計算
 	/// </summary>
-	public int Calculate(Unit attacker, Attack attack, Unit defender, Floor defenderFloor)
+	public int? Calculate(Unit attacker, Attack attack, Unit defender, Floor defenderFloor)
 	{
 		// 取り敢えず, 暫定的にダメージ計算時に命中可否の判定を行うこととする. (命中可否を画面に通知するかどうかは, また別で考える)
-		if(!IsHit(attack, defenderFloor)) return 0;
+		if(!IsHit(attack, defenderFloor)) return null;
 
 		// ダメージ = { (攻撃力 * attackの威力 * 相性補正 * 得意補正) / (防御力 * 地形効果防御補正) } * 乱数
 		var damage = Mathf.RoundToInt(

@@ -40,10 +40,31 @@ public class UnitInfoWindow : SubWindow
 		Hide();
 		_nameTextBox.text = unit.Name;
 		_hpTextBox.text = unit.Life.ToString();
-		_positionTextBox.text = unit.Position.ToString();
+		_positionTextBox.text = LocalizingPosition(unit.Position);
 		_typeTextBox.text = unit.Type.ToString();
 		_attackPowerTextBox.text = unit.AttackPower.ToString();
 		_defenceTextBox.text = unit.Defence.ToString();
 		Show();
+	}
+
+	/// <summary>
+	/// ユニットの役割を日本語化するメソッド.
+	/// </summary>
+	/// <param name="attackScale"></param>
+	/// <returns></returns>
+	private string LocalizingPosition(Unit.Role position)
+	{
+		switch(position)
+		{
+			case Unit.Role.Forward:
+				return "前衛";
+			case Unit.Role.Middle:
+				return "中衛";
+			case Unit.Role.Back:
+				return "後衛";
+			default:
+				Debug.LogError("[Error] : Unexpected attack scale type has caught (in AttackInfoWindow.LocalizingScale).");
+				return "";
+		}
 	}
 }

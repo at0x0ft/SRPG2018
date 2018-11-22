@@ -16,7 +16,30 @@ public class DamagePopUp : BasePopUp
 {
 	// 固定値
 	[SerializeField]
-	protected float floatingHeight;
+	protected float _floatingHeight = 20;
+	[SerializeField]
+	protected int _fontSize = 20;
+	[SerializeField]
+	protected Color _color = Color.red;
+
+	// 変数
+	private Text _text;
+	private string _info;
+
+	public void Initialize(string info)
+	{
+		_text = GetComponent<PopUpController>().Text;
+		_info = info;
+
+		// DamagePopUpならば, 背景を消す.
+		Debug.Log(GetComponentInChildren<Image>().gameObject.name + " is Image name."); // 4debug
+		GetComponentInChildren<Image>().gameObject.SetActive(false);
+
+		// Anchorを中央に設定する.
+		UI.SetAnchorCenter(GetComponent<RectTransform>());
+
+		Initialize();
+	}
 
 	/// <summary>
 	/// 放物線を描いた時の高さを求めます
@@ -26,11 +49,27 @@ public class DamagePopUp : BasePopUp
 	private float CalcHeight(float time)
 	{
 		float a = existTime;
-		float b = floatingHeight;
+		float b = _floatingHeight;
 
 		float alpha = 4 * b / (a * a);
-		Debug.Log("alpha" + alpha);
+		// Debug.Log("alpha" + alpha);
 		return -alpha * Mathf.Pow(time - a / 2, 2) + b;
+	}
+
+	private void SetUpSize()
+	{
+		// FontSizeを設定.
+		GetComponentInChildren<Text>().fontSize = _fontSize;
+
+		var rect = GetComponent<RectTransform>();
+		var textRect = _text.GetComponent<RectTransform>();
+
+		rect.localScale = new Vector3(1, 1, 1);
+		textRect.localScale = new Vector3(1, 1, 1);
+
+		textRect.sizeDelta = new Vector2(_text.preferredWidth, _text.preferredHeight);
+		textRect.sizeDelta = new Vector2(_text.preferredWidth, _text.preferredHeight);
+		rect.sizeDelta = textRect.sizeDelta;
 	}
 
 	/// <summary>
@@ -40,14 +79,16 @@ public class DamagePopUp : BasePopUp
 	protected override IEnumerator Move()
 	{
 		float time = 0f;
-
 		Vector3 now = new Vector3(0, 0, 0);
+
+		_text.text = _info;
+		SetUpSize();
 
 		while(time < existTime)
 		{
 			now.y = CalcHeight(time);
 
-			transform.localPosition = now;
+			GetComponent<RectTransform>().anchoredPosition = now;
 
 			yield return null;
 			time += Time.deltaTime;

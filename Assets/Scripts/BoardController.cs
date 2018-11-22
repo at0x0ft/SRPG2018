@@ -54,9 +54,10 @@ public class BoardController : MonoBehaviour
 	{
 		CheckSerializedMember();    // 4debug
 
-		// ユニット詳細情報サブウィンドウを一度閉じる
+		// UnitInfoWindowとFloorInfoWindowを一度閉じる
 		_ui.UnitInfoWindow.Hide();
-    
+		_ui.FloorInfoWindow.Hide();
+
 		// 準備中は画面をクリックされないようにする
 		_ui.TouchBlocker.SetActive(true);
 
@@ -65,7 +66,7 @@ public class BoardController : MonoBehaviour
 		_bsc = new BattleStateController(ac, this, _map, _units, _ui);
 		_map.Initilize(_bsc, _moveController, _damageCalculator, _units, _ui);
 		_units.Initilize(_map, _moveController, ac, _bsc);
-		_ui.Initialize(_units, ac, _map, _bsc);
+		_ui.Initialize(this, _units, ac, _map, _bsc);
 
 		// endCommandボタンが押下されたらmapインスタンスメソッドの持つNextSet()を実行
 		_ui.EndCommandButton.onClick.AddListener(() => { NextUnit(); });
@@ -81,7 +82,7 @@ public class BoardController : MonoBehaviour
 		SetPlayerOrder();
 
 		// セット開始
-		StartPlayer(_startTeam);
+		StartPhase(_startTeam);
 	}
 
 	/// <summary>
@@ -153,8 +154,12 @@ public class BoardController : MonoBehaviour
 		var activeUnit = _units.Order.FirstOrDefault();
 		if(!activeUnit) Debug.LogError("[Error] : " + _units.CurrentPlayerTeam.ToString() + "'s active unit is not Found!");    // 4debug
 
+		Debug.Log(activeUnit);
 		// Unitsクラスに記憶.
 		_units.ActiveUnit = activeUnit;
+
+		// Activeユニットアイコンを動かす
+		_ui.ActiveUnitIcon.ChangeIconTarget(_units.ActiveUnit.transform);
 
 		// map,UIを初期化する
 		_map.ClearHighlight();
@@ -162,22 +167,32 @@ public class BoardController : MonoBehaviour
 
 		// 盤面の状態を戦況確認中に設定
 		_bsc.WarpBattleState(BattleStates.Check);
+		
+		// ターン/セット情報を表示
+		_ui.TurnSetInfoWindow.Show(Turn, Set, _bsc.BattleState);
+
+		// プレイヤーが人間なら画面タッチ不可を解除する.
+		if(!_ais.ContainsKey(activeUnit.Belonging))
+		{
+			_ui.TouchBlocker.SetActive(false);
+			Debug.Log("touch blocker invalid.");
+		}
 	}
 
 	/// <summary>
-	/// セット開始時の処理
+	/// フェイズ開始時の処理
 	/// </summary>
 	/// <param name="team"></param>
-	private void StartPlayer(Unit.Team team)
+	private void StartPhase(Unit.Team team)
 	{
 		// 前のプレーヤーのハイライト情報を削除しておく
 		_map.ClearHighlight();
 
 		// セットプレイヤーのチームを記録
 		_units.CurrentPlayerTeam = team;
-		
+
 		// Teamが変わったので、CutInを表示
-		_ui.PopUp.CreateCutInPopUp(team);
+		_ui.PopUpController.CreateCutInPopUp(team);
 
 		// プレイヤーの順番が一巡したら, セット数・ターン数を更新
 		if(_units.CurrentPlayerTeam == _startTeam) UpdateSet();
@@ -187,21 +202,6 @@ public class BoardController : MonoBehaviour
 
 		// セットプレイヤーの持つユニットのうち先頭のユニットを展開.
 		StartUnit();
-		
-		// セットプレイヤーが人間なら画面タッチ不可を解除する.
-		if(!_ais.ContainsKey(team))
-		{
-			_ui.TouchBlocker.SetActive(false);
-			Debug.Log("touch blocker invalid.");
-		}
-
-		// ターン/セット情報を表示
-		_ui.TurnSetInfoWindow.Show(Turn, Set, _bsc.BattleState);
-
-		// ユニット情報サブウィンドウを開く (targetUnitは, ターンプレイヤーの持つユニットのうち, 順番をソートした後に最初に来るユニット)
-		//_ui.UnitInfoWindow.Show(_units.ActiveUnit);
-
-		//Debug.Log("Arrange Finished."); // 4debug
 	}
 
 	/// <summary>
@@ -212,37 +212,47 @@ public class BoardController : MonoBehaviour
 		// 準備中は操作を出来ないようにする
 		_ui.TouchBlocker.SetActive(true);
 
-		Debug.Log("called");
+		//Debug.Log("called");
 
 		// 勝敗が決していたら終了する
-		JudgeGameFinish();
+		if(JudgeGameFinish()) return;
 
 		// 行動が終了したユニットを、次のターンまで休ませる
 		_units.MakeRestActiveUnit();
-
+		Debug.Log(_units.Order.Count);
+		Debug.Log(_units.ActiveUnit.name);
 		// まだ自軍のユニットが残っているのならば, 次のユニットに交代
 		if(_units.Order.Count > 0) StartUnit();
 		// 自軍のユニット全てが行動終了したならば, 次のプレイヤーに交代
-		else NextPlayer();
+		else NextPhase();
 	}
 
 	/// <summary>
-	/// 次のプレイヤーに更新
+	/// 次のフェイズ
 	/// </summary>
-	private void NextPlayer()
+	private void NextPhase()
 	{
 		// 次のTeamの設定 (現在対戦人数2人の時の場合のみを想定した実装)
 		var nextTeam = _units.CurrentPlayerTeam == Unit.Team.Player ? Unit.Team.Enemy : Unit.Team.Player;
-		StartPlayer(nextTeam);
+		StartPhase(nextTeam);
 	}
 
 	/// <summary>
 	/// 勝敗判定を行い, 負けた場合はゲーム終了.
 	/// </summary>
-	public void JudgeGameFinish()
+	public bool JudgeGameFinish()
 	{
-		if(_units.JudgeLose(Unit.Team.Player)) FinishGame(Unit.Team.Player);
-		if(_units.JudgeLose(Unit.Team.Enemy)) FinishGame(Unit.Team.Enemy);
+		if(_units.JudgeLose(Unit.Team.Player))
+		{
+			FinishGame(Unit.Team.Player);
+			return true;
+		}
+		if(_units.JudgeLose(Unit.Team.Enemy))
+		{
+			FinishGame(Unit.Team.Enemy);
+			return true;
+		}
+		return false;
 	}
 
 	/// <summary>
@@ -250,12 +260,15 @@ public class BoardController : MonoBehaviour
 	/// </summary>
 	private void FinishGame(Unit.Team loser)
 	{
-		// ゲーム終了処理は後ほど実装予定
+		if(loser == Unit.Team.Enemy) _ui.GameEndPanel.SetMessageWin();
+		else _ui.GameEndPanel.SetMessageLose();
+
 		Debug.Log("Game finished correctly!");  // 4debug
 
 		// ゲーム終了する前に、画面タッチ不可を解除する
 		_ui.TouchBlocker.SetActive(false);
 
-		Application.Quit();
+		// ゲーム終了画面を表示
+		_ui.GameEndPanel.gameObject.SetActive(true);
 	}
 }

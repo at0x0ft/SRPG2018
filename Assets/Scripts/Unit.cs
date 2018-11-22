@@ -18,6 +18,16 @@ public class Unit : MonoBehaviour
 		get { return _name; }
 	}
 
+	/// <summary>
+	/// 内部における、ユニットの名前
+	/// (ネタばれになるので表示には使わない)
+	/// </summary>
+	public enum UnitNames
+	{
+		mis,
+		mercury
+	}
+
 	public enum Team
 	{
 		Player,
@@ -38,6 +48,13 @@ public class Unit : MonoBehaviour
 		MiddleAttack, // 中攻撃ができる
 		Charging,     // 強攻撃のみできる（移動不可,強制攻撃）
 		Movable       // 攻撃不可
+	}
+
+	[SerializeField]
+	private UnitNames _unitName;
+	public UnitNames UnitName
+	{
+		get { return _unitName; }
 	}
 
 	[SerializeField]
@@ -93,9 +110,7 @@ public class Unit : MonoBehaviour
 	}
 
 	public int MaxMoveAmount { get; private set; }
-	private int _moveAmount;    // 4debug (この値はpremasterにマージする時には消すこと.)
-	public int MoveAmount { get { return _moveAmount; } set { /*Debug.Log("[Debug] Updated as : " + value);*/ _moveAmount = value; } }  // 4debug (この値は, premasterにマージする前に, 元に戻すこと.)
-	public AttackStates AttackState { get; set; }
+	public int MoveAmount { get; set; }
 	public KeyValuePair<Attack, int>? PlanningAttack { get; set; }
 	private Dictionary<BattleStates, Action> ClickBehaviors;
 
@@ -126,7 +141,7 @@ public class Unit : MonoBehaviour
 		}
 		set
 		{
-			transform.localPosition = value.Value;
+			GetComponent<RectTransform>().anchoredPosition = value.Value;
 			_coordinatePair = value;
 		}
 	}
@@ -138,10 +153,30 @@ public class Unit : MonoBehaviour
 		get { return _attacks; }
 	}
 
+	private GameObject _strongAttackEffect;
+	private AttackStates _attackStates;
+	public AttackStates AttackState
+	{
+		get { return _attackStates; }
+		set
+		{
+			_attackStates = value;
+			if(value == AttackStates.Charging)
+			{
+				_map.UI.ChargeEffectController.AttachChargeEffect(this);
+			}
+			else
+			{
+				_map.UI.ChargeEffectController.DetachChargeEffect(this);
+			}
+		}
+	}
+
 	private Map _map;
 	private Units _units;
 	private AttackController _ac;
 	private BattleStateController _bsc;
+	private HpBar _hpBar;
 
 	public bool IsFocusing { get; set; }
 
@@ -172,29 +207,6 @@ public class Unit : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 初期配置マスにUnitを設定. (デッドロック回避のため遅延処理)
-	/// </summary>
-	IEnumerator SetInitialPosition()
-	{
-		// （参照先の値が初期化された後に実行しなければいけないため、遅延処理しています。
-		//  デッドロックが怖いため、あくまで暫定的です。）
-		while(true)
-		{
-			var pair = _initialFloor.CoordinatePair;
-			if(pair.Key.x == 0 && pair.Key.y == 0 && pair.Value.x == 0 && pair.Value.y == 0 && pair.Value.z == 0)
-			{
-				//Debug.Log("stay");  // 4debug
-				yield return new WaitForSeconds(0.1f);
-			}
-			else
-			{
-				CoordinatePair = pair;
-				break;
-			}
-		}
-	}
-
-	/// <summary>
 	/// 初期化メソッド
 	/// </summary>
 	public void Initialize(Map map, Units units, MoveController mc, AttackController ac, BattleStateController bsc)
@@ -206,10 +218,12 @@ public class Unit : MonoBehaviour
 
 		// ユニット自身がButtonとしての役割も持っており, 押下された時にOnClickメソッドの内容を実行する.
 		GetComponent<Button>().onClick.AddListener(OnClick);
+		_hpBar = transform.Find("HpBar").GetComponent<HpBar>();
+		_hpBar.Initialize(MaxLife);
+		_hpBar.SetHP(MaxLife);
 
 		// 初期配置マスにUnitを設定する
-		// CoordinatePair = _initialFloor.CoordinatePair;
-		StartCoroutine(SetInitialPosition());
+		CoordinatePair = _initialFloor.CoordinatePair;
 
 		// 体力の初期化
 		Life = MaxLife;
@@ -245,7 +259,7 @@ public class Unit : MonoBehaviour
 			_units.ClearFocusingUnit();
 
 			// UIで作成してもらう以下の関数を呼び出す。 (移動量サブウィンドウはそのままにしておく.)
-			_map.Ui.UnitInfoWindow.Hide();
+			_map.UI.UnitInfoWindow.Hide();
 
 			// MoveFazeへの移行条件
 			if(_units.ActiveUnit == this)
@@ -263,17 +277,18 @@ public class Unit : MonoBehaviour
 			IsFocusing = true;
 
 			// FloorInfoWindowは非表示にする.
-			_map.Ui.FloorInfoWindow.Hide();
+			_map.UI.FloorInfoWindow.Hide();
 
 			// UIで作成してもらう以下の関数を呼び出す。
-			_map.Ui.UnitInfoWindow.Show(this);
+			_map.UI.UnitInfoWindow.Show(this);
 
 			// 移動量情報を表すウィンドウも追加で呼び出す.
-			_map.Ui.MoveAmountInfoWindow.Show(MaxMoveAmount, MoveAmount);
+			_map.UI.MoveAmountInfoWindow.Show(MaxMoveAmount, MoveAmount);
 		}
 	}
 
-	private void ClickBehaviorOnMoving() {
+	private void ClickBehaviorOnMoving()
+	{
 		if(_units.ActiveUnit != this) return;
 
 		_map.ClearHighlight();
@@ -282,7 +297,7 @@ public class Unit : MonoBehaviour
 		var attackCommandList = _units.ActiveUnit.GetAttackCommandsList();
 
 		// 攻撃一覧画面を作成する(UIに任せる)
-		_map.Ui.AttackSelectWindow.Show(attackCommandList);
+		_map.UI.AttackSelectWindow.Show(attackCommandList);
 
 		// 場面を移動する
 		_bsc.NextBattleState();
@@ -302,14 +317,25 @@ public class Unit : MonoBehaviour
 		// 範囲攻撃の場合は、クリック発動をさせない
 		if(scale == Attack.AttackScale.Range) return;
 
-		// 強攻撃特殊処理!!!　場所だけ決めて、攻撃しない!!! (発動契機は、Set2開始時)
+		// 強攻撃特殊処理!!! Charge前は攻撃しない!!! (発動契機は、Set2開始時)
 		if(attack.Kind == Attack.Level.High)
 		{
-			var singleAttack = (SingleAttack)attack;
+			switch(attacker.AttackState)
+			{
+				// Set1のときは、RangeNozzleButtonを押して、Chargeを始めるため、クリックを拒否します。
+				case AttackStates.LittleAttack:
+					return;
 
-			singleAttack.TargetPos = new Vector2Int(this.X, this.Y);
+				// Set2で強攻撃が出来る場合は、攻撃します。
+				case AttackStates.Charging:
+					break;
 
-			goto Finish;
+				// 他はあり得ないです。
+				case AttackStates.MiddleAttack:
+				case AttackStates.Movable:
+					Debug.LogError("強攻撃が選択できないタイミングで、選択されています");
+					break;
+			}
 		}
 
 		// 攻撃出来る場合は攻撃を開始する
@@ -317,7 +343,6 @@ public class Unit : MonoBehaviour
 
 		if(!success) return;
 
-	Finish:
 		// 攻撃が終わるまではLoadFaze
 		_bsc.NextBattleState();
 	}
@@ -360,7 +385,7 @@ public class Unit : MonoBehaviour
 		CoordinatePair = new KeyValuePair<Vector2Int, Vector3>(destLocalCoordinate, _map.ConvertLocal2Tranform(destLocalCoordinate));
 
 		// 移動量サブウィンドウを再度表示 (移動量の変化を見るため)
-		_map.Ui.MoveAmountInfoWindow.Show(MaxMoveAmount, MoveAmount);
+		_map.UI.MoveAmountInfoWindow.Show(MaxMoveAmount, MoveAmount);
 	}
 
 	/// <summary>
@@ -424,13 +449,19 @@ public class Unit : MonoBehaviour
 	/// <summary>
 	/// ダメージを与える
 	/// </summary>
-	public void Damage(int damage)
+	public void Damage(int? damage)
 	{
-		Life = Mathf.Max(0, Life - damage);
+		// ダメージ表記をする
+		_map.UI.PopUpController.CreateDamagePopUp(transform, damage);
+
+		if(!damage.HasValue) return;
+		// 回避されてなかったら、ダメージ計算を行う
+
+		int damageInt = damage.Value;
+		Life = Mathf.Max(0, Life - damageInt);
+		_hpBar.SetHP(Life);
 
 		StrongAttackFailure();
-
-		_map.Ui.PopUp.CreateDamagePopUp(transform, damage);
 
 		// 体力が0以下になったらユニットを消滅させる
 		if(Life <= 0) DestroyWithAnimate();

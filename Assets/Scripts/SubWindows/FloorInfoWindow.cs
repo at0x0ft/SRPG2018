@@ -32,10 +32,53 @@ public class FloorInfoWindow : SubWindow
 	public void Show(Floor.Feature floorFeature, int cost, int defUp, int avoid)
 	{
 		Hide();
-		_featTextBox.text = floorFeature.ToString();
+		_featTextBox.text = LocalizingFeature(floorFeature);
 		_costTextBox.text = cost.ToString();
-		_defUpTextBox.text = defUp.ToString() + "%";
-		_avoidTextBox.text = avoid.ToString() + "%";
+		_defUpTextBox.text = FormatDefUp(defUp);
+		_avoidTextBox.text = FormatAvoid(avoid);
 		Show();
+	}
+
+	/// <summary>
+	/// 床の種類を日本語化するメソッド.
+	/// </summary>
+	/// <param name="attackScale"></param>
+	/// <returns></returns>
+	private string LocalizingFeature(Floor.Feature feature)
+	{
+		switch(feature)
+		{
+			case Floor.Feature.Grass:
+				return "草原";
+			case Floor.Feature.Forest:
+				return "森林";
+			case Floor.Feature.Rock:
+				return "岩場";
+			default:
+				Debug.LogError("[Error] : Unexpected floor feature has caught (in FloorWindow.LocalizingFeature).");
+				return "";
+		}
+	}
+
+	/// <summary>
+	/// 防御上昇率の形式を整えるメソッド.
+	/// </summary>
+	/// <param name="attackScale"></param>
+	/// <returns></returns>
+	private string FormatDefUp(int defUp)
+	{
+		var prefix = defUp > 0 ? "+" : defUp < 0 ? "-" : "±";
+		return prefix + defUp + "%";
+	}
+
+	/// <summary>
+	/// 回避上昇率の形式を整えるメソッド.
+	/// </summary>
+	/// <param name="attackScale"></param>
+	/// <returns></returns>
+	private string FormatAvoid(int avoid)
+	{
+		var prefix = avoid > 0 ? "+" : avoid < 0 ? "-" : "±";
+		return prefix + avoid + "%";
 	}
 }

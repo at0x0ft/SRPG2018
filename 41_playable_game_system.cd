@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ButtonTest">
+    <Position X="23.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Assets\ButtonTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Basics">
+    <Position X="25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAIAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Assets\Demigiant\DOTween\Examples\Basics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sequences">
+    <Position X="23.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Demigiant\DOTween\Examples\Sequences.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ActiveUnitIcon">
+    <Position X="17.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAEAIAAAQAAAAAEAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ActiveUnitIcon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AI">
+    <Position X="19.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQAQAQAAASQECAQAAMECEAEAAAkJAAEACEgBBQAI=</HashCode>
+      <FileName>Assets\Scripts\AI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AttackController">
+    <Position X="21.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAIAAAAAAAAAAAAAAIAAAEAAAEAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\AttackController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Attack">
+    <Position X="13.5" Y="10.25" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Attack.AttackScale" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Attacks\Attack.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="Attack.Level" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Attacks\Attack.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAIAABAABACQQAEAIIAAQCACBAAAABAQAEAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Attacks\Attack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RangeAttack">
+    <Position X="12.25" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAQAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Assets\Scripts\Attacks\RangeAttack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SingleAttack">
+    <Position X="14.75" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Attacks\SingleAttack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Battle_SceneController">
+    <Position X="17.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAACABAAAAACAAAAAAAAAEAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Assets\Scripts\Battle_SceneController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BattleStateController">
+    <Position X="19.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAMAAAAAAgQAAAAAAAIAAAAAAAAAAAAMAAAAAAQAI=</HashCode>
+      <FileName>Assets\Scripts\BattleStateController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BoardController">
+    <Position X="21.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kCAAAAQAACAARAFAAgACAAAEADAAAEAAAEAAlCAAQAI=</HashCode>
+      <FileName>Assets\Scripts\BoardController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChargeEffectController">
+    <Position X="25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAQABACAgBAQAAAAQAAAEAAAAAEACkA=</HashCode>
+      <FileName>Assets\Scripts\ChargeEffectController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DamageCalculator">
+    <Position X="17.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAgAAAEAEAIAMAKIAACiBAAAACAABgQQAgkSAgAAQAA=</HashCode>
+      <FileName>Assets\Scripts\DamageCalculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Floor">
+    <Position X="19.5" Y="13" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Floor.Feature" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Floor.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAwAAAACAAQQQAIAAEABACgAACAgAAAUgAEGgUYEI=</HashCode>
+      <FileName>Assets\Scripts\Floor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameEndPanel">
+    <Position X="21.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQABBAAEAAAAAAAAAAAAAgAAAAAAAgA=</HashCode>
+      <FileName>Assets\Scripts\GameEndPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HpBar">
+    <Position X="23.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\HpBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Map">
+    <Position X="25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQQYAAAAAACggAABACAEABAAACAAAAAAAABCggKAI=</HashCode>
+      <FileName>Assets\Scripts\Map.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MoveController">
+    <Position X="27" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAASAAAAAAAAAAABACCAAQIAAKAQEAAAEAQAAEEBA=</HashCode>
+      <FileName>Assets\Scripts\MoveController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AttackEffect">
+    <Position X="7.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQKBAACEBIQARQAAQQAAQAGAQMCAAQAIAwAAAACAAEA=</HashCode>
+      <FileName>Assets\Scripts\PopUp\AttackEffect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AttackEffectFactory">
+    <Position X="0.75" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kCIAAAIRBIQABQAAAAAACAAAAAAAAAgIAwAggAIAAEA=</HashCode>
+      <FileName>Assets\Scripts\PopUp\AttackEffectFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BasePopUp">
+    <Position X="4" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAIAAQQAAAAAAAAAAAAAAQAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\PopUp\BasePopUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CutInPopUp">
+    <Position X="3" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAQgABQAAAAAAAAAAAAAIABAgAAQAAAA=</HashCode>
+      <FileName>Assets\Scripts\PopUp\CutInPopUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DamagePopUp">
+    <Position X="5.25" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAIAIAQABAAAAAAAAAAAAgAAIAAAgAAQAAAA=</HashCode>
+      <FileName>Assets\Scripts\PopUp\DamagePopUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PopUpController">
+    <Position X="17.25" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAABAACAAAAAAAAAAAAAAQhAIIAAACAAAQAA=</HashCode>
+      <FileName>Assets\Scripts\PopUp\PopUpController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AttackInfoWindow">
+    <Position X="11.75" Y="3.75" Width="1.5" />
+    <InheritanceLine Type="SubWindow" ManuallyRouted="true">
+      <Path>
+        <Point X="8" Y="1.925" />
+        <Point X="8" Y="2.971" />
+        <Point X="12.5" Y="2.971" />
+        <Point X="12.5" Y="3.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQBAAAAAAAAAAEAAAAAAEABAAAACAACAAAAA=</HashCode>
+      <FileName>Assets\Scripts\SubWindows\AttackInfoWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AttackSelectWindow">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <InheritanceLine Type="SubWindow" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="8" Y="1.925" />
+        <Point X="8" Y="2.931" />
+        <Point X="1.25" Y="2.931" />
+        <Point X="1.25" Y="3.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAwQAAAAAAAAAAAAAGAwAEAEAAACAAAAI=</HashCode>
+      <FileName>Assets\Scripts\SubWindows\AttackSelectWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FloorInfoWindow">
+    <Position X="2.75" Y="3.75" Width="1.5" />
+    <InheritanceLine Type="SubWindow" ManuallyRouted="true">
+      <Path>
+        <Point X="8" Y="1.925" />
+        <Point X="8" Y="2.93" />
+        <Point X="3.5" Y="2.93" />
+        <Point X="3.5" Y="3.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAQAgAAAAAAAAAAAAAAAIAICAEAAAAAAAAAjAAAAA=</HashCode>
+      <FileName>Assets\Scripts\SubWindows\FloorInfoWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MoveAmountInfoWindow">
+    <Position X="5" Y="3.75" Width="1.5" />
+    <InheritanceLine Type="SubWindow" ManuallyRouted="true">
+      <Path>
+        <Point X="8" Y="1.925" />
+        <Point X="8" Y="2.996" />
+        <Point X="5.75" Y="2.996" />
+        <Point X="5.75" Y="3.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAACAAACAQAAA=</HashCode>
+      <FileName>Assets\Scripts\SubWindows\MoveAmountInfoWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RangeAttackNozzle">
+    <Position X="7.25" Y="3.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="RangeAttackNozzle.AccessReason">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\SubWindows\RangeAttackNozzle.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAAAAAQQAAAAAAAAAAAACFAAAIAECBEAACAAI=</HashCode>
+      <FileName>Assets\Scripts\SubWindows\RangeAttackNozzle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SubWindow">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\SubWindows\SubWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TurnSetInfoWindow">
+    <Position X="9.5" Y="3.75" Width="1.5" />
+    <InheritanceLine Type="SubWindow" ManuallyRouted="true">
+      <Path>
+        <Point X="8" Y="1.925" />
+        <Point X="8" Y="2.984" />
+        <Point X="10.25" Y="2.984" />
+        <Point X="10.25" Y="3.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgBAAAAAAAAAAAEAAAAAUAAAAAAAAACIAAAA=</HashCode>
+      <FileName>Assets\Scripts\SubWindows\TurnSetInfoWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnitInfoWindow">
+    <Position X="14" Y="3.75" Width="1.5" />
+    <InheritanceLine Type="SubWindow" ManuallyRouted="true">
+      <Path>
+        <Point X="8" Y="1.925" />
+        <Point X="8" Y="2.957" />
+        <Point X="14.75" Y="2.957" />
+        <Point X="14.75" Y="3.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>SAAIAAAAABAAAAAAAAAAAAAAEAAEAAAAAAAAECAQAAA=</HashCode>
+      <FileName>Assets\Scripts\SubWindows\UnitInfoWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Type">
+    <Position X="23.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAgIQAABEAAAAAEgBAQAAQAAAAAIIAAAAAAAAAAAiA=</HashCode>
+      <FileName>Assets\Scripts\Type.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI">
+    <Position X="27" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACBCIgABgAAEAwCDgQAAAAAAAABgAAEAEYCQACQAIAA=</HashCode>
+      <FileName>Assets\Scripts\UI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Unit">
+    <Position X="29" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Unit.UnitNames" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Unit.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="Unit.Team" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Unit.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="Unit.Role" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Unit.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="Unit.AttackStates" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Unit.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BAAIoACCEIAARSwggAB1CCQCgIAOQoAAAWgAkiARYtI=</HashCode>
+      <FileName>Assets\Scripts\Unit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Units">
+    <Position X="23.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAgACAAgAAAAAAAAAAAAAAQAgAIQAAACQYAAg=</HashCode>
+      <FileName>Assets\Scripts\Units.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AC.BaseAttackController">
+    <Position X="23.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAABAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAGI=</HashCode>
+      <FileName>Assets\Scripts\AttackController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AC.SingleAttackController">
+    <Position X="25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAEAAAAkA=</HashCode>
+      <FileName>Assets\Scripts\AttackController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AC.RangeAttackController">
+    <Position X="21.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAEAAEABAAgI=</HashCode>
+      <FileName>Assets\Scripts\AttackController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="BattleStates">
+    <Position X="29" Y="18.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAgAAIAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\BattleStateController.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="AttackEffectKind">
+    <Position X="27" Y="17.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAIAgACABAAARAAAAAAAAACAAIAAAQAAAQAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\PopUp\AttackEffectFactory.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Yu Gothic UI" Size="9" />
+</ClassDiagram>

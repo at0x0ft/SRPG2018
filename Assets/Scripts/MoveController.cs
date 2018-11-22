@@ -220,7 +220,7 @@ public class MoveController : MonoBehaviour
 				if(aroundFloor == null ||
 					infos.Any(info => info.Key.X == aroundFloor.X && info.Key.Y == aroundFloor.Y) ||
 					appendInfos.Any(ainfo => ainfo.Key.X == aroundFloor.X && ainfo.Key.Y == aroundFloor.Y) ||
-					(aroundFloor.Unit && aroundFloor.Unit.Belonging != targetUnitTeam)
+					aroundFloor.Unit
 					)
 				{
 					// マップに存在しない, または既に計算済みのマス, 経路に敵軍が存在する場合はパス

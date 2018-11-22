@@ -23,10 +23,24 @@ public class UI : MonoBehaviour
 	}
 
 	[SerializeField]
-	private PopUpController _popUp;
-	public PopUpController PopUp
+	private ActiveUnitIcon _activeUnitIcon;
+	public ActiveUnitIcon ActiveUnitIcon
 	{
-		get{ return _popUp; }
+		get { return _activeUnitIcon; }
+	}
+
+	[SerializeField]
+	private PopUpController _popUpController;
+	public PopUpController PopUpController
+	{
+		get{ return _popUpController; }
+	}
+
+	[SerializeField]
+	private ChargeEffectController _chargeEffectController;
+	public ChargeEffectController ChargeEffectController
+	{
+		get{ return _chargeEffectController; }
 	}
 
 	[SerializeField]
@@ -78,10 +92,11 @@ public class UI : MonoBehaviour
 		get{ return _rangeAttackNozzle; }
 	}
 
-	public void Initialize(Units units, AttackController ac, Map map, BattleStateController bsc)
+	[SerializeField]
+	private GameEndPanel _gameEndPanel;
+	public GameEndPanel GameEndPanel
 	{
-		_rangeAttackNozzle.Initialize(ac, units, map, bsc);
-		_attackSelectWindow.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
+		get { return _gameEndPanel; }
 	}
 
 	/// <summary>
@@ -92,6 +107,9 @@ public class UI : MonoBehaviour
 	{
 		if(!_endCommandButton) Debug.LogError("[Error] : EndCommandButton is not set!");
 		if(!_touchBlocker) Debug.LogError("[Error] : Touch Blocker is not set!");
+		if(!_activeUnitIcon) Debug.LogError("[Error] : ActiveUnitIcon is not set!");
+		if(!_popUpController) Debug.LogError("[Error] : PopUpController is not set!");
+		if(!_chargeEffectController) Debug.LogError("[Error] : ChargeEffectController is not set!");
 
 		if(!_turnSetInfoWindow) Debug.LogError("[Error] : TurnSetInfoWindow is not set!");
 		_turnSetInfoWindow.CheckSerializedMember();
@@ -110,6 +128,26 @@ public class UI : MonoBehaviour
 
 		if(!_attackSelectWindow) Debug.LogError("[Error] : AttackInfoWindow is not set!");
 		_attackSelectWindow.CheckSerializedMember(units.GetComponentsInChildren<Unit>());
+
+		if(!_gameEndPanel) Debug.LogError("[Error] : GameEndPanel is not set!");
+	}
+
+	/// <summary>
+	/// 初期化メソッド
+	/// </summary>
+	/// <param name="units"></param>
+	/// <param name="ac"></param>
+	/// <param name="map"></param>
+	/// <param name="bsc"></param>
+	public void Initialize(BoardController bc, Units units, AttackController ac, Map map, BattleStateController bsc)
+	{
+		_activeUnitIcon.Initialize();
+		_popUpController.Initialize(bc, this, map.FloorSize);
+		_chargeEffectController.Initialize();
+		_rangeAttackNozzle.Initialize(ac, units, map, bsc);
+		_attackSelectWindow.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
+		_gameEndPanel.gameObject.SetActive(false);
+		_gameEndPanel.Initialize();
 	}
 
 	public void NextUnit()
@@ -117,5 +155,29 @@ public class UI : MonoBehaviour
 		_unitInfoWindow.Hide();
 		_attackInfoWindow.Hide();
 		_attackSelectWindow.Hide();
+	}
+
+	/// <summary>
+	/// RectTransformを持つgameObjectのAnchorを中央にする静的メソッド
+	/// </summary>
+	/// <param name="gameObject"></param>
+	public static void SetAnchorCenter(RectTransform gameObject)
+	{
+		gameObject.anchorMin = new Vector2(0.5f, 0.5f);
+		gameObject.anchorMax = new Vector2(0.5f, 0.5f);
+		gameObject.pivot = new Vector2(0.5f, 0.5f);
+		gameObject.localPosition = Vector3Int.zero;
+	}
+
+	/// <summary>
+	/// RectTransformを持つgameObjectのAnchorを左下にする静的メソッド
+	/// </summary>
+	/// <param name="gameObject"></param>
+	public static void SetAnchorLeftBottom(RectTransform gameObject)
+	{
+		gameObject.anchorMin = Vector2Int.zero;
+		gameObject.anchorMax = Vector2Int.zero;
+		gameObject.pivot = Vector2Int.zero;
+		gameObject.localPosition = Vector3Int.zero;
 	}
 }
