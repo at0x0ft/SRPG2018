@@ -162,7 +162,7 @@ public class AI : MonoBehaviour
 		Debug.Log(players.Count);
 		// 移動できない場合
 		if(!movable.Any()) return null;
-		
+
 		var tmp = movable.Where(f => f.Unit == null).ToList(); // ユニットの居るマスには移動しない
 		if(!tmp.Any()) return null;
 		else return tmp
@@ -197,7 +197,7 @@ public class AI : MonoBehaviour
 
 		// 攻撃が当たるコマンド一覧
 		var attackableCommands = GetHitAttacks();
-		
+
 		// 攻撃を選択する
 		if(attackableCommands.Any())
 		{
@@ -211,12 +211,12 @@ public class AI : MonoBehaviour
 		}
 
 		// 攻撃が無理そうなら行動を終える
-		if(attack==null || !CanHitAttack(attack))
+		if(attack == null || !CanHitAttack(attack))
 		{
 			FinishUnitAction();
 			yield break;
 		}
-		
+
 		yield return new WaitForSeconds(WaitSeconds());
 
 		// 攻撃の場所を選択（攻撃）
@@ -462,7 +462,7 @@ public class AI : MonoBehaviour
 
 	private void Update()
 	{
-		if(_speed!=null) //　1vs1では速度バーが無かったため
+		if(_speed != null) // 1vs1では速度バーが無かったため
 		{
 			var v = _speed.value;
 			waitSeconds = Mathf.Lerp(MaxWaitSeconds, MinWaitSeconds, v);
