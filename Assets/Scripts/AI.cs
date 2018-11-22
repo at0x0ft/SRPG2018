@@ -189,12 +189,13 @@ public class AI : MonoBehaviour
 	/// </summary>
 	private IEnumerator AttackCoroutine()
 	{
-		// 攻撃が当たるコマンド一覧
-		var attackableCommands = GetHitAttacks();
-
 		// 使用するコマンド
 		Attack attack = null;
 
+		// 攻撃が当たるコマンド一覧
+		var attackableCommands = GetHitAttacks();
+		
+		// 攻撃を選択する
 		if(attackableCommands.Any())
 		{
 			// 攻撃がある場合攻撃の種類を選択
@@ -205,13 +206,14 @@ public class AI : MonoBehaviour
 			// 強攻撃の後だったら、Attackボタンがあるので使用する。
 			attack = _units.ActiveUnit.PlanningAttack.Value.Key;
 		}
-		else
+
+		// 攻撃が無理そうなら行動を終える
+		if(attack==null || !CanHitAttack(attack))
 		{
 			FinishUnitAction();
 			yield break;
 		}
-
-
+		
 		yield return new WaitForSeconds(WaitSeconds());
 
 		// 攻撃の場所を選択（攻撃）
@@ -226,19 +228,28 @@ public class AI : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 距離的に当たる攻撃を探します
+	/// 距離的に当たる攻撃の一覧を返します
 	/// </summary>
-	/// <returns>距離的に当たる攻撃のリスト</returns>
 	private List<Attack> GetHitAttacks()
 	{
 		var attacker = _units.ActiveUnit;
-		var now = attacker.Floor.CoordinatePair.Key;
 
 		return attacker.GetAttackCommandsList()
 		.Where(pair => pair.Value)
 		.Select(pair => pair.Key)
-		.Where(attack => IsPlayerIn(AttackReach(now, attack)))
+		.Where(attack => CanHitAttack(attack))
 		.ToList();
+	}
+
+	/// <summary>
+	/// 攻撃が当たるかどうかを判定します
+	/// </summary>
+	/// <param name="attack">判定する攻撃</param>
+	private bool CanHitAttack(Attack attack)
+	{
+		var now = _units.ActiveUnit.Floor.CoordinatePair.Key;
+
+		return IsPlayerIn(AttackReach(now, attack));
 	}
 
 	/// <summary>
