@@ -142,7 +142,7 @@ public class UI : MonoBehaviour
 	public void Initialize(BoardController bc, Units units, AttackController ac, Map map, BattleStateController bsc)
 	{
 		_activeUnitIcon.Initialize();
-		_popUpController.Initialize(bc, this);
+		_popUpController.Initialize(bc, this, map.FloorSize);
 		_chargeEffectController.Initialize();
 		_rangeAttackNozzle.Initialize(ac, units, map, bsc);
 		_attackSelectWindow.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);

@@ -21,6 +21,7 @@ public class PopUpController : MonoBehaviour
 {
 	private BoardController _bc;
 	private UI _ui;
+	private Vector2Int _floorSize;
 	public Image Image { get; private set; }
 	public Text Text { get; private set; }
 
@@ -29,10 +30,11 @@ public class PopUpController : MonoBehaviour
 	/// </summary>
 	/// <param name="bc"></param>
 	/// <param name="ui"></param>
-	public void Initialize(BoardController bc, UI ui)
+	public void Initialize(BoardController bc, UI ui, Vector2Int floorSize)
 	{
 		_bc = bc;
 		_ui = ui;
+		_floorSize = floorSize;
 		Image = GetComponentInChildren<Image>();
 		Text = GetComponentInChildren<Text>();
 	}
@@ -45,7 +47,7 @@ public class PopUpController : MonoBehaviour
 	private GameObject Duplicate(Transform parent)
 	{
 		var res = Instantiate(gameObject, parent);
-		res.GetComponent<PopUpController>().Initialize(_bc, _ui);
+		res.GetComponent<PopUpController>().Initialize(_bc, _ui, _floorSize);
 		return res;
 	}
 
@@ -114,6 +116,6 @@ public class PopUpController : MonoBehaviour
 		// popUp画像(Image)のanchorを左下に設定.
 		UI.SetAnchorLeftBottom(popUp.GetComponent<RectTransform>());
 
-		popUp.GetComponent<AttackEffect>().Initialize(attack, sprites, pos, opt);
+		popUp.GetComponent<AttackEffect>().Initialize(attack, sprites, _floorSize, pos, opt);
 	}
 }

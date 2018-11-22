@@ -11,13 +11,9 @@ using System.Collections.Generic;
 public class AttackEffect : BasePopUp
 {
 	// ==========定数==========
-	[SerializeField]
-	private readonly Vector2 BASE_IMAGE_SIZE = new Vector2(32, 32); // image size (px)
-	[SerializeField]
-	private readonly Vector2 LITTLE_IMAGE_SIZE = new Vector2(16, 16);
-	[SerializeField]
-	private readonly Vector2 BIG_IMAGE_SIZE = new Vector2(48, 48);
-	[SerializeField]
+	private Vector2 _baseImageSize = new Vector2(32, 32); // image size (px)
+	private Vector2 _littleImageSize { get { return _baseImageSize / 2; } }
+	private Vector2 _bigImageSize { get { return _baseImageSize * 3 / 2; } }
 	private readonly float effectSPF = 0.4f; // seconds per frame
 
 	// ==========変数==========
@@ -37,13 +33,15 @@ public class AttackEffect : BasePopUp
 	/// </summary>
 	/// <param name="attack">攻撃内容</param>
 	/// <param name="sprites">使用画像</param>
+	/// <param name="size">サイズ</param>
 	/// <param name="target">攻撃位置</param>
 	/// <param name="opt">オプション</param>
-	public void Initialize(Attack attack, List<Sprite> sprites, Vector3 target, Vector3? opt = null) // 引数は、必要に応じて変える予定
+	public void Initialize(Attack attack, List<Sprite> sprites, Vector2Int size, Vector3 target, Vector3? opt = null) // 引数は、必要に応じて変える予定
 	{
 		_effect = attack.EffectKind;
 		_attack = attack;
 		_sprites = sprites;
+		_baseImageSize = size;
 		_target = target;
 		_opt = opt;
 		_rect = GetComponent<RectTransform>();
@@ -64,7 +62,7 @@ public class AttackEffect : BasePopUp
 		// 画像を表示開始する
 		_image.sprite = _sprites[0];
 		_image.enabled = true;
-		_image.rectTransform.sizeDelta = BASE_IMAGE_SIZE;
+		_image.rectTransform.sizeDelta = _baseImageSize;
 
 		var enumerator = _effectFunc[_effect]();
 
@@ -224,7 +222,7 @@ public class AttackEffect : BasePopUp
 		const float DIVIDE_TIME = 1.3f;
 
 		_rect.anchoredPosition = _target;
-		_rect.sizeDelta = BIG_IMAGE_SIZE;
+		_rect.sizeDelta = _bigImageSize;
 
 		Action<float> func = (time) =>
 		{
@@ -236,7 +234,7 @@ public class AttackEffect : BasePopUp
 			pos.y += MAX_HEIGHT * rate;
 
 			_rect.anchoredPosition = pos;
-			_rect.sizeDelta = Vector2.Lerp(BIG_IMAGE_SIZE, MAX_SIZE, rate);
+			_rect.sizeDelta = Vector2.Lerp(_bigImageSize, MAX_SIZE, rate);
 		};
 
 		Action<float> func2 = (time) =>
@@ -248,7 +246,7 @@ public class AttackEffect : BasePopUp
 			pos.y -= MAX_DOWN * Progress(time);
 
 			_rect.anchoredPosition = pos;
-			_rect.sizeDelta = Vector2.Lerp(BIG_IMAGE_SIZE, MAX_SIZE, Progress(time));
+			_rect.sizeDelta = Vector2.Lerp(_bigImageSize, MAX_SIZE, Progress(time));
 		};
 
 		yield return StartCoroutine(MainRoop(func, FLY_TIME));
@@ -262,7 +260,7 @@ public class AttackEffect : BasePopUp
 	private IEnumerator BubbleNotes()
 	{
 		// 大きすぎるので調整
-		_image.rectTransform.sizeDelta = LITTLE_IMAGE_SIZE;
+		_image.rectTransform.sizeDelta = _littleImageSize;
 
 		// 毎フレームすること
 		Action<float> func = (time) =>
@@ -324,7 +322,7 @@ public class AttackEffect : BasePopUp
 		existTime = 0.6f;
 
 		// 画像の調整
-		_rect.sizeDelta = LITTLE_IMAGE_SIZE;
+		_rect.sizeDelta = _littleImageSize;
 		var rot = transform.eulerAngles;
 		rot.z = 90;
 		transform.eulerAngles = rot;
