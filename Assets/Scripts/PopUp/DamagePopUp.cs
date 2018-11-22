@@ -58,6 +58,9 @@ public class DamagePopUp : BasePopUp
 
 	private void SetUpSize()
 	{
+		// FontSizeを設定.
+		GetComponentInChildren<Text>().fontSize = _fontSize;
+
 		var rect = GetComponent<RectTransform>();
 		var textRect = _text.GetComponent<RectTransform>();
 
