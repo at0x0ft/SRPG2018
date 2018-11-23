@@ -131,12 +131,12 @@ public class AttackEffectFactory : MonoBehaviour
 		_effectFuncs[AttackEffectKind.BackUp] =
 		_effectFuncs[AttackEffectKind.CPU] =
 		_effectFuncs[AttackEffectKind.OverFlow] =
-		_effectFuncs[AttackEffectKind.DeadLock] =
 		_effectFuncs[AttackEffectKind.IcicleStaff] =
 		NormalEffectMaker;
 
 		// for みすちゃん
 		_effectFuncs[AttackEffectKind.MARock] = MARock;
+		_effectFuncs[AttackEffectKind.DeadLock] = DeadLock;
 
 		// for 水星ちゃん
 		_effectFuncs[AttackEffectKind.BubbleNotes] = BubbleNotes;
@@ -244,12 +244,12 @@ public class AttackEffectFactory : MonoBehaviour
 	/// 特定の位置にエフェクトを作成します
 	/// </summary>
 	/// <param name="target">エフェクト作成位置</param>
-	private GameObject MakeEffect(Vector3 target, List<Sprite> mySprites = null)
+	private GameObject MakeEffect(Vector3 occur, List<Sprite> mySprites = null)
 	{
 		return AttackEffectPopUp(
 			_attack,
 			(mySprites ?? _sprites),
-			target
+			occur
 		);
 	}
 
@@ -281,9 +281,14 @@ public class AttackEffectFactory : MonoBehaviour
 		AttackEffectPopUp(
 			_attack,
 			_sprites,
-			_targets[0].GetComponent<RectTransform>().anchoredPosition,
-			_attackerRect.anchoredPosition
+			_attackerRect.anchoredPosition,
+			_targets[0].GetComponent<RectTransform>().anchoredPosition
 		);
+	}
+
+	private void DeadLock()
+	{
+		MakeEffect(_attackerRect.anchoredPosition);
 	}
 
 	// 水星ちゃん用
@@ -301,13 +306,20 @@ public class AttackEffectFactory : MonoBehaviour
 	{
 		const float effectTime = 2.0f;
 
-		var rect = GetComponent<RectTransform>();
-		var pos = _attackerRect.anchoredPosition;
-		var obj = MakeEffect(pos);
+		var rect = GetComponent<RectTransform>();        // 操作するオブジェクト取得
+		var pos = _attackerRect.anchoredPosition;        // 攻撃者の位置を取得
+		var obj = MakeEffect(Vector3.up * _floorSize.y); // 攻撃エフェクト作成
 
-		DOTween.Sequence()
+		rect.anchoredPosition = pos;                      // 回転中心座標設定(左下中心)
+		//rect.anchorMin = 
+		//rect.anchorMax = 
+		//rect.pivot = new Vector2(0.5f, 0.5f);             // 画像の中心を座標基準にする
+		rect.localEulerAngles= new Vector3(0f, 0f, 359f); // 時計回りに回すために無理やり
+		
+		DOTween.Sequence() 
 		.Append(
-			rect.DORotate(new Vector3(0, 0, 359f), effectTime, RotateMode.FastBeyond360)
+			// 360°を越さないように、effectTimeだけかけて回転角(0,0,1)まで、ローカル回転座標系で回転する
+			rect.DOLocalRotate(new Vector3(0, 0, 1f), effectTime, RotateMode.FastBeyond360) 
 			.SetEase(Ease.InOutQuad)
 		).OnComplete(
 			() => Destroy(obj)
@@ -365,8 +377,8 @@ public class AttackEffectFactory : MonoBehaviour
 			AttackEffectPopUp(
 				_attack,
 				sprite,
-				target.GetComponent<RectTransform>().anchoredPosition,
-				_attackerRect.anchoredPosition
+				_attackerRect.anchoredPosition,
+				target.GetComponent<RectTransform>().anchoredPosition
 			);
 		})
 		.AppendInterval(happenRate)

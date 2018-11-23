@@ -161,12 +161,16 @@ public class UI : MonoBehaviour
 	/// RectTransformを持つgameObjectのAnchorを中央にする静的メソッド
 	/// </summary>
 	/// <param name="gameObject"></param>
-	public static void SetAnchorCenter(RectTransform gameObject)
+	/// <param name="fix">座標を0基準に直すかどうか</param>
+	public static void SetAnchorCenter(RectTransform gameObject, bool fix = true)
 	{
 		gameObject.anchorMin = new Vector2(0.5f, 0.5f);
 		gameObject.anchorMax = new Vector2(0.5f, 0.5f);
 		gameObject.pivot = new Vector2(0.5f, 0.5f);
-		gameObject.localPosition = Vector3Int.zero;
+		if(fix)
+		{
+			gameObject.localPosition = Vector3Int.zero;
+		}
 	}
 
 	/// <summary>

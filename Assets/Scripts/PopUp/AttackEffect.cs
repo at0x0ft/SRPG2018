@@ -21,7 +21,7 @@ public class AttackEffect : MonoBehaviour
 	private AttackEffectKind _effect; // 攻撃の種類
 	private Attack _attack;           // 攻撃の詳細
 	private List<Sprite> _sprites;    // エフェクト画像
-	private Vector3 _target;          // 演出の中心位置
+	private Vector3 _occur;          // 演出の中心位置
 	private Vector3? _opt;            // 必要に応じて
 
 	private Sequence _seq;       // アニメーション情報
@@ -37,11 +37,11 @@ public class AttackEffect : MonoBehaviour
 	/// <param name="attack">攻撃内容</param>
 	/// <param name="sprites">使用画像</param>
 	/// <param name="size">サイズ</param>
-	/// <param name="target">攻撃位置</param>
+	/// <param name="occur">攻撃位置</param>
 	/// <param name="opt">オプション</param>
-	public void Initialize(Attack attack, List<Sprite> sprites, Vector2Int size, Vector3 target, Vector3? opt = null) // 引数は、必要に応じて変える予定
+	public void Initialize(Attack attack, List<Sprite> sprites, Vector2Int size, Vector3 occur, Vector3? opt = null) // 引数は、必要に応じて変える予定
 	{
-		DataPreparation(attack, sprites, size, target, opt);
+		DataPreparation(attack, sprites, size, occur, opt);
 		
 		SetupImage();
 
@@ -57,14 +57,14 @@ public class AttackEffect : MonoBehaviour
 	/// <summary>
 	/// 変数の初期設定
 	/// </summary>
-	private void DataPreparation(Attack attack, List<Sprite> sprites, Vector2Int size, Vector3 target, Vector3? opt = null)
+	private void DataPreparation(Attack attack, List<Sprite> sprites, Vector2Int size, Vector3 occur, Vector3? opt = null)
 	{
 		// 引数処理
 		_effect = attack.EffectKind;
 		_attack = attack;
 		_sprites = sprites;
 		_baseImageSize = size;
-		_target = target;
+		_occur = occur;
 		_opt = opt;
 
 		// クラス内部処理
@@ -72,6 +72,9 @@ public class AttackEffect : MonoBehaviour
 		_image = GetComponent<Image>();
 		_rect = GetComponent<RectTransform>();
 		AssociateEffectKindWithFunc();         // 対応付け
+
+		Debug.Log(_occur);
+		Debug.Log(opt);
 	}
 
 	/// <summary>
@@ -79,14 +82,12 @@ public class AttackEffect : MonoBehaviour
 	/// </summary>
 	private void SetupImage()
 	{
-		// 画像を表示開始する
-		_image.sprite = _sprites[0];
-		_image.enabled = true;
-		_image.rectTransform.sizeDelta = _baseImageSize;
-		_rect.anchoredPosition = _target;
+		_image.sprite = _sprites[0];                     // 画像設定
+		_image.enabled = true;                           // 画像表示開始
+		_image.rectTransform.sizeDelta = _baseImageSize; // 大きさ調整
 
-		// 画像本位の大きさに調整する
-		//_image.SetNativeSize();                // 大きさ調整
+		UI.SetAnchorCenter(_rect, false);                             // 画像の中心を、座標の重心とする
+		_rect.localPosition = (Vector2)_occur + _baseImageSize / 2;   // 画像の中心を、攻撃者の中心と合わせる
 	}
 	
 	/// <summary>
@@ -165,16 +166,17 @@ public class AttackEffect : MonoBehaviour
 		const float FLY_HEIGHT = 10f;
 		const float FLY_TIME = 3f;
 
-		var attacker = _opt.Value;
-		float dx = _target.x - attacker.x;
-		float dy = _target.y - attacker.y;
+		var target = _opt.Value;
+		float dx = _occur.x - target.x;
+		float dy = _occur.y - target.y;
 		float rad = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
 		transform.localEulerAngles = Quaternion.Euler(0f, 0f, rad) * Vector3.up;
 
-		Vector3 dpos = _target - attacker;
+		Vector3 dpos = target - _occur;
+		Debug.Log("dist:" + dpos);
 		_seq
 		.Append(
-			_rect.DOJump(dpos, FLY_HEIGHT, 1, FLY_TIME, true)
+			_rect.DOLocalJump(dpos, FLY_HEIGHT, 1, FLY_TIME, true)
 			.SetRelative()
 		);
 	}
@@ -190,21 +192,22 @@ public class AttackEffect : MonoBehaviour
 	private void OverBrrow()
 	{
 		const float effectSPF = 0.4f; //描画変更間隔
-		
+		_rect.sizeDelta = _bigImageSize;
 		SpriteLoop(_seq, effectSPF);
 	}
 
+	// 何故か地面に落ちる間は描画されません
 	private void DeadLock()
 	{
-		const float FLY_TIME = 4.0f;               // 岩が空を飛ぶ時間
-		const float DIVIDE_TIME = 1.3f;            // 岩が爆裂四散している時間
-		const float MAX_HEIGHT = 100;              // 岩の上空への飛距離
-		Vector2 MIN_SIZE = new Vector2(32, 32);    // 岩が地面に居るときの大きさ
-		Vector2 MAX_SIZE = new Vector2(64, 64);    // 岩が上空に居るときの大きさ
-		Vector2 MIDDLE_SIZE = new Vector2(45, 45); // 岩が爆裂四散したときの大きさ
+		const float FLY_TIME = 4.0f;     // 岩が空を飛ぶ時間
+		const float DIVIDE_TIME = 1.3f;  // 岩が爆裂四散している時間
+		const float MAX_HEIGHT = 100;    // 岩の上空への飛距離
+
+		Vector3 MIN_SIZE = new Vector3(1.0f, 1.0f, 1.0f);    // 岩が地面に居るときの大きさ
+		Vector3 MAX_SIZE = new Vector3(2.0f, 2.0f, 1.0f);    // 岩が上空に居るときの大きさ
+		Vector3 MIDDLE_SIZE = new Vector3(1.2f, 1.2f, 1.0f); // 岩が爆裂四散したときの大きさ
 		
-		_rect.anchoredPosition = _target;
-		_rect.sizeDelta = _bigImageSize;
+		_rect.sizeDelta = _bigImageSize;                            // 画像の大きさを、bigImageSizeにセットする
 
 		// 上空に飛ぶ
 		_seq
@@ -279,28 +282,32 @@ public class AttackEffect : MonoBehaviour
 	{
 		const float surfaceTime = 2.0f;
 		float height = _image.rectTransform.sizeDelta.y;
+
 		// 徐々に表示するように設定
 		_image.type = Image.Type.Filled;
 		_image.fillMethod = Image.FillMethod.Vertical;
 		_image.fillOrigin = (int)Image.OriginVertical.Top;
 
+		// エフェクト開始時は、地面に埋まっているようにします
 		var tmp = _rect.localPosition;
 		tmp.y -= height;
 		_rect.localPosition = tmp;
+		_image.fillAmount = 0;
 
 		// 浮上するエフェクト
 		_seq
 		.Append(
 			_rect.DOLocalMoveY(height, surfaceTime)
 			.SetRelative()
-		);
-
+		)
 		// 地中部分が隠れているエフェクト
-		DOTween.To(
-			() => _image.fillAmount,
-			fill => _image.fillAmount = fill,
-			1,
-			surfaceTime
+		.Join(
+			DOTween.To(
+				() => _image.fillAmount,
+				fill => _image.fillAmount = fill,
+				1,
+				surfaceTime
+			)
 		);
 	}
 
@@ -324,8 +331,8 @@ public class AttackEffect : MonoBehaviour
 
 	private void HellTone()
 	{
-		const float FALL_TIME = 3f;  // 落下時間
-		const float MAX_HEIGHT = 50; // 落下距離
+		const float FALL_TIME = 2f;  // 落下時間
+		const float MAX_HEIGHT = 100; // 落下距離
 
 		var tmp = _rect.localPosition;
 		tmp.y += MAX_HEIGHT;
@@ -344,16 +351,15 @@ public class AttackEffect : MonoBehaviour
 	/// </summary>
 	private void HolyLiric()
 	{
-		const float FLY_TIME = 3.0f;
-		var attacker = _opt.Value;
-		float dx = _target.x - attacker.x;
-		float dy = _target.y - attacker.y;
-		float rad = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
-		transform.localEulerAngles = Quaternion.Euler(0f, 0f, rad) * Vector3.up;
-		var dpos = _target - attacker;
+		const float FLY_TIME = 2.0f;
+		var target = _opt.Value;
+		var dpos = target - _occur;
+		float rad = Mathf.Atan2(dpos.x, dpos.y) * Mathf.Rad2Deg;
 
+		transform.localRotation = Quaternion.Euler(0f, 0f, rad + 180);// 画像の角度を、攻撃先に向ける
+		
 		_seq.Append(
-			_rect.DOMove(dpos, FLY_TIME)
+			_rect.DOLocalMove(dpos, FLY_TIME)
 			.SetRelative()
 			.SetEase(Ease.InQuint)
 		);
