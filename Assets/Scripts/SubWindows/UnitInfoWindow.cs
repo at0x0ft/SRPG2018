@@ -41,7 +41,7 @@ public class UnitInfoWindow : SubWindow
 		_nameTextBox.text = unit.Name;
 		_hpTextBox.text = unit.Life.ToString();
 		_positionTextBox.text = LocalizingPosition(unit.Position);
-		_typeTextBox.text = unit.Type.ToString();
+		_typeTextBox.text = unit.AType.ToString();
 		_attackPowerTextBox.text = unit.AttackPower.ToString();
 		_defenceTextBox.text = unit.Defence.ToString();
 		Show();

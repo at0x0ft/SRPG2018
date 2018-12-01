@@ -132,7 +132,7 @@ public class Map : MonoBehaviour
 		foreach(var info in infos)
 		{
 			var floor = GetFloor(info.Key.X, info.Key.Y);
-			if(floor.Type != Floor.Feature.Unmovable) floor.IsMovable = true;
+			if(floor.AType != Floor.Feature.Unmovable) floor.IsMovable = true;
 		}
 	}
 
@@ -159,7 +159,7 @@ public class Map : MonoBehaviour
 	{
 		foreach(var floor in Floors)
 		{
-			if(floor.Type != Floor.Feature.Unmovable)
+			if(floor.AType != Floor.Feature.Unmovable)
 			{
 				floor.IsAttackable = false;
 				floor.IsMovable = false;

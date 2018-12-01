@@ -33,7 +33,7 @@ public class AttackInfoWindow : SubWindow
 	{
 		Hide();
 		_scaleTextBox.text = LocalizingScale(attack.Scale);
-		_typeTextBox.text = attack.Type.ToString();
+		_typeTextBox.text = attack.AType.ToString();
 		_powerBox.text = attack.Power.ToString();
 		_accuracyTextBox.text = attack.Accuracy.ToString();
 		Show();

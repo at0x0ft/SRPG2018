@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class Type : MonoBehaviour
+public class AType : MonoBehaviour
 {
 	[SerializeField]
 	private string _name;
@@ -14,47 +14,47 @@ public class Type : MonoBehaviour
 	}
 
 	[SerializeField]
-	private List<Type> _strong;
+	private List<AType> _strong;
 	[SerializeField]
-	private List<Type> _slightlyStrong;
+	private List<AType> _slightlyStrong;
 	[SerializeField]
-	private List<Type> _slightlyWeak;
+	private List<AType> _slightlyWeak;
 	[SerializeField]
-	private List<Type> _weak;
+	private List<AType> _weak;
 
 	public override string ToString()
 	{
 		return _name;
 	}
 
-	public bool IsStrongAgainst(Type type)
+	public bool IsStrongAgainst(AType type)
 	{
 		return _strong.Any(x => x.Name == type.Name);
 	}
 
-	public bool IsSlightlyStrongAgainst(Type type)
+	public bool IsSlightlyStrongAgainst(AType type)
 	{
 		return _slightlyStrong.Any(x => x.Name == type.Name);
 	}
 
-	public bool IsSlightlyWeakAgainst(Type type)
+	public bool IsSlightlyWeakAgainst(AType type)
 	{
 		return _slightlyWeak.Any(x => x.Name == type.Name);
 	}
 
-	public bool IsWeakAgainst(Type type)
+	public bool IsWeakAgainst(AType type)
 	{
 		return _weak.Any(x => x.Name == x.Name);
 	}
 
-	// 以下, Typeクラスで==演算子を用いるための演算子オーバーロードメソッド群
+	// 以下, ATypeクラスで==演算子を用いるための演算子オーバーロードメソッド群
 
-	public static bool operator ==(Type a, Type b)
+	public static bool operator ==(AType a, AType b)
 	{
 		return a.Name == b.Name;
 	}
 
-	public static bool operator !=(Type a, Type b)
+	public static bool operator !=(AType a, AType b)
 	{
 		return !(a == b);
 	}
@@ -62,7 +62,7 @@ public class Type : MonoBehaviour
 	public override bool Equals(object obj)
 	{
 		if(obj == null || this.GetType() != obj.GetType()) return false;
-		return this == (Type)obj;
+		return this == (AType)obj;
 	}
 
 	public override int GetHashCode()
