@@ -42,8 +42,8 @@ public abstract class Attack : MonoBehaviour
 
 	// 攻撃の属性
 	[SerializeField]
-	protected Type _type;
-	public Type Type
+	protected AType _type;
+	public AType AType
 	{
 		get { return _type; }
 	}

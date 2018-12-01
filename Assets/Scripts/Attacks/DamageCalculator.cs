@@ -65,7 +65,7 @@ public class DamageCalculator : MonoBehaviour
 	/// <returns></returns>
 	public int GetAvoidRate(Floor floor)
 	{
-		switch(floor.Type)
+		switch(floor.AType)
 		{
 			case Floor.Feature.Grass:
 				return _normalAvoidRate;
@@ -99,15 +99,15 @@ public class DamageCalculator : MonoBehaviour
 	/// <summary>
 	/// タイプ相性での威力の倍率を返すメソッド
 	/// </summary>
-	public float GetTypeAdvantageRate(Type attackType, Type defenceType)
+	public float GetATypeAdvantageRate(AType attackAType, AType defenceAType)
 	{
-		return attackType.IsStrongAgainst(defenceType)
+		return attackAType.IsStrongAgainst(defenceAType)
 			? _strongRate
-			: attackType.IsSlightlyStrongAgainst(defenceType)
+			: attackAType.IsSlightlyStrongAgainst(defenceAType)
 			? _slightlyStrongRate
-			: attackType.IsSlightlyWeakAgainst(defenceType)
+			: attackAType.IsSlightlyWeakAgainst(defenceAType)
 			? _slightlyWeakRate
-			: attackType.IsWeakAgainst(defenceType)
+			: attackAType.IsWeakAgainst(defenceAType)
 			? _weakRate
 			: _normalRate;
 	}
@@ -119,7 +119,7 @@ public class DamageCalculator : MonoBehaviour
 	/// <returns></returns>
 	public float GetReduceRate(Floor floor)
 	{
-		switch(floor.Type)
+		switch(floor.AType)
 		{
 			case Floor.Feature.Grass:
 				return _normalReduceRate;
@@ -136,11 +136,11 @@ public class DamageCalculator : MonoBehaviour
 	/// 得意補正の場合の倍率を計算して返すメソッド.
 	/// </summary>
 	/// <returns></returns>
-	public float GetGoodAtRate(Type attackType, Type ownType)
+	public float GetGoodAtRate(AType attackAType, AType ownAType)
 	{
-		return attackType == ownType
+		return attackAType == ownAType
 			? _goodAtRate
-			: attackType.IsStrongAgainst(ownType) || attackType.IsSlightlyStrongAgainst(ownType)
+			: attackAType.IsStrongAgainst(ownAType) || attackAType.IsSlightlyStrongAgainst(ownAType)
 			? _badAtRate
 			: _notSoGoodOrBadAtRate;
 	}
@@ -148,18 +148,18 @@ public class DamageCalculator : MonoBehaviour
 	/// <summary>
 	/// クリティカル率を整数百分率で返すメソッド
 	/// </summary>
-	/// <param name="attackType"></param>
-	/// <param name="defenceType"></param>
+	/// <param name="attackAType"></param>
+	/// <param name="defenceAType"></param>
 	/// <returns></returns>
-	public int GetCriticalRate(Type attackType, Type defenceType)
+	public int GetCriticalRate(AType attackAType, AType defenceAType)
 	{
-		return attackType.IsStrongAgainst(defenceType)
+		return attackAType.IsStrongAgainst(defenceAType)
 			? _strongCriticalRate
-			: attackType.IsSlightlyStrongAgainst(defenceType)
+			: attackAType.IsSlightlyStrongAgainst(defenceAType)
 			? _slightlyStrongCriticalRate
-			: attackType.IsSlightlyWeakAgainst(defenceType)
+			: attackAType.IsSlightlyWeakAgainst(defenceAType)
 			? _slightlyWeakCriticalRate
-			: attackType.IsWeakAgainst(defenceType)
+			: attackAType.IsWeakAgainst(defenceAType)
 			? _weakCriticalRate
 			: _normalCriticalRate;
 	}
@@ -167,13 +167,13 @@ public class DamageCalculator : MonoBehaviour
 	/// <summary>
 	/// 攻撃がクリティカルであったかどうかを返すメソッド
 	/// </summary>
-	/// <param name="attackType"></param>
-	/// <param name="defenceType"></param>
+	/// <param name="attackAType"></param>
+	/// <param name="defenceAType"></param>
 	/// <returns></returns>
 	public bool IsCritical(Attack attack, Unit defender)
 	{
 		// クリティカル率を計算
-		var criticalRate = GetCriticalRate(attack.Type, defender.Type);
+		var criticalRate = GetCriticalRate(attack.AType, defender.AType);
 
 		// 百分率の最大は100%.
 		const int RANGE_MAX = 100;
@@ -191,7 +191,7 @@ public class DamageCalculator : MonoBehaviour
 
 		// ダメージ = { (攻撃力 * attackの威力 * 相性補正 * 得意補正) / (防御力 * 地形効果防御補正) } * 乱数
 		var damage = Mathf.RoundToInt(
-			(attacker.AttackPower * attack.Power * GetTypeAdvantageRate(attack.Type, defender.Type) * GetGoodAtRate(attack.Type, attacker.Type))
+			(attacker.AttackPower * attack.Power * GetATypeAdvantageRate(attack.AType, defender.AType) * GetGoodAtRate(attack.AType, attacker.AType))
 			/ (defender.Defence * (1f + GetReduceRate(defenderFloor)))
 			* Random.Range(0.85f, 1f));
 

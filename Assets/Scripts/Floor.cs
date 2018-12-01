@@ -18,7 +18,7 @@ public class Floor : MonoBehaviour
 
 	[SerializeField]
 	private Feature _type;
-	public Feature Type
+	public Feature AType
 	{
 		get { return _type; }
 	}
@@ -155,7 +155,7 @@ public class Floor : MonoBehaviour
 	/// </summary>
 	public void SetAttackableHighlight()
 	{
-		if(Type != Feature.Unmovable) IsAttackable = true;
+		if(AType != Feature.Unmovable) IsAttackable = true;
 
 		// 攻撃対象を選択可能にする. (ユニットのステータスを表示する機能もあるため, いちいち選択可能/不可にする必要がない)
 		if(Unit) Unit.GetComponent<Button>().interactable = true;
@@ -173,7 +173,7 @@ public class Floor : MonoBehaviour
 		_map.UI.UnitInfoWindow.Hide();
 
 		// Floor詳細情報サブウィンドウを開く.
-		_map.UI.FloorInfoWindow.Show(Type, _mc.GetFloorCost(this), (int)(_dc.GetReduceRate(this) * 100), _dc.GetAvoidRate(this));
+		_map.UI.FloorInfoWindow.Show(AType, _mc.GetFloorCost(this), (int)(_dc.GetReduceRate(this) * 100), _dc.GetAvoidRate(this));
 
 		// 移動量サブウィンドウも閉じる
 		_map.UI.MoveAmountInfoWindow.Hide();

@@ -72,8 +72,8 @@ public class Unit : MonoBehaviour
 	}
 
 	[SerializeField]
-	private Type _type;
-	public Type Type
+	private AType _type;
+	public AType AType
 	{
 		get { return _type; }
 	}
@@ -198,9 +198,9 @@ public class Unit : MonoBehaviour
 	public void CheckSerializedMember()
 	{
 		if(MaxLife < 0) Debug.LogWarning("[Warning] : " + gameObject.name + "'s MaxLife is 0 or negative value!");
-		if(!_type) Debug.LogError("[Error] : " + gameObject.name + "'s Type is not set!");
+		if(!_type) Debug.LogError("[Error] : " + gameObject.name + "'s AType is not set!");
 		if(!_initialFloor) Debug.LogError("[Error] : " + gameObject.name + "'s initialFloor is not set!");
-		if(_initialFloor.Type == Floor.Feature.Unmovable) Debug.LogError("[Error] : " + gameObject.name + "'s initialFloor is Unmovable!");
+		if(_initialFloor.AType == Floor.Feature.Unmovable) Debug.LogError("[Error] : " + gameObject.name + "'s initialFloor is Unmovable!");
 		foreach(var attack in Attacks)
 		{
 			if(!attack) Debug.LogError("[Error] : " + gameObject.name + "'s attack is not fully set!");
