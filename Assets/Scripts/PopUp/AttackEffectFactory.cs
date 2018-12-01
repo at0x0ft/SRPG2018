@@ -288,7 +288,11 @@ public class AttackEffectFactory : MonoBehaviour
 
 	private void DeadLock()
 	{
-		MakeEffect(_attackerRect.anchoredPosition);
+		foreach(var target in _targets)
+		{
+			MakeEffect(target.GetComponent<RectTransform>().anchoredPosition);
+		}
+
 	}
 
 	// 水星ちゃん用
