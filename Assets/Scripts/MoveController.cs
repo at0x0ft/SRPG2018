@@ -92,14 +92,14 @@ public class MoveController : MonoBehaviour
 		return infos.Where(x => x.Value >= 0).ToDictionary(x => x.Key, x => x.Value);
 	}
 
-	enum State
+	private enum State
 	{
 		idle,right,left,back,front
 	}
 
 	public Image image;
-	Sprite motion_1;
-	Sprite motion_2;
+	private Sprite motion_1;
+	private Sprite motion_2;
 	/// <summary>
 	/// ユニットを対象のマスに移動
 	/// </summary>
