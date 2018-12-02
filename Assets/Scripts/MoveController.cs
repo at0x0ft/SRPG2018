@@ -195,7 +195,7 @@ public class MoveController : MonoBehaviour
 			//motion_1 = Resources.Load(path + "_1", typeof(Sprite)) as Sprite;
 			//motion_2 = Resources.Load(path + "_2", typeof(Sprite)) as Sprite;
 
-			sequence.Append(unit.transform.DOMove(routeFloor.transform.position, 0.25f).SetEase(Ease.Linear));
+			sequence.Append(unit.transform.DOMove(routeFloor.transform.position, 0.2f).SetEase(Ease.Linear));
 			yield return StartCoroutine(AttachMoveAnimation());
 		}
 
@@ -210,9 +210,9 @@ public class MoveController : MonoBehaviour
 	{
 		// 移動時のアニメーションを付ける
 		image.sprite = motion_1;
-		yield return new WaitForSeconds(0.125f);
+		yield return new WaitForSeconds(0.1f);
 		image.sprite = motion_2;
-		yield return new WaitForSeconds(0.125f);
+		yield return new WaitForSeconds(0.1f);
 		yield break;
 	}
 
