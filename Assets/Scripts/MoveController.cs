@@ -97,7 +97,6 @@ public class MoveController : MonoBehaviour
 		idle,right,left,back,front
 	}
 
-	//public string path;
 	public Image image;
 	Sprite motion_1;
 	Sprite motion_2;
@@ -115,11 +114,9 @@ public class MoveController : MonoBehaviour
 		image = unit.GetComponent<Image>();
 		if (image == null)
 		{
-			Debug.Log("[Debug] image is null");
+			Debug.LogError("[Debug] image is null");
 		}
 
-		//path = "Sprites/" + unit.UnitName + "/" + State.idle.ToString();
-		//1回も移動しない場合もあるのでここで一旦定義
 
 		// 移動経路に沿って移動
 		StartCoroutine(OparateAnimation(routeFloors,unit));
