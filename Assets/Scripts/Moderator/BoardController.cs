@@ -269,6 +269,6 @@ public class BoardController : MonoBehaviour
 		_ui.TouchBlocker.SetActive(false);
 
 		// ゲーム終了画面を表示
-		_ui.GameEndPanel.gameObject.SetActive(true);
+		_ui.GameEndPanel.gameObject.SetActive(true); 
 	}
 }
