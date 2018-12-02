@@ -36,7 +36,7 @@ public class MoveController : MonoBehaviour
 	/// <returns></returns>
 	public int GetUnitMaxMoveAmount(Unit unit)
 	{
-		switch (unit.Position)
+		switch(unit.Position)
 		{
 			case Unit.Role.Forward:
 				return _forwardMaxMoveAmount;
@@ -56,7 +56,7 @@ public class MoveController : MonoBehaviour
 	/// <returns></returns>
 	public int GetFloorCost(Floor floor)
 	{
-		switch (floor.Type)
+		switch(floor.Type)
 		{
 			case Floor.Feature.Unmovable:
 				return _maxLimitCost;
@@ -84,7 +84,7 @@ public class MoveController : MonoBehaviour
 		infos[startFloor] = moveAmount;
 
 		// 移動可能量を1ずつ減らし, 移動可能マスを全探索
-		for (var m = moveAmount; m >= 0; m--)
+		for(var m = moveAmount; m >= 0; m--)
 		{
 			infos = ExtractMovableAroundFloors(map, infos, m, (now, cost) => now - cost, startFloor.Unit.Belonging);
 		}
@@ -94,7 +94,11 @@ public class MoveController : MonoBehaviour
 
 	private enum State
 	{
-		idle,right,left,back,front
+		idle,
+		right,
+		left,
+		back,
+		front
 	}
 
 	public Image image;
@@ -112,35 +116,31 @@ public class MoveController : MonoBehaviour
 
 		// 移動の際の描画ライブラリインスタンスを初期化
 		image = unit.GetComponent<Image>();
-		if (image == null)
+		if(image == null)
 		{
 			Debug.LogError("[Debug] image is null");
 		}
 
-
 		// 移動経路に沿って移動
-		StartCoroutine(OparateAnimation(routeFloors,unit));
-
+		StartCoroutine(OparateAnimation(routeFloors, unit));
 	}
 
 	private string JudgeState(Vector2Int diffCoor)
 	{
-
-		//1マス移動したときの変化量を受け取って
-		//状態を文字列で返す関数
-		if (diffCoor.x == 1 && diffCoor.y == 0)
+		// 1マス移動したときの変化量を受け取り, 状態を文字列で返す関数
+		if(diffCoor.x == 1 && diffCoor.y == 0)
 		{
 			return State.right.ToString();
 		}
-		else if (diffCoor.x == -1 && diffCoor.y == 0)
+		else if(diffCoor.x == -1 && diffCoor.y == 0)
 		{
 			return State.left.ToString();
 		}
-		else if (diffCoor.x == 0 && diffCoor.y == 1)
+		else if(diffCoor.x == 0 && diffCoor.y == 1)
 		{
 			return State.back.ToString();
 		}
-		else if (diffCoor.x == 0 && diffCoor.y == -1)
+		else if(diffCoor.x == 0 && diffCoor.y == -1)
 		{
 			return State.front.ToString();
 		}
@@ -148,12 +148,11 @@ public class MoveController : MonoBehaviour
 		{
 			return State.right.ToString();
 		}
-
 	}
 
-	IEnumerator OparateAnimation(Floor[] routeFloors,Unit unit)
+	IEnumerator OparateAnimation(Floor[] routeFloors, Unit unit)
 	{
-		//座標移動を行う関数
+		// 座標移動を行う関数
 		var sequence = DOTween.Sequence();
 		var totalCost = 0;
 
@@ -178,20 +177,17 @@ public class MoveController : MonoBehaviour
 		image.sprite = Resources.Load("Sprites/" + unit.UnitName + "/" + State.idle.ToString(), typeof(Sprite)) as Sprite;
 
 		unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y, totalCost);
-
-
 	}
 
 
 	IEnumerator AttachMoveAnimation()
 	{
-		//移動時のアニメーションを付ける
+		// 移動時のアニメーションを付ける
 		image.sprite = motion_1;
 		yield return new WaitForSeconds(0.125f);
 		image.sprite = motion_2;
 		yield return new WaitForSeconds(0.125f);
 		yield break;
-
 	}
 
 	/// <summary>
@@ -207,7 +203,7 @@ public class MoveController : MonoBehaviour
 		var infos = GetRemainingMoveAmountInfos(map, startFloor, moveAmount);
 
 		// 移動可能なマスが見つからなければ例外を投げて終了
-		if (!infos.Any(info => info.Key.X == destFloor.X && info.Key.Y == destFloor.Y))
+		if(!infos.Any(info => info.Key.X == destFloor.X && info.Key.Y == destFloor.Y))
 		{
 			throw new ArgumentException(string.Format("destFloor(x:{0}, y:{1}) is not movable.", destFloor.X, destFloor.Y));
 		}
@@ -226,12 +222,12 @@ public class MoveController : MonoBehaviour
 
 		// コストc = 0から順に探索する
 		var c = 0;
-		while (true)
+		while(true)
 		{
 			infos = ExtractMovableAroundFloors(map, infos, c, (now, cost) => now + cost, startFloor.Unit.Belonging);
 
 			c++;
-			if (c > infos.Max(x => x.Value < _maxLimitCost ? x.Value : 0))
+			if(c > infos.Max(x => x.Value < _maxLimitCost ? x.Value : 0))
 			{
 				break;
 			}
@@ -251,7 +247,7 @@ public class MoveController : MonoBehaviour
 		var costs = GetMoveCostToAllFloors(map, startFloor);
 
 		// 移動可能なマスが見つからなければ例外を投げて終了
-		if (!costs.Any(info => info.Key.X == destFloor.X && info.Key.Y == destFloor.Y))
+		if(!costs.Any(info => info.Key.X == destFloor.X && info.Key.Y == destFloor.Y))
 		{
 			throw new ArgumentException(string.Format("x:{0}, y:{1} is not movable.", destFloor.X, destFloor.Y));
 		}
@@ -277,20 +273,20 @@ public class MoveController : MonoBehaviour
 
 		// appendInfos: infosに追加する候補を一時的に保持しておくためのDict
 		var appendInfos = new Dictionary<Floor, int>();
-		foreach (var calcTargetInfo in infos.Where(info => info.Value == cost))
+		foreach(var calcTargetInfo in infos.Where(info => info.Value == cost))
 		{
 			// targetFloorマスに隣接する四方の4マスをmapから展開し, aroundFloorsに代入
 			var targetFloor = calcTargetInfo.Key;
 			var aroundFloors = new Floor[4];
-			for (int i = 0; i < 4; i++)
+			for(int i = 0; i < 4; i++)
 			{
 				aroundFloors[i] = map.GetFloor(targetFloor.X + rotationX[i], targetFloor.Y + rotationY[i]);
 			}
 
 			// 四方のマスの残移動力を計算し, appendInfosに追加
-			foreach (var aroundFloor in aroundFloors)
+			foreach(var aroundFloor in aroundFloors)
 			{
-				if (aroundFloor == null ||
+				if(aroundFloor == null ||
 					infos.Any(info => info.Key.X == aroundFloor.X && info.Key.Y == aroundFloor.Y) ||
 					appendInfos.Any(ainfo => ainfo.Key.X == aroundFloor.X && ainfo.Key.Y == aroundFloor.Y) ||
 					aroundFloor.Unit
@@ -322,7 +318,7 @@ public class MoveController : MonoBehaviour
 		var route = new Dictionary<Floor, int>();
 		route[destFloor] = destKV.Value;
 		// 終点マスから始点マスに向かって逆探索
-		while (true)
+		while(true)
 		{
 			// ルートの最終マス・移動可能量/コストのペアを取り出す
 			var currentKV = route.Last();
@@ -334,7 +330,7 @@ public class MoveController : MonoBehaviour
 					&& info.Value == prevMoveCost
 				);
 			// 一つ前のマスがinfosに存在しない場合は逆探索終了
-			if (prevKV.Key == null)
+			if(prevKV.Key == null)
 			{
 				break;
 			}
