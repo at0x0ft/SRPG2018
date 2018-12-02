@@ -97,7 +97,7 @@ public class MoveController : MonoBehaviour
 		idle,right,left,back,front
 	}
 
-	public string path;
+	//public string path;
 	public Image image;
 	Sprite motion_1;
 	Sprite motion_2;
@@ -118,7 +118,7 @@ public class MoveController : MonoBehaviour
 			Debug.Log("[Debug] image is null");
 		}
 
-		path = "Sprites/" + unit.UnitName + "/" + State.idle.ToString();
+		//path = "Sprites/" + unit.UnitName + "/" + State.idle.ToString();
 		//1回も移動しない場合もあるのでここで一旦定義
 
 		// 移動経路に沿って移動
@@ -156,6 +156,7 @@ public class MoveController : MonoBehaviour
 
 	IEnumerator OparateAnimation(Floor[] routeFloors,Unit unit)
 	{
+		//座標移動を行う関数
 		var sequence = DOTween.Sequence();
 		var totalCost = 0;
 
@@ -163,17 +164,15 @@ public class MoveController : MonoBehaviour
 		for(var i = 1; i < routeFloors.Length; i++)
 		{
 			var routeFloor = routeFloors[i];
-			sequence.Append(unit.transform.DOMove(routeFloor.transform.position, 0.1f).SetEase(Ease.Linear));
 			totalCost += GetFloorCost(routeFloors[i]);
 
 			var presentFloor = routeFloors[i - 1];
+			//現在位置との差分の計算
 			Vector2Int diffCor = routeFloor.CoordinatePair.Key - presentFloor.CoordinatePair.Key;
-			Debug.Log("[Debug] diffCor " + diffCor);
-			path = "Sprites/" + unit.UnitName + "/" + JudgeState(diffCor);
+			string path = "Sprites/" + unit.UnitName + "/" + JudgeState(diffCor);
+			//モーション画像の読み込み
 			motion_1 = Resources.Load(path + "_1", typeof(Sprite)) as Sprite;
-			Debug.Log("[Debug]" + motion_1.name);
 			motion_2 = Resources.Load(path + "_2", typeof(Sprite)) as Sprite;
-			Debug.Log("[Debug]" + motion_2.name);
 
 			sequence.Append(unit.transform.DOMove(routeFloor.transform.position, 0.25f).SetEase(Ease.Linear));
 			yield return StartCoroutine(AttachMoveAnimation());
