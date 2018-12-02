@@ -163,10 +163,10 @@ public class MoveController : MonoBehaviour
 			totalCost += GetFloorCost(routeFloors[i]);
 
 			var presentFloor = routeFloors[i - 1];
-			//現在位置との差分の計算
+			// 現在位置との差分の計算
 			Vector2Int diffCor = routeFloor.CoordinatePair.Key - presentFloor.CoordinatePair.Key;
 			string path = "Sprites/" + unit.UnitName + "/" + JudgeState(diffCor);
-			//モーション画像の読み込み
+			// モーション画像の読み込み
 			motion_1 = Resources.Load(path + "_1", typeof(Sprite)) as Sprite;
 			motion_2 = Resources.Load(path + "_2", typeof(Sprite)) as Sprite;
 
