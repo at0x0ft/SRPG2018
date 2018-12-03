@@ -59,7 +59,7 @@ public class MoveController : MonoBehaviour
 	/// <returns></returns>
 	public int GetFloorCost(Floor floor)
 	{
-		switch(floor.AType)
+		switch(floor.FloorType)
 		{
 			case Floor.Feature.Unmovable:
 				return _maxLimitCost;

@@ -29,13 +29,13 @@ public class FloorInfoWindow : SubWindow
 		if(!_avoidTextBox) Debug.LogError("[Error] : Avo. TextBox is not set!");
 	}
 
-	public void Show(Floor.Feature floorFeature, int cost, int defUp, int avoid)
+	public void Show(Floor.Feature feature, int cost, int defUp, int avoid)
 	{
 		Hide();
-		_featTextBox.text = LocalizingFeature(floorFeature);
-		_costTextBox.text = cost.ToString();
-		_defUpTextBox.text = FormatDefUp(defUp);
-		_avoidTextBox.text = FormatAvoid(avoid);
+		_featTextBox.text = LocalizingFeature(feature);
+		_costTextBox.text = FormatCost(feature, cost);
+		_defUpTextBox.text = FormatDefUp(feature, defUp);
+		_avoidTextBox.text = FormatAvoid(feature, avoid);
 		Show();
 	}
 
@@ -48,6 +48,8 @@ public class FloorInfoWindow : SubWindow
 	{
 		switch(feature)
 		{
+			case Floor.Feature.Unmovable:
+				return "移動不可";
 			case Floor.Feature.Grass:
 				return "草原";
 			case Floor.Feature.Forest:
@@ -61,12 +63,25 @@ public class FloorInfoWindow : SubWindow
 	}
 
 	/// <summary>
+	/// 移動コストの形式を整えるメソッド.
+	/// </summary>
+	/// <param name="feature"></param>
+	/// <param name="cost"></param>
+	/// <returns></returns>
+	private string FormatCost(Floor.Feature feature, int cost)
+	{
+		if(feature == Floor.Feature.Unmovable) return "-";
+		return cost.ToString();
+	}
+
+	/// <summary>
 	/// 防御上昇率の形式を整えるメソッド.
 	/// </summary>
 	/// <param name="attackScale"></param>
 	/// <returns></returns>
-	private string FormatDefUp(int defUp)
+	private string FormatDefUp(Floor.Feature feature, int defUp)
 	{
+		if(feature == Floor.Feature.Unmovable) return "-";
 		var prefix = defUp > 0 ? "+" : defUp < 0 ? "-" : "±";
 		return prefix + defUp + "%";
 	}
@@ -76,8 +91,9 @@ public class FloorInfoWindow : SubWindow
 	/// </summary>
 	/// <param name="attackScale"></param>
 	/// <returns></returns>
-	private string FormatAvoid(int avoid)
+	private string FormatAvoid(Floor.Feature feature, int avoid)
 	{
+		if(feature == Floor.Feature.Unmovable) return "-";
 		var prefix = avoid > 0 ? "+" : avoid < 0 ? "-" : "±";
 		return prefix + avoid + "%";
 	}

@@ -200,7 +200,7 @@ public class Unit : MonoBehaviour
 		if(MaxLife < 0) Debug.LogWarning("[Warning] : " + gameObject.name + "'s MaxLife is 0 or negative value!");
 		if(!_type) Debug.LogError("[Error] : " + gameObject.name + "'s AType is not set!");
 		if(!_initialFloor) Debug.LogError("[Error] : " + gameObject.name + "'s initialFloor is not set!");
-		if(_initialFloor.AType == Floor.Feature.Unmovable) Debug.LogError("[Error] : " + gameObject.name + "'s initialFloor is Unmovable!");
+		if(_initialFloor.FloorType == Floor.Feature.Unmovable) Debug.LogError("[Error] : " + gameObject.name + "'s initialFloor is Unmovable!");
 		foreach(var attack in Attacks)
 		{
 			if(!attack) Debug.LogError("[Error] : " + gameObject.name + "'s attack is not fully set!");
