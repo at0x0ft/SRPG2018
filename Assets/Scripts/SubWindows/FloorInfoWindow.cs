@@ -49,7 +49,7 @@ public class FloorInfoWindow : SubWindow
 		switch(feature)
 		{
 			case Floor.Feature.Unmovable:
-				return "移動不可";
+				return "侵入不可";
 			case Floor.Feature.Grass:
 				return "草原";
 			case Floor.Feature.Forest:
@@ -70,7 +70,7 @@ public class FloorInfoWindow : SubWindow
 	/// <returns></returns>
 	private string FormatCost(Floor.Feature feature, int cost)
 	{
-		if(feature == Floor.Feature.Unmovable) return "-";
+		if(feature == Floor.Feature.Unmovable) return "ー";
 		return cost.ToString();
 	}
 
@@ -81,7 +81,7 @@ public class FloorInfoWindow : SubWindow
 	/// <returns></returns>
 	private string FormatDefUp(Floor.Feature feature, int defUp)
 	{
-		if(feature == Floor.Feature.Unmovable) return "-";
+		if(feature == Floor.Feature.Unmovable) return "ー";
 		var prefix = defUp > 0 ? "+" : defUp < 0 ? "-" : "±";
 		return prefix + defUp + "%";
 	}
@@ -93,7 +93,7 @@ public class FloorInfoWindow : SubWindow
 	/// <returns></returns>
 	private string FormatAvoid(Floor.Feature feature, int avoid)
 	{
-		if(feature == Floor.Feature.Unmovable) return "-";
+		if(feature == Floor.Feature.Unmovable) return "ー";
 		var prefix = avoid > 0 ? "+" : avoid < 0 ? "-" : "±";
 		return prefix + avoid + "%";
 	}

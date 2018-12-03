@@ -67,6 +67,8 @@ public class DamageCalculator : MonoBehaviour
 	{
 		switch(floor.FloorType)
 		{
+			case Floor.Feature.Unmovable:
+				return int.MaxValue;
 			case Floor.Feature.Grass:
 				return _normalAvoidRate;
 			case Floor.Feature.Forest:
@@ -121,6 +123,8 @@ public class DamageCalculator : MonoBehaviour
 	{
 		switch(floor.FloorType)
 		{
+			case Floor.Feature.Unmovable:
+				return int.MinValue;
 			case Floor.Feature.Grass:
 				return _normalReduceRate;
 			case Floor.Feature.Forest:
