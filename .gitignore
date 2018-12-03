@@ -35,3 +35,9 @@ sysinfo.txt
 
 # Files for macOS
 .DS_Store
+
+# appended
+Assets/Fungus/
+Assets/Fungus.meta
+Assets/FungusExamples/
+Assets/FungusExamples.meta
