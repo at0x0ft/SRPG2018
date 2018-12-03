@@ -8,6 +8,9 @@ using System;
 
 public class MoveController : MonoBehaviour
 {
+	[SerializeField, Range(0.8f, 2.0f)]
+	private float _moveSpeed = 1f;
+
 	[SerializeField]
 	private int _forwardMaxMoveAmount = 7;
 	[SerializeField]
@@ -92,6 +95,18 @@ public class MoveController : MonoBehaviour
 		return infos.Where(x => x.Value >= 0).ToDictionary(x => x.Key, x => x.Value);
 	}
 
+	private enum State
+	{
+		idle,
+		right,
+		left,
+		back,
+		front
+	}
+
+	private Image image;
+	private Sprite motion_1;
+	private Sprite motion_2;
 	/// <summary>
 	/// ユニットを対象のマスに移動
 	/// </summary>
@@ -103,23 +118,96 @@ public class MoveController : MonoBehaviour
 		var routeFloors = CalculateRouteFloors(map, unit.Floor, destFloor, unit.MoveAmount);
 
 		// 移動の際の描画ライブラリインスタンスを初期化
+		image = unit.GetComponent<Image>();
+		if(image == null)
+		{
+			Debug.LogError("[Debug] image is null");
+		}
+
+		// 移動経路に沿って移動
+		StartCoroutine(OparateAnimation(routeFloors, unit));
+	}
+
+	private string JudgeState(Vector2Int diffCoor)
+	{
+		// 1マス移動したときの変化量を受け取り, 状態を文字列で返す関数
+		if(diffCoor.x == 1 && diffCoor.y == 0)
+		{
+			return State.right.ToString();
+		}
+		else if(diffCoor.x == -1 && diffCoor.y == 0)
+		{
+			return State.left.ToString();
+		}
+		else if(diffCoor.x == 0 && diffCoor.y == 1)
+		{
+			return State.back.ToString();
+		}
+		else if(diffCoor.x == 0 && diffCoor.y == -1)
+		{
+			return State.front.ToString();
+		}
+		else
+		{
+			return State.right.ToString();
+		}
+	}
+
+	IEnumerator OparateAnimation(Floor[] routeFloors, Unit unit)
+	{
+		// 座標移動を行う関数
 		var sequence = DOTween.Sequence();
 		var totalCost = 0;
+
+		string set_path = "Sprites/" + unit.UnitName + "/";
+		// モーション画像用の辞書の生成
+		Dictionary<string, Sprite> motion_dic = new Dictionary<string, Sprite>();
+		foreach(string x in Enum.GetNames(typeof(State)))
+		{
+			if(x == "idle")
+			{
+				motion_dic.Add(x, Resources.Load(set_path + x, typeof(Sprite)) as Sprite);
+				continue;
+			}
+			motion_dic.Add(x + "_1", Resources.Load(set_path + x + "_1", typeof(Sprite)) as Sprite);
+			motion_dic.Add(x + "_2", Resources.Load(set_path + x + "_2", typeof(Sprite)) as Sprite);
+		}
+
 
 		// 移動経路に沿って移動し, 掛かったコストを足していく.
 		for(var i = 1; i < routeFloors.Length; i++)
 		{
 			var routeFloor = routeFloors[i];
-			sequence.Append(unit.transform.DOMove(routeFloor.transform.position, 0.1f).SetEase(Ease.Linear));
 			totalCost += GetFloorCost(routeFloors[i]);
+
+			var presentFloor = routeFloors[i - 1];
+			// 現在位置との差分の計算
+			Vector2Int diffCor = routeFloor.CoordinatePair.Key - presentFloor.CoordinatePair.Key;
+			string result = JudgeState(diffCor);
+			set_path = set_path + result;
+			// モーション画像の読み込み
+			motion_1 = motion_dic[result + "_1"];
+			motion_2 = motion_dic[result + "_2"];
+
+			sequence.Append(unit.transform.DOMove(routeFloor.transform.position, 0.2f).SetEase(Ease.Linear));
+			yield return StartCoroutine(AttachMoveAnimation());
 		}
 
-		// 移動が完了したら
-		sequence.OnComplete(() =>
-		{
-			// unitのGameObjectの実体の座標も変更し, ユニットの移動可能量を減らす.
-			unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y, totalCost);
-		});
+		// 停止状態の画像を設定
+		image.sprite = motion_dic[State.idle.ToString()];
+
+		unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y, totalCost);
+	}
+
+
+	IEnumerator AttachMoveAnimation()
+	{
+		// 移動時のアニメーションを付ける
+		image.sprite = motion_1;
+		yield return new WaitForSeconds(0.1f / _moveSpeed);
+		image.sprite = motion_2;
+		yield return new WaitForSeconds(0.1f / _moveSpeed);
+		yield break;
 	}
 
 	/// <summary>
