@@ -35,7 +35,7 @@ public class AttackInfoWindow : SubWindow
 		_scaleTextBox.text = LocalizingScale(attack.Scale);
 		_typeTextBox.text = attack.AType.ToString();
 		_powerBox.text = attack.Power.ToString();
-		_accuracyTextBox.text = attack.Accuracy.ToString();
+		_accuracyTextBox.text = FormatAccuracy(attack.Accuracy);
 		Show();
 	}
 
@@ -56,5 +56,17 @@ public class AttackInfoWindow : SubWindow
 				Debug.LogError("[Error] : Unexpected attack scale type has caught (in AttackInfoWindow.LocalizingScale).");
 				return "";
 		}
+	}
+
+	/// <summary>
+	/// 命中率がMAX_ACCURACYよりも大きければ, "必中"と表記し,
+	/// そうでなければ実際の命中率を値を文字列化して返すメソッド.
+	/// </summary>
+	/// <param name="accuracy"></param>
+	/// <returns></returns>
+	private string FormatAccuracy(int accuracy)
+	{
+		if(accuracy >= Attack.MAX_ACCURACY) return "必中";
+		return accuracy.ToString();
 	}
 }

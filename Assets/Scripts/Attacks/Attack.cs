@@ -55,7 +55,7 @@ public abstract class Attack : MonoBehaviour
 	{
 		get{ return _effectKind; }
 	}
-	
+
 
 	// 攻撃力
 	[SerializeField]
@@ -74,6 +74,8 @@ public abstract class Attack : MonoBehaviour
 	{
 		get { return _accuracy; }
 	}
+
+	public static int MAX_ACCURACY = 999;
 
 	/// <summary>
 	/// 攻撃範囲.
