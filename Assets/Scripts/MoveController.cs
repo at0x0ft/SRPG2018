@@ -101,7 +101,7 @@ public class MoveController : MonoBehaviour
 		front
 	}
 
-	public Image image;
+	private Image image;
 	private Sprite motion_1;
 	private Sprite motion_2;
 	/// <summary>
@@ -168,15 +168,8 @@ public class MoveController : MonoBehaviour
 			}
 			motion_dic.Add(x + "_1", Resources.Load(set_path + x + "_1", typeof(Sprite)) as Sprite);
 			motion_dic.Add(x + "_2", Resources.Load(set_path + x + "_2", typeof(Sprite)) as Sprite);
-			//Debug.Log("[for Debug] input key: " + x);
-			//motion_1 = Resources.Load(set_path + x + "_1", typeof(Sprite)) as Sprite;
-			//motion_2 = Resources.Load(set_path + x + "_2", typeof(Sprite)) as Sprite;
-			//motion_dic.Add(x + "_1",motion_1);
-			//motion_dic.Add(x + "_2",motion_2);
-
 		}
 
-		//Debug.Log("[for Debug]"+motion_dic["idle"].name);
 
 		// 移動経路に沿って移動し, 掛かったコストを足していく.
 		for (var i = 1; i < routeFloors.Length; i++)
@@ -188,18 +181,16 @@ public class MoveController : MonoBehaviour
 			// 現在位置との差分の計算
 			Vector2Int diffCor = routeFloor.CoordinatePair.Key - presentFloor.CoordinatePair.Key;
 			string result = JudgeState(diffCor);
-			string path = "Sprites/" + unit.UnitName + "/" + result;
+			set_path = set_path + result;
 			// モーション画像の読み込み
 			motion_1 = motion_dic[result+"_1"];
 			motion_2 = motion_dic[result+"_2"];
-			//motion_1 = Resources.Load(path + "_1", typeof(Sprite)) as Sprite;
-			//motion_2 = Resources.Load(path + "_2", typeof(Sprite)) as Sprite;
 
 			sequence.Append(unit.transform.DOMove(routeFloor.transform.position, 0.2f).SetEase(Ease.Linear));
 			yield return StartCoroutine(AttachMoveAnimation());
 		}
 
-		//image.sprite = Resources.Load("Sprites/" + unit.UnitName + "/" + State.idle.ToString(), typeof(Sprite)) as Sprite;
+		// 停止状態の画像を設定
 		image.sprite = motion_dic[State.idle.ToString()];
 
 		unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y, totalCost);
