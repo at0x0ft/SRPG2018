@@ -43522,6 +43522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24df22eca87221140a3824aef4b45483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveSpeed: 1.5
   _forwardMaxMoveAmount: 7
   _middleMaxMoveAmount: 5
   _backMaxMoveAmount: 3
