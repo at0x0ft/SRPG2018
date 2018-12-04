@@ -32,6 +32,5 @@ public class GameEndPanel : MonoBehaviour
 	{
 		// シーンを移動する
 		SceneManager.LoadScene("Chapter1After");
-		//Application.Quit();
 	}
 }
