@@ -36,6 +36,6 @@ sysinfo.txt
 # Files for macOS
 .DS_Store
 
-# appended
+# Ignore Fungus asset files.
 Assets/Fungus/
 Assets/FungusExamples/
