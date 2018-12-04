@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Linq;
 using System;
 using UnityEngine.UI;
@@ -29,6 +30,7 @@ public class GameEndPanel : MonoBehaviour
 
 	private void GameEnd()
 	{
-		Application.Quit();
+		// シーンを移動する
+		SceneManager.LoadScene("Chapter1After");
 	}
 }
