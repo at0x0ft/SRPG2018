@@ -86,7 +86,7 @@ public class Map : MonoBehaviour
 			floor.Initialize(this, units, mc, dc, bsc);
 			Floors.Add(floor);
 		}
-		
+
 		// マップの大きさを取得
 		WidthLimit = Floors.Max(floor => floor.X);
 		HeightLimit = Floors.Max(floor => floor.Y);
@@ -132,7 +132,7 @@ public class Map : MonoBehaviour
 		foreach(var info in infos)
 		{
 			var floor = GetFloor(info.Key.X, info.Key.Y);
-			if(floor.AType != Floor.Feature.Unmovable) floor.IsMovable = true;
+			if(floor.Type != Floor.Feature.Unmovable) floor.IsMovable = true;
 		}
 	}
 
@@ -159,7 +159,7 @@ public class Map : MonoBehaviour
 	{
 		foreach(var floor in Floors)
 		{
-			if(floor.AType != Floor.Feature.Unmovable)
+			if(floor.Type != Floor.Feature.Unmovable)
 			{
 				floor.IsAttackable = false;
 				floor.IsMovable = false;

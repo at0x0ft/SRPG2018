@@ -65,7 +65,7 @@ public class DamageCalculator : MonoBehaviour
 	/// <returns></returns>
 	public int GetAvoidRate(Floor floor)
 	{
-		switch(floor.AType)
+		switch(floor.Type)
 		{
 			case Floor.Feature.Grass:
 				return _normalAvoidRate;
@@ -119,7 +119,7 @@ public class DamageCalculator : MonoBehaviour
 	/// <returns></returns>
 	public float GetReduceRate(Floor floor)
 	{
-		switch(floor.AType)
+		switch(floor.Type)
 		{
 			case Floor.Feature.Grass:
 				return _normalReduceRate;
