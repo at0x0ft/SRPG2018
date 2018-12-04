@@ -155,7 +155,8 @@ public class BoardController : MonoBehaviour
 		if(!activeUnit) Debug.LogError("[Error] : " + _units.CurrentPlayerTeam.ToString() + "'s active unit is not Found!");    // 4debug
 
 		Debug.Log(activeUnit);  // 4debug
-								// Unitsクラスに記憶.
+
+		// Unitsクラスに記憶.
 		_units.ActiveUnit = activeUnit;
 
 		// Activeユニットアイコンを動かす
@@ -221,7 +222,8 @@ public class BoardController : MonoBehaviour
 		_units.MakeRestActiveUnit();
 		Debug.Log(_units.Order.Count);  // 4debug
 		Debug.Log(_units.ActiveUnit.name);  // 4debug
-											// まだ自軍のユニットが残っているのならば, 次のユニットに交代
+
+		// まだ自軍のユニットが残っているのならば, 次のユニットに交代
 		if(_units.Order.Count > 0) StartUnit();
 		// 自軍のユニット全てが行動終了したならば, 次のプレイヤーに交代
 		else NextPhase();
