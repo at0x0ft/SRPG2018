@@ -72,8 +72,8 @@ public class Unit : MonoBehaviour
 	}
 
 	[SerializeField]
-	private AType _type;
-	public AType AType
+	private AttackType _type;
+	public AttackType AType
 	{
 		get { return _type; }
 	}

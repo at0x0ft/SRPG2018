@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4030235487132668}
   - component: {fileID: 114928696413571736}
   m_Layer: 0
-  m_Name: Wind
+  m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,12 +51,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9df7b38f528fc4439cc18c69837c6a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: "\u98A8"
+  _name: "\u5149"
   _strong:
-  - {fileID: 114928696413571736, guid: 43a080bff49961e4db4fe6a1b05c7abf, type: 2}
-  _slightlyStrong:
   - {fileID: 114928696413571736, guid: 429cdf1a3716e7546bec0ca6553aac4e, type: 2}
+  _slightlyStrong: []
   _slightlyWeak:
-  - {fileID: 114928696413571736, guid: b8ed57c99ab9a41488850dbd6209597f, type: 2}
-  _weak:
   - {fileID: 114928696413571736, guid: 79f0160951bceae4e80efc5ffa818745, type: 2}
+  - {fileID: 114534369897718610, guid: 6586a334735b6e04a88fe48cb7b53847, type: 2}
+  - {fileID: 114928696413571736, guid: 43a080bff49961e4db4fe6a1b05c7abf, type: 2}
+  - {fileID: 114928696413571736, guid: 8baf576386dc34245ba2a70ad54626a4, type: 2}
+  _weak: []

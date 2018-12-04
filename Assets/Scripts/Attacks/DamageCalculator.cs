@@ -101,7 +101,7 @@ public class DamageCalculator : MonoBehaviour
 	/// <summary>
 	/// タイプ相性での威力の倍率を返すメソッド
 	/// </summary>
-	public float GetATypeAdvantageRate(AType attackAType, AType defenceAType)
+	public float GetATypeAdvantageRate(AttackType attackAType, AttackType defenceAType)
 	{
 		return attackAType.IsStrongAgainst(defenceAType)
 			? _strongRate
@@ -140,7 +140,7 @@ public class DamageCalculator : MonoBehaviour
 	/// 得意補正の場合の倍率を計算して返すメソッド.
 	/// </summary>
 	/// <returns></returns>
-	public float GetGoodAtRate(AType attackAType, AType ownAType)
+	public float GetGoodAtRate(AttackType attackAType, AttackType ownAType)
 	{
 		return attackAType == ownAType
 			? _goodAtRate
@@ -155,7 +155,7 @@ public class DamageCalculator : MonoBehaviour
 	/// <param name="attackAType"></param>
 	/// <param name="defenceAType"></param>
 	/// <returns></returns>
-	public int GetCriticalRate(AType attackAType, AType defenceAType)
+	public int GetCriticalRate(AttackType attackAType, AttackType defenceAType)
 	{
 		return attackAType.IsStrongAgainst(defenceAType)
 			? _strongCriticalRate

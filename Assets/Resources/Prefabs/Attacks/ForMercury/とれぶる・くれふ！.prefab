@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: "\u3068\u308C\u3076\u308B\u30FB\u304F\u308C\u3075\uFF01"
   _kind: 0
-  _type: {fileID: 114928696413571736, guid: 6586a334735b6e04a88fe48cb7b53847, type: 2}
+  _type: {fileID: 114534369897718610, guid: 6586a334735b6e04a88fe48cb7b53847, type: 2}
   _effectKind: 7
   _power: 60
   _accuracy: 90
