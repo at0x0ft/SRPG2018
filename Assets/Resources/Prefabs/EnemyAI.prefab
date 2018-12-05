@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MinWaitSeconds: 0.1
-  MaxWaitSeconds: 3
+  MaxWaitSeconds: 2
 --- !u!114 &114482896313505614
 MonoBehaviour:
   m_ObjectHideFlags: 1
