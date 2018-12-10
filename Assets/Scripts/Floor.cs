@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Fungus;
 
 [RequireComponent(typeof(Button))]
 public class Floor : MonoBehaviour
@@ -28,6 +29,7 @@ public class Floor : MonoBehaviour
 	private Color _movableColor;
 	private Color _attackableColor;
 
+	private Flowchart _flowchart;
 	private Map _map;
 	private Units _units;
 	private MoveController _mc;
@@ -143,6 +145,8 @@ public class Floor : MonoBehaviour
 		_movableColor = _map.MovableColor;
 		_attackableColor = _map.AttackableColor;
 
+		_flowchart = GameObject.Find("Flowchart").GetComponent<Flowchart>();
+
 		// マス自身がボタンの役割を果たしており, これをクリックした時にOnClickメソッドを実行するように設定する.
 		GetComponent<Button>().onClick.AddListener(OnClick);
 
@@ -201,6 +205,34 @@ public class Floor : MonoBehaviour
 	}
 
 	/// <summary>
+	/// 攻撃設定中の挙動
+	/// </summary>
+	private void ClickBehaviorOnAttacking()
+	{
+		var attacker = _units.ActiveUnit;
+		var attackOrNull = attacker.PlanningAttack;
+		if(attackOrNull == null)
+		{
+			_flowchart.ExecuteBlock("UnitUnknown");
+			return;
+		}
+		var attack = attackOrNull.Value.Key;
+
+		// フローチャート処理
+		if((attacker.AttackState == Unit.AttackStates.LittleAttack && attack.Kind == Attack.Level.High)
+		|| (attack.Scale == Attack.AttackScale.Range))
+		{
+			// ターン1で強攻撃選択時、もしくは範囲攻撃選択時は、範囲攻撃ボタンを押しましょう。
+			_flowchart.ExecuteBlock("MustClickCircle");
+		}
+		else
+		{
+			// ユニットが居る場合は、Unit.csの方の処理が呼ばれるため、こちらは呼ばれません。
+			_flowchart.ExecuteBlock("UnitUnknown");
+		}
+	}
+	
+	/// <summary>
 	/// マスをクリックした場合の挙動を登録します
 	/// </summary>
 	private void SetClickBehavior()
@@ -208,7 +240,7 @@ public class Floor : MonoBehaviour
 		ClickBehaviors = new Dictionary<BattleStates, Action>();
 		ClickBehaviors[BattleStates.Check] = ClickBehaviorOnChecking;
 		ClickBehaviors[BattleStates.Move] = ClickBehaviorOnMoving;
-		ClickBehaviors[BattleStates.Attack] = () => { };
+		ClickBehaviors[BattleStates.Attack] = ClickBehaviorOnAttacking;
 		ClickBehaviors[BattleStates.Load] = () => { };
 	}
 
