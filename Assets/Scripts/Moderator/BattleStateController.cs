@@ -159,7 +159,21 @@ public class BattleStateController
 
 	private void SetHintWindowText(BattleStates state)
 	{
-		_flowchart.ExecuteBlock(state.ToString());
-		// TODO ; Check,Move,Attack-nochange,Attack-change,EnemyTurnに分岐させる
+		string next = state.ToString();
+		if(state == BattleStates.Attack)
+		{
+			if(_units.ActiveUnit.AttackState == Unit.AttackStates.Charging)
+				next += "-charge";
+			else
+				next += "-nocharge";
+		}
+		
+		// 上書き
+		if(_units.CurrentPlayerTeam == Unit.Team.Enemy)
+		{
+			next = "EnemyTurn";
+		}
+		
+		_flowchart.ExecuteBlock(next);
 	}
 }
