@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using Fungus;
 
 /// <summary>
 /// 戦闘状態です
@@ -26,6 +27,7 @@ public class BattleStateController
 	private Map _map;
 	private Units _units;
 	private UI _ui;
+	private Flowchart _flowchart; // for hint window
 
 	/// <summary>
 	/// 必要な情報を取得
@@ -40,8 +42,9 @@ public class BattleStateController
 		_map = map;
 		_units = units;
 		_ui = ui;
+		_flowchart = GameObject.Find("Flowchart").GetComponent<Flowchart>();
 	}
-	
+
 	/// <summary>
 	/// 強攻撃が速攻で発動する条件
 	/// </summary>
@@ -78,6 +81,9 @@ public class BattleStateController
 		// ウィンドウ更新
 		_ui.TurnSetInfoWindow.UpdateStateInfo(battleStates);
 
+		// ヒントウィンドウ設定
+		SetHintWindowText(battleStates);
+
 		// 各戦闘状態における、特殊処理
 		switch(BattleState)
 		{
@@ -86,16 +92,16 @@ public class BattleStateController
 				_ui.UnitInfoWindow.Hide();
 				_ui.MoveAmountInfoWindow.Hide();
 				break;
-        
+
 			case BattleStates.Move:
-        // 強攻撃判定
+				// 強攻撃判定
 				if(!StrongAttackCondition()) break;
 
 				var attacker = _units.ActiveUnit;
 				var attackInfo = attacker.PlanningAttack.Value;
 				var attack = attackInfo.Key;
 				var dir = attackInfo.Value;
-				
+
 				// 1.強攻撃の詳細情報を表示し
 				_ui.AttackInfoWindow.Show(attack);
 
@@ -106,7 +112,7 @@ public class BattleStateController
 				_ac.Highlight(_units.ActiveUnit, attack, dir);
 
 				// 4.範囲攻撃なら、ノズルも出す
-				if(attack.Scale==Attack.AttackScale.Range)
+				if(attack.Scale == Attack.AttackScale.Range)
 				{
 					_ui.RangeAttackNozzle.Show(RangeAttackNozzle.AccessReason.RangeAttack);
 				}
@@ -139,7 +145,7 @@ public class BattleStateController
 
 		StartTreatmentPerBattleStates(BattleState);
 	}
-	
+
 	/// <summary>
 	/// 定石からは異なる順番で戦闘状態を進める
 	/// </summary>
@@ -149,5 +155,11 @@ public class BattleStateController
 		BattleState = state;
 
 		StartTreatmentPerBattleStates(BattleState);
+	}
+
+	private void SetHintWindowText(BattleStates state)
+	{
+		_flowchart.ExecuteBlock(state.ToString());
+		// TODO ; Check,Move,Attack-nochange,Attack-change,EnemyTurnに分岐させる
 	}
 }
