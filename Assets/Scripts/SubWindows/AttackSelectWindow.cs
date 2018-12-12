@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEngine.UI;
+using Fungus;
 
 public class AttackSelectWindow : SubWindow
 {
@@ -17,6 +18,7 @@ public class AttackSelectWindow : SubWindow
 	private RangeAttackNozzle _ran;
 	private AttackInfoWindow _aiw;
 	private Map _map;
+	private Flowchart _flowchart;
 
 	private List<KeyValuePair<Attack, bool>> _displayedAttacks;
 
@@ -32,6 +34,9 @@ public class AttackSelectWindow : SubWindow
 		_aiw = aiw;
 		_ran = ran;
 		_map = map;
+
+		// フローチャート設定
+		_flowchart = GameObject.Find("Flowchart").GetComponent<Flowchart>();
 	}
 
 	/// <summary>

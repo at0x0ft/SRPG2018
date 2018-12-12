@@ -173,7 +173,7 @@ public class BattleStateController
 		{
 			next = "EnemyTurn";
 		}
-		
+		Debug.Log(next);
 		_flowchart.ExecuteBlock(next);
 	}
 }

@@ -188,8 +188,12 @@ public class Floor : MonoBehaviour
 	/// </summary>
 	private void ClickBehaviorOnMoving()
 	{
-		// 移動先が移動可能なら
-		if(!IsMovable) return;
+		// 移動先が移動不可能なら
+		if(!IsMovable)
+		{
+			_flowchart.ExecuteBlock("NotMovable");
+			return;
+		}
 
 		// 移動する
 		_mc.MoveTo(_map, _units.ActiveUnit, this);
@@ -224,6 +228,11 @@ public class Floor : MonoBehaviour
 		{
 			// ターン1で強攻撃選択時、もしくは範囲攻撃選択時は、範囲攻撃ボタンを押しましょう。
 			_flowchart.ExecuteBlock("MustClickCircle");
+		}
+		else if(!IsAttackable)
+		{
+			// 攻撃出来ない位置をクリックした場合
+			_flowchart.ExecuteBlock("NotAttackable");
 		}
 		else
 		{
