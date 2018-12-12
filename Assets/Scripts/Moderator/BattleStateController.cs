@@ -78,6 +78,7 @@ public class BattleStateController
 	/// <param name="battleStates"></param>
 	private void StartTreatmentPerBattleStates(BattleStates battleStates)
 	{
+		Debug.Log(battleStates);
 		// ウィンドウ更新
 		_ui.TurnSetInfoWindow.UpdateStateInfo(battleStates);
 
@@ -159,6 +160,7 @@ public class BattleStateController
 
 	private void SetHintWindowText(BattleStates state)
 	{
+		if(state == BattleStates.Load) return;
 		string next = state.ToString();
 		if(state == BattleStates.Attack)
 		{
