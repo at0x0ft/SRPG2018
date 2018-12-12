@@ -18,13 +18,85 @@ public enum AttackEffectKind
 	OverFlow,
 	DeadLock,
 
+	// 闇月ちゃん用
+	DarkSlashing,
+	TotalShock,
+	WaterHammer,
+	ZeroDay,
+	DisorderlySlash,
+	FlameBreak,
+
+	// 光月ちゃん用
+	PhotonCode,
+	LightObject,
+	BrightChain,
+	FatalError,
+	MegabyteShotgun,
+	GigabitCannon,
+
 	// 水星ちゃん用
 	BubbleNotes,
 	TrebulCreph,
 	IcicleStaff,
 	NotesEdge,
 	HellTone,
-	HolyLiric
+	HolyLiric,
+
+	// 金星用
+	DefenseBreakSeparate,
+	WoundFist,
+	StampWave,
+	Flirtill,
+	DimensionBreaking,
+	MirrorSympony,
+
+	// 火星用
+	TwinLights,
+	CrushingShine,
+	FourFireFlame,
+	FlameShot,
+	RoarBurningWall,
+	DestructExtinctShock,
+
+	// 木星用
+	WindBlades,
+	Flash,
+	Dragonfly,
+	AFoam,
+	Darkness,
+	GodWind,
+	
+	// 土星用
+	SwordSword,
+	InfusionFossil,
+	LionsQuick,
+	StormAndStress,
+	WholeThings,
+	PurpleQuota,
+
+	// 天王星用
+	Ephroresence,
+	Trunkization,
+	Crystallize,
+	Altenaji,
+	DeadlyPoison,
+	SideEffect,
+
+	// 海王星用
+	IceStub,
+	FairyTwister,
+	BubbleTears,
+	VenomRain,
+	WaterFall,
+	ThunderBolt,
+
+	// 冥王星用
+	EternalVoid,
+	CaosInferno,
+	BloodyBlast,
+	AbsoluteZero,
+	DarknessBind,
+	TheEnd
 }
 
 /// <summary>
@@ -132,18 +204,34 @@ public class AttackEffectFactory : MonoBehaviour
 		_effectFuncs[AttackEffectKind.CPU] =
 		_effectFuncs[AttackEffectKind.OverFlow] =
 		_effectFuncs[AttackEffectKind.IcicleStaff] =
+		_effectFuncs[AttackEffectKind.WoundFist] =
+		_effectFuncs[AttackEffectKind.CrushingShine] =
+		_effectFuncs[AttackEffectKind.GodWind] =
+		_effectFuncs[AttackEffectKind.LionsQuick] =
+		_effectFuncs[AttackEffectKind.Ephroresence] =
+		_effectFuncs[AttackEffectKind.Crystallize] =
 		NormalEffectMaker;
 
 		// for みすちゃん
 		_effectFuncs[AttackEffectKind.MARock] = MARock;
 		_effectFuncs[AttackEffectKind.DeadLock] = DeadLock;
 
+		// for 光星ちゃん
+		_effectFuncs[AttackEffectKind.MegabyteShotgun] = MegabyteShotgun;
+		_effectFuncs[AttackEffectKind.GigabitCannon] = GigabitCannon;
+
 		// for 水星ちゃん
 		_effectFuncs[AttackEffectKind.BubbleNotes] = BubbleNotes;
 		_effectFuncs[AttackEffectKind.TrebulCreph] = TrebleCreph;
 		_effectFuncs[AttackEffectKind.NotesEdge] = NotesEdge;
 		_effectFuncs[AttackEffectKind.HellTone] = HellTone;
-		_effectFuncs[AttackEffectKind.HolyLiric] = HolyLiryc;
+		_effectFuncs[AttackEffectKind.HolyLiric] = HolyLiric;
+
+		// for 金星
+		_effectFuncs[AttackEffectKind.DefenseBreakSeparate] = DefenseBreakSeparate;
+
+		// for 冥王星
+		_effectFuncs[AttackEffectKind.AbsoluteZero] = HolyLiric;
 	}
 
 	/// <summary>
@@ -295,6 +383,70 @@ public class AttackEffectFactory : MonoBehaviour
 
 	}
 
+	//// 闇月ちゃん用
+	//DarkSlashing,
+	//TotalShock,
+	//WaterHammer,
+	//ZeroDay,
+	//DisorderlySlash,
+	//FlameBreak,
+
+	//// 光月ちゃん用
+	//PhotonCode,
+	//LightObject,
+	//BrightChain,
+	//FatalError,
+	private void MegabyteShotgun()
+	{
+		const float allTime = 5.0f;
+		const float happenRate = 0.1f;
+
+		var targetsPos = _targets
+		.Select(pos => pos.GetComponent<RectTransform>().anchoredPosition)
+		.ToList();
+
+		var seq = DOTween.Sequence()
+		.AppendCallback(() =>
+		{
+			var targetPos = targetsPos[UnityEngine.Random.Range(0, _targets.Count)];
+			AttackEffectPopUp(
+				_attack,
+				_sprites,
+				targetPos
+			);
+		})
+		.AppendInterval(happenRate)
+		.SetLoops(-1);
+
+		DOVirtual.DelayedCall(allTime, () => seq.Kill());
+	}
+
+	private void GigabitCannon()
+	{
+		const float happenRate = 0.1f;
+
+		var targetsPos = _targets
+		.Select(pos => pos.GetComponent<RectTransform>().anchoredPosition)
+		.ToList();
+
+		int hitSet = 0; // 3個セットで攻撃する
+		var seq = DOTween.Sequence()
+		.AppendCallback(() =>
+		{
+			for(int i = 3 * hitSet; i < 3 * (hitSet + 1); i++)
+			{
+				AttackEffectPopUp(
+					_attack,
+					_sprites,
+					targetsPos[i]
+				);
+			}
+			hitSet++;
+		})
+		.AppendInterval(happenRate)
+		.SetLoops(3);
+	}
+
 	// 水星ちゃん用
 	private void BubbleNotes()
 	{
@@ -365,24 +517,28 @@ public class AttackEffectFactory : MonoBehaviour
 		DOVirtual.DelayedCall(allTime, () => seq.Kill());
 	}
 
-	private void HolyLiryc()
+	private void HolyLiric()
 	{
 		const float allTime = 5.0f;
 		const float happenRate = 0.2f;
 		List<Sprite> sprite = new List<Sprite>();
+
+		var targetsPos = _targets
+		.Select(pos => pos.GetComponent<RectTransform>().anchoredPosition)
+		.ToList();
 
 		var seq = DOTween.Sequence()
 		.AppendCallback(() =>
 		{
 			sprite.Clear();
 
-			var target = _targets[UnityEngine.Random.Range(0, _targets.Count)];
+			var targetPos = targetsPos[UnityEngine.Random.Range(0, _targets.Count)];
 			sprite.Add(_sprites[UnityEngine.Random.Range(0, _sprites.Count)]);
 			AttackEffectPopUp(
 				_attack,
 				sprite,
 				_attackerRect.anchoredPosition,
-				target.GetComponent<RectTransform>().anchoredPosition
+				targetPos
 			);
 		})
 		.AppendInterval(happenRate)
@@ -390,4 +546,85 @@ public class AttackEffectFactory : MonoBehaviour
 
 		DOVirtual.DelayedCall(allTime, () => seq.Kill());
 	}
+	
+	// 金星用
+	private void DefenseBreakSeparate()
+	{
+		const float moveDist = 50f;
+		const float frontTime = 1.2f;
+
+		var rect = _attacker.GetComponent<RectTransform>();
+
+		var seq = DOTween.Sequence()
+		.Append(rect.DOLocalMoveX(-moveDist, 0.1f))
+		.AppendCallback(NormalEffectMaker)
+		.SetDelay(frontTime)
+		.Append(rect.DOLocalMoveX( moveDist, 0.1f));
+	}
+	
+	//StampWave,
+	//Flirtill,
+	//DimensionBreaking,
+
+	private void MirrorSympony()
+	{
+		const float moveDist = 50f;
+		const float frontTime = 1.2f;
+		var avatar = Instantiate(_attacker.gameObject, transform).GetComponent<RectTransform>();
+
+		var seq = DOTween.Sequence()
+		.Append(avatar.DOLocalMoveX(-moveDist * 2, 0.5f))
+		.Join(avatar.DOScaleX(-1, 0.5f))
+
+		.AppendCallback(NormalEffectMaker)
+		.SetDelay(frontTime)
+		
+		.Append(avatar.DOLocalMoveX(moveDist * 2, 0.5f))
+		.Join(avatar.DOScaleX(1, 0.5f))
+		.OnComplete(() => { Destroy(avatar); });
+	}
+
+	//// 火星用
+	//TwinLights,
+	//FourFireFlame,
+	//FlameShot,
+	//RoarBurningWall,
+	//DestructExtinctShock,
+
+	//// 木星用
+	//WindBlades,
+	//Flash,
+	//Dragonfly,
+	//AFoam,
+	//Darkness,
+
+	//// 土星用
+	//SwordSword,
+	//InfusionFossil,
+
+	//StormAndStress,
+	//WholeThings,
+	//PurpleQuota,
+
+	//// 天王星用
+	//Trunkization,
+	//Altenaji,
+	//DeadlyPoison,
+	//SideEffect,
+
+	//// 海王星用
+	//IceStub,
+	//FairyTwister,
+	//BubbleTears,
+	//VenomRain,
+	//WaterFall,
+	//ThunderBolt,
+
+	//// 冥王星用
+	//EternalVoid,
+	//CaosInferno,
+	//BloodyBlast,
+	
+	//DarknessBind,
+	//TheEnd
 }

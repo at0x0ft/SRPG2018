@@ -24,10 +24,9 @@ public class AttackEffect : MonoBehaviour
 	private Vector3 _occur;          // 演出の中心位置
 	private Vector3? _opt;            // 必要に応じて
 
-	private Sequence _seq;       // アニメーション情報
 	private Image _image;        // エフェクト画像
 	private RectTransform _rect; // Canvas上での情報
-	private Dictionary<AttackEffectKind, Action> _effectFunc;
+	private Dictionary<AttackEffectKind, Action<Sequence>> _effectFunc;
 
 
 	// ==========準備関数==========
@@ -45,15 +44,12 @@ public class AttackEffect : MonoBehaviour
 		
 		SetupImage();
 
-		_effectFunc[_effect]();                     // エフェクト動作開始
-		_seq.OnComplete(() => Destroy(gameObject)); // 終了設定
-	}
 
-	private void OnDestroy()
-	{
-		_seq.Kill();
+		Sequence seq = DOTween.Sequence();         // アニメーション情報
+		_effectFunc[_effect](seq);                 // エフェクト動作開始
+		seq.OnComplete(() => Destroy(gameObject)); // 終了設定
 	}
-
+	
 	/// <summary>
 	/// 変数の初期設定
 	/// </summary>
@@ -68,7 +64,6 @@ public class AttackEffect : MonoBehaviour
 		_opt = opt;
 
 		// クラス内部処理
-		_seq = DOTween.Sequence();
 		_image = GetComponent<Image>();
 		_rect = GetComponent<RectTransform>();
 		AssociateEffectKindWithFunc();         // 対応付け
@@ -95,10 +90,21 @@ public class AttackEffect : MonoBehaviour
 	/// </summary>
 	private void AssociateEffectKindWithFunc()
 	{
-		_effectFunc = new Dictionary<AttackEffectKind, Action>();
+		_effectFunc = new Dictionary<AttackEffectKind, Action<Sequence>>();
+
+		// ただ画像を1週させるだけ
+		_effectFunc[AttackEffectKind.BackUp] =
+		_effectFunc[AttackEffectKind.MegabyteShotgun] =
+		_effectFunc[AttackEffectKind.DefenseBreakSeparate] =
+		_effectFunc[AttackEffectKind.WoundFist] =
+		_effectFunc[AttackEffectKind.MirrorSympony] =
+		_effectFunc[AttackEffectKind.CrushingShine] =
+		_effectFunc[AttackEffectKind.GodWind] =
+		_effectFunc[AttackEffectKind.Ephroresence] =
+		NormalLoop;
+
 		// みすちゃん
 		_effectFunc[AttackEffectKind.Spiral] = Spiral;
-		_effectFunc[AttackEffectKind.BackUp] = BackUp;
 		_effectFunc[AttackEffectKind.MARock] = MARock;
 		_effectFunc[AttackEffectKind.CPU] = CPU;
 		_effectFunc[AttackEffectKind.OverFlow] = OverBrrow;
@@ -111,6 +117,15 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.NotesEdge] = NotesEdge;
 		_effectFunc[AttackEffectKind.HellTone] = HellTone;
 		_effectFunc[AttackEffectKind.HolyLiric] = HolyLiric;
+
+		// 土星ちゃん
+		_effectFunc[AttackEffectKind.LionsQuick] = LionsQuick;
+
+		// 天王星
+		_effectFunc[AttackEffectKind.Crystallize] = IcycleStaff;
+
+		// for 冥王星
+		_effectFunc[AttackEffectKind.AbsoluteZero] = HolyLiric;
 	}
 
 
@@ -135,33 +150,32 @@ public class AttackEffect : MonoBehaviour
 		}
 	}
 
+	private void NormalLoop(Sequence seq)
+	{
+		const float effectSecPerFlame = 0.4f;
+		SpriteLoop(seq, effectSecPerFlame);
+	}
+
 	// ==========動作定義関数==========
-	// みすちゃん用！
+	// -----みすちゃん用！-----
 	/// <summary>
 	/// 技:Spiralの攻撃エフェクトの定義です(実装例)
 	/// </summary>
 	/// <returns></returns>
-	private void Spiral()
+	private void Spiral(Sequence seq)
 	{	
 		const float effectSPF = 0.4f;　//描画変更間隔
 		
-		SpriteLoop(_seq, effectSPF);           // 画像を順番に描画するというアニメーションを追加する
+		SpriteLoop(seq, effectSPF);           // 画像を順番に描画するというアニメーションを追加する
 		_sprites.Reverse();                   // 画像の順番を変える
-		SpriteLoop(_seq, effectSPF, _sprites); // 描画アニメーションをもう一度
+		SpriteLoop(seq, effectSPF, _sprites); // 描画アニメーションをもう一度
 	}
-
-	private void BackUp()
-	{
-		const float effectSPF = 0.4f; //描画変更間隔
-		
-		SpriteLoop(_seq, effectSPF);
-	}
-
+	
 	/// <summary>
 	/// opt : 攻撃者の座標
 	/// </summary>
 	/// <returns></returns>
-	private void MARock()
+	private void MARock(Sequence seq)
 	{
 		const float FLY_HEIGHT = 10f;
 		const float FLY_TIME = 3f;
@@ -174,30 +188,29 @@ public class AttackEffect : MonoBehaviour
 
 		Vector3 dpos = target - _occur;
 		Debug.Log("dist:" + dpos);
-		_seq
+		seq
 		.Append(
 			_rect.DOLocalJump(dpos, FLY_HEIGHT, 1, FLY_TIME, true)
 			.SetRelative()
 		);
 	}
 
-	private void CPU()
+	private void CPU(Sequence seq)
 	{
 		const float effectSPF = 0.4f; //描画変更間隔
 
-		SpriteLoop(_seq, effectSPF);
-		_seq.SetLoops(3);
+		SpriteLoop(seq, effectSPF);
+		seq.SetLoops(3);
 	}
 
-	private void OverBrrow()
+	private void OverBrrow(Sequence seq)
 	{
 		const float effectSPF = 0.4f; //描画変更間隔
 		_rect.sizeDelta = _bigImageSize;
-		SpriteLoop(_seq, effectSPF);
+		SpriteLoop(seq, effectSPF);
 	}
-
-	// 何故か地面に落ちる間は描画されません
-	private void DeadLock()
+	
+	private void DeadLock(Sequence seq)
 	{
 		const float FLY_TIME = 4.0f;     // 岩が空を飛ぶ時間
 		const float DIVIDE_TIME = 1.3f;  // 岩が爆裂四散している時間
@@ -210,7 +223,7 @@ public class AttackEffect : MonoBehaviour
 		_rect.sizeDelta = _bigImageSize;                            // 画像の大きさを、bigImageSizeにセットする
 
 		// 上空に飛ぶ
-		_seq
+		seq
 		.Append(
 			_rect.DOLocalMoveY(MAX_HEIGHT, FLY_TIME / 2) // FLY_TIME/2だけかけて、MAX_HEIGHTだけ上空に飛ぶ
 			.SetRelative()
@@ -236,8 +249,34 @@ public class AttackEffect : MonoBehaviour
 		);
 	}
 
-	// 水星ちゃん用！
-	private void BubbleNotes()
+
+	//// -----闇月ちゃん用-----
+	//DarkSlashing,
+	//TotalShock,
+	//WaterHammer,
+	//ZeroDay,
+	//DisorderlySlash,
+	//FlameBreak,
+
+	//// -----光月ちゃん用-----
+	//PhotonCode,
+	//LightObject,
+	//BrightChain,
+	//FatalError,
+
+	private void GigabitCannon(Sequence seq)
+	{
+
+		const float effectSPF = 0.4f; //描画変更間隔
+		const float imageSize = 48f; // 画像サイズ
+
+		_rect.sizeDelta = new Vector2(imageSize, imageSize);
+		SpriteLoop(seq, effectSPF);
+	}
+
+
+	// -----水星ちゃん用！-----
+	private void BubbleNotes(Sequence seq)
 	{
 		const float MAX_DIST = 100.0f; // 飛行距離
 		const float MAX_WIDTH = 20.0f; // 上下浮遊範囲
@@ -264,7 +303,7 @@ public class AttackEffect : MonoBehaviour
 
 
 		// 左右への移動
-		_seq
+		seq
 		.Append(
 			_rect.DOLocalMoveX(-MAX_DIST, FLOAT_TIME)
 			.SetRelative()
@@ -273,12 +312,12 @@ public class AttackEffect : MonoBehaviour
 		);
 	}
 
-	private void TrebleCreph()
+	private void TrebleCreph(Sequence seq)
 	{
-		_seq.AppendInterval(1f).Pause();
+		seq.AppendInterval(1f).Pause();
 	}
 
-	private void IcycleStaff()
+	private void IcycleStaff(Sequence seq)
 	{
 		const float surfaceTime = 2.0f;
 		float height = _image.rectTransform.sizeDelta.y;
@@ -295,7 +334,7 @@ public class AttackEffect : MonoBehaviour
 		_image.fillAmount = 0;
 
 		// 浮上するエフェクト
-		_seq
+		seq
 		.Append(
 			_rect.DOLocalMoveY(height, surfaceTime)
 			.SetRelative()
@@ -311,7 +350,7 @@ public class AttackEffect : MonoBehaviour
 		);
 	}
 
-	private void NotesEdge()
+	private void NotesEdge(Sequence seq)
 	{
 		const float MAX_DIST = 100f;  // 飛距離
 		const float existTime = 0.6f; // 表示時間
@@ -322,14 +361,14 @@ public class AttackEffect : MonoBehaviour
 		rot.z = 90;
 		transform.eulerAngles = rot;
 
-		_seq.
+		seq.
 		Append(
 			_rect.DOLocalMoveX(-MAX_DIST, existTime)
 			.SetRelative()
 		);
 	}
 
-	private void HellTone()
+	private void HellTone(Sequence seq)
 	{
 		const float FALL_TIME = 2f;  // 落下時間
 		const float MAX_HEIGHT = 100; // 落下距離
@@ -338,7 +377,7 @@ public class AttackEffect : MonoBehaviour
 		tmp.y += MAX_HEIGHT;
 		_rect.localPosition = tmp;
 
-		_seq.
+		seq.
 		Append(
 			_rect.DOLocalMoveY(-MAX_HEIGHT, FALL_TIME)
 			.SetRelative()
@@ -349,7 +388,7 @@ public class AttackEffect : MonoBehaviour
 	/// <summary>
 	/// opt:攻撃者の座標
 	/// </summary>
-	private void HolyLiric()
+	private void HolyLiric(Sequence seq)
 	{
 		const float FLY_TIME = 2.0f;
 		var target = _opt.Value;
@@ -358,10 +397,69 @@ public class AttackEffect : MonoBehaviour
 
 		transform.localRotation = Quaternion.Euler(0f, 0f, rad + 180);// 画像の角度を、攻撃先に向ける
 		
-		_seq.Append(
+		seq.Append(
 			_rect.DOLocalMove(dpos, FLY_TIME)
 			.SetRelative()
 			.SetEase(Ease.InQuint)
 		);
 	}
+
+	// -----金星用-----
+	//StampWave,
+	//Flirtill,
+	//DimensionBreaking,
+
+
+	//// -----火星用-----
+	//TwinLights,
+
+	//FourFireFlame,
+	//FlameShot,
+	//RoarBurningWall,
+	//DestructExtinctShock,
+
+	//// -----木星用-----
+	//WindBlades,
+	//Flash,
+	//Dragonfly,
+	//AFoam,
+	//Darkness,
+	
+
+	//// -----土星用-----
+	//SwordSword,
+	//InfusionFossil,
+	
+	private void LionsQuick(Sequence seq)
+	{
+		NormalLoop(seq);
+		NormalLoop(seq);
+	}
+
+	//StormAndStress,
+	//WholeThings,
+	//PurpleQuota,
+
+	//// -----天王星用-----
+	//Trunkization,
+
+	//Altenaji,
+	//DeadlyPoison,
+	//SideEffect,
+
+	//// -----海王星用-----
+	//IceStub,
+	//FairyTwister,
+	//BubbleTears,
+	//VenomRain,
+	//WaterFall,
+	//ThunderBolt,
+
+	//// -----冥王星用-----
+	//EternalVoid,
+	//CaosInferno,
+	//BloodyBlast,
+
+	//DarknessBind,
+	//TheEnd
 }
