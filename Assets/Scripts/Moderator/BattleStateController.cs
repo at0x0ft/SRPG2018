@@ -82,10 +82,9 @@ public class BattleStateController
 		// ウィンドウ更新
 		_ui.TurnSetInfoWindow.UpdateStateInfo(battleStates);
 
-		// ヒントウィンドウ設定
-		SetHintWindowText(battleStates);
-
 		// 各戦闘状態における、特殊処理
+		// 同一フレーム内にこの関数をもう一度呼ぶ場合は、
+		// returnしてHintWindow
 		switch(BattleState)
 		{
 			case BattleStates.Check:
@@ -120,7 +119,7 @@ public class BattleStateController
 
 				// 5.Attackに移行する
 				NextBattleState();
-				break;
+				return;
 
 			// 今は特にやることはない
 			case BattleStates.Attack:
@@ -129,11 +128,14 @@ public class BattleStateController
 			// 現在はアニメーションが無いため、すぐに次のユニットに行動権を譲る
 			case BattleStates.Load:
 				_bc.NextUnit();
-				break;
+				return;
 
 			default:
-				break;
+				return;
 		}
+
+		// ヒントウィンドウ設定
+		SetHintWindowText(battleStates);
 	}
 
 	/// <summary>
@@ -158,6 +160,7 @@ public class BattleStateController
 		StartTreatmentPerBattleStates(BattleState);
 	}
 
+	// 1フレームに1回しか呼ばないように注意すること
 	private void SetHintWindowText(BattleStates state)
 	{
 		if(state == BattleStates.Load) return;
