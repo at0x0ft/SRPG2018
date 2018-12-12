@@ -34,6 +34,7 @@ public class Floor : MonoBehaviour
 	private DamageCalculator _dc;
 	private BattleStateController _bsc;
 	private Dictionary<BattleStates, Action> ClickBehaviors;
+	private Text _costText;
 
 	/// <summary>
 	/// ローカル座標のX座標 (transformのX座標ではない)
@@ -72,6 +73,7 @@ public class Floor : MonoBehaviour
 		{
 			_highlight.color = _movableColor;
 			_highlight.gameObject.SetActive(value);
+			if(!value) _costText.text = ""; // 距離情報削除
 			// Debug.Log(transform.name + " highLighted.");	// 4debug
 		}
 		get { return _highlight.gameObject.activeSelf && _highlight.color == _movableColor; }
@@ -143,11 +145,18 @@ public class Floor : MonoBehaviour
 		_movableColor = _map.MovableColor;
 		_attackableColor = _map.AttackableColor;
 
+		_costText = gameObject.GetComponentInChildren<Text>();
+
 		// マス自身がボタンの役割を果たしており, これをクリックした時にOnClickメソッドを実行するように設定する.
 		GetComponent<Button>().onClick.AddListener(OnClick);
 
 		// マスをクリックしたときの挙動の初期化
 		SetClickBehavior();
+	}
+
+	public void SetMoveCost(int cost)
+	{
+		_costText.text = cost.ToString();
 	}
 
 	/// <summary>
@@ -160,7 +169,7 @@ public class Floor : MonoBehaviour
 		// 攻撃対象を選択可能にする. (ユニットのステータスを表示する機能もあるため, いちいち選択可能/不可にする必要がない)
 		if(Unit) Unit.GetComponent<Button>().interactable = true;
 	}
-
+	
 	/// <summary>
 	/// 戦況確認中の挙動
 	/// </summary>

@@ -132,7 +132,11 @@ public class Map : MonoBehaviour
 		foreach(var info in infos)
 		{
 			var floor = GetFloor(info.Key.X, info.Key.Y);
-			if(floor.FloorType != Floor.Feature.Unmovable) floor.IsMovable = true;
+			if(floor.FloorType != Floor.Feature.Unmovable)
+			{
+				floor.IsMovable = true;
+				floor.SetMoveCost(info.Value);// 移動コスト描画
+			}
 		}
 	}
 
