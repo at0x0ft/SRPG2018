@@ -57,6 +57,10 @@ MonoBehaviour:
   _effectKind: 3
   _power: 120
   _accuracy: 90
+  _effectImages:
+  - {fileID: 21300000, guid: 1578af314e2204b479eca4194b5cc495, type: 3}
+  - {fileID: 21300000, guid: 6f345dfa86e53304a9bdc4b9981feed7, type: 3}
+  - {fileID: 21300000, guid: d5299eaad0f479547990b731deedeccb, type: 3}
   _range:
   - {x: 0, y: 1}
   - {x: 1, y: 0}
