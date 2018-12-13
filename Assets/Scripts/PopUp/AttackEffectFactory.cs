@@ -119,8 +119,7 @@ public class AttackEffectFactory : MonoBehaviour
 
 	private AttackEffect _ae;
 	private RectTransform _attackerRect;
-
-	private Dictionary<AttackEffectKind, string> _imageNames;
+	
 	private Dictionary<AttackEffectKind, Action> _effectFuncs;
 
 
@@ -139,6 +138,7 @@ public class AttackEffectFactory : MonoBehaviour
 		ValidityConfirmation();
 
 		// ファクトリーを実行
+		Debug.Log(_effect.ToString());
 		_effectFuncs[_effect]();
 
 		// 終了条件を設定
@@ -159,38 +159,12 @@ public class AttackEffectFactory : MonoBehaviour
 		gameObject.name = attack.name + "'s effect";
 
 		// クラス内部処理
-		_ae = GetComponentInChildren<AttackEffect>();            // 攻撃エフェクトの金型
-		_attackerRect = _attacker.GetComponent<RectTransform>(); // 攻撃起点情報
-		AssociateEffectKindWithImageName();                      // エフェクト画像の初期設定
-		AssociateEffectKindWithFactoryFunc();                    // エフェクト動作の初期設定
-		_sprites = GetSprites();                                 // 画像取り込み
+		_ae = GetComponentInChildren<AttackEffect>();              // 攻撃エフェクトの金型
+		_attackerRect = _attacker.GetComponent<RectTransform>();   // 攻撃起点情報
+		AssociateEffectKindWithFactoryFunc();                      // エフェクト動作の初期設定
+		_sprites = _attack.EffectImages;                           // 画像取り込み
 	}
 	
-	/// <summary>
-	/// 攻撃エフェクト画像名を、各enumと対応付けます
-	/// </summary>
-	private void AssociateEffectKindWithImageName()
-	{
-		_imageNames = new Dictionary<AttackEffectKind, string>();
-
-		// for みすちゃん
-		_imageNames[AttackEffectKind.Spiral] = "tornado";
-		_imageNames[AttackEffectKind.BackUp] = "hit_effect";
-		_imageNames[AttackEffectKind.MARock] = "rock";
-		_imageNames[AttackEffectKind.CPU] = "hit_effect";
-		_imageNames[AttackEffectKind.OverFlow] = "hit_effect";
-		_imageNames[AttackEffectKind.DeadLock] = "rock";
-
-		// for 水星ちゃん
-		_imageNames[AttackEffectKind.BubbleNotes] = "bubbleNotes";
-		_imageNames[AttackEffectKind.TrebulCreph] = "tone";
-		_imageNames[AttackEffectKind.IcicleStaff] = "ice";
-		_imageNames[AttackEffectKind.NotesEdge] = "edge";
-		_imageNames[AttackEffectKind.HellTone] = "hell";
-		_imageNames[AttackEffectKind.HolyLiric] = "holy";
-
-	}
-
 	/// <summary>
 	/// 攻撃エフェクト関数を、各enumと対応付けます
 	/// </summary>
@@ -233,40 +207,7 @@ public class AttackEffectFactory : MonoBehaviour
 		// for 冥王星
 		_effectFuncs[AttackEffectKind.AbsoluteZero] = HolyLiric;
 	}
-
-	/// <summary>
-	/// 目的の名前の画像ファイルを読み込みます。
-	/// </summary>
-	/// <param name="name">エフェクト共通名称</param>
-	/// <returns>画像リスト</returns>
-	private List<Sprite> GetSprites()
-	{
-		List<Sprite> sprites = new List<Sprite>();
-		var basePath = GetAttackEffectPath();
-
-		for(int i = 1; ; i++)
-		{
-			var path = basePath + "_" + i;
-			var sprite = Resources.Load(path, typeof(Sprite)) as Sprite;
-			if(sprite == null) break;
-			else sprites.Add(sprite);
-		}
-
-		return sprites;
-	}
-
-	/// <summary>
-	/// 攻撃エフェクト画像の凡その配置場所です
-	/// </summary>
-	/// <param name="name"></param>
-	/// <returns></returns>
-	private string GetAttackEffectPath()
-	{
-		const string imageRoot = "Sprites/";
-
-		return imageRoot + _attacker.UnitName + "/" + _imageNames[_attack.EffectKind];
-	}
-
+	
 	/// <summary>
 	/// 実際にエフェクトを作る前に、情報に矛盾が無いかを検査します。
 	/// </summary>
@@ -279,14 +220,6 @@ public class AttackEffectFactory : MonoBehaviour
 		if(_attack.Scale == Attack.AttackScale.Single && _targets.Count != 1)
 			error += " : 単体攻撃のはずが、複数箇所に攻撃アニメーションをしようとしています。" +
 					"PopUpController.AttackEffectFactoryの呼び出しの、第2引数を確認してください";
-
-		// Q.2
-		if(_sprites.Count == 0)
-			error += ":攻撃エフェクト画像がありません。" +
-			"画像の存在や,パスが通っているのかを確認してください。" +
-			"現在捜査した画像パスは," + GetAttackEffectPath() +
-			"_1～ です";
-
 		// 結果
 		if(error.Length == 0)
 		{

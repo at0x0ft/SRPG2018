@@ -75,6 +75,14 @@ public abstract class Attack : MonoBehaviour
 		get { return _accuracy; }
 	}
 
+	// 攻撃エフェクト画像一覧
+	[SerializeField]
+	private List<Sprite> _effectImages;
+	public List<Sprite> EffectImages
+	{
+		get{ return _effectImages; }
+	}
+
 	public static int MAX_ACCURACY = 999;
 
 	/// <summary>
