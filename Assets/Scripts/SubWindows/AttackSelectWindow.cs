@@ -60,6 +60,7 @@ public class AttackSelectWindow : SubWindow
 	/// <param name="atk"></param>
 	private void CommandButtonAction(Attack atk)
 	{
+		Debug.Log(atk.ToString() + atk.Kind.ToString());
 		// 1.その詳細情報を表示し
 		_aiw.Show(atk);
 
@@ -140,6 +141,7 @@ public class AttackSelectWindow : SubWindow
 			_attackBtns[i].gameObject.SetActive(true);
 			_attackBtns[i].interactable = canAttack;
 			_attackBtns[i].GetComponentInChildren<Text>().text = atk.name;
+			_attackBtns[i].onClick.RemoveAllListeners();
 			_attackBtns[i].onClick.AddListener(() => CommandButtonAction(atk));
 		}
 

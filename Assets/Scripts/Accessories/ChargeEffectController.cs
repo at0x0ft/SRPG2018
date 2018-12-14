@@ -122,7 +122,7 @@ public class ChargeEffectController : MonoBehaviour
 
 	private void OnEnable()
 	{
-		Debug.Log(enumerator);	// 4debug
+		//Debug.Log(enumerator);	// 4debug
 		if(enumerator != null)
 			StartCoroutine(enumerator);
 	}

@@ -27,7 +27,7 @@ public class AttackEffect : MonoBehaviour
 	private Image _image;        // エフェクト画像
 	private RectTransform _rect; // Canvas上での情報
 	private Dictionary<AttackEffectKind, Action<Sequence>> _effectFunc;
-
+	private Sequence seq;
 
 	// ==========準備関数==========
 	/// <summary>
@@ -40,14 +40,12 @@ public class AttackEffect : MonoBehaviour
 	/// <param name="opt">オプション</param>
 	public void Initialize(Attack attack, List<Sprite> sprites, Vector2Int size, Vector3 occur, Vector3? opt = null) // 引数は、必要に応じて変える予定
 	{
+		seq = DOTween.Sequence();         // アニメーション情報
 		DataPreparation(attack, sprites, size, occur, opt);
 		
 		SetupImage();
-
-
-		Sequence seq = DOTween.Sequence();         // アニメーション情報
 		_effectFunc[_effect](seq);                 // エフェクト動作開始
-		seq.OnComplete(() => Destroy(gameObject)); // 終了設定
+		seq.OnComplete(() => { Destroy(gameObject); });
 	}
 	
 	/// <summary>
@@ -68,8 +66,8 @@ public class AttackEffect : MonoBehaviour
 		_rect = GetComponent<RectTransform>();
 		AssociateEffectKindWithFunc();         // 対応付け
 
-		Debug.Log(_occur);
-		Debug.Log(opt);
+		//Debug.Log(_occur);
+		//Debug.Log(opt);
 	}
 
 	/// <summary>
@@ -93,14 +91,14 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc = new Dictionary<AttackEffectKind, Action<Sequence>>();
 
 		// ただ画像を1週させるだけ
-		_effectFunc[AttackEffectKind.BackUp] =
-		_effectFunc[AttackEffectKind.MegabyteShotgun] =
+		_effectFunc[AttackEffectKind.BackUp] =                // みすちゃん
+		_effectFunc[AttackEffectKind.MegabyteShotgun] =       // 光月ちゃん
 		_effectFunc[AttackEffectKind.DefenseBreakSeparate] =
-		_effectFunc[AttackEffectKind.WoundFist] =
-		_effectFunc[AttackEffectKind.MirrorSympony] =
-		_effectFunc[AttackEffectKind.CrushingShine] =
-		_effectFunc[AttackEffectKind.GodWind] =
-		_effectFunc[AttackEffectKind.Ephroresence] =
+		_effectFunc[AttackEffectKind.WoundFist] =             // 金星用
+		_effectFunc[AttackEffectKind.MirrorSympony] =        
+		_effectFunc[AttackEffectKind.CrushingShine] =         // 火星用
+		_effectFunc[AttackEffectKind.GodWind] =               // 木星用
+		_effectFunc[AttackEffectKind.Ephroresence] =          // 天王星用
 		NormalLoop;
 
 		// みすちゃん
@@ -109,6 +107,15 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.CPU] = CPU;
 		_effectFunc[AttackEffectKind.OverFlow] = OverBrrow;
 		_effectFunc[AttackEffectKind.DeadLock] = DeadLock;
+
+		// 闇月ちゃん
+		_effectFunc[AttackEffectKind.DarkSlashing] =         
+		_effectFunc[AttackEffectKind.WaterHammer] =
+		_effectFunc[AttackEffectKind.ZeroDay] =
+		_effectFunc[AttackEffectKind.FlameBreak] =
+		_effectFunc[AttackEffectKind.TotalShock] =
+		HighSpeedNormalLoop;
+		_effectFunc[AttackEffectKind.DisorderlySlash] = DisorderlySlash;
 
 		// 水星ちゃん
 		_effectFunc[AttackEffectKind.BubbleNotes] = BubbleNotes;
@@ -128,6 +135,10 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.AbsoluteZero] = HolyLiric;
 	}
 
+	private void OnDestroy()
+	{
+		seq.Complete();	
+	}
 
 	// ==========動作定義補助関数==========
 	/// <summary>
@@ -153,6 +164,12 @@ public class AttackEffect : MonoBehaviour
 	private void NormalLoop(Sequence seq)
 	{
 		const float effectSecPerFlame = 0.4f;
+		SpriteLoop(seq, effectSecPerFlame);
+	}
+
+	private void HighSpeedNormalLoop(Sequence seq)
+	{
+		const float effectSecPerFlame = 0.1f;
 		SpriteLoop(seq, effectSecPerFlame);
 	}
 
@@ -251,13 +268,11 @@ public class AttackEffect : MonoBehaviour
 
 
 	//// -----闇月ちゃん用-----
-	//DarkSlashing,
-	//TotalShock,
-	//WaterHammer,
-	//ZeroDay,
-	//DisorderlySlash,
-	//FlameBreak,
-
+	private void DisorderlySlash(Sequence seq)
+	{
+		SpriteLoop(seq, 0.05f);
+	}
+	
 	//// -----光月ちゃん用-----
 	//PhotonCode,
 	//LightObject,

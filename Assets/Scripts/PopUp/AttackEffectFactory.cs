@@ -99,6 +99,7 @@ public enum AttackEffectKind
 	TheEnd
 }
 
+
 /// <summary>
 /// 攻撃エフェクトを量産する場所です。
 /// エフェクトの発生場所や頻度,使用画像などを操作します。
@@ -107,8 +108,8 @@ public enum AttackEffectKind
 /// </summary>
 public class AttackEffectFactory : MonoBehaviour
 {
-	const float DestroyCheckInterval = 0.5f; 
-	
+	const float DestroyCheckInterval = 0.5f;
+
 	// ==========変数==========
 	private AttackEffectKind _effect;
 	private Unit _attacker;
@@ -119,8 +120,8 @@ public class AttackEffectFactory : MonoBehaviour
 
 	private AttackEffect _ae;
 	private RectTransform _attackerRect;
-	
-	private Dictionary<AttackEffectKind, Action> _effectFuncs;
+
+	private Dictionary<AttackEffectKind, Action<Sequence>> _effectFuncs;
 
 
 
@@ -138,11 +139,11 @@ public class AttackEffectFactory : MonoBehaviour
 		ValidityConfirmation();
 
 		// ファクトリーを実行
-		Debug.Log(_effect.ToString());
-		_effectFuncs[_effect]();
+		var seq = DOTween.Sequence();
+		_effectFuncs[_effect](seq);
 
 		// 終了条件を設定
-		StartCoroutine(Finalizer());
+		StartCoroutine(Finalizer(seq));
 	}
 
 	/// <summary>
@@ -164,33 +165,40 @@ public class AttackEffectFactory : MonoBehaviour
 		AssociateEffectKindWithFactoryFunc();                      // エフェクト動作の初期設定
 		_sprites = _attack.EffectImages;                           // 画像取り込み
 	}
-	
+
 	/// <summary>
 	/// 攻撃エフェクト関数を、各enumと対応付けます
 	/// </summary>
 	private void AssociateEffectKindWithFactoryFunc()
 	{
-		_effectFuncs = new Dictionary<AttackEffectKind, Action>();
+		_effectFuncs = new Dictionary<AttackEffectKind, Action<Sequence>>();
 
 		// 特に凝ったことをしないエフェクト達
-		_effectFuncs[AttackEffectKind.Spiral] =
+		_effectFuncs[AttackEffectKind.Spiral] =           // みすちゃん
 		_effectFuncs[AttackEffectKind.BackUp] =
 		_effectFuncs[AttackEffectKind.CPU] =
 		_effectFuncs[AttackEffectKind.OverFlow] =
-		_effectFuncs[AttackEffectKind.IcicleStaff] =
-		_effectFuncs[AttackEffectKind.WoundFist] =
-		_effectFuncs[AttackEffectKind.CrushingShine] =
-		_effectFuncs[AttackEffectKind.GodWind] =
-		_effectFuncs[AttackEffectKind.LionsQuick] =
-		_effectFuncs[AttackEffectKind.Ephroresence] =
+		_effectFuncs[AttackEffectKind.DeadLock] =
+		_effectFuncs[AttackEffectKind.DarkSlashing] =     // 闇月ちゃん
+		_effectFuncs[AttackEffectKind.WaterHammer] =
+		_effectFuncs[AttackEffectKind.ZeroDay] =
+		_effectFuncs[AttackEffectKind.IcicleStaff] =      // 水星ちゃん
+		_effectFuncs[AttackEffectKind.WoundFist] =        // 金星
+		_effectFuncs[AttackEffectKind.CrushingShine] =    // 火星
+		_effectFuncs[AttackEffectKind.GodWind] =          // 木星
+		_effectFuncs[AttackEffectKind.LionsQuick] =       // 土星
+		_effectFuncs[AttackEffectKind.Ephroresence] =     // 天王星
 		_effectFuncs[AttackEffectKind.Crystallize] =
 		NormalEffectMaker;
 
 		// for みすちゃん
 		_effectFuncs[AttackEffectKind.MARock] = MARock;
-		_effectFuncs[AttackEffectKind.DeadLock] = DeadLock;
 
-		// for 光星ちゃん
+		// 闇月ちゃん用
+		_effectFuncs[AttackEffectKind.TotalShock] = NormalSlashEffectMaker;
+		_effectFuncs[AttackEffectKind.DisorderlySlash] = DisorderlySlash;
+
+		// for 光月ちゃん
 		_effectFuncs[AttackEffectKind.MegabyteShotgun] = MegabyteShotgun;
 		_effectFuncs[AttackEffectKind.GigabitCannon] = GigabitCannon;
 
@@ -207,7 +215,7 @@ public class AttackEffectFactory : MonoBehaviour
 		// for 冥王星
 		_effectFuncs[AttackEffectKind.AbsoluteZero] = HolyLiric;
 	}
-	
+
 	/// <summary>
 	/// 実際にエフェクトを作る前に、情報に矛盾が無いかを検査します。
 	/// </summary>
@@ -232,16 +240,19 @@ public class AttackEffectFactory : MonoBehaviour
 			return false;
 		}
 	}
-	
+
 	/// <summary>
 	/// このファクトリーの消滅条件です
 	/// </summary>
-	private IEnumerator Finalizer()
+	private IEnumerator Finalizer(Sequence seq)
 	{
+		yield return seq.WaitForCompletion();
+		// 金型があるため、最低1個は子オブジェクトがある
 		do
 		{
+			Debug.Log("waiting");
 			yield return new WaitForSeconds(DestroyCheckInterval);
-		} while(transform.childCount > 1); // 金型があるため、最低1個は子オブジェクトがある
+		} while(transform.childCount > 1);
 
 		Destroy(gameObject);
 	}
@@ -253,11 +264,38 @@ public class AttackEffectFactory : MonoBehaviour
 	/// 特定の位置達に、1通りの画像群で一斉にエフェクトを表現する
 	/// </summary>
 	/// <returns></returns>
-	private void NormalEffectMaker()
+	private void NormalEffectMaker(Sequence seq)
 	{
+		seq
+		.AppendCallback(() =>
+		{
+			foreach(var target in _targets)
+			{
+				MakeEffect(target.CoordinatePair.Value);
+			}
+		});
+	}
+
+	/// <summary>
+	/// 攻撃箇所それぞれに、4回ずつ斬撃エフェクトを表示させます
+	/// </summary>
+	/// <param name="seq"></param>
+	private void NormalSlashEffectMaker(Sequence seq)
+	{
+		const float eachAttackTime = 0.3f; // それぞれのマスを攻撃する時間
+
+		int id = 0; // 画像番号
 		foreach(var target in _targets)
 		{
-			MakeEffect(target.CoordinatePair.Value);
+			var pos = target.CoordinatePair.Value;
+			var images = _sprites.GetRange(4 * id, 4);
+			seq.AppendCallback(() =>
+			{
+				MakeEffect(pos, images);
+			}).AppendInterval(eachAttackTime);
+
+			id++;
+			if(4 * id >= _sprites.Count) id = 0;
 		}
 	}
 
@@ -291,13 +329,11 @@ public class AttackEffectFactory : MonoBehaviour
 		return effect;
 	}
 
-
-
 	// ==========動作定義関数==========
 	// 数秒待機するなどの処理をする場合は、DOTWEENを使いましょう
 	// ttps://gist.github.com/anzfactory/da73149ba91626ba796d598578b163cc#loop
 	// みすちゃん用
-	private void MARock()
+	private void MARock(Sequence seq)
 	{
 		AttackEffectPopUp(
 			_attack,
@@ -307,21 +343,35 @@ public class AttackEffectFactory : MonoBehaviour
 		);
 	}
 
-	private void DeadLock()
+	/*
+	private void DeadLock(Sequence seq)
 	{
 		foreach(var target in _targets)
 		{
 			MakeEffect(target.GetComponent<RectTransform>().anchoredPosition);
 		}
-
 	}
+	*/
 
 	//// 闇月ちゃん用
-	//DarkSlashing,
-	//TotalShock,
-	//WaterHammer,
-	//ZeroDay,
-	//DisorderlySlash,
+	private void DisorderlySlash(Sequence seq)
+	{
+		const float waitTime = 0.3f; // 1マス辺りの攻撃時間
+		for(int i=0; i<2;i++)
+		{
+			// shuffle
+			seq
+			.AppendCallback(() =>{_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList(); });
+
+			foreach(var target in _targets)
+			{
+				seq
+				.AppendCallback(() => { MakeEffect(target.CoordinatePair.Value); })
+				.AppendInterval(waitTime);
+			}
+		}
+	}
+
 	//FlameBreak,
 
 	//// 光月ちゃん用
@@ -329,7 +379,7 @@ public class AttackEffectFactory : MonoBehaviour
 	//LightObject,
 	//BrightChain,
 	//FatalError,
-	private void MegabyteShotgun()
+	private void MegabyteShotgun(Sequence seq)
 	{
 		const float allTime = 5.0f;
 		const float happenRate = 0.1f;
@@ -338,7 +388,7 @@ public class AttackEffectFactory : MonoBehaviour
 		.Select(pos => pos.GetComponent<RectTransform>().anchoredPosition)
 		.ToList();
 
-		var seq = DOTween.Sequence()
+		seq
 		.AppendCallback(() =>
 		{
 			var targetPos = targetsPos[UnityEngine.Random.Range(0, _targets.Count)];
@@ -351,10 +401,10 @@ public class AttackEffectFactory : MonoBehaviour
 		.AppendInterval(happenRate)
 		.SetLoops(-1);
 
-		DOVirtual.DelayedCall(allTime, () => seq.Kill());
+		DOVirtual.DelayedCall(allTime, () => seq.Complete());
 	}
 
-	private void GigabitCannon()
+	private void GigabitCannon(Sequence seq)
 	{
 		const float happenRate = 0.1f;
 
@@ -363,15 +413,16 @@ public class AttackEffectFactory : MonoBehaviour
 		.ToList();
 
 		int hitSet = 0; // 3個セットで攻撃する
-		var seq = DOTween.Sequence()
+		
+		seq
 		.AppendCallback(() =>
 		{
-			for(int i = 3 * hitSet; i < 3 * (hitSet + 1); i++)
+			foreach(var pos in targetsPos.GetRange(3 * hitSet, 3))
 			{
 				AttackEffectPopUp(
 					_attack,
 					_sprites,
-					targetsPos[i]
+					pos
 				);
 			}
 			hitSet++;
@@ -381,17 +432,17 @@ public class AttackEffectFactory : MonoBehaviour
 	}
 
 	// 水星ちゃん用
-	private void BubbleNotes()
+	private void BubbleNotes(Sequence seq)
 	{
 		var pos = _attackerRect.anchoredPosition;
 		
-		DOTween.Sequence()
+		seq
 		.AppendCallback(() => MakeEffect(pos))  // MakeEffect(pos)が呼ばれるのを
 		.AppendInterval(0.2f)                   // 0.2秒毎にするのを
 		.SetLoops(3);                           // 3回繰り返す
 	}
 
-	private void TrebleCreph()
+	private void TrebleCreph(Sequence seq)
 	{
 		const float effectTime = 2.0f;
 
@@ -405,7 +456,7 @@ public class AttackEffectFactory : MonoBehaviour
 		//rect.pivot = new Vector2(0.5f, 0.5f);             // 画像の中心を座標基準にする
 		rect.localEulerAngles= new Vector3(0f, 0f, 359f); // 時計回りに回すために無理やり
 		
-		DOTween.Sequence() 
+		seq
 		.Append(
 			// 360°を越さないように、effectTimeだけかけて回転角(0,0,1)まで、ローカル回転座標系で回転する
 			rect.DOLocalRotate(new Vector3(0, 0, 1f), effectTime, RotateMode.FastBeyond360) 
@@ -415,7 +466,7 @@ public class AttackEffectFactory : MonoBehaviour
 		);
 	}
 
-	private void NotesEdge()
+	private void NotesEdge(Sequence seq)
 	{
 		var pos = _attackerRect.anchoredPosition;
 
@@ -429,13 +480,13 @@ public class AttackEffectFactory : MonoBehaviour
 		}
 	}
 
-	private void HellTone()
+	private void HellTone(Sequence seq)
 	{
 		const float allTime = 5.0f;     // 大技が終了するまでの時間
 		const float happenRate = 0.2f;  // 大技の個々のエフェクトの発生間隔
 		List<Sprite> sprite = new List<Sprite>();
 		
-		var seq = DOTween.Sequence()
+		seq
 		.AppendCallback(() =>
 		{
 			sprite.Clear();
@@ -447,10 +498,10 @@ public class AttackEffectFactory : MonoBehaviour
 		.SetLoops(-1);
 
 		// 上のループの終了条件
-		DOVirtual.DelayedCall(allTime, () => seq.Kill());
+		DOVirtual.DelayedCall(allTime, () => seq.Complete());
 	}
 
-	private void HolyLiric()
+	private void HolyLiric(Sequence seq)
 	{
 		const float allTime = 5.0f;
 		const float happenRate = 0.2f;
@@ -460,7 +511,7 @@ public class AttackEffectFactory : MonoBehaviour
 		.Select(pos => pos.GetComponent<RectTransform>().anchoredPosition)
 		.ToList();
 
-		var seq = DOTween.Sequence()
+		seq
 		.AppendCallback(() =>
 		{
 			sprite.Clear();
@@ -477,20 +528,22 @@ public class AttackEffectFactory : MonoBehaviour
 		.AppendInterval(happenRate)
 		.SetLoops(-1);
 
-		DOVirtual.DelayedCall(allTime, () => seq.Kill());
+		DOVirtual.DelayedCall(allTime, () => seq.Complete());
 	}
 	
 	// 金星用
-	private void DefenseBreakSeparate()
+	private void DefenseBreakSeparate(Sequence seq)
 	{
 		const float moveDist = 50f;
 		const float frontTime = 1.2f;
 
 		var rect = _attacker.GetComponent<RectTransform>();
 
-		var seq = DOTween.Sequence()
-		.Append(rect.DOLocalMoveX(-moveDist, 0.1f))
-		.AppendCallback(NormalEffectMaker)
+		seq
+		.Append(rect.DOLocalMoveX(-moveDist, 0.1f));
+		NormalEffectMaker(seq);
+		
+		seq
 		.SetDelay(frontTime)
 		.Append(rect.DOLocalMoveX( moveDist, 0.1f));
 	}
@@ -499,19 +552,20 @@ public class AttackEffectFactory : MonoBehaviour
 	//Flirtill,
 	//DimensionBreaking,
 
-	private void MirrorSympony()
+	private void MirrorSympony(Sequence seq)
 	{
 		const float moveDist = 50f;
 		const float frontTime = 1.2f;
 		var avatar = Instantiate(_attacker.gameObject, transform).GetComponent<RectTransform>();
 
-		var seq = DOTween.Sequence()
+		seq
 		.Append(avatar.DOLocalMoveX(-moveDist * 2, 0.5f))
-		.Join(avatar.DOScaleX(-1, 0.5f))
+		.Join(avatar.DOScaleX(-1, 0.5f));
 
-		.AppendCallback(NormalEffectMaker)
-		.SetDelay(frontTime)
-		
+		NormalEffectMaker(seq);
+
+		seq
+		.SetDelay(frontTime)		
 		.Append(avatar.DOLocalMoveX(moveDist * 2, 0.5f))
 		.Join(avatar.DOScaleX(1, 0.5f))
 		.OnComplete(() => { Destroy(avatar); });
