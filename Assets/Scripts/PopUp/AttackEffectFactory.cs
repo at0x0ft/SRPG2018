@@ -173,7 +173,7 @@ public class AttackEffectFactory : MonoBehaviour
 	{
 		_effectFuncs = new Dictionary<AttackEffectKind, Action<Sequence>>();
 
-		// 特に凝ったことをしないエフェクト達
+		// 同じ攻撃エフェクト画像群で、攻撃範囲全体に、同時に何かするエフェクト達
 		_effectFuncs[AttackEffectKind.Spiral] =           // みすちゃん
 		_effectFuncs[AttackEffectKind.BackUp] =
 		_effectFuncs[AttackEffectKind.CPU] =
@@ -182,21 +182,25 @@ public class AttackEffectFactory : MonoBehaviour
 		_effectFuncs[AttackEffectKind.DarkSlashing] =     // 闇月ちゃん
 		_effectFuncs[AttackEffectKind.WaterHammer] =
 		_effectFuncs[AttackEffectKind.ZeroDay] =
+		_effectFuncs[AttackEffectKind.LightObject] =      // 光月ちゃん 
 		_effectFuncs[AttackEffectKind.IcicleStaff] =      // 水星ちゃん
 		_effectFuncs[AttackEffectKind.WoundFist] =        // 金星
 		_effectFuncs[AttackEffectKind.CrushingShine] =    // 火星
 		_effectFuncs[AttackEffectKind.GodWind] =          // 木星
-		_effectFuncs[AttackEffectKind.LionsQuick] =       // 土星
+		_effectFuncs[AttackEffectKind.SwordSword] =       // 土星
+		_effectFuncs[AttackEffectKind.LionsQuick] =       
 		_effectFuncs[AttackEffectKind.Ephroresence] =     // 天王星
 		_effectFuncs[AttackEffectKind.Crystallize] =
+		_effectFuncs[AttackEffectKind.IceStub] =          // 海王星
 		NormalEffectMaker;
 
 		// for みすちゃん
 		_effectFuncs[AttackEffectKind.MARock] = MARock;
 
 		// 闇月ちゃん用
-		_effectFuncs[AttackEffectKind.TotalShock] = NormalSlashEffectMaker;
+		_effectFuncs[AttackEffectKind.TotalShock] = TotalShock;
 		_effectFuncs[AttackEffectKind.DisorderlySlash] = DisorderlySlash;
+		_effectFuncs[AttackEffectKind.FlameBreak] = FlameBreak;
 
 		// for 光月ちゃん
 		_effectFuncs[AttackEffectKind.MegabyteShotgun] = MegabyteShotgun;
@@ -211,9 +215,16 @@ public class AttackEffectFactory : MonoBehaviour
 
 		// for 金星
 		_effectFuncs[AttackEffectKind.DefenseBreakSeparate] = DefenseBreakSeparate;
+		_effectFuncs[AttackEffectKind.DimensionBreaking] = DimensionBreaking;
 
+		// for 火星
+		_effectFuncs[AttackEffectKind.TwinLights] = TwinLights;
+		_effectFuncs[AttackEffectKind.FourFireFlame] = TotalShock;
+		_effectFuncs[AttackEffectKind.FlameShot] = FlameBreak;
+		
 		// for 冥王星
 		_effectFuncs[AttackEffectKind.AbsoluteZero] = HolyLiric;
+		_effectFuncs[AttackEffectKind.TheEnd] = TheEnd;
 	}
 
 	/// <summary>
@@ -261,46 +272,58 @@ public class AttackEffectFactory : MonoBehaviour
 
 	// ==========動作定義補助関数==========
 	/// <summary>
+	/// 攻撃範囲の重心を求めます
+	/// </summary>
+	/// <param name="floors">攻撃範囲</param>
+	/// <returns></returns>
+	private Vector3 FindCenterOfGravity(List<Floor> floors)
+	{
+		Vector3 center = Vector3.zero;
+		foreach(var pos in floors.Select(f=>f.CoordinatePair.Value))
+		{
+			center += pos;
+		}
+		return center / floors.Count;
+	}
+	
+	/// <summary>
 	/// 特定の位置達に、1通りの画像群で一斉にエフェクトを表現する
+	/// (対象全てにコマ送りだったらこれ)
 	/// </summary>
 	/// <returns></returns>
 	private void NormalEffectMaker(Sequence seq)
 	{
-		seq
-		.AppendCallback(() =>
-		{
-			foreach(var target in _targets)
-			{
-				MakeEffect(target.CoordinatePair.Value);
-			}
-		});
+		SlashEffectMaker(seq, _targets.Count, 1);
 	}
 
 	/// <summary>
-	/// 攻撃箇所それぞれに、4回ずつ斬撃エフェクトを表示させます
+	/// 斬撃系でよく使われる
+	/// (複数個所にコマ送りならこれ)
 	/// </summary>
 	/// <param name="seq"></param>
-	private void NormalSlashEffectMaker(Sequence seq)
+	/// <param name="onceAttack"></param>
+	/// <param name="loops"></param>
+	/// <param name="waitTime"></param>
+	private void SlashEffectMaker(Sequence seq, int onceAttack, int loops, float waitTime = 0.3f)
 	{
-		const float eachAttackTime = 0.3f; // それぞれのマスを攻撃する時間
-
-		int id = 0; // 画像番号
-		foreach(var target in _targets)
+		int id = 0;
+		seq.
+		AppendCallback(() =>
 		{
-			var pos = target.CoordinatePair.Value;
-			var images = _sprites.GetRange(4 * id, 4);
-			seq.AppendCallback(() =>
+			for(int i = 0; i < onceAttack; i++) 
 			{
-				MakeEffect(pos, images);
-			}).AppendInterval(eachAttackTime);
-
-			id++;
-			if(4 * id >= _sprites.Count) id = 0;
-		}
+				var pos = _targets[id].CoordinatePair.Value;
+				MakeEffect(pos);
+				id = (id + 1) % _targets.Count;
+			}
+		})
+		.AppendInterval(waitTime)
+		.SetLoops(loops);
 	}
-
+	
 	/// <summary>
 	/// 特定の位置にエフェクトを作成します
+	/// (凝ったことをしなければ、これを使用するだけで良いでしょう)
 	/// </summary>
 	/// <param name="target">エフェクト作成位置</param>
 	private GameObject MakeEffect(Vector3 occur, List<Sprite> mySprites = null)
@@ -314,6 +337,7 @@ public class AttackEffectFactory : MonoBehaviour
 
 	/// <summary>
 	/// 攻撃エフェクトを"実際に"発生させます
+	/// (一番低レイヤで、エフェクト作成の自由度が高いです)
 	/// </summary>
 	/// <param name="attack">攻撃内容</param>
 	public GameObject AttackEffectPopUp(Attack attack, List<Sprite> sprites, Vector3 pos, Vector3? opt = null)
@@ -343,40 +367,41 @@ public class AttackEffectFactory : MonoBehaviour
 		);
 	}
 
-	/*
-	private void DeadLock(Sequence seq)
+	//// 闇月ちゃん用
+	private void TotalShock(Sequence seq)
 	{
+		const float eachAttackTime = 0.3f; // それぞれのマスを攻撃する時間
+
+		int id = 0; // 画像番号
 		foreach(var target in _targets)
 		{
-			MakeEffect(target.GetComponent<RectTransform>().anchoredPosition);
+			var pos = target.CoordinatePair.Value;
+			var images = _sprites.GetRange(4 * id, 4);
+			seq.AppendCallback(() =>
+			{
+				MakeEffect(pos, images);
+			}).AppendInterval(eachAttackTime);
+
+			id++;
+			if(4 * id >= _sprites.Count) id = 0;
 		}
 	}
-	*/
 
-	//// 闇月ちゃん用
 	private void DisorderlySlash(Sequence seq)
 	{
-		const float waitTime = 0.3f; // 1マス辺りの攻撃時間
-		for(int i=0; i<2;i++)
-		{
-			// shuffle
-			seq
-			.AppendCallback(() =>{_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList(); });
+		// shuffle
+		seq.AppendCallback(() => { _targets = _targets.OrderBy(a => Guid.NewGuid()).ToList(); });
 
-			foreach(var target in _targets)
-			{
-				seq
-				.AppendCallback(() => { MakeEffect(target.CoordinatePair.Value); })
-				.AppendInterval(waitTime);
-			}
-		}
+		SlashEffectMaker(seq, _targets.Count, 2);
 	}
 
-	//FlameBreak,
+	private void FlameBreak(Sequence seq)
+	{
+		MakeEffect(FindCenterOfGravity(_targets));
+	}
 
 	//// 光月ちゃん用
-	//PhotonCode,
-	//LightObject,
+	//PhotonCode
 	//BrightChain,
 	//FatalError,
 	private void MegabyteShotgun(Sequence seq)
@@ -550,7 +575,16 @@ public class AttackEffectFactory : MonoBehaviour
 	
 	//StampWave,
 	//Flirtill,
-	//DimensionBreaking,
+
+	private void DimensionBreaking(Sequence seq)
+	{
+		const int onceAttack = 2;  // 一度に攻撃するマス数
+
+		int loop = _targets.Count / onceAttack;
+
+		_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList();// shuffle
+		SlashEffectMaker(seq, onceAttack, loop);
+	}
 
 	private void MirrorSympony(Sequence seq)
 	{
@@ -572,9 +606,19 @@ public class AttackEffectFactory : MonoBehaviour
 	}
 
 	//// 火星用
-	//TwinLights,
-	//FourFireFlame,
-	//FlameShot,
+	private void TwinLights(Sequence seq)
+	{
+		List<Sprite> sprites = new List<Sprite>();
+
+		int id = 0;
+		for(int pos=0;pos<2;pos++)
+		{
+			for(int i = 0; i < 4; i++, id++) sprites.Add(_sprites[id]);
+			MakeEffect(_targets[pos].CoordinatePair.Value, sprites);
+			sprites.Clear();
+		}
+	}
+	
 	//RoarBurningWall,
 	//DestructExtinctShock,
 
@@ -589,7 +633,11 @@ public class AttackEffectFactory : MonoBehaviour
 	//SwordSword,
 	//InfusionFossil,
 
-	//StormAndStress,
+	private void StormAndStress(Sequence seq)
+	{
+		SlashEffectMaker(seq, 2, 3);
+	}
+
 	//WholeThings,
 	//PurpleQuota,
 
@@ -613,5 +661,20 @@ public class AttackEffectFactory : MonoBehaviour
 	//BloodyBlast,
 	
 	//DarknessBind,
-	//TheEnd
+	private void TheEnd(Sequence seq)
+	{
+		const float waitTime = 0.3f; // 1マス辺りの攻撃時間
+		seq
+		.AppendCallback(() =>
+		{
+			// shuffle
+			_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList();
+			foreach(var target in _targets.GetRange(0, 10))
+			{
+				MakeEffect(target.CoordinatePair.Value);
+			}
+		})
+		.AppendInterval(waitTime)
+		.SetLoops(10);
+	}
 }

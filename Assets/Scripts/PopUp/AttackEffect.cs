@@ -101,6 +101,22 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.Ephroresence] =          // 天王星用
 		NormalLoop;
 
+		// 画像を早めに1週させるだけ(斬撃向け)
+		_effectFunc[AttackEffectKind.DarkSlashing] =          // 闇月ちゃん
+		_effectFunc[AttackEffectKind.WaterHammer] =
+		_effectFunc[AttackEffectKind.ZeroDay] =
+		_effectFunc[AttackEffectKind.FlameBreak] =
+		_effectFunc[AttackEffectKind.TotalShock] =
+		_effectFunc[AttackEffectKind.FlameBreak] =
+		_effectFunc[AttackEffectKind.DimensionBreaking] =     // 金星
+		_effectFunc[AttackEffectKind.TwinLights] =            // 火星
+		_effectFunc[AttackEffectKind.FourFireFlame] =         
+		_effectFunc[AttackEffectKind.FlameShot] =
+		_effectFunc[AttackEffectKind.SwordSword] =            // 土星
+		_effectFunc[AttackEffectKind.StormAndStress] =        
+		_effectFunc[AttackEffectKind.IceStub] =               // 海王星
+		HighSpeedNormalLoop;
+
 		// みすちゃん
 		_effectFunc[AttackEffectKind.Spiral] = Spiral;
 		_effectFunc[AttackEffectKind.MARock] = MARock;
@@ -109,13 +125,10 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.DeadLock] = DeadLock;
 
 		// 闇月ちゃん
-		_effectFunc[AttackEffectKind.DarkSlashing] =         
-		_effectFunc[AttackEffectKind.WaterHammer] =
-		_effectFunc[AttackEffectKind.ZeroDay] =
-		_effectFunc[AttackEffectKind.FlameBreak] =
-		_effectFunc[AttackEffectKind.TotalShock] =
-		HighSpeedNormalLoop;
-		_effectFunc[AttackEffectKind.DisorderlySlash] = DisorderlySlash;
+		_effectFunc[AttackEffectKind.DisorderlySlash] = SuperSpeedNormalLoop;
+
+		// 光月ちゃん
+		_effectFunc[AttackEffectKind.LightObject] = IcycleStaff;
 
 		// 水星ちゃん
 		_effectFunc[AttackEffectKind.BubbleNotes] = BubbleNotes;
@@ -133,6 +146,7 @@ public class AttackEffect : MonoBehaviour
 
 		// for 冥王星
 		_effectFunc[AttackEffectKind.AbsoluteZero] = HolyLiric;
+		_effectFunc[AttackEffectKind.TheEnd] = SuperSpeedNormalLoop;
 	}
 
 	private void OnDestroy()
@@ -141,6 +155,24 @@ public class AttackEffect : MonoBehaviour
 	}
 
 	// ==========動作定義補助関数==========
+	private void NormalLoop(Sequence seq)
+	{
+		const float effectSecPerFlame = 0.4f;
+		SpriteLoop(seq, effectSecPerFlame);
+	}
+
+	private void HighSpeedNormalLoop(Sequence seq)
+	{
+		const float effectSecPerFlame = 0.1f;
+		SpriteLoop(seq, effectSecPerFlame);
+	}
+
+	private void SuperSpeedNormalLoop(Sequence seq)
+	{
+		const float effectSecPerFlame = 0.05f;
+		SpriteLoop(seq, effectSecPerFlame);
+	}
+
 	/// <summary>
 	/// 各画像をループさせて表示させて終了なだけの時に使える関数
 	/// </summary>
@@ -159,18 +191,6 @@ public class AttackEffect : MonoBehaviour
 			seq.AppendCallback(() => _image.sprite = sprite);
 			if(interval > 0) seq.AppendInterval(interval);
 		}
-	}
-
-	private void NormalLoop(Sequence seq)
-	{
-		const float effectSecPerFlame = 0.4f;
-		SpriteLoop(seq, effectSecPerFlame);
-	}
-
-	private void HighSpeedNormalLoop(Sequence seq)
-	{
-		const float effectSecPerFlame = 0.1f;
-		SpriteLoop(seq, effectSecPerFlame);
 	}
 
 	// ==========動作定義関数==========
@@ -265,17 +285,10 @@ public class AttackEffect : MonoBehaviour
 			.SetEase(Ease.OutSine)
 		);
 	}
-
-
-	//// -----闇月ちゃん用-----
-	private void DisorderlySlash(Sequence seq)
-	{
-		SpriteLoop(seq, 0.05f);
-	}
 	
+
 	//// -----光月ちゃん用-----
 	//PhotonCode,
-	//LightObject,
 	//BrightChain,
 	//FatalError,
 
