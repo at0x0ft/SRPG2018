@@ -390,9 +390,8 @@ public class AttackEffectFactory : MonoBehaviour
 	private void DisorderlySlash(Sequence seq)
 	{
 		// shuffle
-		seq.AppendCallback(() => { _targets = _targets.OrderBy(a => Guid.NewGuid()).ToList(); });
-
-		SlashEffectMaker(seq, _targets.Count, 2);
+		_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList();
+		SlashEffectMaker(seq, 1, _targets.Count * 2);
 	}
 
 	private void FlameBreak(Sequence seq)
