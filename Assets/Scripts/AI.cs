@@ -217,6 +217,9 @@ public class AI : MonoBehaviour
 		{
 			// 攻撃がある場合攻撃の種類を選択
 			attack = SelectAttack(attackableCommands);
+
+			// 攻撃がまだ選べそうになければ待機
+			if(attack == null) yield break;
 		}
 		else if(_ui.RangeAttackNozzle.gameObject.activeSelf)
 		{
@@ -251,7 +254,6 @@ public class AI : MonoBehaviour
 	private List<Attack> GetHitAttacks()
 	{
 		var attacker = _units.ActiveUnit;
-		Debug.Log("unitname "+attacker.name);
 		return attacker.GetAttackCommandsList()
 			.Where(pair => pair.Value)
 			.Select(pair => pair.Key)
@@ -267,10 +269,6 @@ public class AI : MonoBehaviour
 	{
 		var now = _units.ActiveUnit.Floor.CoordinatePair.Key;
 		var fixedRange = FixRange(now, attack.Range);
-
-		string str = attack.ToString();
-		foreach(var pos in fixedRange) str += pos.ToString();
-		Debug.Log(str);
 		return IsPlayerIn(fixedRange);
 	}
 
@@ -313,7 +311,7 @@ public class AI : MonoBehaviour
 	/// <returns>結果</returns>
 	private bool IsRange(int a, int from, int to)
 	{
-		return (from <= a && a < to);
+		return (from <= a && a <= to);
 	}
 
 	/// <summary>
@@ -329,9 +327,11 @@ public class AI : MonoBehaviour
 		var selectedCommands = attackableCommands[kind];
 
 		// 攻撃実行
-		_ui.AttackSelectWindow.SelectAttack(selectedCommands);
+		var res = _ui.AttackSelectWindow.SelectAttack(selectedCommands);
 
-		return selectedCommands;
+		// 挙動が早すぎて実行失敗の場合があるため
+		if(res) return selectedCommands;
+		else return null;
 	}
 
 	/// <summary>
@@ -345,7 +345,6 @@ public class AI : MonoBehaviour
 		.ToList();
 
 		int kind = UnityEngine.Random.Range(0, enemys.Count());
-
 		enemys[kind].OnClick();
 	}
 
