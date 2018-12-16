@@ -41884,26 +41884,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 941ddeb2092bea54e8760b25f7d61490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _strongRate: 1.2
-  _slightlyStrongRate: 1.1
+  _strongRate: 1.5
+  _slightlyStrongRate: 1.2
   _normalRate: 1
-  _slightlyWeakRate: 0.9
-  _weakRate: 0.8
-  _normalReduceRate: 0.2
+  _slightlyWeakRate: 0.8
+  _weakRate: 0.5
+  _normalReduceRate: 0
   _forestReduceRate: 0
   _rockReduceRate: 0.5
-  _normalAvoidRate: 10
-  _forestAvoidRate: 20
+  _normalAvoidRate: 0
+  _forestAvoidRate: 15
   _rockAvoidRate: 0
-  _goodAtRate: 1.1
+  _goodAtRate: 1.2
   _notSoGoodOrBadAtRate: 1
-  _badAtRate: 0.9
+  _badAtRate: 0.8
   _strongCriticalRate: 0
   _slightlyStrongCriticalRate: 0
   _normalCriticalRate: 3
   _slightlyWeakCriticalRate: 5
   _weakCriticalRate: 7
-  _criticalDamageRate: 2
+  _criticalDamageRate: 3
 --- !u!1 &1413038980
 GameObject:
   m_ObjectHideFlags: 0
@@ -58716,12 +58716,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 1.5
-  _forwardMaxMoveAmount: 7
-  _middleMaxMoveAmount: 5
-  _backMaxMoveAmount: 3
+  _forwardMaxMoveAmount: 14
+  _middleMaxMoveAmount: 10
+  _backMaxMoveAmount: 6
   _normalCost: 1
-  _forestCost: 2
-  _rockCost: 3
+  _rockCost: 2
+  _forestCost: 3
   _maxLimitCost: 999
 --- !u!1 &1971427510
 GameObject:

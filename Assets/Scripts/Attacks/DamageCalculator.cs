@@ -7,39 +7,39 @@ public class DamageCalculator : MonoBehaviour
 
 	// === 相性補正 ===
 	[SerializeField]
-	private float _strongRate = 1.2f;
+	private float _strongRate = 1.5f;
 	[SerializeField]
-	private float _slightlyStrongRate = 1.1f;
+	private float _slightlyStrongRate = 1.2f;
 	[SerializeField]
 	private float _normalRate = 1f;
 	[SerializeField]
-	private float _slightlyWeakRate = 0.9f;
+	private float _slightlyWeakRate = 0.8f;
 	[SerializeField]
-	private float _weakRate = 0.8f;
+	private float _weakRate = 0.5f;
 
 	// === 地形効果防御補正 ===
 	[SerializeField]
-	private float _normalReduceRate = 0;
+	private float _normalReduceRate = 0f;
 	[SerializeField]
-	private float _forestReduceRate = 0.2f;
+	private float _forestReduceRate = 0f;
 	[SerializeField]
 	private float _rockReduceRate = 0.5f;
 
 	// === 地形効果命中補正 ===
 	[SerializeField]
-	private int _normalAvoidRate = 20;
+	private int _normalAvoidRate = 0;
 	[SerializeField]
-	private int _forestAvoidRate = 10;
+	private int _forestAvoidRate = 15;
 	[SerializeField]
 	private int _rockAvoidRate = 0;
 
 	// === 得意補正 ===
 	[SerializeField]
-	private float _goodAtRate = 1.1f;
+	private float _goodAtRate = 1.2f;
 	[SerializeField]
 	private float _notSoGoodOrBadAtRate = 1f;
 	[SerializeField]
-	private float _badAtRate = 0.9f;
+	private float _badAtRate = 0.8f;
 
 	// === クリティカル補正 ===
 	[SerializeField]
@@ -53,7 +53,7 @@ public class DamageCalculator : MonoBehaviour
 	[SerializeField]
 	private int _weakCriticalRate = 7;
 	[SerializeField]
-	private float _criticalDamageRate = 2f;
+	private float _criticalDamageRate = 3f;
 
 
 	// ==========関数==========
