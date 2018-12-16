@@ -147,8 +147,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 460.43, y: -800}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: 460.43, y: -1300}
+  m_SizeDelta: {x: 500, y: 1000}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &184724073
 MonoBehaviour:
@@ -461,7 +461,8 @@ MonoBehaviour:
   nameColor: {r: 0.26415092, g: 0.23798503, b: 0.23798503, a: 1}
   soundEffect: {fileID: 0}
   portraits:
-  - {fileID: 21300000, guid: 9b320f049e9abf1408eef4807aaae90f, type: 3}
+  - {fileID: 21300000, guid: dd471d19033d2fe48bd17c74c417de05, type: 3}
+  - {fileID: 21300000, guid: 5d411f21d56fdaa42ac505b7c677c614, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 0}
   description: 
@@ -639,8 +640,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -800}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: 0, y: -1300}
+  m_SizeDelta: {x: 500, y: 1000}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &640278763
 CanvasRenderer:
@@ -711,7 +712,8 @@ MonoBehaviour:
   nameColor: {r: 0.9622642, g: 0.92980963, b: 0.36765754, a: 1}
   soundEffect: {fileID: 0}
   portraits:
-  - {fileID: 21300000, guid: 9b320f049e9abf1408eef4807aaae90f, type: 3}
+  - {fileID: 21300000, guid: 4763cf7196d8ec84da89e78b0f07fe5a, type: 3}
+  - {fileID: 21300000, guid: 383ede4675ab1064da61a222b6de9f3d, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 0}
   description: 
@@ -821,8 +823,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -460.43, y: -800}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: -460.43, y: -1300}
+  m_SizeDelta: {x: 500, y: 1000}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &867184161
 MonoBehaviour:
@@ -927,8 +929,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 1066517514}
-  selectedCommands: []
+  - {fileID: 1066517513}
+  selectedCommands:
+  - {fileID: 1066517526}
   variables: []
   description: 
   stepPause: 0
@@ -1085,7 +1088,7 @@ MonoBehaviour:
   - {fileID: 1066517519}
 --- !u!114 &1066517505
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1066517497}
@@ -1155,8 +1158,8 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "mischan mischanR Left:\nmischan:\u2026\u3084\u3063\u2026\u2026\u2026\u2026\u2026\nmischan:\u3084\u3063\u305F\u3041\u3041\u3041\u3041\u3041\u3041\u3041\u3041\u3041\uFF01\uFF01\uFF01\nkoduki
-      mischanR Middle:\u52DD\u3066\u307E\u3057\u305F\u3001\u52DD\u3066\u307E\u3057\u305F\u3088\uFF01\u307F\u3059\u3061\u3083\u3093\u5148\u8F29\uFF01\nmischan
+    stringVal: "mischan mis_right Left:\nmischan:\u2026\u3084\u3063\u2026\u2026\u2026\u2026\u2026\nmischan:\u3084\u3063\u305F\u3041\u3041\u3041\u3041\u3041\u3041\u3041\u3041\u3041\uFF01\uFF01\uFF01\nkoduki
+      mituki_left Middle:\u52DD\u3066\u307E\u3057\u305F\u3001\u52DD\u3066\u307E\u3057\u305F\u3088\uFF01\u307F\u3059\u3061\u3083\u3093\u5148\u8F29\uFF01\nmischan
       hide:\nkoduki hide:"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -1186,7 +1189,7 @@ MonoBehaviour:
   conversationText:
     stringRef: {fileID: 0}
     stringVal: "mokusei suisei Right:\u3044\u3044\u8A66\u5408\u3060\u3063\u305F\u3001\u5B8C\u6557\u3060\u3088\nmischan
-      mischanR Middle:\u3042\u3001\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3059\uFF01\nmokusei:\u79C1\u305F\u3061\u306B\u52DD\u3063\u305F\u3093\u3060\u3001\u305C\u3072\u512A\u52DD\u3057\u3066\u304F\u308C\u3001\u5FDC\u63F4\u3057\u3066\u3044\u308B\u3088\nmischan:\u306F\u3044\u3001\u9811\u5F35\u308A\u307E\u3059\uFF01\nmokueiseis:\u2026\u2026\u2026\u2026\u2026\u2026\nyamituki:\u2026\u2026\u2026\u4F55\u304B\u3042\u308A\u307E\u3057\u305F\u304B\uFF1F\nmokueiseis:\u2026\u2026\u3044\u3048\u3001\u4F55\u3082\nmokusei:\u305D\u308C\u3067\u306F\u79C1\u305F\u3061\u306F\u3053\u308C\u3067\nmischan:\u304A\u75B2\u308C\u3055\u307E\u3067\u3057\u305F\uFF01\nmokusei
+      mis_right Middle:\u3042\u3001\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3059\uFF01\nmokusei:\u79C1\u305F\u3061\u306B\u52DD\u3063\u305F\u3093\u3060\u3001\u305C\u3072\u512A\u52DD\u3057\u3066\u304F\u308C\u3001\u5FDC\u63F4\u3057\u3066\u3044\u308B\u3088\nmischan:\u306F\u3044\u3001\u9811\u5F35\u308A\u307E\u3059\uFF01\nmokueiseis:\u2026\u2026\u2026\u2026\u2026\u2026\nyamituki:\u2026\u2026\u2026\u4F55\u304B\u3042\u308A\u307E\u3057\u305F\u304B\uFF1F\nmokueiseis:\u2026\u2026\u3044\u3048\u3001\u4F55\u3082\nmokusei:\u305D\u308C\u3067\u306F\u79C1\u305F\u3061\u306F\u3053\u308C\u3067\nmischan:\u304A\u75B2\u308C\u3055\u307E\u3067\u3057\u305F\uFF01\nmokusei
       hide:\nmischan hide:"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -1271,7 +1274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 281.7837
+    x: 278.3354
     y: 216.87291
     width: 120
     height: 40
@@ -1355,8 +1358,8 @@ MonoBehaviour:
   conversationText:
     stringRef: {fileID: 0}
     stringVal: "mokusei right Middle:\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026\nmokueiseis
-      left Right:\u2026\u2026\u3042\u306E\u3001\u594F\u592A\u3055\u3093\u2026\nmokusei:\u3059\u307E\u306A\u3044\u4E8C\u4EBA\u3068\u3082\u3001\u529B\u53CA\u3070\u306A\u304B\u3063\u305F\nmokueiseis:\u3057\u304B\u3057\u3001\u4ECA\u306E\u306F\u2026\uFF01\nmokusei:\u3044\u3044\u3093\u3060\u3001\u4E8C\u4EBA\u3068\u3082\nyamituki
-      mischanR Left:\u2026\u2026\u2026\uFF1F\nyamituki hide:\nmokusei hide:\nmokueiseis
+      idle Right:\u2026\u2026\u3042\u306E\u3001\u594F\u592A\u3055\u3093\u2026\nmokusei:\u3059\u307E\u306A\u3044\u4E8C\u4EBA\u3068\u3082\u3001\u529B\u53CA\u3070\u306A\u304B\u3063\u305F\nmokueiseis:\u3057\u304B\u3057\u3001\u4ECA\u306E\u306F\u2026\uFF01\nmokusei:\u3044\u3044\u3093\u3060\u3001\u4E8C\u4EBA\u3068\u3082\nyamituki
+      yamituki_right Left:\u2026\u2026\u2026\uFF1F\nyamituki hide:\nmokusei hide:\nmokueiseis
       hide:"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -1486,7 +1489,7 @@ MonoBehaviour:
   stage: {fileID: 0}
   character: {fileID: 763597220}
   replacedCharacter: {fileID: 0}
-  portrait: {fileID: 21300000, guid: 9b320f049e9abf1408eef4807aaae90f, type: 3}
+  portrait: {fileID: 21300000, guid: 383ede4675ab1064da61a222b6de9f3d, type: 3}
   offset: 0
   fromPosition: {fileID: 0}
   toPosition: {fileID: 640278762}
@@ -1515,7 +1518,7 @@ MonoBehaviour:
   stage: {fileID: 0}
   character: {fileID: 385628210}
   replacedCharacter: {fileID: 0}
-  portrait: {fileID: 21300000, guid: 9b320f049e9abf1408eef4807aaae90f, type: 3}
+  portrait: {fileID: 21300000, guid: 5d411f21d56fdaa42ac505b7c677c614, type: 3}
   offset: 0
   fromPosition: {fileID: 0}
   toPosition: {fileID: 867184160}
@@ -1544,7 +1547,7 @@ MonoBehaviour:
   stage: {fileID: 0}
   character: {fileID: 1194324078}
   replacedCharacter: {fileID: 0}
-  portrait: {fileID: 21300000, guid: 9b320f049e9abf1408eef4807aaae90f, type: 3}
+  portrait: {fileID: 21300000, guid: 447b22ae33c49d24eb0973c82d206aa9, type: 3}
   offset: 0
   fromPosition: {fileID: 0}
   toPosition: {fileID: 184724072}
@@ -1589,7 +1592,8 @@ MonoBehaviour:
   nameColor: {r: 0.25787643, g: 0.5191976, b: 0.8962264, a: 1}
   soundEffect: {fileID: 0}
   portraits:
-  - {fileID: 21300000, guid: 9b320f049e9abf1408eef4807aaae90f, type: 3}
+  - {fileID: 21300000, guid: 447b22ae33c49d24eb0973c82d206aa9, type: 3}
+  - {fileID: 21300000, guid: b528bd99dcb1efc4aa87a3c222ec6446, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 0}
   description: 

@@ -1038,7 +1038,7 @@ Prefab:
         type: 2}
       propertyPath: portraits.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 1ff171d809648274b95ea942d0e63ba1,
+      objectReference: {fileID: 21300000, guid: 383ede4675ab1064da61a222b6de9f3d,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f0b63d277a0d284eabbfa3186900134, type: 2}
@@ -1579,7 +1579,7 @@ Prefab:
         type: 2}
       propertyPath: portraits.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 4a1c29f0113d3f44bb11b797eb657b9d,
+      objectReference: {fileID: 21300000, guid: 5d411f21d56fdaa42ac505b7c677c614,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b435053dd972884cafb314c6d6d7205, type: 2}
