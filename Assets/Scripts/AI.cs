@@ -95,6 +95,9 @@ public class AI : MonoBehaviour
 			// CPUリソースを沢山食べないでくださーい!!!（沢山は食べないよ!!!）
 			yield return new WaitForSeconds(WaitSeconds());
 
+			// モーション中はとりあえず何もしないで……
+			if(_mc.NowMoving) continue;
+
 			var team = _units.ActiveUnit.Belonging;
 			// 手番の時は頑張るよ(Stateが変わるまでは、switch文から処理は抜け出ないようにします)
 			if(team == Unit.Team.Enemy)
@@ -222,6 +225,7 @@ public class AI : MonoBehaviour
 		}
 
 		// 攻撃が無理そうなら行動を終える
+		// 挙動がバグらないように、少し間を開ける
 		if(attack == null || !CanHitAttack(attack))
 		{
 			FinishUnitAction();

@@ -206,12 +206,6 @@ public class Floor : MonoBehaviour
 		// 移動する
 		_mc.MoveTo(_map, _units.ActiveUnit, this);
 
-		// 攻撃の使用可否一覧を取得
-		var attackCommandList = _units.ActiveUnit.GetAttackCommandsList();
-
-		// 攻撃一覧画面を作成する(UIに任せる)
-		_map.UI.AttackSelectWindow.Show(attackCommandList);
-
 		// 場面を移動する
 		_bsc.NextBattleState();
 	}

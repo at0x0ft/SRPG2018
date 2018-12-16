@@ -63,7 +63,7 @@ public class BoardController : MonoBehaviour
 
 		// 盤面とユニット, AttackControllerを作成
 		var ac = new AttackController(_map, _units, _damageCalculator);
-		_bsc = new BattleStateController(ac, this, _map, _units, _ui);
+		_bsc = new BattleStateController(ac, this, _moveController, _map, _units, _ui);
 		_map.Initilize(_bsc, _moveController, _damageCalculator, _units, _ui);
 		_units.Initilize(_map, _moveController, ac, _bsc);
 		_ui.Initialize(this, _units, ac, _map, _bsc);

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using Fungus;
+using System.Collections;
+using UnityEngine.UI;
 
 /// <summary>
 /// 戦闘状態です
@@ -24,25 +26,29 @@ public class BattleStateController
 	// =======参照情報=========
 	private AttackController _ac;
 	private BoardController _bc;
+	private MoveController _mc;
 	private Map _map;
 	private Units _units;
 	private UI _ui;
 	private Flowchart _flowchart; // for hint window
+	private Button endButton;
 
 	/// <summary>
 	/// 必要な情報を取得
 	/// </summary>
-	public BattleStateController(AttackController ac, BoardController bc, Map map, Units units, UI ui)
+	public BattleStateController(AttackController ac, BoardController bc, MoveController mc, Map map, Units units, UI ui)
 	{
 		// 戦闘全体の状態を初期化
 		BattleState = BattleStates.Check;
 
 		_ac = ac;
 		_bc = bc;
+		_mc = mc;
 		_map = map;
 		_units = units;
 		_ui = ui;
 		_flowchart = GameObject.Find("Flowchart").GetComponent<Flowchart>();
+		endButton = _ui.EndCommandButton.GetComponent<Button>();
 	}
 
 	/// <summary>
@@ -120,9 +126,9 @@ public class BattleStateController
 				// 5.Attackに移行する
 				NextBattleState();
 				return;
-
-			// 今は特にやることはない
+				
 			case BattleStates.Attack:
+				CoroutineHandler.StartStaticCoroutine(AttackBehavior());
 				break;
 
 			// 現在はアニメーションが無いため、すぐに次のユニットに行動権を譲る
@@ -133,9 +139,26 @@ public class BattleStateController
 			default:
 				return;
 		}
-
+		
 		// ヒントウィンドウ設定
 		SetHintWindowText(battleStates);
+	}
+
+	private IEnumerator AttackBehavior()
+	{
+		endButton.interactable = false;
+
+		// 移動モーション中は待機	
+		while(_mc.NowMoving) yield return new WaitForSeconds(0.1f);
+
+		// 攻撃の使用可否一覧を取得
+		var attackCommandList = _units.ActiveUnit.GetAttackCommandsList();
+
+		// 攻撃一覧画面を作成する(UIに任せる)
+		_map.UI.AttackSelectWindow.Show(attackCommandList);
+
+		endButton.interactable = true;
+		yield break;
 	}
 
 	/// <summary>
@@ -180,5 +203,42 @@ public class BattleStateController
 		}
 		//Debug.Log(next);
 		_flowchart.ExecuteBlock(next);
+	}
+}
+
+
+
+/// <summary>
+/// （MoveFazeからAttackFazeに移行するまでに無理やり時間稼ぎをする必要があるため追加）
+/// This class allows us to start Coroutines from non-Monobehaviour scripts
+/// Create a GameObject it will use to launch the coroutine on
+/// </summary>
+public class CoroutineHandler : MonoBehaviour
+{
+	static protected CoroutineHandler m_Instance;
+	static public CoroutineHandler instance
+	{
+		get
+		{
+			if(m_Instance == null)
+			{
+				GameObject o = new GameObject("CoroutineHandler");
+				DontDestroyOnLoad(o);
+				m_Instance = o.AddComponent<CoroutineHandler>();
+			}
+
+			return m_Instance;
+		}
+	}
+
+	public void OnDisable()
+	{
+		if(m_Instance)
+			Destroy(m_Instance.gameObject);
+	}
+
+	static public Coroutine StartStaticCoroutine(IEnumerator coroutine)
+	{
+		return instance.StartCoroutine(coroutine);
 	}
 }
