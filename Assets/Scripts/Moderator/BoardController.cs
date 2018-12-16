@@ -154,7 +154,7 @@ public class BoardController : MonoBehaviour
 		var activeUnit = _units.Order.FirstOrDefault();
 		if(!activeUnit) Debug.LogError("[Error] : " + _units.CurrentPlayerTeam.ToString() + "'s active unit is not Found!");    // 4debug
 
-		Debug.Log(activeUnit);  // 4debug
+		//Debug.Log(activeUnit);  // 4debug
 
 		// Unitsクラスに記憶.
 		_units.ActiveUnit = activeUnit;
@@ -176,7 +176,7 @@ public class BoardController : MonoBehaviour
 		if(!_ais.ContainsKey(activeUnit.Belonging))
 		{
 			_ui.TouchBlocker.SetActive(false);
-			Debug.Log("touch blocker invalid.");    // 4debug
+			//Debug.Log("touch blocker invalid.");    // 4debug
 		}
 	}
 
@@ -220,8 +220,8 @@ public class BoardController : MonoBehaviour
 
 		// 行動が終了したユニットを、次のサイクルまで休ませる
 		_units.MakeRestActiveUnit();
-		Debug.Log(_units.Order.Count);  // 4debug
-		Debug.Log(_units.ActiveUnit.name);  // 4debug
+		//Debug.Log(_units.Order.Count);  // 4debug
+		//Debug.Log(_units.ActiveUnit.name);  // 4debug
 
 		// まだ自軍のユニットが残っているのならば, 次のユニットに交代
 		if(_units.Order.Count > 0) StartUnit();

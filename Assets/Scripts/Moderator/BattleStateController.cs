@@ -78,7 +78,7 @@ public class BattleStateController
 	/// <param name="battleStates"></param>
 	private void StartTreatmentPerBattleStates(BattleStates battleStates)
 	{
-		Debug.Log(battleStates);
+		//Debug.Log(battleStates);
 		// ウィンドウ更新
 		_ui.SetCycleInfoWindow.UpdateStateInfo(battleStates);
 
@@ -178,7 +178,7 @@ public class BattleStateController
 		{
 			next = "EnemyTurn";
 		}
-		Debug.Log(next);
+		//Debug.Log(next);
 		_flowchart.ExecuteBlock(next);
 	}
 }

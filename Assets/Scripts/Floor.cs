@@ -266,7 +266,7 @@ public class Floor : MonoBehaviour
 	/// </summary>
 	public void OnClick()
 	{
-		Debug.Log(gameObject.name + " is clicked. BattleState is " + _bsc.BattleState.ToString());	// 4debug
+		//Debug.Log(gameObject.name + " is clicked. BattleState is " + _bsc.BattleState.ToString());	// 4debug
 
 		ClickBehaviors[_bsc.BattleState]();
 	}

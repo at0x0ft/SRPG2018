@@ -226,7 +226,7 @@ public class AI : MonoBehaviour
 		}
 		else
 		{
-			yield return StartCoroutine(SelectRangeAttackDir((RangeAttack)attack));
+			_ui.RangeAttackNozzle.ActRangeAttack();
 		}
 	}
 
@@ -236,7 +236,7 @@ public class AI : MonoBehaviour
 	private List<Attack> GetHitAttacks()
 	{
 		var attacker = _units.ActiveUnit;
-
+		Debug.Log("unitname "+attacker.name);
 		return attacker.GetAttackCommandsList()
 			.Where(pair => pair.Value)
 			.Select(pair => pair.Key)
@@ -251,8 +251,12 @@ public class AI : MonoBehaviour
 	private bool CanHitAttack(Attack attack)
 	{
 		var now = _units.ActiveUnit.Floor.CoordinatePair.Key;
+		var fixedRange = FixRange(now, attack.Range);
 
-		return IsPlayerIn(AttackReach(now, attack));
+		string str = attack.ToString();
+		foreach(var pos in fixedRange) str += pos.ToString();
+		Debug.Log(str);
+		return IsPlayerIn(fixedRange);
 	}
 
 	/// <summary>
@@ -266,45 +270,6 @@ public class AI : MonoBehaviour
 		.Select(f => (_units.GetUnit(f.x, f.y)))
 		.Where(u => (u != null && u.Belonging == Unit.Team.Player))
 		.Count() > 0;
-	}
-
-	/// <summary>
-	/// 回転も含めた、攻撃が届く場所
-	/// </summary>
-	/// <param name="now">現在位置</param>
-	/// <param name="attack">攻撃の種類</param>
-	/// <returns>攻撃範囲</returns>
-	private List<Vector2Int> AttackReach(Vector2Int now, Attack attack)
-	{
-		var range = attack.Range;
-		// always true for debug.
-		if(true || attack.Scale == Attack.AttackScale.Single || !((RangeAttack)attack).IsRotatable)
-		{
-			return FixRange(now, range);
-		}
-		else
-		{
-			var res = new List<Vector2Int>();
-
-			for(int dir = 0; dir < 4; dir++)
-			{
-				int sinRot = (dir % 2 == 0) ? 0 : (2 - dir);
-				int cosRot = (dir % 2 == 1) ? 0 : (1 - dir);
-
-				//wikipedia,回転行列を参照
-				var rotRange = range
-				.Select(p => new Vector2Int(
-					p.x * cosRot - p.y * sinRot,
-					p.x * sinRot + p.y * cosRot))
-				.ToList();
-
-				var fixedRotRange = FixRange(now, rotRange);
-
-				res = res.Union(fixedRotRange).ToList();
-			}
-
-			return res;
-		}
 	}
 
 	/// <summary>
@@ -368,32 +333,6 @@ public class AI : MonoBehaviour
 
 		enemys[kind].OnClick();
 	}
-
-	/// <summary>
-	/// 範囲攻撃の場合の、攻撃先を選びます
-	/// </summary>
-	private IEnumerator SelectRangeAttackDir(RangeAttack attack)
-	{
-		// 攻撃出来るまでくるくる回す
-		while(attack.IsRotatable)
-		{
-			var attackableFloors = _map.GetAttackableFloors()
-			.Select(floor => floor.CoordinatePair.Key)
-			.ToList();
-
-			if(IsPlayerIn(attackableFloors)) break;
-
-			_ui.RangeAttackNozzle.RotateRangeHighLight();
-
-			yield return new WaitForSeconds(WaitSeconds());
-		}
-
-		// 攻撃する
-		_ui.RangeAttackNozzle.ActRangeAttack();
-
-		yield break;
-	}
-
 
 	// ==========Load Faze==========
 	/// <summary>
