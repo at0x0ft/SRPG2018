@@ -1865,11 +1865,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 137.73581, y: -129.20378}
+  scrollPos: {x: 172.76294, y: -156.92459}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 200
-  zoom: 0.8200002
+  zoom: 0.7900002
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -1877,9 +1877,8 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019066}
-  selectedCommands:
-  - {fileID: 689019070}
+  - {fileID: 689019064}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -2201,7 +2200,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Mis miswchan_stand left:\nCharacter_Suisei hikarituki right:\n\nCharacter_Suisei:\u307E\u3001\u307E\u3055\u304B\u79C1\u304C\u8CA0\u3051\u308B\u306A\u3093\u3066\u2026\nCharacter_Mis:\u3042\u3001\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3057\u305F\u2026\n(\u2026\u306A\u3093\u3068\u304B\u52DD\u3066\u305F\u3041\u2026)\nCharacter_Suisei:\u2026\u3061\u3087\u3063\u3068\u3001\u8CB4\u65B9\uFF01\nCharacter_Mis:\u3048\u3063\u3068\u2026\u4F55?\nCharacter_Suisei:\u79C1\u306B\u52DD\u3063\u305F\u3093\u3060\u304B\u3089\u3001\u7D76\u5BFE\u306B\u512A\u52DD\u3057\u306A\u3055\u3044\u3088\uFF01\nCharacter_Suisei:\u2026\u305D\u308C\u3068\u3001\u6B21\u306F\u8CA0\u3051\u306A\u3044\u304B\u3089\uFF01\u899A\u609F\u3057\u306A\u3055\u3044\uFF01\nCharacter_Mis:\u2026\u3046\u3093\u3001\u9811\u5F35\u308B\u3088\uFF01\n\nCharacter_Mis
+    stringVal: "Character_Mis mis_right left:\nCharacter_Suisei mituki_left right:\n\nCharacter_Suisei:\u307E\u3001\u307E\u3055\u304B\u79C1\u304C\u8CA0\u3051\u308B\u306A\u3093\u3066\u2026\nCharacter_Mis:\u3042\u3001\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3057\u305F\u2026\n(\u2026\u306A\u3093\u3068\u304B\u52DD\u3066\u305F\u3041\u2026)\nCharacter_Suisei:\u2026\u3061\u3087\u3063\u3068\u3001\u8CB4\u65B9\uFF01\nCharacter_Mis:\u3048\u3063\u3068\u2026\u4F55?\nCharacter_Suisei:\u79C1\u306B\u52DD\u3063\u305F\u3093\u3060\u304B\u3089\u3001\u7D76\u5BFE\u306B\u512A\u52DD\u3057\u306A\u3055\u3044\u3088\uFF01\nCharacter_Suisei:\u2026\u305D\u308C\u3068\u3001\u6B21\u306F\u8CA0\u3051\u306A\u3044\u304B\u3089\uFF01\u899A\u609F\u3057\u306A\u3055\u3044\uFF01\nCharacter_Mis:\u2026\u3046\u3093\u3001\u9811\u5F35\u308B\u3088\uFF01\n\nCharacter_Mis
       hide:"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -3187,6 +3186,7 @@ MonoBehaviour:
   soundEffect: {fileID: 0}
   portraits:
   - {fileID: 21300000, guid: 447b22ae33c49d24eb0973c82d206aa9, type: 3}
+  - {fileID: 21300000, guid: b528bd99dcb1efc4aa87a3c222ec6446, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 909840477}
   description: 
@@ -3864,6 +3864,7 @@ MonoBehaviour:
   soundEffect: {fileID: 0}
   portraits:
   - {fileID: 21300000, guid: 4763cf7196d8ec84da89e78b0f07fe5a, type: 3}
+  - {fileID: 21300000, guid: 1ff171d809648274b95ea942d0e63ba1, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 1940554316}
   description: 
