@@ -9,7 +9,7 @@ using System;
 public class MoveController : MonoBehaviour
 {
 	[SerializeField, Range(0.8f, 2.0f)]
-	private float _moveSpeed = 1f;
+	private float _moveSpeed = 1.5f;
 
 	[SerializeField]
 	private int _forwardMaxMoveAmount = 7;
