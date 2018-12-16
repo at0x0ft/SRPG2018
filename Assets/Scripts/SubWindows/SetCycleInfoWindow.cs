@@ -6,12 +6,12 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEngine.UI;
 
-public class TurnSetInfoWindow : SubWindow
+public class SetCycleInfoWindow : SubWindow
 {
 	[SerializeField]
-	private Text _turnTextBox;
-	[SerializeField]
 	private Text _setTextBox;
+	[SerializeField]
+	private Text _cycleTextBox;
 	[SerializeField]
 	private Text _stateTextBox;
 
@@ -21,16 +21,16 @@ public class TurnSetInfoWindow : SubWindow
 	/// <returns></returns>
 	public void CheckSerializedMember()
 	{
-		if(!_turnTextBox) Debug.LogError("[Error] : Turn TextBox is not set!");
 		if(!_setTextBox) Debug.LogError("[Error] : Set TextBox is not set!");
+		if(!_cycleTextBox) Debug.LogError("[Error] : Cycle TextBox is not set!");
 		if(!_stateTextBox) Debug.LogError("[Error] : State TextBox is not set!");
 	}
 
 	public void Show(int turn, int set, BattleStates states)
 	{
 		Hide();
-		_turnTextBox.text = turn.ToString();
-		_setTextBox.text = set.ToString();
+		_setTextBox.text = turn.ToString();
+		_cycleTextBox.text = set.ToString();
 		UpdateStateInfo(states);
 		Show();
 	}
@@ -58,7 +58,7 @@ public class TurnSetInfoWindow : SubWindow
 			case BattleStates.Load:
 				return "待機";
 			default:
-				Debug.LogError("[Error] : Unexpected BattleState has caught (in TurnSetInfoWindow.LocalizingState).");
+				Debug.LogError("[Error] : Unexpected BattleState has caught (in SetCycleInfoWindow.LocalizingState).");
 				return "";
 		}
 	}

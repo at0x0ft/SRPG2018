@@ -39,7 +39,7 @@ public class Units : MonoBehaviour
 	}
 
 	/// <summary>
-	/// セット始めにセットプレイヤーの持つ体力の残っているキャラクター一覧を, 役割順に並べ替えて取得するメソッド
+	/// ターン始めにターンプレイヤーの持つ体力の残っているキャラクター一覧を, 役割順に並べ替えて取得するメソッド
 	/// </summary>
 	public void SetUnitsOrder()
 	{
@@ -114,7 +114,7 @@ public class Units : MonoBehaviour
 	/// <returns></returns>
 	public bool JudgeLose(Unit.Team player)
 	{
-		// セットプレイヤー以外のプレイヤーの持つユニット全ての体力を見て勝敗を判定 (対戦人数2人の場合のみを想定した実装)
+		// ターンプレイヤー以外のプレイヤーの持つユニット全ての体力を見て勝敗を判定 (対戦人数2人の場合のみを想定した実装)
 		return !Characters.Where(c => c.Belonging == player).Any(c => c.Life > 0);
 	}
 }

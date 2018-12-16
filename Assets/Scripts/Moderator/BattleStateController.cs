@@ -63,7 +63,7 @@ public class BattleStateController
 		if(attack.Kind != Attack.Level.High) return false;
 
 		// Set2のときじゃなきゃ無理
-		if(_bc.Set != 2) return false;
+		if(_bc.Cycle != 2) return false;
 
 		// 溜め中じゃなきゃ無理
 		if(attacker.AttackState != Unit.AttackStates.Charging) return false;
@@ -80,7 +80,7 @@ public class BattleStateController
 	{
 		Debug.Log(battleStates);
 		// ウィンドウ更新
-		_ui.TurnSetInfoWindow.UpdateStateInfo(battleStates);
+		_ui.SetCycleInfoWindow.UpdateStateInfo(battleStates);
 
 		// 各戦闘状態における、特殊処理
 		// 同一フレーム内にこの関数をもう一度呼ぶ場合は、
@@ -172,7 +172,7 @@ public class BattleStateController
 			else
 				next += "-nocharge";
 		}
-		
+
 		// 上書き
 		if(_units.CurrentPlayerTeam == Unit.Team.Enemy)
 		{

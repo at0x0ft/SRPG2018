@@ -418,7 +418,7 @@ public class Unit : MonoBehaviour
 	}
 
 	/// <summary>
-	/// このセットで使える攻撃コマンドか否かを判定します
+	/// このサイクルで使える攻撃コマンドか否かを判定します
 	/// </summary>
 	/// <param name="attack">判定対象</param>
 	/// <returns>使えるか否か</returns>

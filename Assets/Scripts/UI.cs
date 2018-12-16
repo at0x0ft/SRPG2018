@@ -44,10 +44,10 @@ public class UI : MonoBehaviour
 	}
 
 	[SerializeField]
-	private TurnSetInfoWindow _turnSetInfoWindow;
-	public TurnSetInfoWindow TurnSetInfoWindow
+	private SetCycleInfoWindow _setCycleInfoWindow;
+	public SetCycleInfoWindow SetCycleInfoWindow
 	{
-		get { return _turnSetInfoWindow; }
+		get { return _setCycleInfoWindow; }
 	}
 
 	[SerializeField]
@@ -111,8 +111,8 @@ public class UI : MonoBehaviour
 		if(!_popUpController) Debug.LogError("[Error] : PopUpController is not set!");
 		if(!_chargeEffectController) Debug.LogError("[Error] : ChargeEffectController is not set!");
 
-		if(!_turnSetInfoWindow) Debug.LogError("[Error] : TurnSetInfoWindow is not set!");
-		_turnSetInfoWindow.CheckSerializedMember();
+		if(!_setCycleInfoWindow) Debug.LogError("[Error] : SetCycleInfoWindow is not set!");
+		_setCycleInfoWindow.CheckSerializedMember();
 
 		if(!_unitInfoWindow) Debug.LogError("[Error] : UnitInfoWindow is not set!");
 		_unitInfoWindow.CheckSerializedMember();

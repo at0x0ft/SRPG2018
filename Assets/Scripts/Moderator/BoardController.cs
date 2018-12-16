@@ -27,8 +27,8 @@ public class BoardController : MonoBehaviour
 	private Unit.Team _startTeam;
 	private BattleStateController _bsc;
 
-	public int Turn { get; private set; }
 	public int Set { get; private set; }
+	public int Cycle { get; private set; }
 
 	/// <summary>
 	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
@@ -74,15 +74,15 @@ public class BoardController : MonoBehaviour
 		// AI設定
 		if(_setAI) SetAI(Unit.Team.Enemy, ac);
 
-		// ターン/セットをそれぞれ設定 (わざと0/2スタートとしている)
-		Turn = 0;
-		Set = 2;
+		// Set/Cycleをそれぞれ設定 (わざと0/2スタートとしている)
+		Set = 0;
+		Cycle = 2;
 
 		// プレイヤーの順番の設定
 		SetPlayerOrder();
 
-		// セット開始
-		StartPhase(_startTeam);
+		// ターン開始
+		StartTurn(_startTeam);
 	}
 
 	/// <summary>
@@ -100,15 +100,15 @@ public class BoardController : MonoBehaviour
 	}
 
 	/// <summary>
-	/// セットを更新するメソッド
+	/// Cycleを更新するメソッド
 	/// </summary>
-	private void UpdateSet()
+	private void UpdateCycle()
 	{
-		Set++;
+		Cycle++;
 
-		// === 第2セットの場合のユニットも含めた更新 ===
+		// === 第2サイクルの場合のユニットも含めた更新 ===
 
-		// 第2セットで, 小攻撃発動後では, 中攻撃を発動可能.
+		// 第2サイクルで, 小攻撃発動後では, 中攻撃を発動可能.
 		foreach(var unit in _units.Characters)
 		{
 			if(unit.AttackState == Unit.AttackStates.LittleAttack)
@@ -117,13 +117,13 @@ public class BoardController : MonoBehaviour
 			}
 		}
 
-		// 第2セットでは, ターンの更新はしない. (以降, 第1セットの場合のみ)
-		if(Set <= 2) return;
+		// 第2サイクルでは, ターンの更新はしない. (以降, 第1セットの場合のみ)
+		if(Cycle <= 2) return;
 
-		// === 第1セットの場合のユニットも含めた更新 ===
+		// === 第1サイクルの場合のユニットも含めた更新 ===
 
-		Turn++;
-		Set = 1;
+		Set++;
+		Cycle = 1;
 
 		// ターン開始時に、移動量を回復させる
 		foreach(var unit in _units.Characters)
@@ -131,7 +131,7 @@ public class BoardController : MonoBehaviour
 			unit.MoveAmount = unit.MaxMoveAmount;
 			//Debug.Log("move amount:" + unit.MoveAmount);    // 4debug
 
-			// 第1セットでは, Unitは弱攻撃と強攻撃の溜めが出来る.
+			// 第1サイクルでは, Unitは弱攻撃と強攻撃の溜めが出来る.
 			unit.AttackState = Unit.AttackStates.LittleAttack;
 		}
 	}
@@ -169,8 +169,8 @@ public class BoardController : MonoBehaviour
 		// 盤面の状態を戦況確認中に設定
 		_bsc.WarpBattleState(BattleStates.Check);
 
-		// ターン/セット情報を表示
-		_ui.TurnSetInfoWindow.Show(Turn, Set, _bsc.BattleState);
+		// セット/サイクル情報を表示
+		_ui.SetCycleInfoWindow.Show(Set, Cycle, _bsc.BattleState);
 
 		// プレイヤーが人間なら画面タッチ不可を解除する.
 		if(!_ais.ContainsKey(activeUnit.Belonging))
@@ -181,27 +181,27 @@ public class BoardController : MonoBehaviour
 	}
 
 	/// <summary>
-	/// フェイズ開始時の処理
+	/// ターン開始時の処理
 	/// </summary>
 	/// <param name="team"></param>
-	private void StartPhase(Unit.Team team)
+	private void StartTurn(Unit.Team team)
 	{
 		// 前のプレーヤーのハイライト情報を削除しておく
 		_map.ClearHighlight();
 
-		// セットプレイヤーのチームを記録
+		// ターンプレイヤーのチームを記録
 		_units.CurrentPlayerTeam = team;
 
 		// Teamが変わったので、CutInを表示
 		_ui.PopUpController.CreateCutInPopUp(team);
 
 		// プレイヤーの順番が一巡したら, セット数・ターン数を更新
-		if(_units.CurrentPlayerTeam == _startTeam) UpdateSet();
+		if(_units.CurrentPlayerTeam == _startTeam) UpdateCycle();
 
-		// セットプレイヤーのユニットの順番を設定
+		// ターンプレイヤーのユニットの順番を設定
 		_units.SetUnitsOrder();
 
-		// セットプレイヤーの持つユニットのうち先頭のユニットを展開.
+		// ターンプレイヤーの持つユニットのうち先頭のユニットを展開.
 		StartUnit();
 	}
 
@@ -218,7 +218,7 @@ public class BoardController : MonoBehaviour
 		// 勝敗が決していたら終了する
 		if(JudgeGameFinish()) return;
 
-		// 行動が終了したユニットを、次のターンまで休ませる
+		// 行動が終了したユニットを、次のサイクルまで休ませる
 		_units.MakeRestActiveUnit();
 		Debug.Log(_units.Order.Count);  // 4debug
 		Debug.Log(_units.ActiveUnit.name);  // 4debug
@@ -230,13 +230,13 @@ public class BoardController : MonoBehaviour
 	}
 
 	/// <summary>
-	/// 次のフェイズ
+	/// 次のターン
 	/// </summary>
 	private void NextPhase()
 	{
 		// 次のTeamの設定 (現在対戦人数2人の時の場合のみを想定した実装)
 		var nextTeam = _units.CurrentPlayerTeam == Unit.Team.Player ? Unit.Team.Enemy : Unit.Team.Player;
-		StartPhase(nextTeam);
+		StartTurn(nextTeam);
 	}
 
 	/// <summary>

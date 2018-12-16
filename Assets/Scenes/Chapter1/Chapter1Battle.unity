@@ -34064,7 +34064,7 @@ MonoBehaviour:
   _activeUnitIcon: {fileID: 1778857781}
   _popUpController: {fileID: 1569173853}
   _chargeEffectController: {fileID: 1532108555}
-  _turnSetInfoWindow: {fileID: 523639774}
+  _setCycleInfoWindow: {fileID: 523639774}
   _unitInfoWindow: {fileID: 791872175}
   _floorInfoWindow: {fileID: 1193650126}
   _moveAmountInfoWindow: {fileID: 982892777}
@@ -37634,7 +37634,7 @@ Prefab:
     - target: {fileID: 224520615168207234, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 240
+      value: 260
       objectReference: {fileID: 0}
     - target: {fileID: 224520615168207234, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
@@ -37744,17 +37744,17 @@ Prefab:
     - target: {fileID: 114270364193225844, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_Text
-      value: "\u30BB\u30C3\u30C8\t:"
+      value: "\u30B5\u30A4\u30AF\u30EB\t:"
       objectReference: {fileID: 0}
     - target: {fileID: 114404268614525612, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_Text
-      value: "\u73FE\u72B6\t\t:"
+      value: "\u73FE\u72B6\t\t\t:"
       objectReference: {fileID: 0}
     - target: {fileID: 114978839865745830, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_Text
-      value: "\u30BF\u30FC\u30F3\t:"
+      value: "\u30BB\u30C3\u30C8\t\t:"
       objectReference: {fileID: 0}
     - target: {fileID: 1945802049960734, guid: 5135267bab318474aae1497cdab335d6, type: 2}
       propertyPath: m_IsActive
@@ -37763,17 +37763,17 @@ Prefab:
     - target: {fileID: 224488432750203980, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 224641714809540470, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 224638239348290624, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 120.01
       objectReference: {fileID: 0}
     - target: {fileID: 224638239348290624, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
@@ -37785,6 +37785,66 @@ Prefab:
       propertyPath: m_Text
       value: "\u6226\u6CC1\u78BA\u8A8D"
       objectReference: {fileID: 0}
+    - target: {fileID: 1361262644790182, guid: 5135267bab318474aae1497cdab335d6, type: 2}
+      propertyPath: m_Name
+      value: SetLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1443540879140472, guid: 5135267bab318474aae1497cdab335d6, type: 2}
+      propertyPath: m_Name
+      value: CycleLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1945802049960734, guid: 5135267bab318474aae1497cdab335d6, type: 2}
+      propertyPath: m_Name
+      value: SetCycleInfoWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 224638239348290624, guid: 5135267bab318474aae1497cdab335d6,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224638239348290624, guid: 5135267bab318474aae1497cdab335d6,
+        type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224638239348290624, guid: 5135267bab318474aae1497cdab335d6,
+        type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224154199614867626, guid: 5135267bab318474aae1497cdab335d6,
+        type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224154199614867626, guid: 5135267bab318474aae1497cdab335d6,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224154199614867626, guid: 5135267bab318474aae1497cdab335d6,
+        type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114629049041571518, guid: 5135267bab318474aae1497cdab335d6,
+        type: 2}
+      propertyPath: _cycleTextBox
+      value: 
+      objectReference: {fileID: 1505542212}
+    - target: {fileID: 1430364371946338, guid: 5135267bab318474aae1497cdab335d6, type: 2}
+      propertyPath: m_Name
+      value: Set
+      objectReference: {fileID: 0}
+    - target: {fileID: 1603036168050232, guid: 5135267bab318474aae1497cdab335d6, type: 2}
+      propertyPath: m_Name
+      value: Cycle
+      objectReference: {fileID: 0}
+    - target: {fileID: 114629049041571518, guid: 5135267bab318474aae1497cdab335d6,
+        type: 2}
+      propertyPath: _setTextBox
+      value: 
+      objectReference: {fileID: 2073403499}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5135267bab318474aae1497cdab335d6, type: 2}
   m_IsPrefabAsset: 0
@@ -44883,6 +44943,12 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1505016670}
   m_CullTransparentMesh: 0
+--- !u!114 &1505542212 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114405287092795346, guid: 5135267bab318474aae1497cdab335d6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1297120903}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1512392316
 GameObject:
   m_ObjectHideFlags: 0
@@ -58311,7 +58377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 1.5
   _forwardMaxMoveAmount: 7
-  _middleMaxMoveAmount: 5
+  _middleMaxMoveAmount: 10
   _backMaxMoveAmount: 3
   _normalCost: 1
   _forestCost: 2
@@ -61257,6 +61323,12 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2073273300}
   m_CullTransparentMesh: 0
+--- !u!114 &2073403499 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114265817363616242, guid: 5135267bab318474aae1497cdab335d6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1297120903}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &2076993338
 GameObject:
   m_ObjectHideFlags: 0
