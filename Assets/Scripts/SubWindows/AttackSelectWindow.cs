@@ -106,12 +106,13 @@ public class AttackSelectWindow : SubWindow
 	/// <returns>攻撃可否</returns>
 	public bool SelectAttack(Attack attack)
 	{
+		// 動作不能な状態では、放置する
+		if(!gameObject.activeSelf) return false;
+
 		for(int i = 0; i < _displayedAttacks.Count(); i++)
 		{
 			if(_displayedAttacks[i].Key == attack)
 			{
-				if(!_attackBtns[i].IsInteractable()) return false;
-
 				ExecuteEvents.Execute
 				(
 					target: _attackBtns[i].gameObject,
