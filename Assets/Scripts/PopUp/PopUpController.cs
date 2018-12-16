@@ -75,7 +75,7 @@ public class PopUpController : MonoBehaviour
 	{
 		var popUp = Duplicate(_ui.transform);
 
-		string text = team.ToString() + " Phase";
+		string text = team.ToString() + " Turn";
 
 		popUp.GetComponent<CutInPopUp>().Initialize(text);
 	}
@@ -90,7 +90,7 @@ public class PopUpController : MonoBehaviour
 	{
 		// 攻撃エフェクトのファクトリーを複製します
 		var popUp = Instantiate(_aef.gameObject, _bc.transform);
-		
+
 		// popUpのanchorを左下に設定.
 		UI.SetAnchorLeftBottom(popUp.GetComponent<RectTransform>());
 		popUp.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;

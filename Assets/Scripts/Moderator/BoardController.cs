@@ -226,13 +226,13 @@ public class BoardController : MonoBehaviour
 		// まだ自軍のユニットが残っているのならば, 次のユニットに交代
 		if(_units.Order.Count > 0) StartUnit();
 		// 自軍のユニット全てが行動終了したならば, 次のプレイヤーに交代
-		else NextPhase();
+		else NextTurn();
 	}
 
 	/// <summary>
 	/// 次のターン
 	/// </summary>
-	private void NextPhase()
+	private void NextTurn()
 	{
 		// 次のTeamの設定 (現在対戦人数2人の時の場合のみを想定した実装)
 		var nextTeam = _units.CurrentPlayerTeam == Unit.Team.Player ? Unit.Team.Enemy : Unit.Team.Player;
