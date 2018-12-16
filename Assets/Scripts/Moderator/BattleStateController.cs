@@ -1,8 +1,9 @@
-﻿using UnityEngine;
-using UnityEditor;
-using Fungus;
-using System.Collections;
+﻿using UnityEditor;
+using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
+using System.Collections;
+using Fungus;
 
 /// <summary>
 /// 戦闘状態です
@@ -201,7 +202,14 @@ public class BattleStateController
 		{
 			next = "EnemyTurn";
 		}
-		//Debug.Log(next);
+
+		// 既に実行中ならば無視
+		if(_flowchart
+		.GetExecutingBlocks()
+		.Select(b => b.BlockName)
+		.Any(name => name == next))
+			return;
+			
 		_flowchart.ExecuteBlock(next);
 	}
 }
