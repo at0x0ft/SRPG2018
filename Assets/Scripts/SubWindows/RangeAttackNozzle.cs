@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using Fungus;
 
 
 public class RangeAttackNozzle : SubWindow
@@ -18,11 +19,12 @@ public class RangeAttackNozzle : SubWindow
 	private Button _centerButton;
 	private Button _circleButton;
 	private Text _text;
-
+	
 	private AttackController _ac;
 	private Units _units;
 	private Map _map;
 	private BattleStateController _bsc;
+	private Flowchart _flowchart;
 
 	private AccessReason _reason;
 
@@ -39,6 +41,8 @@ public class RangeAttackNozzle : SubWindow
 
 		_centerButton.onClick.AddListener(() => ActRangeAttack());
 		_circleButton.onClick.AddListener(() => RotateRangeHighLight());
+
+		_flowchart = GameObject.Find("Flowchart").GetComponent<Flowchart>();
 
 		// ハイライトエフェクトくっつけます
 		_map.UI.ChargeEffectController.AlwaysAttachEffect(_centerButton.transform, HighLightSize);
@@ -71,7 +75,7 @@ public class RangeAttackNozzle : SubWindow
 			// 攻撃します
 			if(!_ac.Attack(attacker, attack))
 			{
-				// normalpopup?
+				_flowchart.ExecuteBlock("UnitUnknown");
 				return;
 			}
 		}

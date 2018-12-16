@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using Fungus;
 
 /// <summary>
 /// 戦闘状態です
@@ -26,6 +27,7 @@ public class BattleStateController
 	private Map _map;
 	private Units _units;
 	private UI _ui;
+	private Flowchart _flowchart; // for hint window
 
 	/// <summary>
 	/// 必要な情報を取得
@@ -40,8 +42,9 @@ public class BattleStateController
 		_map = map;
 		_units = units;
 		_ui = ui;
+		_flowchart = GameObject.Find("Flowchart").GetComponent<Flowchart>();
 	}
-	
+
 	/// <summary>
 	/// 強攻撃が速攻で発動する条件
 	/// </summary>
@@ -75,10 +78,13 @@ public class BattleStateController
 	/// <param name="battleStates"></param>
 	private void StartTreatmentPerBattleStates(BattleStates battleStates)
 	{
+		Debug.Log(battleStates);
 		// ウィンドウ更新
 		_ui.TurnSetInfoWindow.UpdateStateInfo(battleStates);
 
 		// 各戦闘状態における、特殊処理
+		// 同一フレーム内にこの関数をもう一度呼ぶ場合は、
+		// returnしてHintWindow
 		switch(BattleState)
 		{
 			case BattleStates.Check:
@@ -86,16 +92,16 @@ public class BattleStateController
 				_ui.UnitInfoWindow.Hide();
 				_ui.MoveAmountInfoWindow.Hide();
 				break;
-        
+
 			case BattleStates.Move:
-        // 強攻撃判定
+				// 強攻撃判定
 				if(!StrongAttackCondition()) break;
 
 				var attacker = _units.ActiveUnit;
 				var attackInfo = attacker.PlanningAttack.Value;
 				var attack = attackInfo.Key;
 				var dir = attackInfo.Value;
-				
+
 				// 1.強攻撃の詳細情報を表示し
 				_ui.AttackInfoWindow.Show(attack);
 
@@ -106,14 +112,14 @@ public class BattleStateController
 				_ac.Highlight(_units.ActiveUnit, attack, dir);
 
 				// 4.範囲攻撃なら、ノズルも出す
-				if(attack.Scale==Attack.AttackScale.Range)
+				if(attack.Scale == Attack.AttackScale.Range)
 				{
 					_ui.RangeAttackNozzle.Show(RangeAttackNozzle.AccessReason.RangeAttack);
 				}
 
 				// 5.Attackに移行する
 				NextBattleState();
-				break;
+				return;
 
 			// 今は特にやることはない
 			case BattleStates.Attack:
@@ -122,11 +128,14 @@ public class BattleStateController
 			// 現在はアニメーションが無いため、すぐに次のユニットに行動権を譲る
 			case BattleStates.Load:
 				_bc.NextUnit();
-				break;
+				return;
 
 			default:
-				break;
+				return;
 		}
+
+		// ヒントウィンドウ設定
+		SetHintWindowText(battleStates);
 	}
 
 	/// <summary>
@@ -139,7 +148,7 @@ public class BattleStateController
 
 		StartTreatmentPerBattleStates(BattleState);
 	}
-	
+
 	/// <summary>
 	/// 定石からは異なる順番で戦闘状態を進める
 	/// </summary>
@@ -149,5 +158,27 @@ public class BattleStateController
 		BattleState = state;
 
 		StartTreatmentPerBattleStates(BattleState);
+	}
+
+	// 1フレームに1回しか呼ばないように注意すること
+	private void SetHintWindowText(BattleStates state)
+	{
+		if(state == BattleStates.Load) return;
+		string next = state.ToString();
+		if(state == BattleStates.Attack)
+		{
+			if(_units.ActiveUnit.AttackState == Unit.AttackStates.Charging)
+				next += "-charge";
+			else
+				next += "-nocharge";
+		}
+		
+		// 上書き
+		if(_units.CurrentPlayerTeam == Unit.Team.Enemy)
+		{
+			next = "EnemyTurn";
+		}
+		Debug.Log(next);
+		_flowchart.ExecuteBlock(next);
 	}
 }
