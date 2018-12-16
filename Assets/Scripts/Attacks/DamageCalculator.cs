@@ -193,14 +193,17 @@ public class DamageCalculator : MonoBehaviour
 		// 取り敢えず, 暫定的にダメージ計算時に命中可否の判定を行うこととする. (命中可否を画面に通知するかどうかは, また別で考える)
 		if(!IsHit(attack, defenderFloor)) return null;
 
+		// 相性補正に対して, クリティカル補正の判定 (クリティカルになったかどうかを通知するかどうかは, また別で考える)
+		float attackTypeAdvantageRate =
+			IsCritical(attack, defender)
+			? 3.0f
+			: GetATypeAdvantageRate(attack.AType, defender.AType);
+
 		// ダメージ = { (攻撃力 * attackの威力 * 相性補正 * 得意補正) / (防御力 * 地形効果防御補正) } * 乱数
 		var damage = Mathf.RoundToInt(
-			(attacker.AttackPower * attack.Power * GetATypeAdvantageRate(attack.AType, defender.AType) * GetGoodAtRate(attack.AType, attacker.AType))
+			(attacker.AttackPower * attack.Power * attackTypeAdvantageRate * GetGoodAtRate(attack.AType, attacker.AType))
 			/ (defender.Defence * (1f + GetReduceRate(defenderFloor)))
 			* Random.Range(0.85f, 1f));
-
-		// クリティカル補正の判定 (クリティカルになったかどうかを通知するかどうかは, また別で考える)
-		if(IsCritical(attack, defender)) damage = Mathf.RoundToInt(damage * _criticalDamageRate);
 
 		return damage;
 	}
