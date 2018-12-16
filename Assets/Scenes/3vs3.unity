@@ -35253,7 +35253,7 @@ MonoBehaviour:
   _activeUnitIcon: {fileID: 1778857781}
   _popUpController: {fileID: 1206793614}
   _chargeEffectController: {fileID: 1532108555}
-  _turnSetInfoWindow: {fileID: 523639774}
+  _setCycleInfoWindow: {fileID: 523639774}
   _unitInfoWindow: {fileID: 791872175}
   _floorInfoWindow: {fileID: 1193650126}
   _moveAmountInfoWindow: {fileID: 982892777}
@@ -38701,7 +38701,7 @@ Prefab:
     - target: {fileID: 224520615168207234, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 240
+      value: 260
       objectReference: {fileID: 0}
     - target: {fileID: 224520615168207234, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
@@ -38811,17 +38811,17 @@ Prefab:
     - target: {fileID: 114270364193225844, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_Text
-      value: "\u30BB\u30C3\u30C8\t:"
+      value: "\u30B5\u30A4\u30AF\u30EB\t:"
       objectReference: {fileID: 0}
     - target: {fileID: 114404268614525612, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_Text
-      value: "\u73FE\u72B6\t\t:"
+      value: "\u73FE\u72B6\t\t\t:"
       objectReference: {fileID: 0}
     - target: {fileID: 114978839865745830, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_Text
-      value: "\u30BF\u30FC\u30F3\t:"
+      value: "\u30BB\u30C3\u30C8\t\t:"
       objectReference: {fileID: 0}
     - target: {fileID: 1945802049960734, guid: 5135267bab318474aae1497cdab335d6, type: 2}
       propertyPath: m_IsActive
@@ -38830,17 +38830,17 @@ Prefab:
     - target: {fileID: 224488432750203980, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 224641714809540470, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 224638239348290624, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 224638239348290624, guid: 5135267bab318474aae1497cdab335d6,
         type: 2}
@@ -38852,9 +38852,51 @@ Prefab:
       propertyPath: m_Text
       value: "\u6226\u6CC1\u78BA\u8A8D"
       objectReference: {fileID: 0}
+    - target: {fileID: 1945802049960734, guid: 5135267bab318474aae1497cdab335d6, type: 2}
+      propertyPath: m_Name
+      value: SetCycleInfoWindow
+      objectReference: {fileID: 0}
+    - target: {fileID: 1361262644790182, guid: 5135267bab318474aae1497cdab335d6, type: 2}
+      propertyPath: m_Name
+      value: SetLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1443540879140472, guid: 5135267bab318474aae1497cdab335d6, type: 2}
+      propertyPath: m_Name
+      value: CycleLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1603036168050232, guid: 5135267bab318474aae1497cdab335d6, type: 2}
+      propertyPath: m_Name
+      value: Cycle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430364371946338, guid: 5135267bab318474aae1497cdab335d6, type: 2}
+      propertyPath: m_Name
+      value: Set
+      objectReference: {fileID: 0}
+    - target: {fileID: 114629049041571518, guid: 5135267bab318474aae1497cdab335d6,
+        type: 2}
+      propertyPath: _setTextBox
+      value: 
+      objectReference: {fileID: 1297120905}
+    - target: {fileID: 114629049041571518, guid: 5135267bab318474aae1497cdab335d6,
+        type: 2}
+      propertyPath: _cycleTextBox
+      value: 
+      objectReference: {fileID: 1297120904}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5135267bab318474aae1497cdab335d6, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1297120904 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114405287092795346, guid: 5135267bab318474aae1497cdab335d6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1297120903}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &1297120905 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114265817363616242, guid: 5135267bab318474aae1497cdab335d6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1297120903}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1297348673
 GameObject:
   m_ObjectHideFlags: 0

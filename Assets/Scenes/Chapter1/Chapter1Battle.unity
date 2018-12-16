@@ -58377,7 +58377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 1.5
   _forwardMaxMoveAmount: 7
-  _middleMaxMoveAmount: 10
+  _middleMaxMoveAmount: 5
   _backMaxMoveAmount: 3
   _normalCost: 1
   _forestCost: 2
