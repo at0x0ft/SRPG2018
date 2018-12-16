@@ -157,19 +157,30 @@ public class AI : MonoBehaviour
 		var players = _units.GetEnemyUnits()
 		.Where(player => player.Life > 0)
 		.ToList();
-		var enemy = _units.ActiveUnit;
-		var movable = _map.GetMovableFloors();
-		Debug.Log(players.Count);   // 4debug
-									// 移動できない場合
+
+		var movable = GetMovableFloors();
 		if(!movable.Any()) return null;
 
-		var tmp = movable.Where(f => f.Unit == null).ToList(); // ユニットの居るマスには移動しない
-		if(!tmp.Any()) return null;
-		else return tmp
+		return movable
 		.Aggregate(
 		(best, elem) =>
 		(DistanceToPlayer(players, best) <= DistanceToPlayer(players, elem))
 		? best : elem);
+	}
+
+	private List<Floor> GetMovableFloors()
+	{
+		var actor = _units.ActiveUnit;
+
+		// 通行止め位置(ユニットが居る場所)
+		var roadClosed = _units.Characters
+		.Where(unit => unit.Life > 0)
+		.Select(unit => unit.Floor)
+		.Where(f => f != actor.Floor);
+
+		return _map.GetMovableFloors()
+		.Where(f => !roadClosed.Contains(f))
+		.ToList();
 	}
 
 	/// <summary>
