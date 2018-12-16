@@ -741,8 +741,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 460.43, y: -1300}
-  m_SizeDelta: {x: 1000, y: 1000}
+  m_AnchoredPosition: {x: 460.43, y: -1100}
+  m_SizeDelta: {x: 600, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &362463227
 MonoBehaviour:
@@ -1845,6 +1845,7 @@ GameObject:
   - component: {fileID: 689019062}
   - component: {fileID: 689019074}
   - component: {fileID: 689019065}
+  - component: {fileID: 689019067}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -2071,6 +2072,7 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 689019068}
+  - {fileID: 689019067}
 --- !u!114 &689019065
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2118,6 +2120,24 @@ MonoBehaviour:
   - {fileID: 689019074}
   - {fileID: 689019070}
   - {fileID: 689019069}
+--- !u!114 &689019067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 689019055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 207aecf668a0345388087ccf522f9957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 28
+  indentLevel: 0
+  duration: 1
+  targetAlpha: 1
+  waitUntilFinished: 1
+  fadeColor: {r: 0, g: 0, b: 0, a: 1}
+  fadeTexture: {fileID: 0}
 --- !u!114 &689019068
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -2200,7 +2220,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Mis mis_right left:\nCharacter_Suisei mituki_left right:\n\nCharacter_Suisei:\u307E\u3001\u307E\u3055\u304B\u79C1\u304C\u8CA0\u3051\u308B\u306A\u3093\u3066\u2026\nCharacter_Mis:\u3042\u3001\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3057\u305F\u2026\n(\u2026\u306A\u3093\u3068\u304B\u52DD\u3066\u305F\u3041\u2026)\nCharacter_Suisei:\u2026\u3061\u3087\u3063\u3068\u3001\u8CB4\u65B9\uFF01\nCharacter_Mis:\u3048\u3063\u3068\u2026\u4F55?\nCharacter_Suisei:\u79C1\u306B\u52DD\u3063\u305F\u3093\u3060\u304B\u3089\u3001\u7D76\u5BFE\u306B\u512A\u52DD\u3057\u306A\u3055\u3044\u3088\uFF01\nCharacter_Suisei:\u2026\u305D\u308C\u3068\u3001\u6B21\u306F\u8CA0\u3051\u306A\u3044\u304B\u3089\uFF01\u899A\u609F\u3057\u306A\u3055\u3044\uFF01\nCharacter_Mis:\u2026\u3046\u3093\u3001\u9811\u5F35\u308B\u3088\uFF01\n\nCharacter_Mis
+    stringVal: "Character_Mis mis_right left:\nCharacter_Suisei mio_stand right:\n\nCharacter_Suisei:\u307E\u3001\u307E\u3055\u304B\u79C1\u304C\u8CA0\u3051\u308B\u306A\u3093\u3066\u2026\nCharacter_Mis:\u3042\u3001\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3057\u305F\u2026\n(\u2026\u306A\u3093\u3068\u304B\u52DD\u3066\u305F\u3041\u2026)\nCharacter_Suisei:\u2026\u3061\u3087\u3063\u3068\u3001\u8CB4\u65B9\uFF01\nCharacter_Mis:\u3048\u3063\u3068\u2026\u4F55?\nCharacter_Suisei:\u79C1\u306B\u52DD\u3063\u305F\u3093\u3060\u304B\u3089\u3001\u7D76\u5BFE\u306B\u512A\u52DD\u3057\u306A\u3055\u3044\u3088\uFF01\nCharacter_Suisei:\u2026\u305D\u308C\u3068\u3001\u6B21\u306F\u8CA0\u3051\u306A\u3044\u304B\u3089\uFF01\u899A\u609F\u3057\u306A\u3055\u3044\uFF01\nCharacter_Mis:\u2026\u3046\u3093\u3001\u9811\u5F35\u308B\u3088\uFF01\n\nCharacter_Mis
       hide:"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -2806,7 +2826,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: -460.43, y: -1300}
-  m_SizeDelta: {x: 1000, y: 1000}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1128040375
 MonoBehaviour:
@@ -3863,8 +3883,7 @@ MonoBehaviour:
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
   portraits:
-  - {fileID: 21300000, guid: 4763cf7196d8ec84da89e78b0f07fe5a, type: 3}
-  - {fileID: 21300000, guid: 383ede4675ab1064da61a222b6de9f3d, type: 3}
+  - {fileID: 21300000, guid: f8d549424c0cddd48b3261991a753a03, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 1940554316}
   description: 

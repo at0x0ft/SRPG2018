@@ -148,7 +148,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 460.43, y: -1300}
-  m_SizeDelta: {x: 500, y: 1000}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &184724073
 MonoBehaviour:
@@ -406,7 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: "\u3059\u3044\u305B\u3044\u3061\u3083\u3093"
+  nameText: "\u97F3\u7FBD \u6FAA(\u304A\u3068\u306F \u307F\u304A)"
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
   portraits:
@@ -457,8 +457,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: "\u95C7\u6708\u3061\u3083\u3093"
-  nameColor: {r: 0.26415092, g: 0.23798503, b: 0.23798503, a: 1}
+  nameText: "\u9662\u5802 \u54B2(\u3044\u3093\u3069\u3046 \u3055\u304D)"
+  nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
   portraits:
   - {fileID: 21300000, guid: dd471d19033d2fe48bd17c74c417de05, type: 3}
@@ -509,8 +509,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: "\u6728\u661F\u306E\u885B\u661F\u305F\u3061"
-  nameColor: {r: 0.20685846, g: 0.8018868, b: 0.13995194, a: 1}
+  nameText: "\u6960\u306E\u5F8C\u8F29\u305F\u3061"
+  nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
   portraits: []
   portraitsFace: 0
@@ -640,7 +640,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -1300}
-  m_SizeDelta: {x: 500, y: 1000}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &640278763
 CanvasRenderer:
@@ -707,12 +707,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: "\u5149\u6708"
-  nameColor: {r: 0.9622642, g: 0.92980963, b: 0.36765754, a: 1}
+  nameText: "\u9662\u5802 \u82FA(\u3044\u3093\u3069\u3046 \u3044\u3061\u3054)"
+  nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
   portraits:
   - {fileID: 21300000, guid: 4763cf7196d8ec84da89e78b0f07fe5a, type: 3}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 383ede4675ab1064da61a222b6de9f3d, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 0}
   description: 
@@ -823,7 +823,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: -460.43, y: -1300}
-  m_SizeDelta: {x: 500, y: 1000}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &867184161
 MonoBehaviour:
@@ -1243,7 +1243,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_mis:\u2026\u30E0\u30CB\u30E3\u2026\u306F\u3044\u2026\nCharacter_kozuki:\u3042\u3001\u307F\u3059\u3061\u3083\u3093\u5148\u8F29\u3001\u3084\u3063\u3068\u51FA\u3066\u304F\u308C\u305F\uFF01\nCharacter_mis:\u3093\u2026\u305D\u3093\u306A\u306B\u614C\u3066\u3066\u3069\u3046\u3057\u305F\u306E\u5149\u6708\u3061\u3083\u3093\nCharacter_kozuki:\u3082\u3046\u5927\u4F1A15\u5206\u524D\u3067\u3059\u3088\uFF01\u6025\u3044\u3067\u304F\u3060\u3055\u3044\uFF01\nCharacter_mis:\u2026\u3078\uFF1F\nCharacter_mis:\u30FB\u30FB\u30FB\u30FB\u30FB\u30FB\nCharacter_mis:\u307E\u305F\u5BDD\u574A\u3060\u3041\u3041\u3041\u3041\uFF01\uFF1F"
+    stringVal: "Character_mis:\u2026\u30E0\u30CB\u30E3\u2026\u306F\u3044\u2026\nCharacter_kozuki:\u3042\u3001\u307F\u3059\u3061\u3083\u3093\u5148\u8F29\u3001\u3084\u3063\u3068\u51FA\u3066\u304F\u308C\u305F\uFF01\nCharacter_mis:\u3093\u2026\u305D\u3093\u306A\u306B\u614C\u3066\u3066\u3069\u3046\u3057\u305F\u306E\u82FA\u3061\u3083\u3093\nCharacter_kozuki:\u3082\u3046\u5927\u4F1A15\u5206\u524D\u3067\u3059\u3088\uFF01\u6025\u3044\u3067\u304F\u3060\u3055\u3044\uFF01\nCharacter_mis:\u2026\u3078\uFF1F\nCharacter_mis:\u30FB\u30FB\u30FB\u30FB\u30FB\u30FB\nCharacter_mis:\u307E\u305F\u5BDD\u574A\u3060\u3041\u3041\u3041\u3041\uFF01\uFF1F"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1271,7 +1271,8 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_yamituki:...\u6CE8\u610F\u3001\u3057\u3066\u304A\u3044\u305F\u306E\u306B...\nCharacter_kozuki:\u307F\u3059\u3061\u3083\u3093\u5148\u8F29\u3001\u6614\u304B\u3089\u5BDD\u574A\u3059\u308B\u7656\u304C\u3042\u308B\u304B\u3089...\nCharacter_yamituki:...\u660E\u65E5\u304B\u3089\u3001\u76F4\u63A5\u8FCE\u3048\u306B\u884C\u3053\u3046\u304B\nCharacter_mokusei:\u305D\u3061\u3089\u306E\u4EE3\u8868\u3055\u3093\u3068\u306F\u3001\u9023\u7D61\u304C\u3064\u3044\u305F\u304B\u3044\uFF1F\nCharacter_kozuki:\u3042\u3001\u306F\u3044\uFF01\u958B\u59CB\u6642\u9593\u307E\u3067\u306B\u306F\u9593\u306B\u5408\u3046\u3068\u601D\u3044\u307E\u3059\nCharacter_mokusei:\u305D\u3046\u304B\u3001\u4F55\u304B\u4E8B\u6545\u306B\u5DFB\u304D\u8FBC\u307E\u308C\u305F\u308F\u3051\u3067\u306F\u306A\u3055\u305D\u3046\u3067\u5B89\u5FC3\u3057\u305F\u3088\n\u305D\u308C\u306B\u3001\u4E0D\u6226\u52DD\u306A\u3093\u3066\u3053\u3068\u306B\u306A\u3063\u305F\u3089\u9762\u767D\u304F\u306A\u3044\u304B\u3089\u306D\n\u304A\u4E92\u3044\u3001\u3044\u3044\u8A66\u5408\u306B\u3057\u3088\u3046\nCharacter_kozuki:\u306F\u3001\u306F\u3044\uFF01"
+    stringVal: "Character_yamituki:...\u6CE8\u610F\u3001\u3057\u3066\u304A\u3044\u305F\u306E\u306B...\nCharacter_kozuki:\u307F\u3059\u3061\u3083\u3093\u5148\u8F29\u3001\u6614\u304B\u3089\u5BDD\u574A\u3059\u308B\u7656\u304C\u3042\u308B\u304B\u3089...\nCharacter_yamituki:...\u660E\u65E5\u304B\u3089\u3001\u76F4\u63A5\u8FCE\u3048\u306B\u884C\u3053\u3046\u304B\nCharacter_mokusei:\u305D\u3061\u3089\u306E\u4EE3\u8868\u3055\u3093\u3068\u306F\u3001\u9023\u7D61\u304C\u3064\u3044\u305F\u304B\u3044\uFF1F\nCharacter_kozuki
+      mituki_right:\u3042\u3001\u306F\u3044\uFF01\u958B\u59CB\u6642\u9593\u307E\u3067\u306B\u306F\u9593\u306B\u5408\u3046\u3068\u601D\u3044\u307E\u3059\nCharacter_mokusei:\u305D\u3046\u304B\u3001\u4F55\u304B\u4E8B\u6545\u306B\u5DFB\u304D\u8FBC\u307E\u308C\u305F\u308F\u3051\u3067\u306F\u306A\u3055\u305D\u3046\u3067\u5B89\u5FC3\u3057\u305F\u3088\n\u305D\u308C\u306B\u3001\u4E0D\u6226\u52DD\u306A\u3093\u3066\u3053\u3068\u306B\u306A\u3063\u305F\u3089\u9762\u767D\u304F\u306A\u3044\u304B\u3089\u306D\n\u304A\u4E92\u3044\u3001\u3044\u3044\u8A66\u5408\u306B\u3057\u3088\u3046\nCharacter_kozuki:\u306F\u3001\u306F\u3044\uFF01"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1299,7 +1300,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_mis:\u304A\u3001\u9045\u308C\u3066\u3054\u3081\u30FC\u3093\uFF01\nCharacter_kozuki:\u307F\u3059\u3061\u3083\u3093\u5148\u8F29\uFF01\u9593\u306B\u5408\u3063\u3066\u3088\u304B\u3063\u305F\u3067\u3059\uFF01\nCharacter_mis:\u304A\u304B\u3052\u3055\u307E\u3067\u3069\u3046\u306B\u304B\u9593\u306B\u5408\u3063\u305F\u3088...\nCharacter_yamituki:...\u5148\u8F29\uFF1F\nCharacter_mis:\u306F\u3044\u3043\uFF01\nCharacter_yamituki:\u79C1\u3001\u8A00\u3044\u307E\u3057\u305F\u3088\u306D\uFF1F\u5BDD\u574A\u3057\u306A\u3044\u3088\u3046\u306B\u3063\u3066\n\u306A\u306E\u306B\u3001\u306A\u3093\u3067\u5BDD\u574A\u3059\u308B\u3093\u3067\u3059\u304B\uFF1F\nCharacter_mis:\u8FD4\u3059\u8A00\u8449\u3082\u3054\u3056\u3044\u307E\u305B\u3093...\nCharacter_kozuki:\u3042\u3042\u3001\u3082\u3046\u8A66\u5408\u304C\u59CB\u307E\u308A\u307E\u3059\u3088\u3001\u6025\u304E\u307E\u3057\u3087\u3046\uFF01\nCharacter_mis:\u305D\u3001\u305D\u3046\u3060\u306D\u3001\u884C\u3053\u3046\uFF01\nCharacter_sikai:\u305D\u308C\u3067\u306F\u9593\u3082\u306A\u304F\u3001\u4E8C\u56DE\u6226\u3092\u958B\u59CB\u3057\u307E\u3059\uFF01\nCharacter_mis:\u3088\u308D\u3057\u304F\u306D\u3001\u5149\u6708\u3061\u3083\u3093\u95C7\u6708\u3061\u3083\u3093\uFF01\nCharacter_kozuki:\u306F\u3044\uFF01\u9811\u5F35\u308A\u307E\u3057\u3087\u3046\uFF01\nCharacter_yamituki:\u306F\u3044\nCharacter_mokusei:\u3067\u306F\u4E8C\u4EBA\u3068\u3082\u3001\u4F5C\u6226\u901A\u308A\u306B\u3088\u308D\u3057\u304F\u983C\u3080\nCharacter_mokueiseis:\u306F\u3044\uFF01\nCharacter_sikai:\u4E8C\u56DE\u6226\u3001\u958B\u59CB\u3067\u3059\uFF01\uFF01"
+    stringVal: "Character_mis:\u304A\u3001\u9045\u308C\u3066\u3054\u3081\u30FC\u3093\uFF01\nCharacter_kozuki:\u307F\u3059\u3061\u3083\u3093\u5148\u8F29\uFF01\u9593\u306B\u5408\u3063\u3066\u3088\u304B\u3063\u305F\u3067\u3059\uFF01\nCharacter_mis:\u304A\u304B\u3052\u3055\u307E\u3067\u3069\u3046\u306B\u304B\u9593\u306B\u5408\u3063\u305F\u3088...\nCharacter_yamituki:...\u5148\u8F29\uFF1F\nCharacter_mis:\u306F\u3044\u3043\uFF01\nCharacter_yamituki:\u79C1\u3001\u8A00\u3044\u307E\u3057\u305F\u3088\u306D\uFF1F\u5BDD\u574A\u3057\u306A\u3044\u3088\u3046\u306B\u3063\u3066\n\u306A\u306E\u306B\u3001\u306A\u3093\u3067\u5BDD\u574A\u3059\u308B\u3093\u3067\u3059\u304B\uFF1F\nCharacter_mis:\u8FD4\u3059\u8A00\u8449\u3082\u3054\u3056\u3044\u307E\u305B\u3093...\nCharacter_kozuki:\u3042\u3042\u3001\u3082\u3046\u8A66\u5408\u304C\u59CB\u307E\u308A\u307E\u3059\u3088\u3001\u6025\u304E\u307E\u3057\u3087\u3046\uFF01\nCharacter_mis:\u305D\u3001\u305D\u3046\u3060\u306D\u3001\u884C\u3053\u3046\uFF01\nCharacter_sikai:\u305D\u308C\u3067\u306F\u9593\u3082\u306A\u304F\u3001\u4E8C\u56DE\u6226\u3092\u958B\u59CB\u3057\u307E\u3059\uFF01\nCharacter_mis:\u3088\u308D\u3057\u304F\u306D\u3001\u82FA\u3061\u3083\u3093\u54B2\u3061\u3083\u3093\uFF01\nCharacter_kozuki:\u306F\u3044\uFF01\u9811\u5F35\u308A\u307E\u3057\u3087\u3046\uFF01\nCharacter_yamituki:\u306F\u3044\nCharacter_mokusei:\u3067\u306F\u4E8C\u4EBA\u3068\u3082\u3001\u4F5C\u6226\u901A\u308A\u306B\u3088\u308D\u3057\u304F\u983C\u3080\nCharacter_mokueiseis:\u306F\u3044\uFF01\nCharacter_sikai:\u4E8C\u56DE\u6226\u3001\u958B\u59CB\u3067\u3059\uFF01\uFF01"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1760,8 +1761,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: "\u307F\u3059\u3061\u3083\u3093"
-  nameColor: {r: 0.25787643, g: 0.5191976, b: 0.8962264, a: 1}
+  nameText: "\u7F8E\u9234 \u7FE0(\u307F\u3059\u305A \u3042\u304A\u3044)"
+  nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
   portraits:
   - {fileID: 21300000, guid: 447b22ae33c49d24eb0973c82d206aa9, type: 3}
@@ -1812,7 +1813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: "\u53F8\u4F1A"
+  nameText: "\u795E\u5BAE\u5BFA \u6674\u8F1D(\u3058\u3093\u3050\u3046\u3058 \u306F\u308B\u304D)"
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
   portraits: []
@@ -1908,8 +1909,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: "\u6728\u661F\u3061\u3083\u3093"
-  nameColor: {r: 0.11360805, g: 0.6509434, b: 0.21671541, a: 1}
+  nameText: "\u6960 \u594F\u592A(\u304F\u3059\u306E\u304D \u305D\u3046\u305F)"
+  nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
   portraits:
   - {fileID: 21300000, guid: a6e9aaf5a4d3e994083b4565a4005a9e, type: 3}

@@ -692,8 +692,7 @@ MonoBehaviour:
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
   portraits:
-  - {fileID: 21300000, guid: 4763cf7196d8ec84da89e78b0f07fe5a, type: 3}
-  - {fileID: 21300000, guid: 383ede4675ab1064da61a222b6de9f3d, type: 3}
+  - {fileID: 21300000, guid: f8d549424c0cddd48b3261991a753a03, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 1247551089}
   description: 
@@ -732,7 +731,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: -460.43, y: -1300}
-  m_SizeDelta: {x: 1000, y: 1000}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &471840321
 MonoBehaviour:
@@ -813,7 +812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: "\u592A\u967D"
+  nameText: "\u795E\u5BAE\u5BFA \u6674\u8F1D(\u3058\u3093\u3050\u3046\u3058 \u306F\u308B\u304D)"
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
   portraits: []
@@ -909,7 +908,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 689019059}
   selectedCommands:
-  - {fileID: 689019066}
+  - {fileID: 689019062}
   variables: []
   description: 
   stepPause: 0
@@ -963,7 +962,8 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Sun:\u3055\u3041\u3001\u59CB\u307E\u308A\u307E\u3057\u305F\u3001\u9060\u8F1D\u6E21\u5927\u5B66\u30B5\u30FC\u30AF\u30EB\u5BFE\u6297\u6226\uFF01\n\u53F8\u4F1A\u306F\u79C1\u3001\u592A\u967D\u304C\u52D9\u3081\u3055\u305B\u3066\u3044\u305F\u3060\u304D\u307E\u3059\uFF01\n\u9060\u8F1D\u6E21\u5927\u5B66\u306E\u9802\u70B9\u3092\u6C7A\u3081\u308B\u3053\u306E\u5927\u4F1A\u306B\u3001\u6211\u304C\u30B5\u30FC\u30AF\u30EB\u3053\u305D\u304CNo.1\u3067\u3042\u308B\u3068\u540D\u4E57\u308A\u3092\u4E0A\u3052\u305F\u62BC\u3057\u639B\u3051\u305F\u7CBE\u92ED\u305F\u3061\u306B\u3088\u308B\u71B1\u3044\u6226\u3044\u304C\u4ECA\u3001\u7E70\u308A\u5E83\u3052\u3089\u308C\u3088\u3046\u3068\u3057\u3066\u3044\u307E\u3059\uFF01\n\u679C\u305F\u3057\u3066\u512A\u52DD\u3057\u3066\u300C\u81F3\u9AD8\u306E\u8F1D\u304D(\u30A2\u30EB\u30D5\u30A1\u30FB\u30B0\u30ED\u30A6)\u300D\u306E\u79F0\u53F7\u3092\u624B\u306B\u3059\u308B\u306E\u306F\u3069\u306E\u30B5\u30FC\u30AF\u30EB\u304B\uFF01\n\u2026\u304A\u3084\u3001\u3069\u3046\u3084\u3089\u307E\u3060\u5230\u7740\u3057\u3066\u3044\u306A\u3044\u30B5\u30FC\u30AF\u30EB\u304C\u3042\u308B\u3088\u3046\u3067\u3059\u306D\u2026?"
+    stringVal: "Character_Sun:\u3055\u3041\u3001\u59CB\u307E\u308A\u307E\u3057\u305F\u3001\u9060\u8F1D\u6E21\u5927\u5B66\u30B5\u30FC\u30AF\u30EB\u5BFE\u6297\u6226\uFF01\n\u53F8\u4F1A\u306F\u79C1\u3001\u795E\u5BAE\u5BFA\u6674\u8F1D(\u3058\u3093\u3050\u3046\u3058
+      \u306F\u308B\u304D)\u304C\u52D9\u3081\u3055\u305B\u3066\u3044\u305F\u3060\u304D\u307E\u3059\uFF01\n\u9060\u8F1D\u6E21\u5927\u5B66\u306E\u9802\u70B9\u3092\u6C7A\u3081\u308B\u3053\u306E\u5927\u4F1A\u306B\u3001\u6211\u304C\u30B5\u30FC\u30AF\u30EB\u3053\u305D\u304CNo.1\u3067\u3042\u308B\u3068\u540D\u4E57\u308A\u3092\u4E0A\u3052\u305F\u62BC\u3057\u639B\u3051\u305F\u7CBE\u92ED\u305F\u3061\u306B\u3088\u308B\u71B1\u3044\u6226\u3044\u304C\u4ECA\u3001\u7E70\u308A\u5E83\u3052\u3089\u308C\u3088\u3046\u3068\u3057\u3066\u3044\u307E\u3059\uFF01\n\u679C\u305F\u3057\u3066\u512A\u52DD\u3057\u3066\u300C\u81F3\u9AD8\u306E\u8F1D\u304D(\u30A2\u30EB\u30D5\u30A1\u30FB\u30B0\u30ED\u30A6)\u300D\u306E\u79F0\u53F7\u3092\u624B\u306B\u3059\u308B\u306E\u306F\u3069\u306E\u30B5\u30FC\u30AF\u30EB\u304B\uFF01\n\u2026\u304A\u3084\u3001\u3069\u3046\u3084\u3089\u307E\u3060\u5230\u7740\u3057\u3066\u3044\u306A\u3044\u30B5\u30FC\u30AF\u30EB\u304C\u3042\u308B\u3088\u3046\u3067\u3059\u306D\u2026?"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1128,7 +1128,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Suisei mituki_left Right:\n\u9045\u3044\u308F\u306D\u2026\n\u304D\u3063\u3068\u79C1\u306B\u6050\u308C\u3092\u306A\u3057\u3066\u9003\u3052\u305F\u306E\u306D\uFF01\n\u3053\u308C\u3067\u4E00\u6B69\u3001\u512A\u52DD\u306B\u8FD1\u3065\u3044\u2015"
+    stringVal: "Character_Suisei mio_stand Right:\n\u9045\u3044\u308F\u306D\u2026\n\u304D\u3063\u3068\u79C1\u306B\u6050\u308C\u3092\u306A\u3057\u3066\u9003\u3052\u305F\u306E\u306D\uFF01\n\u3053\u308C\u3067\u4E00\u6B69\u3001\u512A\u52DD\u306B\u8FD1\u3065\u3044\u2015"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1244,7 +1244,7 @@ GameObject:
   m_Component:
   - component: {fileID: 705763867}
   m_Layer: 0
-  m_Name: Sun
+  m_Name: Haruki
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1478,7 +1478,7 @@ GameObject:
   m_Component:
   - component: {fileID: 793195125}
   m_Layer: 0
-  m_Name: Suisei
+  m_Name: Mio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1826,7 +1826,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -1300}
-  m_SizeDelta: {x: 1000, y: 1000}
+  m_SizeDelta: {x: 1000, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &865038781
 MonoBehaviour:
@@ -2463,8 +2463,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 460.43, y: -1300}
-  m_SizeDelta: {x: 1000, y: 1000}
+  m_AnchoredPosition: {x: 460.43, y: -1100}
+  m_SizeDelta: {x: 600, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1044693893
 MonoBehaviour:
