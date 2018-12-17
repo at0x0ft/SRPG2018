@@ -54,7 +54,7 @@ MonoBehaviour:
   _name: Gigabit Cannon
   _kind: 2
   _type: {fileID: 114928696413571736, guid: 79f0160951bceae4e80efc5ffa818745, type: 2}
-  _effectKind: 17
+  _effectKind: 19
   _power: 330
   _accuracy: 95
   _effectImages:

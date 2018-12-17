@@ -54,7 +54,7 @@ MonoBehaviour:
   _name: Fatal Error
   _kind: 2
   _type: {fileID: 114928696413571736, guid: 429cdf1a3716e7546bec0ca6553aac4e, type: 2}
-  _effectKind: 15
+  _effectKind: 17
   _power: 220
   _accuracy: 70
   _effectImages:

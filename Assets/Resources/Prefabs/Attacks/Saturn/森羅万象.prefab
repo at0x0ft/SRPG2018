@@ -51,12 +51,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc087992668157d48af319bc544f4c28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: "\u7D2B\u96FB\u4E00\u9583"
+  _name: "\u68EE\u7F85\u4E07\u8C61"
   _kind: 2
   _type: {fileID: 114928696413571736, guid: b8ed57c99ab9a41488850dbd6209597f, type: 2}
-  _effectKind: 47
-  _power: 290
-  _accuracy: 100
+  _effectKind: 48
+  _power: 240
+  _accuracy: 90
   _effectImages:
   - {fileID: 21300000, guid: 9bdee6fce36b4514ab19f830655afb87, type: 3}
   - {fileID: 21300000, guid: 3046054ca5db229458b608cabc7b7201, type: 3}
