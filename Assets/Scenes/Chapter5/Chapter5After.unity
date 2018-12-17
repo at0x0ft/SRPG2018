@@ -167,7 +167,7 @@ Prefab:
     - target: {fileID: 114520381070998952, guid: 4e74c1b579a544040b0e861e9439bcfb,
         type: 2}
       propertyPath: nameText
-      value: "\u795E\u5BAE\u5BFA\u6674\u6A39"
+      value: "\u795E\u5BAE\u5BFA \u6674\u8F1D(\u3058\u3093\u3050\u3046\u3058 \u306F\u308B\u304D)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e74c1b579a544040b0e861e9439bcfb, type: 2}
@@ -282,7 +282,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: -460.43, y: -1300}
-  m_SizeDelta: {x: 500, y: 1000}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &246346965
 MonoBehaviour:
@@ -421,7 +421,7 @@ Prefab:
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
       propertyPath: nameText
-      value: "\u5965\u82D1\u7531\u7D00"
+      value: "\u5965\u82D1 \u7531\u7D00(\u304A\u304F\u305E\u306E \u3086\u304D)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b435053dd972884cafb314c6d6d7205, type: 2}
@@ -561,7 +561,7 @@ Prefab:
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
       propertyPath: nameText
-      value: "\u7A7A\u9591\u7406\u4EBA"
+      value: "\u7A7A\u9591 \u7406\u4EBA(\u304F\u304C \u308A\u3072\u3068)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b435053dd972884cafb314c6d6d7205, type: 2}
@@ -651,7 +651,7 @@ GameObject:
   - component: {fileID: 581348158}
   - component: {fileID: 581348157}
   m_Layer: 0
-  m_Name: Offscreen Left
+  m_Name: Yuki_pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -673,8 +673,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -1300, y: -1000}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: -460, y: -1350}
+  m_SizeDelta: {x: 1000, y: 1200}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &581348157
 MonoBehaviour:
@@ -768,8 +768,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019064}
-  selectedCommands: []
+  - {fileID: 689019073}
+  selectedCommands:
+  - {fileID: 689019066}
   variables: []
   description: 
   stepPause: 0
@@ -824,7 +825,7 @@ MonoBehaviour:
   conversationText:
     stringRef: {fileID: 0}
     stringVal: "Character_Rihito suisei Right:\u304F\u305D\u2026\u3069\u3046\u3059\u308B\uFF1F\n\u3042\u3093\u306A\u5974\u3092\u91CE\u653E\u3057\u306B\u3057\u3066\u304A\u304F\u308F\u3051\u306B\u306F\u2026\nCharacter_Yuki
-      dosei_stand Left:\u7A7A\u9591\u3055\u3093\nCharacter_Rihito:\u2026\u5965\u82D1\u304B\u3001\u4F55\u304B\u7528\u304B\uFF1F\nCharacter_Yuki:\u3044\u3048\u3001\u4E00\u3064\u5FE0\u544A\u3092\u3001\u3068\u601D\u3044\u307E\u3057\u3066\nCharacter_Rihito:\u2026\u5FE0\u544A\u3060\u3068\uFF1F\nCharacter_Yuki:\u306F\u3044\u3002\u4F55\u3084\u3089\u3001\u52D8\u9055\u3044\u3092\u3055\u308C\u3066\u3044\u308B\u3088\u3046\u3067\u3059\u304B\u3089\nT-Gamers\u3068\u3001\u7D42\u7109\u306E\u66F8(\u30A2\u30DD\u30AB\u30EA\u30D7\u30B9)\u306E\u8A66\u5408\u3092\u898B\u306B\u884C\u304F\u3068\u3044\u3044\u3067\u3059\u3088\nCharacter_Yuki
+      dosei_stand Yuki_pos:\u7A7A\u9591\u3055\u3093\nCharacter_Rihito:\u2026\u5965\u82D1\u304B\u3001\u4F55\u304B\u7528\u304B\uFF1F\nCharacter_Yuki:\u3044\u3048\u3001\u4E00\u3064\u5FE0\u544A\u3092\u3001\u3068\u601D\u3044\u307E\u3057\u3066\nCharacter_Rihito:\u2026\u5FE0\u544A\u3060\u3068\uFF1F\nCharacter_Yuki:\u306F\u3044\u3002\u4F55\u3084\u3089\u3001\u52D8\u9055\u3044\u3092\u3055\u308C\u3066\u3044\u308B\u3088\u3046\u3067\u3059\u304B\u3089\nT-Gamers\u3068\u3001\u7D42\u7109\u306E\u66F8(\u30A2\u30DD\u30AB\u30EA\u30D7\u30B9)\u306E\u8A66\u5408\u3092\u898B\u306B\u884C\u304F\u3068\u3044\u3044\u3067\u3059\u3088\nCharacter_Yuki
       hide:\nCharacter_Rihito:\u2026\uFF1F\nCharacter_Rihito hide:"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -1160,6 +1161,11 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 383ede4675ab1064da61a222b6de9f3d,
         type: 3}
+    - target: {fileID: 114154241267996572, guid: 9f0b63d277a0d284eabbfa3186900134,
+        type: 2}
+      propertyPath: nameText
+      value: "\u9662\u5802 \u82FA(\u3044\u3093\u3069\u3046 \u3044\u3061\u3054)"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f0b63d277a0d284eabbfa3186900134, type: 2}
   m_IsPrefabAsset: 0
@@ -1317,7 +1323,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 460.43, y: -1300}
-  m_SizeDelta: {x: 500, y: 1000}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1416220345
 MonoBehaviour:
@@ -1612,7 +1618,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -1300}
-  m_SizeDelta: {x: 500, y: 1000}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1919057107
 MonoBehaviour:
@@ -1706,6 +1712,11 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 5d411f21d56fdaa42ac505b7c677c614,
         type: 3}
+    - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
+        type: 2}
+      propertyPath: nameText
+      value: "\u9662\u5802 \u54B2(\u3044\u3093\u3069\u3046 \u3055\u304D)"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b435053dd972884cafb314c6d6d7205, type: 2}
   m_IsPrefabAsset: 0

@@ -120,6 +120,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114097713296802240, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+        type: 2}
+      propertyPath: portraits.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4847720670475218, guid: 2e4d4d01f76880645a0b97e3bb4aba9c, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -288,7 +293,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: -460.43, y: -1300}
-  m_SizeDelta: {x: 500, y: 1000}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &246346965
 MonoBehaviour:
@@ -454,7 +459,7 @@ GameObject:
   - component: {fileID: 578537841}
   - component: {fileID: 578537840}
   m_Layer: 0
-  m_Name: Offscreen Right
+  m_Name: Yuki_pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -476,8 +481,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 1300, y: -1000}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: 460, y: -1350}
+  m_SizeDelta: {x: 1000, y: 1200}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &578537840
 MonoBehaviour:
@@ -648,7 +653,7 @@ Prefab:
         type: 2}
       propertyPath: portraits.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: a4857200ad44f4641b52fdef75ecc150,
+      objectReference: {fileID: 21300000, guid: fb734e22020955b4b84e0970ccd7ca31,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e4d4d01f76880645a0b97e3bb4aba9c, type: 2}
@@ -712,7 +717,8 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 689019074}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 689019079}
   variables: []
   description: 
   stepPause: 0
@@ -984,7 +990,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Yuki left Right:\u2026\u3042\u3089\u3001\u4ECA\u65E5\u306F\u4ECA\u307E\u3067\u3088\u308A\u3082\u304A\u65E9\u3044\u5230\u7740\u3067\u3059\u306D\uFF1F\nCharacter_Mis
+    stringVal: "Character_Yuki dosei_stand Yuki_pos:\u2026\u3042\u3089\u3001\u4ECA\u65E5\u306F\u4ECA\u307E\u3067\u3088\u308A\u3082\u304A\u65E9\u3044\u5230\u7740\u3067\u3059\u306D\uFF1F\nCharacter_Mis
       mis_right Middle:\u512A\u79C0\u306A\u5F8C\u8F29\u305F\u3061\u306E\u304A\u304B\u3052\u3067\u3059\uFF01\nCharacter_Mituki:\u3086\u3001\u512A\u79C0\u3060\u306A\u3093\u3066\u305D\u3093\u306A\u2026\nCharacter_Yuki:\u3075\u3075\u3001\u306A\u308B\u307B\u3069\u3002\u3057\u304B\u3057\u3001\u512A\u79C0\u306A\u5F8C\u8F29\u3068\u3044\u3046\u3053\u3068\u3067\u3057\u305F\u3089\u3053\u3061\u3089\u3082\u8CA0\u3051\u3066\u306F\u3044\u307E\u305B\u3093\u3088\uFF1F\n\u4E8C\u4EBA\u3068\u3082\u3001\u4ECA\u65E5\u3082\u3088\u308D\u3057\u304F\u304A\u9858\u3044\u81F4\u3057\u307E\u3059\nCharacter_Hyoga:\u304A\u4EFB\u305B\u4E0B\u3055\u3044\u3001\u7531\u7D00\u3055\u3093\nCharacter_Yuki
       hide:\nCharacter_mischan hide:\nCharacter_Yamituki hide:\n"
   clearPrevious:
@@ -1166,6 +1172,11 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 383ede4675ab1064da61a222b6de9f3d,
         type: 3}
+    - target: {fileID: 114154241267996572, guid: 9f0b63d277a0d284eabbfa3186900134,
+        type: 2}
+      propertyPath: nameText
+      value: "\u9662\u5802 \u82FA(\u3044\u3093\u3069\u3046 \u3044\u3061\u3054)"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f0b63d277a0d284eabbfa3186900134, type: 2}
   m_IsPrefabAsset: 0
@@ -1323,7 +1334,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 460.43, y: -1300}
-  m_SizeDelta: {x: 500, y: 1000}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1416220345
 MonoBehaviour:
@@ -1618,7 +1629,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -1300}
-  m_SizeDelta: {x: 500, y: 1000}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1919057107
 MonoBehaviour:
@@ -1715,7 +1726,7 @@ Prefab:
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
       propertyPath: nameText
-      value: 
+      value: "\u9662\u5802 \u54B2(\u3044\u3093\u3069\u3046 \u3055\u304D)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b435053dd972884cafb314c6d6d7205, type: 2}
