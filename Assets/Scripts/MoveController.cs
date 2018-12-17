@@ -12,18 +12,18 @@ public class MoveController : MonoBehaviour
 	private float _moveSpeed = 1.5f;
 
 	[SerializeField]
-	private int _forwardMaxMoveAmount = 7;
+	private int _forwardMaxMoveAmount = 14;
 	[SerializeField]
-	private int _middleMaxMoveAmount = 5;
+	private int _middleMaxMoveAmount = 10;
 	[SerializeField]
-	private int _backMaxMoveAmount = 3;
+	private int _backMaxMoveAmount = 6;
 
 	[SerializeField]
 	private int _normalCost = 1;
 	[SerializeField]
-	private int _forestCost = 2;
+	private int _rockCost = 2;
 	[SerializeField]
-	private int _rockCost = 3;
+	private int _forestCost = 3;
 
 	[SerializeField]
 	private int _maxLimitCost = 999;
