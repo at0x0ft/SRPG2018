@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1463740756612468}
+  m_RootGameObject: {fileID: 1105387250393840}
   m_IsPrefabAsset: 1
---- !u!1 &1463740756612468
+--- !u!1 &1105387250393840
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4742686115466784}
-  - component: {fileID: 114643019459322230}
+  - component: {fileID: 4529718341752924}
+  - component: {fileID: 114623075099128016}
   m_Layer: 0
-  m_Name: "\u75BE\u98A8\u6012\u6FE4"
+  m_Name: "\u8A60\u5531\u66F2\u300C\u6CE1\u6CAB\u300D"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4742686115466784
+--- !u!4 &4529718341752924
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1463740756612468}
+  m_GameObject: {fileID: 1105387250393840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,35 +40,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114643019459322230
+--- !u!114 &114623075099128016
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1463740756612468}
+  m_GameObject: {fileID: 1105387250393840}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc087992668157d48af319bc544f4c28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: "\u75BE\u98A8\u6012\u6FE4"
-  _kind: 1
-  _type: {fileID: 114534369897718610, guid: 6586a334735b6e04a88fe48cb7b53847, type: 2}
-  _effectKind: 45
-  _power: 100
-  _accuracy: 80
+  _name: "\u8A60\u5531\u66F2\u300C\u6CE1\u6CAB\u300D"
+  _kind: 2
+  _type: {fileID: 114928696413571736, guid: 8baf576386dc34245ba2a70ad54626a4, type: 2}
+  _effectKind: 39
+  _power: 160
+  _accuracy: 100
   _effectImages:
-  - {fileID: 21300000, guid: 948abb56988fcd94ca6f3db0d3316a10, type: 3}
-  - {fileID: 21300000, guid: 6dced27c9c898d14587be418d330c259, type: 3}
-  - {fileID: 21300000, guid: 739e34037c667054e98bc420fc9a40ce, type: 3}
-  - {fileID: 21300000, guid: cf8d509c064add74d9aa6dd4b8196949, type: 3}
+  - {fileID: 21300000, guid: a1a17daa01757fc488d7e03f49c1f48b, type: 3}
+  - {fileID: 21300000, guid: 1b74eea8ac6601943b9fbc98655b05d8, type: 3}
+  - {fileID: 21300000, guid: 60bb4c1ecffec904f872abf6c2654576, type: 3}
+  - {fileID: 21300000, guid: 9570f468417643141ab5853144b72718, type: 3}
+  - {fileID: 21300000, guid: 4ceaf0262d9305948a4294c240ba0d18, type: 3}
   _range:
-  - {x: -1, y: -1}
-  - {x: -1, y: 0}
-  - {x: -1, y: 1}
-  - {x: 0, y: 1}
-  - {x: 1, y: 1}
-  - {x: 1, y: 0}
-  - {x: 1, y: -1}
-  - {x: 0, y: -1}
+  - {x: -7, y: -1}
+  - {x: -7, y: 0}
+  - {x: -7, y: 1}
+  - {x: -6, y: -1}
+  - {x: -6, y: 0}
+  - {x: -6, y: 1}
+  - {x: -5, y: -1}
+  - {x: -5, y: 0}
+  - {x: -5, y: 1}
   _isRotatable: 0
