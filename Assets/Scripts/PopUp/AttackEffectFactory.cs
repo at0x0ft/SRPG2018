@@ -17,6 +17,8 @@ public enum AttackEffectKind
 	CPU,
 	OverFlow,
 	DeadLock,
+	WaterFallMis,
+	FireWall,
 
 	// 闇月ちゃん用
 	DarkSlashing,
@@ -179,10 +181,13 @@ public class AttackEffectFactory : MonoBehaviour
 		_effectFuncs[AttackEffectKind.CPU] =
 		_effectFuncs[AttackEffectKind.OverFlow] =
 		_effectFuncs[AttackEffectKind.DeadLock] =
+		_effectFuncs[AttackEffectKind.WaterFallMis] =
+		_effectFuncs[AttackEffectKind.FireWall] =
 		_effectFuncs[AttackEffectKind.DarkSlashing] =     // 闇月ちゃん
 		_effectFuncs[AttackEffectKind.WaterHammer] =
 		_effectFuncs[AttackEffectKind.ZeroDay] =
 		_effectFuncs[AttackEffectKind.LightObject] =      // 光月ちゃん 
+		_effectFuncs[AttackEffectKind.BrightChain] =
 		_effectFuncs[AttackEffectKind.IcicleStaff] =      // 水星ちゃん
 		_effectFuncs[AttackEffectKind.WoundFist] =        // 金星
 		_effectFuncs[AttackEffectKind.StampWave] =
@@ -200,7 +205,8 @@ public class AttackEffectFactory : MonoBehaviour
 		_effectFuncs[AttackEffectKind.Crystallize] =
 		_effectFuncs[AttackEffectKind.DeadlyPoison] =
 		_effectFuncs[AttackEffectKind.IceStub] =          // 海王星
-		_effectFuncs[AttackEffectKind.BloodyBlast] =
+		_effectFuncs[AttackEffectKind.BloodyBlast] =      // 冥王星
+		_effectFuncs[AttackEffectKind.DarknessBind] =    
 		NormalEffectMaker;
 
 		// for みすちゃん
@@ -247,10 +253,12 @@ public class AttackEffectFactory : MonoBehaviour
 		_effectFuncs[AttackEffectKind.SideEffect] = WindBlades;
 
 		// for 海王星
-		_effectFuncs[AttackEffectKind.FairyTwister] = FairyTwister;
 		_effectFuncs[AttackEffectKind.BubbleTears] = BubbleTears;
-		_effectFuncs[AttackEffectKind.VenomRain] = FairyTwister;
-		_effectFuncs[AttackEffectKind.WaterFallNeptune] = FairyTwister;
+		_effectFuncs[AttackEffectKind.FairyTwister] = 
+		_effectFuncs[AttackEffectKind.VenomRain] = 
+		_effectFuncs[AttackEffectKind.WaterFallNeptune] =
+		_effectFuncs[AttackEffectKind.ThunderBolt] =
+		FairyTwister;
 
 		// for 冥王星
 		_effectFuncs[AttackEffectKind.EternalVoid] = Flash;

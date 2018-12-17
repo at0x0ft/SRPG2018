@@ -94,8 +94,11 @@ public class AttackEffect : MonoBehaviour
 
 		// ただ画像を1週させるだけ
 		_effectFunc[AttackEffectKind.BackUp] =                // みすちゃん
+		_effectFunc[AttackEffectKind.WaterFallMis] =
+		_effectFunc[AttackEffectKind.FireWall] =
 		_effectFunc[AttackEffectKind.MegabyteShotgun] =       // 光月ちゃん
 		_effectFunc[AttackEffectKind.DefenseBreakSeparate] =
+		_effectFunc[AttackEffectKind.BrightChain] =
 		_effectFunc[AttackEffectKind.WoundFist] =             // 金星用
 		_effectFunc[AttackEffectKind.StampWave] =
 		_effectFunc[AttackEffectKind.MirrorSympony] =        
@@ -110,7 +113,9 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.Ephroresence] =          // 天王星用
 		_effectFunc[AttackEffectKind.Trunkization] =
 		_effectFunc[AttackEffectKind.DeadlyPoison] =
+		_effectFunc[AttackEffectKind.ThunderBolt] =
 		_effectFunc[AttackEffectKind.BloodyBlast] =           // 冥王星用
+		_effectFunc[AttackEffectKind.DarknessBind] =
 		NormalLoop;
 
 		// 画像を早めに1週させるだけ(斬撃向け)
@@ -170,10 +175,12 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.SideEffect] = SideEffect;
 
 		// for 海王星
-		_effectFunc[AttackEffectKind.FairyTwister] = FairyTwister;
 		_effectFunc[AttackEffectKind.BubbleTears] = BubbleTears;
-		_effectFunc[AttackEffectKind.VenomRain] = FairyTwister;
-		_effectFunc[AttackEffectKind.WaterFallNeptune] = FairyTwister;
+		_effectFunc[AttackEffectKind.FairyTwister] = 
+		_effectFunc[AttackEffectKind.VenomRain] = 
+		_effectFunc[AttackEffectKind.WaterFallNeptune] = 
+		_effectFunc[AttackEffectKind.ThunderBolt] =
+		FairyTwister;
 
 		// for 冥王星
 		_effectFunc[AttackEffectKind.AbsoluteZero] = HolyLiric;
