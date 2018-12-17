@@ -32,6 +32,12 @@ public class MoveController : MonoBehaviour
 		get { return _maxLimitCost; }
 	}
 
+	private bool _nowMoving = false;
+	public bool NowMoving
+	{
+		get{ return _nowMoving; }
+	}
+
 	/// <summary>
 	/// 各ユニットのポジションによる最大移動量を返す
 	/// </summary>
@@ -155,6 +161,9 @@ public class MoveController : MonoBehaviour
 
 	IEnumerator OparateAnimation(Floor[] routeFloors, Unit unit)
 	{
+		// 移動中は攻撃フェーズに移行しないようにします
+		_nowMoving = true;
+
 		// 座標移動を行う関数
 		var sequence = DOTween.Sequence();
 		var totalCost = 0;
@@ -197,6 +206,8 @@ public class MoveController : MonoBehaviour
 		image.sprite = motion_dic[State.idle.ToString()];
 
 		unit.MoveTo(routeFloors[routeFloors.Length - 1].X, routeFloors[routeFloors.Length - 1].Y, totalCost);
+
+		_nowMoving = false;
 	}
 
 

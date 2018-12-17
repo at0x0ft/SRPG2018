@@ -73,8 +73,8 @@ public class AttackEffect : MonoBehaviour
 		_rect = GetComponent<RectTransform>();
 		AssociateEffectKindWithFunc();         // 対応付け
 
-		Debug.Log(_occur);
-		Debug.Log(opt);
+		//Debug.Log(_occur);
+		//Debug.Log(opt);
 	}
 
 	/// <summary>
@@ -173,7 +173,7 @@ public class AttackEffect : MonoBehaviour
 		transform.localEulerAngles = Quaternion.Euler(0f, 0f, rad) * Vector3.up;
 
 		Vector3 dpos = target - _occur;
-		Debug.Log("dist:" + dpos);
+		//Debug.Log("dist:" + dpos);
 		_seq
 		.Append(
 			_rect.DOLocalJump(dpos, FLY_HEIGHT, 1, FLY_TIME, true)

@@ -65,6 +65,7 @@ public class AttackSelectWindow : SubWindow
 	/// <param name="atk"></param>
 	private void CommandButtonAction(Attack atk)
 	{
+		Debug.Log("clicked");
 		// 1.その詳細情報を表示し
 		_aiw.Show(atk);
 
@@ -105,6 +106,9 @@ public class AttackSelectWindow : SubWindow
 	/// <returns>攻撃可否</returns>
 	public bool SelectAttack(Attack attack)
 	{
+		// 動作不能な状態では、放置する
+		if(!gameObject.activeSelf) return false;
+
 		for(int i = 0; i < _displayedAttacks.Count(); i++)
 		{
 			if(_displayedAttacks[i].Key == attack)
@@ -145,6 +149,7 @@ public class AttackSelectWindow : SubWindow
 			_attackBtns[i].gameObject.SetActive(true);
 			_attackBtns[i].interactable = canAttack;
 			_attackBtns[i].GetComponentInChildren<Text>().text = atk.name;
+			_attackBtns[i].onClick.RemoveAllListeners();
 			_attackBtns[i].onClick.AddListener(() => CommandButtonAction(atk));
 		}
 
