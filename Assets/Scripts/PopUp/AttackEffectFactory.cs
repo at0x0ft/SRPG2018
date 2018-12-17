@@ -98,7 +98,50 @@ public enum AttackEffectKind
 	BloodyBlast,
 	AbsoluteZero,
 	DarknessBind,
-	TheEnd
+	TheEnd,
+
+	// モブ弱攻撃
+	ASwordOfFire,
+	ASwordOfWater,
+	ASwordOfWind,
+	ASwordOfGrand,
+	ASwordOfLight,
+	ASwordOfDark,
+	WindTornado,
+	FlameTornado,
+
+	// モブ中攻撃
+	FireSwords,
+	WaterSwords,
+	WindSwords,
+	GrandSwords,
+	LightSwords,
+	DarkSwords,
+	FireBall,
+	HolyBind,
+	DarkBind,
+	MagnificentHit,
+	IceShooting,
+
+	// モブ強攻撃
+	FireStorm,
+	WaterStorm,
+	WindStorm,
+	GrandStorm,
+	LightStorm,
+	DarkStorm,
+	HolyCircle,
+	DarkCircle,
+	FlameBiller,
+	FreezeBiller,
+	GrandBiller,
+	ShineBiller,
+	DalianShotOfFire,
+	DalianShotOfWater,
+	DalianShotOfWind,
+	DalianShotOfGrand,
+	DalianShotOfLight,
+	DalianShotOfDark,
 }
 
 
