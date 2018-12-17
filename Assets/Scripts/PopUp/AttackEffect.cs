@@ -116,6 +116,11 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.ThunderBolt] =
 		_effectFunc[AttackEffectKind.BloodyBlast] =           // 冥王星用
 		_effectFunc[AttackEffectKind.DarknessBind] =
+		_effectFunc[AttackEffectKind.WindTornado] =           // モブ弱攻撃
+		_effectFunc[AttackEffectKind.FlameTornado] =
+		_effectFunc[AttackEffectKind.HolyBind] =              // モブ中攻撃
+		_effectFunc[AttackEffectKind.DarkBind] =
+		_effectFunc[AttackEffectKind.MagnificentHit] =
 		NormalLoop;
 
 		// 画像を早めに1週させるだけ(斬撃向け)
@@ -138,6 +143,18 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.StormAndStress] =        
 		_effectFunc[AttackEffectKind.IceStub] =               // 海王星
 		_effectFunc[AttackEffectKind.EternalVoid] =           // 冥王星
+		_effectFunc[AttackEffectKind.ASwordOfFire] =          // モブ弱攻撃
+		_effectFunc[AttackEffectKind.ASwordOfWater] =
+		_effectFunc[AttackEffectKind.ASwordOfWind] =
+		_effectFunc[AttackEffectKind.ASwordOfGrand] =
+		_effectFunc[AttackEffectKind.ASwordOfLight] =
+		_effectFunc[AttackEffectKind.ASwordOfDark] =
+		_effectFunc[AttackEffectKind.FireSwords] =       // モブ中攻撃
+		_effectFunc[AttackEffectKind.WaterSwords] =
+		_effectFunc[AttackEffectKind.WindSwords] =
+		_effectFunc[AttackEffectKind.GrandSwords] =
+		_effectFunc[AttackEffectKind.LightSwords] =
+		_effectFunc[AttackEffectKind.DarkSwords] =
 		HighSpeedNormalLoop;
 
 		// みすちゃん
@@ -186,6 +203,10 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.AbsoluteZero] = HolyLiric;
 		_effectFunc[AttackEffectKind.TheEnd] = DisorderlySlash;
 		_effectFunc[AttackEffectKind.CaosInferno] = Flirtill;
+
+		// for モブ
+		_effectFunc[AttackEffectKind.FireBall] = FireBall;
+		_effectFunc[AttackEffectKind.IceShooting] = IcycleStaff;
 	}
 
 	private void OnDestroy()
@@ -554,5 +575,11 @@ public class AttackEffect : MonoBehaviour
 
 		// 終了条件
 		seq.OnComplete(() => { subseq.Kill(); });
+	}
+
+	//// -----モブ用-----
+	private void FireBall(Sequence seq)
+	{
+		FallObject(seq);
 	}
 }

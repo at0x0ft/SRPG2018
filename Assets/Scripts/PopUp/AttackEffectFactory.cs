@@ -250,6 +250,25 @@ public class AttackEffectFactory : MonoBehaviour
 		_effectFuncs[AttackEffectKind.IceStub] =          // 海王星
 		_effectFuncs[AttackEffectKind.BloodyBlast] =      // 冥王星
 		_effectFuncs[AttackEffectKind.DarknessBind] =    
+		_effectFuncs[AttackEffectKind.ASwordOfFire] =     // モブ弱攻撃
+		_effectFuncs[AttackEffectKind.ASwordOfWater] =
+		_effectFuncs[AttackEffectKind.ASwordOfWind] =
+		_effectFuncs[AttackEffectKind.ASwordOfGrand] =
+		_effectFuncs[AttackEffectKind.ASwordOfLight] =
+		_effectFuncs[AttackEffectKind.ASwordOfDark] =
+		_effectFuncs[AttackEffectKind.WindTornado] =
+		_effectFuncs[AttackEffectKind.FlameTornado] =
+		_effectFuncs[AttackEffectKind.FireSwords] =       // モブ中攻撃
+		_effectFuncs[AttackEffectKind.WaterSwords] =
+		_effectFuncs[AttackEffectKind.WindSwords] =
+		_effectFuncs[AttackEffectKind.GrandSwords] =
+		_effectFuncs[AttackEffectKind.LightSwords] =
+		_effectFuncs[AttackEffectKind.DarkSwords] =
+		_effectFuncs[AttackEffectKind.FireBall] =
+		_effectFuncs[AttackEffectKind.HolyBind] =
+		_effectFuncs[AttackEffectKind.DarkBind] =
+		_effectFuncs[AttackEffectKind.MagnificentHit] =
+		_effectFuncs[AttackEffectKind.IceShooting] =
 		NormalEffectMaker;
 
 		// for みすちゃん
@@ -308,6 +327,7 @@ public class AttackEffectFactory : MonoBehaviour
 		_effectFuncs[AttackEffectKind.CaosInferno] = CaosInferno;
 		_effectFuncs[AttackEffectKind.AbsoluteZero] = HolyLiric;
 		_effectFuncs[AttackEffectKind.TheEnd] = TheEnd;
+		
 	}
 
 	/// <summary>
