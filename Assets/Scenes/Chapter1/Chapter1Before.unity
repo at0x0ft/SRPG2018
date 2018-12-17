@@ -527,7 +527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &293346187
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -692,7 +692,7 @@ MonoBehaviour:
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
   portraits:
-  - {fileID: 21300000, guid: 73c8d96013b2f324aaeb99b0fc552b65, type: 3}
+  - {fileID: 21300000, guid: f8d549424c0cddd48b3261991a753a03, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 1247551089}
   description: 
@@ -730,8 +730,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -460.43, y: -1000}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: -460.43, y: -1300}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &471840321
 MonoBehaviour:
@@ -812,7 +812,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: "\u592A\u967D"
+  nameText: "\u795E\u5BAE\u5BFA \u6674\u8F1D(\u3058\u3093\u3050\u3046\u3058 \u306F\u308B\u304D)"
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
   portraits: []
@@ -894,11 +894,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 7.3437114, y: -13.755909}
+  scrollPos: {x: 83.62198, y: -76.936005}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 200
-  zoom: 0.94000006
+  zoom: 0.76000017
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -962,7 +962,8 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Sun:\u3055\u3041\u3001\u59CB\u307E\u308A\u307E\u3057\u305F\u3001\u9060\u8F1D\u6E21\u5927\u5B66\u30B5\u30FC\u30AF\u30EB\u5BFE\u6297\u6226\uFF01\n\u53F8\u4F1A\u306F\u79C1\u3001\u592A\u967D\u304C\u52D9\u3081\u3055\u305B\u3066\u3044\u305F\u3060\u304D\u307E\u3059\uFF01\n\u9060\u8F1D\u6E21\u5927\u5B66\u306E\u9802\u70B9\u3092\u6C7A\u3081\u308B\u3053\u306E\u5927\u4F1A\u306B\u3001\u6211\u304C\u30B5\u30FC\u30AF\u30EB\u3053\u305D\u304CNo.1\u3067\u3042\u308B\u3068\u540D\u4E57\u308A\u3092\u4E0A\u3052\u305F\u62BC\u3057\u639B\u3051\u305F\u7CBE\u92ED\u305F\u3061\u306B\u3088\u308B\u71B1\u3044\u6226\u3044\u304C\u4ECA\u3001\u7E70\u308A\u5E83\u3052\u3089\u308C\u3088\u3046\u3068\u3057\u3066\u3044\u307E\u3059\uFF01\n\u679C\u305F\u3057\u3066\u512A\u52DD\u3057\u3066\u300C\u81F3\u9AD8\u306E\u8F1D\u304D(\u30A2\u30EB\u30D5\u30A1\u30FB\u30B0\u30ED\u30A6)\u300D\u306E\u79F0\u53F7\u3092\u624B\u306B\u3059\u308B\u306E\u306F\u3069\u306E\u30B5\u30FC\u30AF\u30EB\u304B\uFF01\n\u2026\u304A\u3084\u3001\u3069\u3046\u3084\u3089\u307E\u3060\u5230\u7740\u3057\u3066\u3044\u306A\u3044\u30B5\u30FC\u30AF\u30EB\u304C\u3042\u308B\u3088\u3046\u3067\u3059\u306D\u2026?"
+    stringVal: "Character_Sun:\u3055\u3041\u3001\u59CB\u307E\u308A\u307E\u3057\u305F\u3001\u9060\u8F1D\u6E21\u5927\u5B66\u30B5\u30FC\u30AF\u30EB\u5BFE\u6297\u6226\uFF01\n\u53F8\u4F1A\u306F\u79C1\u3001\u795E\u5BAE\u5BFA\u6674\u8F1D(\u3058\u3093\u3050\u3046\u3058
+      \u306F\u308B\u304D)\u304C\u52D9\u3081\u3055\u305B\u3066\u3044\u305F\u3060\u304D\u307E\u3059\uFF01\n\u9060\u8F1D\u6E21\u5927\u5B66\u306E\u9802\u70B9\u3092\u6C7A\u3081\u308B\u3053\u306E\u5927\u4F1A\u306B\u3001\u6211\u304C\u30B5\u30FC\u30AF\u30EB\u3053\u305D\u304CNo.1\u3067\u3042\u308B\u3068\u540D\u4E57\u308A\u3092\u4E0A\u3052\u305F\u62BC\u3057\u639B\u3051\u305F\u7CBE\u92ED\u305F\u3061\u306B\u3088\u308B\u71B1\u3044\u6226\u3044\u304C\u4ECA\u3001\u7E70\u308A\u5E83\u3052\u3089\u308C\u3088\u3046\u3068\u3057\u3066\u3044\u307E\u3059\uFF01\n\u679C\u305F\u3057\u3066\u512A\u52DD\u3057\u3066\u300C\u81F3\u9AD8\u306E\u8F1D\u304D(\u30A2\u30EB\u30D5\u30A1\u30FB\u30B0\u30ED\u30A6)\u300D\u306E\u79F0\u53F7\u3092\u624B\u306B\u3059\u308B\u306E\u306F\u3069\u306E\u30B5\u30FC\u30AF\u30EB\u304B\uFF01\n\u2026\u304A\u3084\u3001\u3069\u3046\u3084\u3089\u307E\u3060\u5230\u7740\u3057\u3066\u3044\u306A\u3044\u30B5\u30FC\u30AF\u30EB\u304C\u3042\u308B\u3088\u3046\u3067\u3059\u306D\u2026?"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1053,7 +1054,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Mis mischanR left:\nCharacter_Mis:\u5F85\u3063\u3066\u3048\u3047\u3047\u3047\u3047\uFF01\uFF01\n\u307E\u3001\u9593\u306B\u5408\u3063\u305F\u3041\uFF65\uFF65\uFF65\nCharacter_Suisei:\u3042\u3089\u3001\u9003\u3052\u305F\u3068\u601D\u3063\u3066\u3044\u305F\u308F\u3002\u305A\u3044\u3076\u3093\u9045\u304B\u3063\u305F\u3058\u3083\u306A\u3044\nCharacter_Mis:\u2026\u3057\u3085\u3001\u4E3B\u5F79\u306F\u9045\u308C\u3066\u3084\u3063\u3066\u304F\u308B\u3063\u3066\u8A00\u3046\u3067\u3057\u3087\uFF1F\n(\u2026\u30DB\u30F3\u30C8\u306F\u76EE\u899A\u307E\u3057\u639B\u3051\u308B\u306E\u5FD8\u308C\u3066\u305F\u3060\u3051\u306A\u3093\u3060\u3051\u3069\u306D\uFF01\uFF09\nCharacter_Suisei:\u307E\u3041\u3044\u3044\u308F\u3001\u3069\u3046\u305B\u52DD\u3064\u306E\u306F\u79C1\u3060\u3057\n\u6765\u306A\u3055\u3044\u3001\u30DC\u30B3\u30DC\u30B3\u306B\u3057\u3066\u3042\u3052\u308B\u308F\n\u9045\u523B\u3057\u3066\u5931\u683C\u306B\u306A\u3089\u306A\u304B\u3063\u305F\u3053\u3068\u3001\u5F8C\u6094\u3055\u305B\u3066\u3042\u3052\u308B\u308F\u2026\uFF01\nCharacter_Mis:(\u3053\u308C\u306F\u3001\u521D\u6226\u304B\u3089\u5F37\u6575\u306E\u4E88\u611F\u2026\uFF01)\n(\u3067\u3082\u3001\u7D76\u5BFE\u306B\u52DD\u3063\u3066\u898B\u305B\u308B\uFF01)\n(\u52DD\u3063\u3066\u3001\u9858\u3044\u3092\u304B\u306A\u3048\u308B\u3093\u3060\uFF01)\n\u3088\u308D\u3057\u304F\u304A\u9858\u3044\u3057\u307E\u3059\uFF01\n\r\nCharacter_Sun:\u305D\u308C\u3067\u306F\u4E00\u56DE\u6226\u3001\u958B\u59CB\u3067\u3059\uFF01\n"
+    stringVal: "Character_Mis mis_right left:\nCharacter_Mis:\u5F85\u3063\u3066\u3048\u3047\u3047\u3047\u3047\uFF01\uFF01\n\u307E\u3001\u9593\u306B\u5408\u3063\u305F\u3041\uFF65\uFF65\uFF65\nCharacter_Suisei:\u3042\u3089\u3001\u9003\u3052\u305F\u3068\u601D\u3063\u3066\u3044\u305F\u308F\u3002\u305A\u3044\u3076\u3093\u9045\u304B\u3063\u305F\u3058\u3083\u306A\u3044\nCharacter_Mis:\u2026\u3057\u3085\u3001\u4E3B\u5F79\u306F\u9045\u308C\u3066\u3084\u3063\u3066\u304F\u308B\u3063\u3066\u8A00\u3046\u3067\u3057\u3087\uFF1F\n(\u2026\u30DB\u30F3\u30C8\u306F\u76EE\u899A\u307E\u3057\u639B\u3051\u308B\u306E\u5FD8\u308C\u3066\u305F\u3060\u3051\u306A\u3093\u3060\u3051\u3069\u306D\uFF01\uFF09\nCharacter_Suisei:\u307E\u3041\u3044\u3044\u308F\u3001\u3069\u3046\u305B\u52DD\u3064\u306E\u306F\u79C1\u3060\u3057\n\u6765\u306A\u3055\u3044\u3001\u30DC\u30B3\u30DC\u30B3\u306B\u3057\u3066\u3042\u3052\u308B\u308F\n\u9045\u523B\u3057\u3066\u5931\u683C\u306B\u306A\u3089\u306A\u304B\u3063\u305F\u3053\u3068\u3001\u5F8C\u6094\u3055\u305B\u3066\u3042\u3052\u308B\u308F\u2026\uFF01\nCharacter_Mis:(\u3053\u308C\u306F\u3001\u521D\u6226\u304B\u3089\u5F37\u6575\u306E\u4E88\u611F\u2026\uFF01)\n(\u3067\u3082\u3001\u7D76\u5BFE\u306B\u52DD\u3063\u3066\u898B\u305B\u308B\uFF01)\n(\u52DD\u3063\u3066\u3001\u9858\u3044\u3092\u304B\u306A\u3048\u308B\u3093\u3060\uFF01)\n\u3088\u308D\u3057\u304F\u304A\u9858\u3044\u3057\u307E\u3059\uFF01\n\r\nCharacter_Sun:\u305D\u308C\u3067\u306F\u4E00\u56DE\u6226\u3001\u958B\u59CB\u3067\u3059\uFF01\n"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1101,7 +1102,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 174.57121
     y: 305.2451
-    width: 198.93616
+    width: 208.7719
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -1127,7 +1128,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Suisei left_1 Right:\n\u9045\u3044\u308F\u306D\u2026\n\u304D\u3063\u3068\u79C1\u306B\u6050\u308C\u3092\u306A\u3057\u3066\u9003\u3052\u305F\u306E\u306D\uFF01\n\u3053\u308C\u3067\u4E00\u6B69\u3001\u512A\u52DD\u306B\u8FD1\u3065\u3044\u2015"
+    stringVal: "Character_Suisei mio_stand Right:\n\u9045\u3044\u308F\u306D\u2026\n\u304D\u3063\u3068\u79C1\u306B\u6050\u308C\u3092\u306A\u3057\u3066\u9003\u3052\u305F\u306E\u306D\uFF01\n\u3053\u308C\u3067\u4E00\u6B69\u3001\u512A\u52DD\u306B\u8FD1\u3065\u3044\u2015"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1243,7 +1244,7 @@ GameObject:
   m_Component:
   - component: {fileID: 705763867}
   m_Layer: 0
-  m_Name: Sun
+  m_Name: Haruki
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1477,7 +1478,7 @@ GameObject:
   m_Component:
   - component: {fileID: 793195125}
   m_Layer: 0
-  m_Name: Suisei
+  m_Name: Mio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1824,8 +1825,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -1000}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: 0, y: -1300}
+  m_SizeDelta: {x: 1000, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &865038781
 MonoBehaviour:
@@ -2462,8 +2463,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 460.43, y: -1000}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: 460.43, y: -1100}
+  m_SizeDelta: {x: 600, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1044693893
 MonoBehaviour:
@@ -4225,7 +4226,8 @@ MonoBehaviour:
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
   portraits:
-  - {fileID: 21300000, guid: 9b320f049e9abf1408eef4807aaae90f, type: 3}
+  - {fileID: 21300000, guid: 447b22ae33c49d24eb0973c82d206aa9, type: 3}
+  - {fileID: 21300000, guid: b528bd99dcb1efc4aa87a3c222ec6446, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 828531573}
   description: 

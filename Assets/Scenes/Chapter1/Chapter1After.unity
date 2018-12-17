@@ -741,8 +741,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 460.43, y: -1000}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: 460.43, y: -1100}
+  m_SizeDelta: {x: 600, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &362463227
 MonoBehaviour:
@@ -1845,6 +1845,7 @@ GameObject:
   - component: {fileID: 689019062}
   - component: {fileID: 689019074}
   - component: {fileID: 689019065}
+  - component: {fileID: 689019067}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -1865,11 +1866,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 7.2296696, y: -22.591919}
+  scrollPos: {x: 172.76294, y: -156.92459}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 200
-  zoom: 1
+  zoom: 0.7900002
   scrollViewRect:
     serializedVersion: 2
     x: -343
@@ -1877,9 +1878,8 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019059}
-  selectedCommands:
-  - {fileID: 689019065}
+  - {fileID: 689019064}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -2072,9 +2072,10 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 689019068}
+  - {fileID: 689019067}
 --- !u!114 &689019065
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -2105,8 +2106,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 211.80527
-    y: 271.20273
+    x: 209.36624
+    y: 274.86127
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -2119,13 +2120,31 @@ MonoBehaviour:
   - {fileID: 689019074}
   - {fileID: 689019070}
   - {fileID: 689019069}
+--- !u!114 &689019067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 689019055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 207aecf668a0345388087ccf522f9957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 28
+  indentLevel: 0
+  duration: 1
+  targetAlpha: 1
+  waitUntilFinished: 1
+  fadeColor: {r: 0, g: 0, b: 0, a: 1}
+  fadeTexture: {fileID: 0}
 --- !u!114 &689019068
 MonoBehaviour:
   m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00d03ae0919f04264b018681ed534177, type: 3}
   m_Name: 
@@ -2172,7 +2191,8 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Suisei:\u2026\u306F\u3041\u2026\n\u79C1\u3068\u3057\u305F\u3053\u3068\u304C\u307E\u3055\u304B\u3044\u304D\u306A\u308A\u8CA0\u3051\u3061\u3083\u3046\u306A\u3093\u3066\u2026\n\u5F8C\u8F29\u305F\u3061\u306B\u300E\u512A\u52DD\u3057\u3066\u3046\u3061\u306B\u3082\u9AD8\u7B49\u90E8\u3092\u4F5C\u3063\u3066\u3042\u3052\u308B\u308F\uFF01\u300F\u306A\u3093\u3066\u8A00\u3063\u305F\u624B\u524D\u3001\u623B\u308A\u306B\u304F\u3044\u308F\u306D\u2026\n\u2026\u2026\n\u3044\u3064\u306E\u307E\u306B\u304B\u3001\u5439\u594F\u697D\u306E\u90E8\u5BA4\u306E\u65B9\u307E\u3067\u6765\u3061\u3083\u3063\u305F\u308F\u306D\n\u3053\u3093\u306A\u3068\u3053\u308D\u306B\u3044\u3066\u3082\u4ED5\u65B9\u304C\u306A\u3044\u3057\u3001\u90E8\u5BA4\u306B\u623B\u2015\n\u2026\uFF1F\n(\u5439\u594F\u697D\u30B5\u30FC\u30AF\u30EB\u306E\u90E8\u5BA4\u304B\u3089\u3001\u8AB0\u304B\u304C\u5927\u6025\u304E\u3067\u51FA\u3066\u3044\u3063\u305F\u308F\u306D\u2026)\n(\u3042\u3093\u306A\u5B50\u3001\u5439\u594F\u697D\u306B\u3044\u305F\u304B\u3057\u3089\uFF1F)"
+    stringVal: "Character_Suisei:\u2026\u306F\u3041\u2026\n\u79C1\u3068\u3057\u305F\u3053\u3068\u304C\u307E\u3055\u304B\u3044\u304D\u306A\u308A\u8CA0\u3051\u3061\u3083\u3046\u306A\u3093\u3066\u2026\n\u5F8C\u8F29\u305F\u3061\u306B\u300E\u512A\u52DD\u3057\u3066\u3046\u3061\u306B\u3082\u9AD8\u7B49\u90E8\u3092\u4F5C\u3063\u3066\u3042\u3052\u308B\u308F\uFF01\u300F\u306A\u3093\u3066\u8A00\u3063\u305F\u624B\u524D\u3001\u623B\u308A\u306B\u304F\u3044\u308F\u306D\u2026\n\u2026\u2026\n\u3044\u3064\u306E\u307E\u306B\u304B\u3001\u5439\u594F\u697D\u306E\u90E8\u5BA4\u306E\u65B9\u307E\u3067\u6765\u3061\u3083\u3063\u305F\u308F\u306D\n\u3053\u3093\u306A\u3068\u3053\u308D\u306B\u3044\u3066\u3082\u4ED5\u65B9\u304C\u306A\u3044\u3057\u3001\u90E8\u5BA4\u306B\u623B\u2015\n\u2026\uFF1F\n(\u5439\u594F\u697D\u30B5\u30FC\u30AF\u30EB\u306E\u90E8\u5BA4\u304B\u3089\u3001\u8AB0\u304B\u304C\u5927\u6025\u304E\u3067\u51FA\u3066\u3044\u3063\u305F\u308F\u306D\u2026)\n(\u3042\u3093\u306A\u5B50\u3001\u5439\u594F\u697D\u306B\u3044\u305F\u304B\u3057\u3089\uFF1F)\nCharacter_suisei
+      hide:"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -2200,7 +2220,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Mis mischanR left:\nCharacter_Suisei left_1 right:\n\nCharacter_Suisei:\u307E\u3001\u307E\u3055\u304B\u79C1\u304C\u8CA0\u3051\u308B\u306A\u3093\u3066\u2026\nCharacter_Mis:\u3042\u3001\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3057\u305F\u2026\n(\u2026\u306A\u3093\u3068\u304B\u52DD\u3066\u305F\u3041\u2026)\nCharacter_Suisei:\u2026\u3061\u3087\u3063\u3068\u3001\u8CB4\u65B9\uFF01\nCharacter_Mis:\u3048\u3063\u3068\u2026\u4F55?\nCharacter_Suisei:\u79C1\u306B\u52DD\u3063\u305F\u3093\u3060\u304B\u3089\u3001\u7D76\u5BFE\u306B\u512A\u52DD\u3057\u306A\u3055\u3044\u3088\uFF01\nCharacter_Suisei:\u2026\u305D\u308C\u3068\u3001\u6B21\u306F\u8CA0\u3051\u306A\u3044\u304B\u3089\uFF01\u899A\u609F\u3057\u306A\u3055\u3044\uFF01\nCharacter_Mis:\u2026\u3046\u3093\u3001\u9811\u5F35\u308B\u3088\uFF01\n\nCharacter_Mis
+    stringVal: "Character_Mis mis_right left:\nCharacter_Suisei mio_stand right:\n\nCharacter_Suisei:\u307E\u3001\u307E\u3055\u304B\u79C1\u304C\u8CA0\u3051\u308B\u306A\u3093\u3066\u2026\nCharacter_Mis:\u3042\u3001\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3057\u305F\u2026\n(\u2026\u306A\u3093\u3068\u304B\u52DD\u3066\u305F\u3041\u2026)\nCharacter_Suisei:\u2026\u3061\u3087\u3063\u3068\u3001\u8CB4\u65B9\uFF01\nCharacter_Mis:\u3048\u3063\u3068\u2026\u4F55?\nCharacter_Suisei:\u79C1\u306B\u52DD\u3063\u305F\u3093\u3060\u304B\u3089\u3001\u7D76\u5BFE\u306B\u512A\u52DD\u3057\u306A\u3055\u3044\u3088\uFF01\nCharacter_Suisei:\u2026\u305D\u308C\u3068\u3001\u6B21\u306F\u8CA0\u3051\u306A\u3044\u304B\u3089\uFF01\u899A\u609F\u3057\u306A\u3055\u3044\uFF01\nCharacter_Mis:\u2026\u3046\u3093\u3001\u9811\u5F35\u308B\u3088\uFF01\n\nCharacter_Mis
       hide:"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -2251,7 +2271,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
@@ -2805,8 +2825,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -460.43, y: -1000}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: -460.43, y: -1300}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1128040375
 MonoBehaviour:
@@ -3185,7 +3205,8 @@ MonoBehaviour:
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
   portraits:
-  - {fileID: 21300000, guid: 9b320f049e9abf1408eef4807aaae90f, type: 3}
+  - {fileID: 21300000, guid: 447b22ae33c49d24eb0973c82d206aa9, type: 3}
+  - {fileID: 21300000, guid: b528bd99dcb1efc4aa87a3c222ec6446, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 909840477}
   description: 
@@ -3862,7 +3883,7 @@ MonoBehaviour:
   nameColor: {r: 1, g: 1, b: 1, a: 1}
   soundEffect: {fileID: 0}
   portraits:
-  - {fileID: 21300000, guid: 73c8d96013b2f324aaeb99b0fc552b65, type: 3}
+  - {fileID: 21300000, guid: f8d549424c0cddd48b3261991a753a03, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 1940554316}
   description: 
@@ -3900,8 +3921,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -1000}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: 0, y: -1300}
+  m_SizeDelta: {x: 1000, y: 1000}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1921765551
 CanvasRenderer:

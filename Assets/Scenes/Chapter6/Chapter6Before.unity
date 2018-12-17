@@ -167,7 +167,7 @@ Prefab:
     - target: {fileID: 114520381070998952, guid: 4e74c1b579a544040b0e861e9439bcfb,
         type: 2}
       propertyPath: nameText
-      value: "\u795E\u5BAE\u5BFA\u6674\u6A39(\u3058\u3093\u3050\u3046\u3058 \u306F\u308B\u304D)"
+      value: "\u795E\u5BAE\u5BFA \u6674\u8F1D(\u3058\u3093\u3050\u3046\u3058 \u306F\u308B\u304D)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e74c1b579a544040b0e861e9439bcfb, type: 2}
@@ -312,7 +312,7 @@ Prefab:
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
       propertyPath: nameText
-      value: "\u904A\u898B\u6E1A(\u3059\u3055\u307F \u306A\u304E\u3055)"
+      value: "\u904A\u898B \u6E1A(\u3059\u3055\u307F \u306A\u304E\u3055)"
       objectReference: {fileID: 0}
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
@@ -357,8 +357,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -460.43, y: -1000}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: -460.43, y: -1300}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &246346965
 MonoBehaviour:
@@ -492,12 +492,12 @@ Prefab:
         type: 2}
       propertyPath: portraits.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 494d2707c69684c4fa0bc7cbf5ddfca0,
+      objectReference: {fileID: 21300000, guid: fb734e22020955b4b84e0970ccd7ca31,
         type: 3}
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
       propertyPath: nameText
-      value: "\u5965\u82D1\u7531\u7D00(\u304A\u304F\u305E\u306E \u3086\u304D)"
+      value: "\u5965\u82D1 \u7531\u7D00(\u304A\u304F\u305E\u306E \u3086\u304D)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b435053dd972884cafb314c6d6d7205, type: 2}
@@ -523,7 +523,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &293346187
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -643,7 +643,7 @@ Prefab:
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
       propertyPath: nameText
-      value: "\u7A7A\u9591\u7406\u4EBA(\u304F\u304C \u308A\u3072\u3068)"
+      value: "\u7A7A\u9591 \u7406\u4EBA(\u304F\u304C \u308A\u3072\u3068)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b435053dd972884cafb314c6d6d7205, type: 2}
@@ -660,7 +660,7 @@ GameObject:
   - component: {fileID: 578537841}
   - component: {fileID: 578537840}
   m_Layer: 0
-  m_Name: Offscreen Right
+  m_Name: Yayoi_pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -682,8 +682,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 1300, y: -1000}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: 400, y: -1000}
+  m_SizeDelta: {x: 750, y: 750}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &578537840
 MonoBehaviour:
@@ -755,8 +755,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -1300, y: -1000}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: -1300, y: -1300}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &581348157
 MonoBehaviour:
@@ -869,8 +869,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019064}
-  selectedCommands: []
+  - {fileID: 689019057}
+  selectedCommands:
+  - {fileID: 689019061}
   variables: []
   description: 
   stepPause: 0
@@ -1069,8 +1070,8 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Mituki sing Left:\u307F\u3059\u3061\u3083\u3093\u5148\u8F29\u306E\u304A\u53CB\u9054\u3063\u3066\u3001\u5F37\u3044\u3093\u3067\u3059\u304B\uFF1F\nCharacter_Mis
-      mischanR Right:\u5F37\u3044\u3088\n\u904A\u898B\u6E1A\u306F\u30B2\u30FC\u30E0\u306E\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u3092\u64CD\u3063\u3066\u6226\u3046\u3093\u3060\n\u5F7C\u5973\u306E\u76F8\u68D2\u3001\u30C8\u30EA\u30A3\u304C\u6E1A\u306E\u6307\u793A\u3067\u6226\u3046\u3093\u3060\n\u305D\u3057\u3066\u3001\u4E8C\u4EBA\u306E\u30B3\u30F3\u30D3\u30CD\u30FC\u30B7\u30E7\u30F3\u304C\u3082\u306E\u3063\u3059\u3054\u304F\u5F37\u529B\n1000\u6642\u9593\u4EE5\u4E0A\u4E00\u7DD2\u306B\u5192\u967A\u3057\u3066\u308B\u3060\u3051\u3042\u3063\u3066\u3001\u606F\u3074\u3063\u305F\u308A\u306A\u3093\u3060\u3088\nCharacter_Mituki:\u305B\u30011000\u6642\u9593\uFF01\uFF1F\nCharacter_Mis:\u3060\u304B\u3089\u3001\u6E1A\u304C\u8CA0\u3051\u308B\u3063\u3066\u3053\u3068\u306F\u305D\u3046\u306F\u306A\u3044\u3068\u601D\u3046\u3093\u3060\u3051\u3069\u2026\nCharacter_Haruki:\u3053\u308C\u306F\u3044\u3063\u305F\u3044\u3069\u3046\u3044\u3046\u4E8B\u306A\u3093\u3060\u30FC\uFF01\uFF1F\n\u512A\u52DD\u5019\u88DC\u306E\u4E00\u89D2\u3001T-Gamers\u304C\u624B\u3082\u8DB3\u3082\u51FA\u306A\u3044\uFF01\n\u4ECA\u5927\u4F1A\u306E\u30C0\u30FC\u30AF\u30DB\u30FC\u30B9\u3001\u9ED2\u9B54\u8853\u7814\u7A76\u4F1A\u304C\u7259\u3092\u3080\u3044\u3066\u3044\u308B\u30FC\uFF01\nCharacter_Mis:\u2026\u6E1A\u2026\uFF01\nCharacter_Mis
+    stringVal: "Character_Mituki mituki_right Left:\u307F\u3059\u3061\u3083\u3093\u5148\u8F29\u306E\u304A\u53CB\u9054\u3063\u3066\u3001\u5F37\u3044\u3093\u3067\u3059\u304B\uFF1F\nCharacter_Mis
+      mis_left Right:\u5F37\u3044\u3088\n\u904A\u898B\u6E1A\u306F\u30B2\u30FC\u30E0\u306E\u30AD\u30E3\u30E9\u30AF\u30BF\u30FC\u3092\u64CD\u3063\u3066\u6226\u3046\u3093\u3060\n\u5F7C\u5973\u306E\u76F8\u68D2\u3001\u30C8\u30EA\u30A3\u304C\u6E1A\u306E\u6307\u793A\u3067\u6226\u3046\u3093\u3060\n\u305D\u3057\u3066\u3001\u4E8C\u4EBA\u306E\u30B3\u30F3\u30D3\u30CD\u30FC\u30B7\u30E7\u30F3\u304C\u3082\u306E\u3063\u3059\u3054\u304F\u5F37\u529B\n1000\u6642\u9593\u4EE5\u4E0A\u4E00\u7DD2\u306B\u5192\u967A\u3057\u3066\u308B\u3060\u3051\u3042\u3063\u3066\u3001\u606F\u3074\u3063\u305F\u308A\u306A\u3093\u3060\u3088\nCharacter_Mituki:\u305B\u30011000\u6642\u9593\uFF01\uFF1F\nCharacter_Mis:\u3060\u304B\u3089\u3001\u6E1A\u304C\u8CA0\u3051\u308B\u3063\u3066\u3053\u3068\u306F\u305D\u3046\u306F\u306A\u3044\u3068\u601D\u3046\u3093\u3060\u3051\u3069\u2026\nCharacter_Haruki:\u3053\u308C\u306F\u3044\u3063\u305F\u3044\u3069\u3046\u3044\u3046\u4E8B\u306A\u3093\u3060\u30FC\uFF01\uFF1F\n\u512A\u52DD\u5019\u88DC\u306E\u4E00\u89D2\u3001T-Gamers\u304C\u624B\u3082\u8DB3\u3082\u51FA\u306A\u3044\uFF01\n\u4ECA\u5927\u4F1A\u306E\u30C0\u30FC\u30AF\u30DB\u30FC\u30B9\u3001\u9ED2\u9B54\u8853\u7814\u7A76\u4F1A\u304C\u7259\u3092\u3080\u3044\u3066\u3044\u308B\u30FC\uFF01\nCharacter_Mis:\u2026\u6E1A\u2026\uFF01\nCharacter_Mis
       hide:\nCharacter_Mituki hide:"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -1178,8 +1179,8 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Mis mischanR Right:\u3075\u3045\u3001\u606F\u304C\u8A70\u307E\u3063\u305F\u306A\u3041\u2026\nCharacter_Mituki
-      sing Left:\u7D50\u5C40\u3001\u305A\u3063\u3068\u7768\u307E\u308C\u3066\u3044\u307E\u3057\u305F\u306D\u2026\nCharacter_Nazo:\u304A\u3044\u3001\u805E\u3044\u305F\u304B\uFF1F\n\u3042\u3042\u3001\u7D42\u7109\u306E\u66F8(\u30A2\u30DD\u30AB\u30EA\u30D7\u30B9)\u3060\u308D\uFF1F\nT-Gamers\u3092\u5727\u5012\u3057\u3066\u308B\u3060\u3063\u3066\uFF1F\n\u4F55\u304B\u306E\u9593\u9055\u3044\u3058\u3083\u306A\u3044\u304B\uFF1F\u7D42\u7109\u306E\u66F8(\u30A2\u30DD\u30AB\u30EA\u30D7\u30B9)\u3063\u3066\u5F31\u5C0F\u30B5\u30FC\u30AF\u30EB\u306B\u3082\u82E6\u6226\u3057\u3066\u305F\u3060\u308D\uFF1F\nCharacter_Mis:\u2026\u3078\uFF1F\nCharacter_Mituki:\u3069\u3046\u304B\u3057\u307E\u3057\u305F\u304B\u3001\u307F\u3059\u3061\u3083\u3093\u5148\u8F29\nCharacter_Mis:\u2026\u3061\u3087\u3063\u3068\u3001\u6E1A\u2026T-Gamers\u306E\u8A66\u5408\u3092\u898B\u306B\u884C\u3063\u3066\u304F\u308B\nCharacter_Mituki:\u308F\u3001\u79C1\u3082\u304A\u4F9B\u3057\u307E\u3059\uFF01\nCharacter_Mis
+    stringVal: "Character_Mis mis_left Right:\u3075\u3045\u3001\u606F\u304C\u8A70\u307E\u3063\u305F\u306A\u3041\u2026\nCharacter_Mituki
+      mituki_right Left:\u7D50\u5C40\u3001\u305A\u3063\u3068\u7768\u307E\u308C\u3066\u3044\u307E\u3057\u305F\u306D\u2026\nCharacter_Nazo:\u304A\u3044\u3001\u805E\u3044\u305F\u304B\uFF1F\n\u3042\u3042\u3001\u7D42\u7109\u306E\u66F8(\u30A2\u30DD\u30AB\u30EA\u30D7\u30B9)\u3060\u308D\uFF1F\nT-Gamers\u3092\u5727\u5012\u3057\u3066\u308B\u3060\u3063\u3066\uFF1F\n\u4F55\u304B\u306E\u9593\u9055\u3044\u3058\u3083\u306A\u3044\u304B\uFF1F\u7D42\u7109\u306E\u66F8(\u30A2\u30DD\u30AB\u30EA\u30D7\u30B9)\u3063\u3066\u5F31\u5C0F\u30B5\u30FC\u30AF\u30EB\u306B\u3082\u82E6\u6226\u3057\u3066\u305F\u3060\u308D\uFF1F\nCharacter_Mis:\u2026\u3078\uFF1F\nCharacter_Mituki:\u3069\u3046\u304B\u3057\u307E\u3057\u305F\u304B\u3001\u307F\u3059\u3061\u3083\u3093\u5148\u8F29\nCharacter_Mis:\u2026\u3061\u3087\u3063\u3068\u3001\u6E1A\u2026T-Gamers\u306E\u8A66\u5408\u3092\u898B\u306B\u884C\u3063\u3066\u304F\u308B\nCharacter_Mituki:\u308F\u3001\u79C1\u3082\u304A\u4F9B\u3057\u307E\u3059\uFF01\nCharacter_Mis
       hide:\nCharacter_Mituki hide:\n"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -1235,7 +1236,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "None:(\u65AC\u6483\u97F3)\nCharacter_Yayoi left Right:\nCharacter_Nagisa
+    stringVal: "None:(\u65AC\u6483\u97F3)\nCharacter_Yayoi yayoi_stand Yayoi_pos:\nCharacter_Nagisa
       right Left:\u306A\u3093\u3067\u2026\u2026\u30C8\u30EA\u30A3\u2026\u2026\uFF01\nCharacter_Tory:\u2026\u2026\u2026\u2026\u2026\u2026\nCharacter_Yayoi:\u305D\u308D\u305D\u308D\u3001\u8AE6\u3081\u3066\u306F\u3069\u3046\u3067\u3059\u304B\uFF1F\n\u3042\u306A\u305F\u306E\u76F8\u68D2\u3082\u3001\u3069\u3046\u3084\u3089\u3084\u308B\u6C17\u304C\u306A\u3044\u3088\u3046\u3067\u3059\u3057\u2026\n\u3042\u306A\u305F\u65B9\u306B\u3001\u52DD\u3061\u306E\u76EE\u306F\u3042\u308A\u307E\u305B\u3093\nCharacter_Nagisa:\u30C8\u30EA\u30A3\u2026\u304A\u9858\u3044\u2026\u8A00\u3046\u4E8B\u3001\u805E\u3044\u3066\u2026\uFF01\nCharacter_Nagisa
       hide:\nCharacter_Yayoi hide:\n"
   clearPrevious:
@@ -1282,8 +1283,8 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Mituki sing Middle:\nCharacter_Yamituki usiro Left:\nCharacter_Mis
-      mischanR Right:\u2026\u304A\u304B\u3057\u3044\u3001\u30C8\u30EA\u30A3\u304C\u6E1A\u306E\u3044\u3046\u4E8B\u3092\u805E\u304B\u306A\u3044\u306A\u3093\u3066\u3001\u4ECA\u307E\u3067\u306A\u304B\u3063\u305F\u306E\u306B\u2026\uFF01\nCharacter_Mituki:\u306A\u3001\u4F55\u304C\u8D77\u304D\u3066\u308B\u3093\u3067\u3059\u304B\u2026\uFF1F\nCharacter_Yamituki:(\u2026\u2026\u2026\u2026\u2026\u2026)\n(\u2026\u2026\u2026\u3042\u306E\u6642)\n(\u2026\u6960\u5148\u8F29\u306E\u6B66\u5668\u3082\u3001\u69D8\u5B50\u304C\u304A\u304B\u3057\u304B\u3063\u305F\u3088\u3046\u306B\u601D\u3048\u308B)\n(\u2026\u2026\u2026\u2026\u2026\u2026)\n(\u512A\u52DD\u5019\u88DC\u306E\u6B66\u5668\u3060\u3051\u304C\u3001\u4E0D\u8ABF\u306B\u306A\u3063\u3066\u3044\u308B\u2026\uFF1F)\nCharacter_Mis
+    stringVal: "Character_Mituki mituki_right Middle:\nCharacter_Yamituki yamituki_right
+      Left:\nCharacter_Mis mis_left Right:\u2026\u304A\u304B\u3057\u3044\u3001\u30C8\u30EA\u30A3\u304C\u6E1A\u306E\u3044\u3046\u4E8B\u3092\u805E\u304B\u306A\u3044\u306A\u3093\u3066\u3001\u4ECA\u307E\u3067\u306A\u304B\u3063\u305F\u306E\u306B\u2026\uFF01\nCharacter_Mituki:\u306A\u3001\u4F55\u304C\u8D77\u304D\u3066\u308B\u3093\u3067\u3059\u304B\u2026\uFF1F\nCharacter_Yamituki:(\u2026\u2026\u2026\u2026\u2026\u2026)\n(\u2026\u2026\u2026\u3042\u306E\u6642)\n(\u2026\u6960\u5148\u8F29\u306E\u6B66\u5668\u3082\u3001\u69D8\u5B50\u304C\u304A\u304B\u3057\u304B\u3063\u305F\u3088\u3046\u306B\u601D\u3048\u308B)\n(\u2026\u2026\u2026\u2026\u2026\u2026)\n(\u512A\u52DD\u5019\u88DC\u306E\u6B66\u5668\u3060\u3051\u304C\u3001\u4E0D\u8ABF\u306B\u306A\u3063\u3066\u3044\u308B\u2026\uFF1F)\nCharacter_Mis
       hide:\nCharacter_Mituki hide:\nCharacter_Yamituki hide:"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -1421,7 +1422,7 @@ MonoBehaviour:
   conversationText:
     stringRef: {fileID: 0}
     stringVal: "None:(\u65AC\u6483\u97F3)\nCharacter_Nagisa right Left:\u2026\u304F\u3063\u2026\u3042\u3041\u3063\u2026\nCharacter_Yayoi
-      left Right:\u5F80\u751F\u969B\u304C\u60AA\u3044\u3067\u3059\u306D\u2026\n\u3053\u308C\u3067\u7D42\u308F\u308A\u3067\u3059\u2026\uFF01\nCharacter_Nagisa:\u304A\u9858\u3044\u2026\u30C8\u30EA\u30A3\u2026\uFF01\nCharacter_Yayoi:(\u7121\u99C4\u3067\u3059\u3088\u2026)\n(\u2026\u3069\u308C\u3060\u3051\u5FC5\u6B7B\u306B\u547C\u3073\u304B\u3051\u305F\u3068\u3057\u3066\u3082)\n(\u3042\u306A\u305F\u306E\u76F8\u65B9\u304C\u305D\u308C\u306B\u5FDC\u3048\u308B\u3053\u3068\u306F\u2026)"
+      yayoi_stand:\u5F80\u751F\u969B\u304C\u60AA\u3044\u3067\u3059\u306D\u2026\n\u3053\u308C\u3067\u7D42\u308F\u308A\u3067\u3059\u2026\uFF01\nCharacter_Nagisa:\u304A\u9858\u3044\u2026\u30C8\u30EA\u30A3\u2026\uFF01\nCharacter_Yayoi:(\u7121\u99C4\u3067\u3059\u3088\u2026)\n(\u2026\u3069\u308C\u3060\u3051\u5FC5\u6B7B\u306B\u547C\u3073\u304B\u3051\u305F\u3068\u3057\u3066\u3082)\n(\u3042\u306A\u305F\u306E\u76F8\u65B9\u304C\u305D\u308C\u306B\u5FDC\u3048\u308B\u3053\u3068\u306F\u2026)"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1484,7 +1485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 357.4251
+    x: 359.2433
     y: 318.4055
     width: 120
     height: 40
@@ -1515,7 +1516,7 @@ MonoBehaviour:
   stage: {fileID: 0}
   character: {fileID: 278957147}
   replacedCharacter: {fileID: 0}
-  portrait: {fileID: 21300000, guid: 10e76e1aba8bc2d45ab61c93c4f52ed1, type: 3}
+  portrait: {fileID: 21300000, guid: 383ede4675ab1064da61a222b6de9f3d, type: 3}
   offset: 0
   fromPosition: {fileID: 0}
   toPosition: {fileID: 246346964}
@@ -1544,7 +1545,7 @@ MonoBehaviour:
   stage: {fileID: 0}
   character: {fileID: 1994607452}
   replacedCharacter: {fileID: 0}
-  portrait: {fileID: 21300000, guid: 9b320f049e9abf1408eef4807aaae90f, type: 3}
+  portrait: {fileID: 21300000, guid: 447b22ae33c49d24eb0973c82d206aa9, type: 3}
   offset: 0
   fromPosition: {fileID: 0}
   toPosition: {fileID: 1416220344}
@@ -1602,10 +1603,10 @@ MonoBehaviour:
   stage: {fileID: 0}
   character: {fileID: 1365159281}
   replacedCharacter: {fileID: 0}
-  portrait: {fileID: 21300000, guid: a4857200ad44f4641b52fdef75ecc150, type: 3}
+  portrait: {fileID: 21300000, guid: 0488fb433f3d90c42a0367064a850872, type: 3}
   offset: 0
   fromPosition: {fileID: 0}
-  toPosition: {fileID: 1416220344}
+  toPosition: {fileID: 578537839}
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0.5
@@ -1659,7 +1660,7 @@ MonoBehaviour:
   conversationText:
     stringRef: {fileID: 0}
     stringVal: "Character_Mis:\u2026\u2026\u6E1A\uFF1F\u3044\u3063\u305F\u3044\u4F55\u3092\u2026\u2026\nCharacter_Nagisa:\u2026\u2026\u4ECA\u304B\u3089\n\u79C1\u9054\u3068\u3001\u6226\u3063\u3066\u307B\u3057\u3044\nCharacter_Mis:\u2026\u3078\uFF1F\nCharacter_Nagisa:\u2026\u79C1\u306F\u3001\u7FE0\u306B\u512A\u52DD\u3057\u3066\u307B\u3057\u3044\n\u3060\u304B\u3089\u3001\u7279\u8A13\n\u79C1\u3068\u30C8\u30EA\u30A3\u306E\u6280\u3092\u2026\u7FE0\u306B\u8A17\u3059\nCharacter_Mis:\u305D\u3001\u305D\u3093\u306A\u3053\u3068\u3067\u304D\u308B\u306E\uFF01\uFF1F\nCharacter_Nagisa:\u2026\u2026\u5927\u4E08\u592B\n\u2026\u7FE0\u306B\u306A\u3089\u3001\u3067\u304D\u308B\u3068\u601D\u3046\nCharacter_Mis:\u2026\u3046\u3093\u3001\u5206\u304B\u3063\u305F\uFF01\u3084\u3063\u3066\u307F\u308B\u3088\uFF01\n\u305D\u308C\u3068\u3001\u6E1A\nCharacter_Nagisa:\u2026\u4F55\uFF1F\nCharacter_Mis:\u7DF4\u7FD2\u8A66\u5408\u3068\u306F\u3044\u3048\u3001\u672C\u6C17\u3067\u884C\u304F\u304B\u3089\u306D\uFF01\nCharacter_Nagisa:\u2026\u5F53\u7136\uFF01\nCharacter_Mis
-      hide:\nCharacter_Nagisa hide:\nCharacter_Nazo:\u307F\u3059\u3061\u3083\u3093\u304C\u300E\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB\u300F\u3092\u7FD2\u5F97\u3057\u307E\u3057\u305F\n"
+      hide:\nCharacter_Nagisa hide:\nNone:\u307F\u3059\u3061\u3083\u3093\u304C\u300E\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB\u300F\u3092\u7FD2\u5F97\u3057\u307E\u3057\u305F\n"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1687,7 +1688,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Mis mischanR Left:\u2026\uFF01\u6E1A\uFF01\nCharacter_Nagisa
+    stringVal: "Character_Mis mis_right Left:\u2026\uFF01\u6E1A\uFF01\nCharacter_Nagisa
       left Right:\u2026\u7FE0\n\u2026\u7D04\u675F\u3001\u679C\u305F\u305B\u306A\u304B\u3063\u305F\u2026\nCharacter_Mis:\u4ED5\u65B9\u306A\u3044\u3088\u3001\u4E0D\u8ABF\u3060\u3063\u305F\u3093\u3060\u3082\u3093\n\u3063\u3066\u3044\u3046\u304B\u7D76\u5BFE\u304A\u304B\u3057\u3044\u3088\uFF01\u30C8\u30EA\u30A3\u304C\u6E1A\u306E\u3044\u3046\u4E8B\u3092\u805E\u304B\u306A\u3044\u306A\u3093\u3066\uFF01\n\u304D\u3063\u3068\u3001\u30B7\u30B9\u30C6\u30E0\u306E\u6545\u969C\u3060\u3088\uFF01\nCharacter_Nagisa:\u2026\u7FE0\n\u2026\u5C11\u3057\u3001\u4ED8\u304D\u5408\u3063\u3066\nCharacter_Mis:\u2026\u2026\u3078\uFF1F\nCharacter_Nagisa:\u2026\u305D\u3063\u3061\u306E\u4E8C\u4EBA\u3082\u3001\u304A\u9858\u3044\nCharacter_Mituki:\u2026\uFF1F\u306F\u3001\u306F\u3044\u2026\nCharacter_Yamituki:\u2026\u2026\u2026\u2026\u2026\u2026"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -1756,12 +1757,12 @@ Prefab:
         type: 2}
       propertyPath: portraits.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: a4857200ad44f4641b52fdef75ecc150,
+      objectReference: {fileID: 21300000, guid: b77d208cf2b357c4b9c5d66ff4b4a175,
         type: 3}
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
       propertyPath: nameText
-      value: "\u964D\u9B54\u5F25\u5BB5(\u3054\u3046\u307E \u3084\u3088\u3044)"
+      value: "\u964D\u9B54 \u5F25\u5BB5(\u3054\u3046\u307E \u3084\u3088\u3044)"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b435053dd972884cafb314c6d6d7205, type: 2}
@@ -1838,6 +1839,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114154241267996572, guid: 9f0b63d277a0d284eabbfa3186900134,
+        type: 2}
+      propertyPath: portraits.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4828884090242710, guid: 9f0b63d277a0d284eabbfa3186900134, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1873,8 +1879,20 @@ Prefab:
     - target: {fileID: 114154241267996572, guid: 9f0b63d277a0d284eabbfa3186900134,
         type: 2}
       propertyPath: nameText
-      value: "\u9662\u5802\u82FA(\u3044\u3093\u3069\u3046 \u3044\u3061\u3054)"
+      value: "\u9662\u5802 \u82FA(\u3044\u3093\u3069\u3046 \u3044\u3061\u3054)"
       objectReference: {fileID: 0}
+    - target: {fileID: 114154241267996572, guid: 9f0b63d277a0d284eabbfa3186900134,
+        type: 2}
+      propertyPath: portraits.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 4763cf7196d8ec84da89e78b0f07fe5a,
+        type: 3}
+    - target: {fileID: 114154241267996572, guid: 9f0b63d277a0d284eabbfa3186900134,
+        type: 2}
+      propertyPath: portraits.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 383ede4675ab1064da61a222b6de9f3d,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f0b63d277a0d284eabbfa3186900134, type: 2}
   m_IsPrefabAsset: 0
@@ -2048,8 +2066,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 460.43, y: -1000}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: 460.43, y: -1300}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1416220345
 MonoBehaviour:
@@ -2094,6 +2112,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114097713296802240, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+        type: 2}
+      propertyPath: portraits.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4847720670475218, guid: 2e4d4d01f76880645a0b97e3bb4aba9c, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2126,6 +2149,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114097713296802240, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+        type: 2}
+      propertyPath: portraits.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 447b22ae33c49d24eb0973c82d206aa9,
+        type: 3}
+    - target: {fileID: 114097713296802240, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+        type: 2}
+      propertyPath: portraits.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: b528bd99dcb1efc4aa87a3c222ec6446,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e4d4d01f76880645a0b97e3bb4aba9c, type: 2}
   m_IsPrefabAsset: 0
@@ -2326,8 +2361,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -1000}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: 0, y: -1300}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1919057107
 MonoBehaviour:
@@ -2421,7 +2456,7 @@ Prefab:
     - target: {fileID: 114520381070998952, guid: 4e74c1b579a544040b0e861e9439bcfb,
         type: 2}
       propertyPath: nameText
-      value: 
+      value: ' '
       objectReference: {fileID: 0}
     - target: {fileID: 1805039982969468, guid: 4e74c1b579a544040b0e861e9439bcfb, type: 2}
       propertyPath: m_Name
@@ -2442,6 +2477,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
+        type: 2}
+      propertyPath: portraits.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4147535092854016, guid: 7b435053dd972884cafb314c6d6d7205, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2477,8 +2517,20 @@ Prefab:
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
       propertyPath: nameText
-      value: "\u9662\u5802\u54B2(\u3044\u3093\u3069\u3046 \u3055\u304D)"
+      value: "\u9662\u5802 \u54B2(\u3044\u3093\u3069\u3046 \u3055\u304D)"
       objectReference: {fileID: 0}
+    - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
+        type: 2}
+      propertyPath: portraits.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: dd471d19033d2fe48bd17c74c417de05,
+        type: 3}
+    - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
+        type: 2}
+      propertyPath: portraits.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 5d411f21d56fdaa42ac505b7c677c614,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b435053dd972884cafb314c6d6d7205, type: 2}
   m_IsPrefabAsset: 0

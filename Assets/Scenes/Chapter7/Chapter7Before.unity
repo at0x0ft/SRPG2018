@@ -222,8 +222,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -460.43, y: -1000}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: -460.43, y: -1300}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &246346965
 MonoBehaviour:
@@ -641,8 +641,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019057}
-  selectedCommands: []
+  - {fileID: 689019058}
+  selectedCommands:
+  - {fileID: 689019062}
   variables: []
   description: 
   stepPause: 0
@@ -777,9 +778,9 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Mis mischanR Left:\nTakumi suisei Right:\nHaruki:\u3055\u3041\u3001\u4ECA\u5927\u4F1A\u3082\u7D42\u76E4\u3060\uFF01\r\n\u6E96\u3005\u6C7A\u52DD\u3001\u7B2C\u4E00\u30AB\u30FC\u30C9\u306F\u2026\n\u30C7\u30B8\u30BF\u30EB\u5275\u4F5C\u30B5\u30FC\u30AF\u30EB\u3001PIC.T\u5BFE\u7F8E\u8853\u30B5\u30FC\u30AF\u30EB\u3001\u30C8\u30AD\u30EF\u30A2\u30FC\u30C6\u30A3\u30B9\u30C8\u30D5\u30A1\u30DF\u30EA\u30FC\u3060\u30FC\uFF01\uFF01\uFF01\r\nTakumi:\u2026\u2026\u2026\u2026\u2026\u2026\r\nMituki
-      sing Middle:\u3042\u3001\u3042\u308C\u304C\u91D1\u7BC9\u5148\u8F29\u2026\r\nMituki
-      hide:\nYamituki usiro Middle:\u9060\u8F1D\u6E21\u5927\u5B66\u3001\u6700\u5F37\u306E\u7537\u2026\r\nYamituki
+    stringVal: "Mis mis_right Left:\nTakumi suisei Right:\nHaruki:\u3055\u3041\u3001\u4ECA\u5927\u4F1A\u3082\u7D42\u76E4\u3060\uFF01\r\n\u6E96\u3005\u6C7A\u52DD\u3001\u7B2C\u4E00\u30AB\u30FC\u30C9\u306F\u2026\n\u30C7\u30B8\u30BF\u30EB\u5275\u4F5C\u30B5\u30FC\u30AF\u30EB\u3001PIC.T\u5BFE\u7F8E\u8853\u30B5\u30FC\u30AF\u30EB\u3001\u30C8\u30AD\u30EF\u30A2\u30FC\u30C6\u30A3\u30B9\u30C8\u30D5\u30A1\u30DF\u30EA\u30FC\u3060\u30FC\uFF01\uFF01\uFF01\r\nTakumi:\u2026\u2026\u2026\u2026\u2026\u2026\r\nMituki
+      mituki_right Middle:\u3042\u3001\u3042\u308C\u304C\u91D1\u7BC9\u5148\u8F29\u2026\r\nMituki
+      hide:\nYamituki yamituki_right Middle:\u9060\u8F1D\u6E21\u5927\u5B66\u3001\u6700\u5F37\u306E\u7537\u2026\r\nYamituki
       hide:\nMis:(\u591A\u5206\u3001\u79C1\u4E00\u4EBA\u306E\u529B\u3058\u3083\u52DD\u3066\u306A\u3044)\r\n(\u3051\u3069\u3001\u4ECA\u306F\u82FA\u3061\u3083\u3093\u3084\u54B2\u3061\u3083\u3093\u304C\u3044\u308B)\n(\u305D\u308C\u306B\u3001\u6E1A\u306E\u8A17\u3057\u3066\u304F\u308C\u305F\u300C\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB\u300D\u3082\u3042\u308B\u2026\uFF01)\r\nHaruki:\u679C\u305F\u3057\u3066\u3001\u6E96\u6C7A\u52DD\u3078\u99D2\u3092\u9032\u3081\u308B\u306E\u306F\u3069\u3061\u3089\u304B\u306A\u306E\u304B\uFF1F\r\n\u624B\u306B\u6C57\u63E1\u308B\u6226\u3044\u306E\u706B\u84CB\u304C\u4ECA\u307E\u3055\u306B\u843D\u3068\u3055\u308C\u3088\u3046\u3068\u3057\u3066\u3044\u307E\u3059\u2026\uFF01\r\nMis:\u52DD\u3068\u3046\u3001\u4E09\u4EBA\u306E\u529B\u3067\uFF01\nDouble:\u306F\u3044\uFF01\uFF01\uFF01\r\nHaruki:\u8A66\u5408\u3001\u958B\u59CB\u3067\u3059\uFF01\uFF01\nTakumi
       hide:\n\r"
   clearPrevious:
@@ -923,6 +924,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114154241267996572, guid: 9f0b63d277a0d284eabbfa3186900134,
+        type: 2}
+      propertyPath: portraits.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4828884090242710, guid: 9f0b63d277a0d284eabbfa3186900134, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -964,6 +970,18 @@ Prefab:
       propertyPath: nameText
       value: "\u9662\u5802 \u82FA(\u3044\u3093\u3069\u3046 \u3044\u3061\u3054)"
       objectReference: {fileID: 0}
+    - target: {fileID: 114154241267996572, guid: 9f0b63d277a0d284eabbfa3186900134,
+        type: 2}
+      propertyPath: portraits.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 4763cf7196d8ec84da89e78b0f07fe5a,
+        type: 3}
+    - target: {fileID: 114154241267996572, guid: 9f0b63d277a0d284eabbfa3186900134,
+        type: 2}
+      propertyPath: portraits.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 383ede4675ab1064da61a222b6de9f3d,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f0b63d277a0d284eabbfa3186900134, type: 2}
   m_IsPrefabAsset: 0
@@ -1120,8 +1138,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 460.43, y: -1000}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: 460.43, y: -1300}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1416220345
 MonoBehaviour:
@@ -1166,6 +1184,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114097713296802240, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+        type: 2}
+      propertyPath: portraits.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4847720670475218, guid: 2e4d4d01f76880645a0b97e3bb4aba9c, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1202,6 +1225,18 @@ Prefab:
       propertyPath: m_Name
       value: Mis
       objectReference: {fileID: 0}
+    - target: {fileID: 114097713296802240, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+        type: 2}
+      propertyPath: portraits.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 447b22ae33c49d24eb0973c82d206aa9,
+        type: 3}
+    - target: {fileID: 114097713296802240, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+        type: 2}
+      propertyPath: portraits.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: b528bd99dcb1efc4aa87a3c222ec6446,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e4d4d01f76880645a0b97e3bb4aba9c, type: 2}
   m_IsPrefabAsset: 0
@@ -1536,8 +1571,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -1000}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: 0, y: -1300}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1919057107
 MonoBehaviour:
@@ -1582,6 +1617,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
+        type: 2}
+      propertyPath: portraits.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4147535092854016, guid: 7b435053dd972884cafb314c6d6d7205, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1623,6 +1663,18 @@ Prefab:
       propertyPath: nameText
       value: "\u9662\u5802 \u54B2(\u3044\u3093\u3069\u3046 \u3055\u304D)"
       objectReference: {fileID: 0}
+    - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
+        type: 2}
+      propertyPath: portraits.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: dd471d19033d2fe48bd17c74c417de05,
+        type: 3}
+    - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
+        type: 2}
+      propertyPath: portraits.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 5d411f21d56fdaa42ac505b7c677c614,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b435053dd972884cafb314c6d6d7205, type: 2}
   m_IsPrefabAsset: 0
