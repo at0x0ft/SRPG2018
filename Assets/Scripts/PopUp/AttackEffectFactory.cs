@@ -185,13 +185,22 @@ public class AttackEffectFactory : MonoBehaviour
 		_effectFuncs[AttackEffectKind.LightObject] =      // 光月ちゃん 
 		_effectFuncs[AttackEffectKind.IcicleStaff] =      // 水星ちゃん
 		_effectFuncs[AttackEffectKind.WoundFist] =        // 金星
+		_effectFuncs[AttackEffectKind.StampWave] =
 		_effectFuncs[AttackEffectKind.CrushingShine] =    // 火星
-		_effectFuncs[AttackEffectKind.GodWind] =          // 木星
+		_effectFuncs[AttackEffectKind.RoarBurningWall] = 
+		_effectFuncs[AttackEffectKind.DestructExtinctShock] =
+		_effectFuncs[AttackEffectKind.Dragonfly] =        // 木星
+		_effectFuncs[AttackEffectKind.GodWind] =          
 		_effectFuncs[AttackEffectKind.SwordSword] =       // 土星
-		_effectFuncs[AttackEffectKind.LionsQuick] =       
+		_effectFuncs[AttackEffectKind.InfusionFossil] =
+		_effectFuncs[AttackEffectKind.LionsQuick] =    
+		_effectFuncs[AttackEffectKind.WholeThings] =
 		_effectFuncs[AttackEffectKind.Ephroresence] =     // 天王星
+		_effectFuncs[AttackEffectKind.Trunkization] =
 		_effectFuncs[AttackEffectKind.Crystallize] =
+		_effectFuncs[AttackEffectKind.DeadlyPoison] =
 		_effectFuncs[AttackEffectKind.IceStub] =          // 海王星
+		_effectFuncs[AttackEffectKind.BloodyBlast] =
 		NormalEffectMaker;
 
 		// for みすちゃん
@@ -203,6 +212,8 @@ public class AttackEffectFactory : MonoBehaviour
 		_effectFuncs[AttackEffectKind.FlameBreak] = FlameBreak;
 
 		// for 光月ちゃん
+		_effectFuncs[AttackEffectKind.PhotonCode] = PhotonCode;
+		_effectFuncs[AttackEffectKind.FatalError] = FatalError;
 		_effectFuncs[AttackEffectKind.MegabyteShotgun] = MegabyteShotgun;
 		_effectFuncs[AttackEffectKind.GigabitCannon] = GigabitCannon;
 
@@ -216,13 +227,28 @@ public class AttackEffectFactory : MonoBehaviour
 		// for 金星
 		_effectFuncs[AttackEffectKind.DefenseBreakSeparate] = DefenseBreakSeparate;
 		_effectFuncs[AttackEffectKind.DimensionBreaking] = DimensionBreaking;
+		_effectFuncs[AttackEffectKind.Flirtill] = Flirtill;
 
 		// for 火星
 		_effectFuncs[AttackEffectKind.TwinLights] = TwinLights;
 		_effectFuncs[AttackEffectKind.FourFireFlame] = TotalShock;
 		_effectFuncs[AttackEffectKind.FlameShot] = FlameBreak;
-		
+
+		// for 木星
+		_effectFuncs[AttackEffectKind.WindBlades] = WindBlades;
+		_effectFuncs[AttackEffectKind.Flash] = Flash;
+		_effectFuncs[AttackEffectKind.Darkness] = Flash;
+
+		// for 土星
+		_effectFuncs[AttackEffectKind.StormAndStress] = StormAndStress;
+		_effectFuncs[AttackEffectKind.PurpleQuota] = WindBlades;
+
+		// for 天王星
+		_effectFuncs[AttackEffectKind.SideEffect] = WindBlades;
+
 		// for 冥王星
+		_effectFuncs[AttackEffectKind.EternalVoid] = Flash;
+		_effectFuncs[AttackEffectKind.CaosInferno] = CaosInferno;
 		_effectFuncs[AttackEffectKind.AbsoluteZero] = HolyLiric;
 		_effectFuncs[AttackEffectKind.TheEnd] = TheEnd;
 	}
@@ -320,7 +346,7 @@ public class AttackEffectFactory : MonoBehaviour
 		.AppendInterval(waitTime)
 		.SetLoops(loops);
 	}
-	
+
 	/// <summary>
 	/// 特定の位置にエフェクトを作成します
 	/// (凝ったことをしなければ、これを使用するだけで良いでしょう)
@@ -400,9 +426,24 @@ public class AttackEffectFactory : MonoBehaviour
 	}
 
 	//// 光月ちゃん用
-	//PhotonCode
-	//BrightChain,
-	//FatalError,
+	private void PhotonCode(Sequence seq)
+	{
+		const float stepTime = 0.1f; // 1マス発生間隔
+		// 左から順にエフェクト発生
+		_targets = _targets.OrderBy(f => f.X).ToList();
+
+		SlashEffectMaker(seq, 1, _targets.Count, stepTime);
+	}
+
+	private void FatalError(Sequence seq)
+	{
+		const int floorSize = 32;
+		var center = _attacker.Floor.CoordinatePair.Value;
+		center.x += floorSize * 4;
+		
+		MakeEffect(center);
+	}
+
 	private void MegabyteShotgun(Sequence seq)
 	{
 		const float allTime = 5.0f;
@@ -423,9 +464,7 @@ public class AttackEffectFactory : MonoBehaviour
 			);
 		})
 		.AppendInterval(happenRate)
-		.SetLoops(-1);
-
-		DOVirtual.DelayedCall(allTime, () => seq.Complete());
+		.SetLoops((int)(allTime/happenRate));
 	}
 
 	private void GigabitCannon(Sequence seq)
@@ -519,10 +558,7 @@ public class AttackEffectFactory : MonoBehaviour
 			MakeEffect(target.GetComponent<RectTransform>().anchoredPosition, sprite);
 		})
 		.AppendInterval(happenRate)
-		.SetLoops(-1);
-
-		// 上のループの終了条件
-		DOVirtual.DelayedCall(allTime, () => seq.Complete());
+		.SetLoops((int)(allTime/happenRate));
 	}
 
 	private void HolyLiric(Sequence seq)
@@ -550,9 +586,7 @@ public class AttackEffectFactory : MonoBehaviour
 			);
 		})
 		.AppendInterval(happenRate)
-		.SetLoops(-1);
-
-		DOVirtual.DelayedCall(allTime, () => seq.Complete());
+		.SetLoops((int)(allTime/happenRate));
 	}
 	
 	// 金星用
@@ -571,9 +605,13 @@ public class AttackEffectFactory : MonoBehaviour
 		.SetDelay(frontTime)
 		.Append(rect.DOLocalMoveX( moveDist, 0.1f));
 	}
-	
-	//StampWave,
-	//Flirtill,
+
+	private void Flirtill(Sequence seq)
+	{
+		// shuffle
+		_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList();
+		SlashEffectMaker(seq, 1, 10);
+	}
 
 	private void DimensionBreaking(Sequence seq)
 	{
@@ -618,48 +656,44 @@ public class AttackEffectFactory : MonoBehaviour
 		}
 	}
 	
-	//RoarBurningWall,
-	//DestructExtinctShock,
-
 	//// 木星用
-	//WindBlades,
-	//Flash,
-	//Dragonfly,
-	//AFoam,
-	//Darkness,
+	private void WindBlades(Sequence seq)
+	{
+		MakeEffect(FindCenterOfGravity(_targets));
+	}
+
+	private void Flash(Sequence seq)
+	{
+		MakeEffect(_attacker.Floor.CoordinatePair.Value);
+	}
+	
+	private void AFoam(Sequence seq)
+	{
+		const int occurNum = 5;
+
+		// shuffle
+		_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList();
+		foreach(var target in _targets.GetRange(0, occurNum))
+		{
+			MakeEffect(target.CoordinatePair.Value);
+		}
+	}
 
 	//// 土星用
-	//SwordSword,
-	//InfusionFossil,
-
 	private void StormAndStress(Sequence seq)
 	{
 		SlashEffectMaker(seq, 2, 3);
 	}
 
-	//WholeThings,
-	//PurpleQuota,
-
-	//// 天王星用
-	//Trunkization,
-	//Altenaji,
-	//DeadlyPoison,
-	//SideEffect,
-
-	//// 海王星用
-	//IceStub,
-	//FairyTwister,
-	//BubbleTears,
-	//VenomRain,
-	//WaterFall,
-	//ThunderBolt,
-
 	//// 冥王星用
-	//EternalVoid,
-	//CaosInferno,
-	//BloodyBlast,
-	
-	//DarknessBind,
+	private void CaosInferno(Sequence seq)
+	{
+		// shuffle
+		_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList();
+
+		SlashEffectMaker(seq, 1, 15);
+	}
+
 	private void TheEnd(Sequence seq)
 	{
 		const float waitTime = 0.3f; // 1マス辺りの攻撃時間

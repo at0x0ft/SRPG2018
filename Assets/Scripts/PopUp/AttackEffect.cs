@@ -12,7 +12,8 @@ using DG.Tweening;
 public class AttackEffect : MonoBehaviour
 {
 	// ==========定数==========
-	private Vector2 _baseImageSize = new Vector2(32, 32); // image size (px)
+	//private Vector2 _baseImageSize = new Vector2(32, 32); // image size (px)
+	private Vector2 _baseImageSize = new Vector2(40, 40); // image size (px)
 	private Vector2 _littleImageSize { get { return _baseImageSize / 2; } }
 	private Vector2 _bigImageSize { get { return _baseImageSize * 3 / 2; } }
 	private readonly float sec2tick = 1000 * 1000 * 10;
@@ -77,7 +78,8 @@ public class AttackEffect : MonoBehaviour
 	{
 		_image.sprite = _sprites[0];                     // 画像設定
 		_image.enabled = true;                           // 画像表示開始
-		_image.rectTransform.sizeDelta = _baseImageSize; // 大きさ調整
+		_image.SetNativeSize();
+		//_image.rectTransform.sizeDelta = _baseImageSize; // 大きさ調整
 
 		UI.SetAnchorCenter(_rect, false);                             // 画像の中心を、座標の重心とする
 		_rect.localPosition = (Vector2)_occur + _baseImageSize / 2;   // 画像の中心を、攻撃者の中心と合わせる
@@ -95,10 +97,20 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.MegabyteShotgun] =       // 光月ちゃん
 		_effectFunc[AttackEffectKind.DefenseBreakSeparate] =
 		_effectFunc[AttackEffectKind.WoundFist] =             // 金星用
+		_effectFunc[AttackEffectKind.StampWave] =
 		_effectFunc[AttackEffectKind.MirrorSympony] =        
 		_effectFunc[AttackEffectKind.CrushingShine] =         // 火星用
-		_effectFunc[AttackEffectKind.GodWind] =               // 木星用
+		_effectFunc[AttackEffectKind.RoarBurningWall] =
+		_effectFunc[AttackEffectKind.DestructExtinctShock] =
+		_effectFunc[AttackEffectKind.Dragonfly] =             // 木星用
+		_effectFunc[AttackEffectKind.AFoam] =    
+		_effectFunc[AttackEffectKind.GodWind] =  
+		_effectFunc[AttackEffectKind.InfusionFossil] =        // 土星用
+		_effectFunc[AttackEffectKind.WholeThings] =
 		_effectFunc[AttackEffectKind.Ephroresence] =          // 天王星用
+		_effectFunc[AttackEffectKind.Trunkization] =
+		_effectFunc[AttackEffectKind.DeadlyPoison] =
+		_effectFunc[AttackEffectKind.BloodyBlast] =           // 冥王星用
 		NormalLoop;
 
 		// 画像を早めに1週させるだけ(斬撃向け)
@@ -108,13 +120,19 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.FlameBreak] =
 		_effectFunc[AttackEffectKind.TotalShock] =
 		_effectFunc[AttackEffectKind.FlameBreak] =
+		_effectFunc[AttackEffectKind.PhotonCode] =            // 光月ちゃん
+		_effectFunc[AttackEffectKind.FatalError] =
 		_effectFunc[AttackEffectKind.DimensionBreaking] =     // 金星
 		_effectFunc[AttackEffectKind.TwinLights] =            // 火星
 		_effectFunc[AttackEffectKind.FourFireFlame] =         
 		_effectFunc[AttackEffectKind.FlameShot] =
+		_effectFunc[AttackEffectKind.WindBlades] =            // 木星
+		_effectFunc[AttackEffectKind.Flash] =                 
+		_effectFunc[AttackEffectKind.Darkness] =              
 		_effectFunc[AttackEffectKind.SwordSword] =            // 土星
 		_effectFunc[AttackEffectKind.StormAndStress] =        
 		_effectFunc[AttackEffectKind.IceStub] =               // 海王星
+		_effectFunc[AttackEffectKind.EternalVoid] =           // 冥王星
 		HighSpeedNormalLoop;
 
 		// みすちゃん
@@ -125,7 +143,7 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.DeadLock] = DeadLock;
 
 		// 闇月ちゃん
-		_effectFunc[AttackEffectKind.DisorderlySlash] = SuperSpeedNormalLoop;
+		_effectFunc[AttackEffectKind.DisorderlySlash] = DisorderlySlash;
 
 		// 光月ちゃん
 		_effectFunc[AttackEffectKind.LightObject] = IcycleStaff;
@@ -138,15 +156,23 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.HellTone] = HellTone;
 		_effectFunc[AttackEffectKind.HolyLiric] = HolyLiric;
 
-		// 土星ちゃん
+		// 金星  
+		_effectFunc[AttackEffectKind.Flirtill] = Flirtill;  
+		
+		// 木星
+		_effectFunc[AttackEffectKind.WindBlades] = SideEffect;
+
+		// 土星
 		_effectFunc[AttackEffectKind.LionsQuick] = LionsQuick;
 
 		// 天王星
 		_effectFunc[AttackEffectKind.Crystallize] = IcycleStaff;
+		_effectFunc[AttackEffectKind.SideEffect] = SideEffect;
 
 		// for 冥王星
 		_effectFunc[AttackEffectKind.AbsoluteZero] = HolyLiric;
-		_effectFunc[AttackEffectKind.TheEnd] = SuperSpeedNormalLoop;
+		_effectFunc[AttackEffectKind.TheEnd] = DisorderlySlash;
+		_effectFunc[AttackEffectKind.CaosInferno] = Flirtill;
 	}
 
 	private void OnDestroy()
@@ -164,12 +190,6 @@ public class AttackEffect : MonoBehaviour
 	private void HighSpeedNormalLoop(Sequence seq)
 	{
 		const float effectSecPerFlame = 0.1f;
-		SpriteLoop(seq, effectSecPerFlame);
-	}
-
-	private void SuperSpeedNormalLoop(Sequence seq)
-	{
-		const float effectSecPerFlame = 0.05f;
 		SpriteLoop(seq, effectSecPerFlame);
 	}
 
@@ -193,12 +213,26 @@ public class AttackEffect : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// 物を落とすようなときに使える関数
+	/// </summary>
+	/// <param name="seq"></param>
+	/// <param name="animTime"></param>
+	/// <param name="height"></param>
+	/// <param name="width"></param>
+	private void FallObject(Sequence seq, float animTime = 1.0f, float height = 200f, float width = 100f)
+	{
+		var end = _rect.localPosition;
+		var start = end + new Vector3(width, height);
+		_rect.localPosition = start;
+
+		seq
+		.Append(_rect.DOLocalMoveX(end.x, animTime))
+		.Join(_rect.DOLocalMoveY(end.y, animTime).SetEase(Ease.InQuad));
+	}
+
 	// ==========動作定義関数==========
 	// -----みすちゃん用！-----
-	/// <summary>
-	/// 技:Spiralの攻撃エフェクトの定義です(実装例)
-	/// </summary>
-	/// <returns></returns>
 	private void Spiral(Sequence seq)
 	{	
 		const float effectSPF = 0.4f;　//描画変更間隔
@@ -211,7 +245,6 @@ public class AttackEffect : MonoBehaviour
 	/// <summary>
 	/// opt : 攻撃者の座標
 	/// </summary>
-	/// <returns></returns>
 	private void MARock(Sequence seq)
 	{
 		const float FLY_HEIGHT = 10f;
@@ -288,18 +321,21 @@ public class AttackEffect : MonoBehaviour
 	
 
 	//// -----光月ちゃん用-----
-	//PhotonCode,
-	//BrightChain,
-	//FatalError,
-
 	private void GigabitCannon(Sequence seq)
 	{
 
 		const float effectSPF = 0.4f; //描画変更間隔
-		const float imageSize = 48f; // 画像サイズ
+		const float sizeTimes = 1.5f; // 画像倍率
 
-		_rect.sizeDelta = new Vector2(imageSize, imageSize);
+		_rect.sizeDelta = _rect.sizeDelta * sizeTimes;
 		SpriteLoop(seq, effectSPF);
+	}
+
+	//// -----闇月ちゃん用-----
+	private void DisorderlySlash(Sequence seq)
+	{
+		const float effectSecPerFlame = 0.05f;
+		SpriteLoop(seq, effectSecPerFlame);
 	}
 
 
@@ -431,63 +467,26 @@ public class AttackEffect : MonoBehaviour
 			.SetEase(Ease.InQuint)
 		);
 	}
-
-	// -----金星用-----
-	//StampWave,
-	//Flirtill,
-	//DimensionBreaking,
-
-
-	//// -----火星用-----
-	//TwinLights,
-
-	//FourFireFlame,
-	//FlameShot,
-	//RoarBurningWall,
-	//DestructExtinctShock,
-
-	//// -----木星用-----
-	//WindBlades,
-	//Flash,
-	//Dragonfly,
-	//AFoam,
-	//Darkness,
 	
+	//// -----金星用-----
+	private void Flirtill(Sequence seq)
+	{
+		FallObject(seq);
+	}
 
 	//// -----土星用-----
-	//SwordSword,
-	//InfusionFossil,
-	
 	private void LionsQuick(Sequence seq)
 	{
 		NormalLoop(seq);
 		NormalLoop(seq);
 	}
 
-	//StormAndStress,
-	//WholeThings,
-	//PurpleQuota,
-
 	//// -----天王星用-----
-	//Trunkization,
+	private void SideEffect(Sequence seq)
+	{
+		// 縦長にする
+		transform.Rotate(new Vector3(0f, 0f, 90f));
 
-	//Altenaji,
-	//DeadlyPoison,
-	//SideEffect,
-
-	//// -----海王星用-----
-	//IceStub,
-	//FairyTwister,
-	//BubbleTears,
-	//VenomRain,
-	//WaterFall,
-	//ThunderBolt,
-
-	//// -----冥王星用-----
-	//EternalVoid,
-	//CaosInferno,
-	//BloodyBlast,
-
-	//DarknessBind,
-	//TheEnd
+		HighSpeedNormalLoop(seq);
+	}
 }
