@@ -87,7 +87,7 @@ public enum AttackEffectKind
 	FairyTwister,
 	BubbleTears,
 	VenomRain,
-	WaterFall,
+	WaterFallNeptune,
 	ThunderBolt,
 
 	// 冥王星用
@@ -246,6 +246,12 @@ public class AttackEffectFactory : MonoBehaviour
 		// for 天王星
 		_effectFuncs[AttackEffectKind.SideEffect] = WindBlades;
 
+		// for 海王星
+		_effectFuncs[AttackEffectKind.FairyTwister] = FairyTwister;
+		_effectFuncs[AttackEffectKind.BubbleTears] = BubbleTears;
+		_effectFuncs[AttackEffectKind.VenomRain] = FairyTwister;
+		_effectFuncs[AttackEffectKind.WaterFallNeptune] = FairyTwister;
+
 		// for 冥王星
 		_effectFuncs[AttackEffectKind.EternalVoid] = Flash;
 		_effectFuncs[AttackEffectKind.CaosInferno] = CaosInferno;
@@ -312,6 +318,24 @@ public class AttackEffectFactory : MonoBehaviour
 		return center / floors.Count;
 	}
 	
+	/// <summary>
+	/// 海王星でトリィが出てくる攻撃は、1個目をトリィにしておいて下さい
+	/// </summary>
+	/// <param name="seq"></param>
+	private void PopUpTolly(Sequence seq)
+	{
+		// tolly 取出し
+		Sprite tolly = _sprites[0];
+		_sprites = _sprites.GetRange(1, _sprites.Count - 1);
+
+		// tolly 作成
+		var pos = _attacker.Floor.CoordinatePair.Value;
+		var tollyObj = AttackEffectPopUp(_attack, _sprites, pos, Vector3.zero); // zeroが、tolly発生向けの特殊コマンドを示す
+
+		// tolly 終了条件
+		seq.AppendCallback(() => { Destroy(tollyObj); });
+	}
+
 	/// <summary>
 	/// 特定の位置達に、1通りの画像群で一斉にエフェクトを表現する
 	/// (対象全てにコマ送りだったらこれ)
@@ -684,6 +708,38 @@ public class AttackEffectFactory : MonoBehaviour
 	{
 		SlashEffectMaker(seq, 2, 3);
 	}
+
+	//// 海王星用
+	private void FairyTwister(Sequence seq)
+	{
+		NormalEffectMaker(seq);
+		PopUpTolly(seq);
+	}
+
+	private void BubbleTears(Sequence seq)
+	{
+		const float totalTime = 3.0f;
+		const float waitTime = 0.5f;
+
+		var targets = _targets
+		.Select(tar => tar.CoordinatePair.Value)
+		.ToList();
+
+		
+		seq
+		.AppendCallback(() =>
+		{
+			var targetPos = targets[UnityEngine.Random.Range(0, _targets.Count)];
+			MakeEffect(targetPos);
+		})
+		.AppendInterval(waitTime)
+		.SetLoops((int)(totalTime / waitTime)); 
+		
+		PopUpTolly(seq);
+	}
+	
+
+	//ThunderBolt,
 
 	//// 冥王星用
 	private void CaosInferno(Sequence seq)

@@ -13,7 +13,7 @@ public class AttackEffect : MonoBehaviour
 {
 	// ==========定数==========
 	//private Vector2 _baseImageSize = new Vector2(32, 32); // image size (px)
-	private Vector2 _baseImageSize = new Vector2(40, 40); // image size (px)
+	private Vector2 _baseImageSize = new Vector2(32, 32); // image size (px)
 	private Vector2 _littleImageSize { get { return _baseImageSize / 2; } }
 	private Vector2 _bigImageSize { get { return _baseImageSize * 3 / 2; } }
 	private readonly float sec2tick = 1000 * 1000 * 10;
@@ -169,6 +169,12 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.Crystallize] = IcycleStaff;
 		_effectFunc[AttackEffectKind.SideEffect] = SideEffect;
 
+		// for 海王星
+		_effectFunc[AttackEffectKind.FairyTwister] = FairyTwister;
+		_effectFunc[AttackEffectKind.BubbleTears] = BubbleTears;
+		_effectFunc[AttackEffectKind.VenomRain] = FairyTwister;
+		_effectFunc[AttackEffectKind.WaterFallNeptune] = FairyTwister;
+
 		// for 冥王星
 		_effectFunc[AttackEffectKind.AbsoluteZero] = HolyLiric;
 		_effectFunc[AttackEffectKind.TheEnd] = DisorderlySlash;
@@ -177,7 +183,7 @@ public class AttackEffect : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		seq.Complete();	
+		if(seq.IsActive()) seq.Kill();
 	}
 
 	// ==========動作定義補助関数==========
@@ -488,5 +494,58 @@ public class AttackEffect : MonoBehaviour
 		transform.Rotate(new Vector3(0f, 0f, 90f));
 
 		HighSpeedNormalLoop(seq);
+	}
+
+	//// -----海王星用-----
+	/// <summary>
+	/// トリィを動かす(その場面だったらtrue)
+	/// </summary>
+	private bool Tolly(Sequence seq)
+	{
+		if(_opt == null) return false;
+
+		const float MAX_WIDTH = 16f;
+		const float FLOAT_CYCLE = 1f;
+
+		// 右にズレる
+		float size = _baseImageSize.x / 2;
+		_rect.localPosition += Vector3.right * size;
+
+		// 浮遊する
+		seq
+		.Append(
+			_rect.DOLocalMoveY(MAX_WIDTH, FLOAT_CYCLE / 2)
+			.SetRelative()
+			.SetEase(Ease.InOutSine)
+		).Append(
+			_rect.DOLocalMoveY(-MAX_WIDTH, FLOAT_CYCLE / 2)
+			.SetRelative()
+			.SetEase(Ease.InOutSine)
+		).SetLoops(-1);
+
+		return true;
+	}
+
+	private void FairyTwister(Sequence seq)
+	{
+		if(Tolly(seq)) return;
+
+		NormalLoop(seq);
+	}
+
+	private void BubbleTears(Sequence seq)
+	{
+		if(Tolly(seq)) return;
+
+		// 泡を動かす
+		HellTone(seq);
+
+		// 泡をコマ送りにする
+		var subseq = DOTween.Sequence();
+		NormalLoop(subseq);
+		subseq.SetLoops(-1);
+
+		// 終了条件
+		seq.OnComplete(() => { subseq.Kill(); });
 	}
 }
