@@ -510,7 +510,7 @@ GameObject:
   - component: {fileID: 448064776}
   - component: {fileID: 448064775}
   m_Layer: 0
-  m_Name: Offscreen Left
+  m_Name: Rihito_pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -532,8 +532,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -1300, y: -1000}
-  m_SizeDelta: {x: 1000, y: 1000}
+  m_AnchoredPosition: {x: 0, y: -1300}
+  m_SizeDelta: {x: 1000, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &448064775
 MonoBehaviour:
@@ -893,7 +893,7 @@ GameObject:
   - component: {fileID: 581348158}
   - component: {fileID: 581348157}
   m_Layer: 0
-  m_Name: Karen_pos
+  m_Name: k_pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1007,6 +1007,7 @@ GameObject:
   - component: {fileID: 689019098}
   - component: {fileID: 689019063}
   - component: {fileID: 689019100}
+  - component: {fileID: 689019101}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -1039,9 +1040,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019067}
+  - {fileID: 689019057}
   selectedCommands:
-  - {fileID: 689019100}
+  - {fileID: 689019061}
   variables: []
   description: 
   stepPause: 0
@@ -1174,7 +1175,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
@@ -1404,7 +1405,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Takumi:\u2026\u2026\u2026\u2026\u3063\uFF01\r\nHaruki:\u3064\u3044\u306B\u6C7A\u7740\u3060\u3042\u3041\u3041\uFF01\r\nHaruki:\u30C8\u30AD\u30EF\u30A2\u30FC\u30C6\u30A3\u30B9\u30C8\u30D5\u30A1\u30DF\u30EA\u30FC\u4EE3\u8868\u306B\u3057\u3066\u3001\u5B66\u5185\u6700\u5F37\u306E\u4E00\u5339\u72FC\u3001\u91D1\u7BC9\u5DE7\u3092\u5236\u3057\u3001\u6E96\u6C7A\u52DD\u3078\u3068\u99D2\u3092\u9032\u3081\u305F\u306E\u306F\u2026\r\n\u30C7\u30B8\u30BF\u30EB\u5275\u4F5C\u30B5\u30FC\u30AF\u30EB\u3001PIC.T\u3060\u3041\u3041\u3041\uFF01"
+    stringVal: "Mis mis_right Left1:\nTakumi:\u2026\u2026\u2026\u2026\u3063\uFF01\r\nHaruki:\u3064\u3044\u306B\u6C7A\u7740\u3060\u3042\u3041\u3041\uFF01\r\nHaruki:\u30C8\u30AD\u30EF\u30A2\u30FC\u30C6\u30A3\u30B9\u30C8\u30D5\u30A1\u30DF\u30EA\u30FC\u4EE3\u8868\u306B\u3057\u3066\u3001\u5B66\u5185\u6700\u5F37\u306E\u4E00\u5339\u72FC\u3001\u91D1\u7BC9\u5DE7\u3092\u5236\u3057\u3001\u6E96\u6C7A\u52DD\u3078\u3068\u99D2\u3092\u9032\u3081\u305F\u306E\u306F\u2026\r\n\u30C7\u30B8\u30BF\u30EB\u5275\u4F5C\u30B5\u30FC\u30AF\u30EB\u3001PIC.T\u3060\u3041\u3041\u3041\uFF01"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1465,7 +1466,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Haruki:\u2026\u3057\u304B\u3057\u3001\u306A\u3093\u3068\u3044\u3046\u4E8B\u3067\u3057\u3087\u3046\u304B\n\u6E96\u3005\u6C7A\u52DD\u306B\u3057\u3066\u3001\u4E09\u5927\u512A\u52DD\u5019\u88DC\u304C\u5168\u3066\u5012\u3055\u308C\u3066\u3057\u307E\u3063\u305F\uFF01\n\u8AB0\u3082\u304C\u4E88\u60F3\u3057\u3066\u3044\u306A\u304B\u3063\u305F\u6CE2\u4E71\u306E\u5C55\u958B\uFF01\u3053\u306E\u5148\u3082\u76EE\u304C\u96E2\u305B\u307E\u305B\u3093\u2026\uFF01"
+    stringVal: "Mis mis_right Left2:\nHaruki:\u2026\u3057\u304B\u3057\u3001\u306A\u3093\u3068\u3044\u3046\u4E8B\u3067\u3057\u3087\u3046\u304B\n\u6E96\u3005\u6C7A\u52DD\u306B\u3057\u3066\u3001\u4E09\u5927\u512A\u52DD\u5019\u88DC\u304C\u5168\u3066\u5012\u3055\u308C\u3066\u3057\u307E\u3063\u305F\uFF01\n\u8AB0\u3082\u304C\u4E88\u60F3\u3057\u3066\u3044\u306A\u304B\u3063\u305F\u6CE2\u4E71\u306E\u5C55\u958B\uFF01\u3053\u306E\u5148\u3082\u76EE\u304C\u96E2\u305B\u307E\u305B\u3093\u2026\uFF01"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1484,7 +1485,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
@@ -1520,7 +1521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 318.6477
+    x: 313.6477
     y: 339.08154
     width: 120
     height: 40
@@ -1544,7 +1545,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
@@ -1599,7 +1600,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Haruki:\u3055\u3041\u3001\u6E96\u3005\u6C7A\u52DD\u7B2C\u56DB\u30AB\u30FC\u30C9\u306E\u59CB\u307E\u308A\u3067\u3059\u2026\uFF01\r\nRihito:\u2026\u2026\u2026\u2026\u2026\u2026\nHaruki:\u304A\u304A\u3063\u3068\u3001\u9023\u6226\u306E\u75B2\u308C\u304C\u51FA\u3066\u3044\u308B\u306E\u304B\uFF1F\u30C8\u30AD\u30EF\u30A2\u30AF\u30BF\u30FC\u30BA\u306B\u3044\u3064\u3082\u306E\u3088\u3046\u306A\u52E2\u3044\u304C\u7121\u3044\u305E\uFF01\uFF1F\nRihito:T-Gamers\u306B\u5F15\u304D\u7D9A\u3044\u3066\u3001\u3053\u3061\u3089\u3082\u2026\n\u2026\u4ECA\u5EA6\u3053\u305D\u3001\u9593\u9055\u3044\u306A\u3055\u305D\u3046\u3060\nHaruki:\u6C7A\u307E\u3063\u305F\u3041\u3041\u3041\uFF01\n\u6E96\u6C7A\u52DD\u3078\u9032\u3080\u306E\u306F\u3001\u7D42\u7109\u306E\u66F8(\u30A2\u30DD\u30AB\u30EA\u30D7\u30B9)\u9060\u8F1D\u6E21\u652F\u90E8\u3067\u3059\uFF01\nRihito
+    stringVal: "Rihito rihito_stand Right1:\nHaruki:\u3055\u3041\u3001\u6E96\u3005\u6C7A\u52DD\u7B2C\u56DB\u30AB\u30FC\u30C9\u306E\u59CB\u307E\u308A\u3067\u3059\u2026\uFF01\r\nRihito:\u2026\u2026\u2026\u2026\u2026\u2026\nHaruki:\u304A\u304A\u3063\u3068\u3001\u9023\u6226\u306E\u75B2\u308C\u304C\u51FA\u3066\u3044\u308B\u306E\u304B\uFF1F\u30C8\u30AD\u30EF\u30A2\u30AF\u30BF\u30FC\u30BA\u306B\u3044\u3064\u3082\u306E\u3088\u3046\u306A\u52E2\u3044\u304C\u7121\u3044\u305E\uFF01\uFF1F\nRihito:T-Gamers\u306B\u5F15\u304D\u7D9A\u3044\u3066\u3001\u3053\u3061\u3089\u3082\u2026\n\u2026\u4ECA\u5EA6\u3053\u305D\u3001\u9593\u9055\u3044\u306A\u3055\u305D\u3046\u3060\nHaruki:\u6C7A\u307E\u3063\u305F\u3041\u3041\u3041\uFF01\n\u6E96\u6C7A\u52DD\u3078\u9032\u3080\u306E\u306F\u3001\u7D42\u7109\u306E\u66F8(\u30A2\u30DD\u30AB\u30EA\u30D7\u30B9)\u9060\u8F1D\u6E21\u652F\u90E8\u3067\u3059\uFF01\nRihito
       hide:\nYayoi:\u2026\u2026\u2026\u2026\u2026\u2026\r\n"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -1639,7 +1640,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
@@ -1697,7 +1698,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
@@ -1726,7 +1727,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
@@ -1765,7 +1766,7 @@ MonoBehaviour:
   conversationText:
     stringRef: {fileID: 0}
     stringVal: "Mituki:\u2026\u304B\u2026\u2026\r\nMis:\u52DD\u3066\u305F\u2026\uFF01\r\nMituki
-      mituki_left Middle:\u3084\u308A\u307E\u3057\u305F\uFF01\u3084\u308A\u307E\u3057\u305F\u3088\u3001\u307F\u3059\u3061\u3083\u3093\u5148\u8F29\uFF01\u3064\u3044\u306B\u6E96\u6C7A\u52DD\u3067\u3059\uFF01"
+      mituki_left Middle1:\u3084\u308A\u307E\u3057\u305F\uFF01\u3084\u308A\u307E\u3057\u305F\u3088\u3001\u307F\u3059\u3061\u3083\u3093\u5148\u8F29\uFF01\u3064\u3044\u306B\u6E96\u6C7A\u52DD\u3067\u3059\uFF01"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1793,7 +1794,8 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Karen:\u307F\u3059\u3001\u307E\u305F\u4F1A\u3063\u305F\u306A\nMis:\u2026\u2026\uFF01\u83EF\u6190\uFF01\r\nKaren:\u6E96\u6C7A\u52DD\u9032\u51FA\u3001\u304A\u3081\u3067\u3068\u3046\r\nMis:\u3042\u308A\u304C\u3068\u3046\r\n\u2026\u6E96\u6C7A\u52DD\u3067\u3001\u5F85\u3063\u3066\u308B\u304B\u3089\nKaren:\u3042\u3042\u3001\u79C1\u3082\u5F8C\u306B\u7D9A\u304F\u3068\u3057\u3088\u3046\r"
+    stringVal: "Karen karen_stand Karen_pos:\u307F\u3059\u3001\u307E\u305F\u4F1A\u3063\u305F\u306A\nMis:\u2026\u2026\uFF01\u83EF\u6190\uFF01\r\nKaren:\u6E96\u6C7A\u52DD\u9032\u51FA\u3001\u304A\u3081\u3067\u3068\u3046\r\nMis:\u3042\u308A\u304C\u3068\u3046\r\n\u2026\u6E96\u6C7A\u52DD\u3067\u3001\u5F85\u3063\u3066\u308B\u304B\u3089\nKaren:\u3042\u3042\u3001\u79C1\u3082\u5F8C\u306B\u7D9A\u304F\u3068\u3057\u3088\u3046\nKaren
+      hide:"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1812,7 +1814,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
@@ -1870,7 +1872,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
@@ -1899,7 +1901,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
@@ -1913,7 +1915,7 @@ MonoBehaviour:
   portrait: {fileID: 21300000, guid: dd471d19033d2fe48bd17c74c417de05, type: 3}
   offset: 0
   fromPosition: {fileID: 0}
-  toPosition: {fileID: 0}
+  toPosition: {fileID: 1416220344}
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0.5
@@ -1964,6 +1966,7 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 689019092}
+  - {fileID: 689019101}
   - {fileID: 689019096}
   - {fileID: 689019090}
   - {fileID: 689019082}
@@ -2022,7 +2025,8 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Mis:\u2026\u4E8C\u4EBA\u3068\u3082\uFF01\n\u660E\u65E5\u3082\u52DD\u3064\u3088\uFF01\uFF01\n\u305D\u3057\u3066\u3001\u7D76\u5BFE\u512A\u52DD\u3057\u3088\u3046\u306D\uFF01\nDouble:\u306F\u3044\uFF01\uFF01\nYamituki
+    stringVal: "Mis mis_right Left2:\nMituki mituki_left Middle2:\nYamituki yamituki_left
+      Right1:\nMis:\u2026\u4E8C\u4EBA\u3068\u3082\uFF01\n\u660E\u65E5\u3082\u52DD\u3064\u3088\uFF01\uFF01\n\u305D\u3057\u3066\u3001\u7D76\u5BFE\u512A\u52DD\u3057\u3088\u3046\u306D\uFF01\nDouble:\u306F\u3044\uFF01\uFF01\nYamituki
       hide:\nMituki hide:\nMis hide:\r\n\r\n"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -2080,7 +2084,8 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Mituki:\u300E\u3044\u3044\u8A66\u5408\u3060\u3063\u305F\u300F\u2026\u3063\u3066\u4E8B\u3067\u3059\u304B\u306D\uFF1F\r\nMis:\u304D\u3063\u3068\u3001\u305D\u3046\u3044\u3046\u4E8B\u3058\u3083\u306A\u3044\u304B\u306A\uFF1F"
+    stringVal: "Mituki:\u300E\u3044\u3044\u8A66\u5408\u3060\u3063\u305F\u300F\u2026\u3063\u3066\u4E8B\u3067\u3059\u304B\u306D\uFF1F\r\nMis:\u304D\u3063\u3068\u3001\u305D\u3046\u3044\u3046\u4E8B\u3058\u3083\u306A\u3044\u304B\u306A\uFF1F\nMis
+      hide:"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -2099,7 +2104,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
@@ -2128,12 +2133,41 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemId: 97
+  indentLevel: 0
+  display: 2
+  stage: {fileID: 2139920551}
+  character: {fileID: 736199215}
+  replacedCharacter: {fileID: 0}
+  portrait: {fileID: 0}
+  offset: 0
+  fromPosition: {fileID: 0}
+  toPosition: {fileID: 0}
+  facing: 0
+  useDefaultSettings: 1
+  fadeDuration: 0.5
+  moveDuration: 1
+  shiftOffset: {x: 0, y: 0}
+  move: 0
+  shiftIntoPlace: 0
+  waitUntilFinished: 0
+--- !u!114 &689019101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 689019055}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 98
   indentLevel: 0
   display: 2
   stage: {fileID: 2139920551}
@@ -2413,8 +2447,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 460.43, y: -1300}
-  m_SizeDelta: {x: 500, y: 1100}
+  m_AnchoredPosition: {x: 460, y: -1300}
+  m_SizeDelta: {x: 1000, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &852008266
 MonoBehaviour:
@@ -3253,7 +3287,7 @@ GameObject:
   - component: {fileID: 1454116694}
   - component: {fileID: 1454116693}
   m_Layer: 0
-  m_Name: Takumi_pos_right
+  m_Name: Karen_pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3276,7 +3310,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 460, y: -1300}
-  m_SizeDelta: {x: 1000, y: 1200}
+  m_SizeDelta: {x: 1000, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1454116693
 MonoBehaviour:
@@ -3781,7 +3815,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -1300}
-  m_SizeDelta: {x: 1000, y: 1100}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1919057107
 MonoBehaviour:
