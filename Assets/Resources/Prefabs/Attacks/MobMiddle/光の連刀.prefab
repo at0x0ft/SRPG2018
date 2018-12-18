@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: "\u5149\u306E\u9023\u5200"
-  _kind: 2
+  _kind: 1
   _type: {fileID: 114928696413571736, guid: b8ed57c99ab9a41488850dbd6209597f, type: 2}
   _effectKind: 80
   _power: 120

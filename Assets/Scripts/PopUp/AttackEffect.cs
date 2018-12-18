@@ -152,6 +152,8 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.Darkness] =
 		_effectFunc[AttackEffectKind.PurpleQuota] =           // 土星
 		_effectFunc[AttackEffectKind.EternalVoid] =           // 冥王星
+		_effectFunc[AttackEffectKind.HolyCircle] =            // モブ強攻撃
+		_effectFunc[AttackEffectKind.DarkCircle] =
 		SlashEffect;
 
 		// 爆発させるエフェクト
@@ -165,8 +167,6 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.CrushingShine] =         // 火星
 		_effectFunc[AttackEffectKind.DestructExtinctShock] =
 		_effectFunc[AttackEffectKind.MagnificentHit] =        // モブ中攻撃
-		_effectFunc[AttackEffectKind.HolyCircle] =            // モブ強攻撃
-		_effectFunc[AttackEffectKind.DarkCircle] =
 		ExplodeEffect;
 		
 		// 何かが隆起するエフェクト
@@ -178,9 +178,7 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.Altenaji] =              // 天王星
 		_effectFunc[AttackEffectKind.WaterFallNeptune] =      // 海王星
 		_effectFunc[AttackEffectKind.FlameBiller] =           // モブ強攻撃  
-		_effectFunc[AttackEffectKind.FreezeBiller] =
 		_effectFunc[AttackEffectKind.GrandBiller] =
-		_effectFunc[AttackEffectKind.ShineBiller] =
 		UpliftEffect;
 
 		// 最後に止める画像
@@ -243,7 +241,10 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.FlameTornado] =
 		Spiral;
 		_effectFunc[AttackEffectKind.FireBall] = FireBall;
-		_effectFunc[AttackEffectKind.IceShooting] = IcycleStaff;
+		_effectFunc[AttackEffectKind.IceShooting] = 
+		_effectFunc[AttackEffectKind.ShineBiller] = 
+		_effectFunc[AttackEffectKind.FreezeBiller] =
+		IcycleStaff;
 	}
 
 	private void OnDestroy()

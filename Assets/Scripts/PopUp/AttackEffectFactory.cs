@@ -942,6 +942,8 @@ public class AttackEffectFactory : MonoBehaviour
 	//// モブ強攻撃用
 	private void Storm(Sequence seq)
 	{
-		SlashEffectMaker(seq, 3, 3, 1.0f);
+		// shuffle
+		_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList();
+		SlashEffectMaker(seq, 5, 3, 0.5f);
 	}
 }

@@ -36578,7 +36578,7 @@ Prefab:
         type: 2}
       propertyPath: _initialFloor
       value: 
-      objectReference: {fileID: 241079402}
+      objectReference: {fileID: 1866093170}
     - target: {fileID: 1578070294837586, guid: d80e4b446b61fb74da5dd62a1f8d10a7, type: 2}
       propertyPath: m_Name
       value: mis (1)
