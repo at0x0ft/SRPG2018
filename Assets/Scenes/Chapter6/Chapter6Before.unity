@@ -272,7 +272,7 @@ Prefab:
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
       propertyPath: portraits.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4147535092854016, guid: 7b435053dd972884cafb314c6d6d7205, type: 2}
       propertyPath: m_LocalPosition.x
@@ -322,7 +322,7 @@ Prefab:
         type: 2}
       propertyPath: portraits.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 494d2707c69684c4fa0bc7cbf5ddfca0,
+      objectReference: {fileID: 21300000, guid: 7da5545b9a0c58045bb438aca58e739b,
         type: 3}
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
@@ -654,7 +654,7 @@ Prefab:
         type: 2}
       propertyPath: portraits.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: a6e9aaf5a4d3e994083b4565a4005a9e,
+      objectReference: {fileID: 21300000, guid: d6dee677bcde3cc42920f6edde478312,
         type: 3}
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
@@ -764,7 +764,7 @@ GameObject:
   - component: {fileID: 581348158}
   - component: {fileID: 581348157}
   m_Layer: 0
-  m_Name: Offscreen Left
+  m_Name: Nagisa_pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -786,8 +786,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -1300, y: -1300}
-  m_SizeDelta: {x: 500, y: 1100}
+  m_AnchoredPosition: {x: -400, y: -1200}
+  m_SizeDelta: {x: 1000, y: 1000}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &581348157
 MonoBehaviour:
@@ -883,7 +883,6 @@ GameObject:
   - component: {fileID: 689019068}
   - component: {fileID: 689019073}
   - component: {fileID: 689019063}
-  - component: {fileID: 689019067}
   - component: {fileID: 689019066}
   - component: {fileID: 689019062}
   - component: {fileID: 689019110}
@@ -925,9 +924,8 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019072}
-  selectedCommands:
-  - {fileID: 689019101}
+  - {fileID: 689019089}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -1002,7 +1000,7 @@ MonoBehaviour:
   indentLevel: 0
   _duration:
     floatRef: {fileID: 0}
-    floatVal: 2
+    floatVal: 1
   durationOLD: 0
 --- !u!4 &689019060
 Transform:
@@ -1147,23 +1145,6 @@ MonoBehaviour:
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
   fadeTexture: {fileID: 0}
   targetCamera: {fileID: 0}
---- !u!114 &689019067
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 94
-  indentLevel: 0
-  _duration:
-    floatRef: {fileID: 0}
-    floatVal: 2
-  durationOLD: 0
 --- !u!114 &689019068
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1420,7 +1401,7 @@ MonoBehaviour:
   conversationText:
     stringRef: {fileID: 0}
     stringVal: "None:(\u65AC\u6483\u97F3)\nCharacter_Yayoi yayoi_stand Yayoi_pos:\nCharacter_Nagisa
-      right Left:\u306A\u3093\u3067\u2026\u2026\u30C8\u30EA\u30A3\u2026\u2026\uFF01\nCharacter_Tory:\u2026\u2026\u2026\u2026\u2026\u2026\nCharacter_Yayoi:\u305D\u308D\u305D\u308D\u3001\u8AE6\u3081\u3066\u306F\u3069\u3046\u3067\u3059\u304B\uFF1F\n\u3042\u306A\u305F\u306E\u76F8\u68D2\u3082\u3001\u3069\u3046\u3084\u3089\u3084\u308B\u6C17\u304C\u306A\u3044\u3088\u3046\u3067\u3059\u3057\u2026\n\u3042\u306A\u305F\u65B9\u306B\u3001\u52DD\u3061\u306E\u76EE\u306F\u3042\u308A\u307E\u305B\u3093\nCharacter_Nagisa:\u30C8\u30EA\u30A3\u2026\u304A\u9858\u3044\u2026\u8A00\u3046\u4E8B\u3001\u805E\u3044\u3066\u2026\uFF01\nCharacter_Nagisa
+      nagisa_stand Nagisa_pos:\u306A\u3093\u3067\u2026\u2026\u30C8\u30EA\u30A3\u2026\u2026\uFF01\nCharacter_Tory:\u2026\u2026\u2026\u2026\u2026\u2026\nCharacter_Yayoi:\u305D\u308D\u305D\u308D\u3001\u8AE6\u3081\u3066\u306F\u3069\u3046\u3067\u3059\u304B\uFF1F\n\u3042\u306A\u305F\u306E\u76F8\u68D2\u3082\u3001\u3069\u3046\u3084\u3089\u3084\u308B\u6C17\u304C\u306A\u3044\u3088\u3046\u3067\u3059\u3057\u2026\n\u3042\u306A\u305F\u65B9\u306B\u3001\u52DD\u3061\u306E\u76EE\u306F\u3042\u308A\u307E\u305B\u3093\nCharacter_Nagisa:\u30C8\u30EA\u30A3\u2026\u304A\u9858\u3044\u2026\u8A00\u3046\u4E8B\u3001\u805E\u3044\u3066\u2026\uFF01\nCharacter_Nagisa
       hide:\nCharacter_Yayoi hide:\n"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -1603,8 +1584,8 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "None:(\u65AC\u6483\u97F3)\nCharacter_Nagisa right Left:\u2026\u304F\u3063\u2026\u3042\u3041\u3063\u2026\nCharacter_Yayoi
-      yayoi_stand:\u5F80\u751F\u969B\u304C\u60AA\u3044\u3067\u3059\u306D\u2026\n\u3053\u308C\u3067\u7D42\u308F\u308A\u3067\u3059\u2026\uFF01\nCharacter_Nagisa:\u304A\u9858\u3044\u2026\u30C8\u30EA\u30A3\u2026\uFF01\n"
+    stringVal: "None:(\u65AC\u6483\u97F3)\nCharacter_Nagisa nagisa_stand Nagisa_pos:\u2026\u304F\u3063\u2026\u3042\u3041\u3063\u2026\nCharacter_Yayoi
+      yayoi_stand Yayoi_pos:\u5F80\u751F\u969B\u304C\u60AA\u3044\u3067\u3059\u306D\u2026\n\u3053\u308C\u3067\u7D42\u308F\u308A\u3067\u3059\u2026\uFF01\nCharacter_Nagisa:\u304A\u9858\u3044\u2026\u30C8\u30EA\u30A3\u2026\uFF01\n"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1683,7 +1664,6 @@ MonoBehaviour:
   - {fileID: 689019097}
   - {fileID: 689019073}
   - {fileID: 689019068}
-  - {fileID: 689019067}
   - {fileID: 689019066}
   - {fileID: 689019095}
   - {fileID: 689019063}
@@ -1767,10 +1747,10 @@ MonoBehaviour:
   stage: {fileID: 0}
   character: {fileID: 1314991710}
   replacedCharacter: {fileID: 0}
-  portrait: {fileID: 21300000, guid: 494d2707c69684c4fa0bc7cbf5ddfca0, type: 3}
+  portrait: {fileID: 21300000, guid: 7da5545b9a0c58045bb438aca58e739b, type: 3}
   offset: 0
   fromPosition: {fileID: 0}
-  toPosition: {fileID: 246346964}
+  toPosition: {fileID: 581348156}
   facing: 0
   useDefaultSettings: 1
   fadeDuration: 0.5
@@ -1796,7 +1776,7 @@ MonoBehaviour:
   stage: {fileID: 0}
   character: {fileID: 1365159281}
   replacedCharacter: {fileID: 0}
-  portrait: {fileID: 21300000, guid: 0488fb433f3d90c42a0367064a850872, type: 3}
+  portrait: {fileID: 21300000, guid: b77d208cf2b357c4b9c5d66ff4b4a175, type: 3}
   offset: 0
   fromPosition: {fileID: 0}
   toPosition: {fileID: 578537839}
@@ -1881,7 +1861,7 @@ MonoBehaviour:
   conversationText:
     stringRef: {fileID: 0}
     stringVal: "Character_Mis mis_right Left:\u2026\uFF01\u6E1A\uFF01\nCharacter_Nagisa
-      left Right:\u2026\u7FE0\n\u2026\u7D04\u675F\u3001\u679C\u305F\u305B\u306A\u304B\u3063\u305F\u2026\nCharacter_Mis:\u4ED5\u65B9\u306A\u3044\u3088\u3001\u4E0D\u8ABF\u3060\u3063\u305F\u3093\u3060\u3082\u3093\n\u3063\u3066\u3044\u3046\u304B\u7D76\u5BFE\u304A\u304B\u3057\u3044\u3088\uFF01\u30C8\u30EA\u30A3\u304C\u6E1A\u306E\u3044\u3046\u4E8B\u3092\u805E\u304B\u306A\u3044\u306A\u3093\u3066\uFF01\n\u304D\u3063\u3068\u3001\u30B7\u30B9\u30C6\u30E0\u306E\u6545\u969C\u3060\u3088\uFF01\nCharacter_Nagisa:\u2026\u7FE0\n\u2026\u5C11\u3057\u3001\u4ED8\u304D\u5408\u3063\u3066\nCharacter_Mis:\u2026\u2026\u3078\uFF1F\nCharacter_Nagisa:\u2026\u305D\u3063\u3061\u306E\u4E8C\u4EBA\u3082\u3001\u304A\u9858\u3044\nCharacter_Mituki:\u2026\uFF1F\u306F\u3001\u306F\u3044\u2026\nCharacter_Yamituki:\u2026\u2026\u2026\u2026\u2026\u2026"
+      nagisa_stand Nagisa_pos_right:\u2026\u7FE0\n\u2026\u7D04\u675F\u3001\u679C\u305F\u305B\u306A\u304B\u3063\u305F\u2026\nCharacter_Mis:\u4ED5\u65B9\u306A\u3044\u3088\u3001\u4E0D\u8ABF\u3060\u3063\u305F\u3093\u3060\u3082\u3093\n\u3063\u3066\u3044\u3046\u304B\u7D76\u5BFE\u304A\u304B\u3057\u3044\u3088\uFF01\u30C8\u30EA\u30A3\u304C\u6E1A\u306E\u3044\u3046\u4E8B\u3092\u805E\u304B\u306A\u3044\u306A\u3093\u3066\uFF01\n\u304D\u3063\u3068\u3001\u30B7\u30B9\u30C6\u30E0\u306E\u6545\u969C\u3060\u3088\uFF01\nCharacter_Nagisa:\u2026\u7FE0\n\u2026\u5C11\u3057\u3001\u4ED8\u304D\u5408\u3063\u3066\nCharacter_Mis:\u2026\u2026\u3078\uFF1F\nCharacter_Nagisa:\u2026\u305D\u3063\u3061\u306E\u4E8C\u4EBA\u3082\u3001\u304A\u9858\u3044\nCharacter_Mituki:\u2026\uFF1F\u306F\u3001\u306F\u3044\u2026\nCharacter_Yamituki:\u2026\u2026\u2026\u2026\u2026\u2026"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -2328,6 +2308,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
+        type: 2}
+      propertyPath: portraits.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4147535092854016, guid: 7b435053dd972884cafb314c6d6d7205, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2860,6 +2845,7 @@ RectTransform:
   - {fileID: 1416220344}
   - {fileID: 581348156}
   - {fileID: 578537839}
+  - {fileID: 2085282452}
   m_Father: {fileID: 2139920550}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3238,6 +3224,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114520381070998952, guid: 4e74c1b579a544040b0e861e9439bcfb,
+        type: 2}
+      propertyPath: portraits.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4738689302284668, guid: 4e74c1b579a544040b0e861e9439bcfb, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3307,6 +3298,12 @@ Prefab:
       propertyPath: nameColor.b
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114520381070998952, guid: 4e74c1b579a544040b0e861e9439bcfb,
+        type: 2}
+      propertyPath: portraits.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 70d7d9b2981cfc64b98ea5ecd32ad477,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e74c1b579a544040b0e861e9439bcfb, type: 2}
   m_IsPrefabAsset: 0
@@ -3389,6 +3386,79 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b435053dd972884cafb314c6d6d7205, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &2085282451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1396732956269018, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2085282452}
+  - component: {fileID: 2085282454}
+  - component: {fileID: 2085282453}
+  m_Layer: 0
+  m_Name: Nagisa_pos_right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2085282452
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 224203456540738222, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2085282451}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000105, y: 1.0000105, z: 1.0000105}
+  m_Children: []
+  m_Father: {fileID: 1703603926}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 400, y: -1200}
+  m_SizeDelta: {x: 1000, y: 1000}
+  m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &2085282453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 114758057774779896, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2085282451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: ea8f56c43254d41728f5ac4e8299b6c9, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &2085282454
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 222788698841097980, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2085282451}
+  m_CullTransparentMesh: 0
 --- !u!1 &2139920549
 GameObject:
   m_ObjectHideFlags: 0
@@ -3447,3 +3517,4 @@ MonoBehaviour:
   - {fileID: 1416220344}
   - {fileID: 581348156}
   - {fileID: 578537839}
+  - {fileID: 2085282452}
