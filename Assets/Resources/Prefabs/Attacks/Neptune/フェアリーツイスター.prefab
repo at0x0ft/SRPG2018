@@ -58,6 +58,7 @@ MonoBehaviour:
   _power: 70
   _accuracy: 90
   _effectImages:
+  - {fileID: 21300000, guid: a7a8819a618993645bf39b9d4cf2e5f1, type: 3}
   - {fileID: 21300000, guid: 959f57cb6de29a24d8e8454f5ec3083c, type: 3}
   - {fileID: 21300000, guid: 0271218f46023f74a844827c9ab34114, type: 3}
   - {fileID: 21300000, guid: 0a9496c8bd6624a4bb1c2967dc681278, type: 3}

@@ -9,17 +9,17 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1563521741397692}
+  m_RootGameObject: {fileID: 1191426154942458}
   m_IsPrefabAsset: 1
---- !u!1 &1563521741397692
+--- !u!1 &1191426154942458
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4773392671971192}
-  - component: {fileID: 114493110423573526}
+  - component: {fileID: 4877990251664478}
+  - component: {fileID: 114318963116089590}
   m_Layer: 0
   m_Name: "\u5730\u306E\u4E00\u5200"
   m_TagString: Untagged
@@ -27,12 +27,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4773392671971192
+--- !u!4 &4877990251664478
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1563521741397692}
+  m_GameObject: {fileID: 1191426154942458}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,21 +40,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114493110423573526
+--- !u!114 &114318963116089590
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1563521741397692}
+  m_GameObject: {fileID: 1191426154942458}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2c84b96720003e4eb6dbfecfe5b99bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: "\u5149\u306E\u4E00\u5200"
+  _name: "\u5730\u306E\u4E00\u5200"
   _kind: 0
-  _type: {fileID: 114928696413571736, guid: b8ed57c99ab9a41488850dbd6209597f, type: 2}
-  _effectKind: 72
+  _type: {fileID: 114928696413571736, guid: 43a080bff49961e4db4fe6a1b05c7abf, type: 2}
+  _effectKind: 71
   _power: 70
   _accuracy: 90
   _effectImages:

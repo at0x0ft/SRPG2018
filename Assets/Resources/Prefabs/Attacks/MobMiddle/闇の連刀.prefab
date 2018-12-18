@@ -51,10 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c84b96720003e4eb6dbfecfe5b99bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: "\u30D5\u30A1\u30A4\u30A2\u30FC\u30DC\u30FC\u30EB"
+  _name: "\u95C7\u306E\u9023\u5200"
   _kind: 1
-  _type: {fileID: 114928696413571736, guid: 79f0160951bceae4e80efc5ffa818745, type: 2}
-  _effectKind: 82
+  _type: {fileID: 114928696413571736, guid: 429cdf1a3716e7546bec0ca6553aac4e, type: 2}
+  _effectKind: 81
   _power: 120
   _accuracy: 80
   _effectImages:

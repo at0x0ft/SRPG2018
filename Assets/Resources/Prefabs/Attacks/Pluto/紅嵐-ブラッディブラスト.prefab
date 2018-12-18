@@ -54,14 +54,14 @@ MonoBehaviour:
   _name: "\u7D05\u5D50-\u30D6\u30E9\u30C3\u30C7\u30A3\u30D6\u30E9\u30B9\u30C8"
   _kind: 2
   _type: {fileID: 114534369897718610, guid: 6586a334735b6e04a88fe48cb7b53847, type: 2}
-  _effectKind: 62
+  _effectKind: 64
   _power: 280
   _accuracy: 85
   _effectImages:
-  - {fileID: 21300000, guid: 6b3b6c14f7bf05f45bdfbee2b4aaf63b, type: 3}
-  - {fileID: 21300000, guid: 733aaac3b94f3cb44a18e836fcb3aeff, type: 3}
-  - {fileID: 21300000, guid: 51f36934f128ee84f87c8db328492ede, type: 3}
   - {fileID: 21300000, guid: f18479d7d62c07e4bb4f3588a2032b65, type: 3}
+  - {fileID: 21300000, guid: 51f36934f128ee84f87c8db328492ede, type: 3}
+  - {fileID: 21300000, guid: 733aaac3b94f3cb44a18e836fcb3aeff, type: 3}
+  - {fileID: 21300000, guid: 6b3b6c14f7bf05f45bdfbee2b4aaf63b, type: 3}
   _range:
   - {x: -4, y: -2}
   - {x: -3, y: -2}

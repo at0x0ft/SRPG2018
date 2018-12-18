@@ -58,10 +58,9 @@ MonoBehaviour:
   _power: 240
   _accuracy: 90
   _effectImages:
-  - {fileID: 21300000, guid: 9bdee6fce36b4514ab19f830655afb87, type: 3}
-  - {fileID: 21300000, guid: 3046054ca5db229458b608cabc7b7201, type: 3}
-  - {fileID: 21300000, guid: 5061bba5159bec44a90029dea604da85, type: 3}
-  - {fileID: 21300000, guid: 916699bddeed13b408f570d6125449d0, type: 3}
+  - {fileID: 21300000, guid: fa4dcd94623b92b4a8edb95b763bb58d, type: 3}
+  - {fileID: 21300000, guid: 7fd985cd0e33bb8439703f64bac5159f, type: 3}
+  - {fileID: 21300000, guid: b51da78f4531e084ab8eac23313784d3, type: 3}
   _range:
   - {x: -2, y: -2}
   - {x: -2, y: -1}

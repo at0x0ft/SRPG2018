@@ -51,21 +51,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c84b96720003e4eb6dbfecfe5b99bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: "\u6C34\u306E\u9023\u5200"
+  _name: "\u708E\u306E\u9023\u5200"
   _kind: 1
-  _type: {fileID: 114928696413571736, guid: 8baf576386dc34245ba2a70ad54626a4, type: 2}
-  _effectKind: 77
+  _type: {fileID: 114928696413571736, guid: 79f0160951bceae4e80efc5ffa818745, type: 2}
+  _effectKind: 76
   _power: 120
   _accuracy: 80
   _effectImages:
-  - {fileID: 21300000, guid: 33c73510084da4f428ff638d0712ed7a, type: 3}
-  - {fileID: 21300000, guid: 68f19697c63e6874cba43a99a5fa0561, type: 3}
-  - {fileID: 21300000, guid: c9409d0dafd6a9a448ea3dfbf7c3f90c, type: 3}
-  - {fileID: 21300000, guid: cbd758c5783144646852decda3faf0c6, type: 3}
-  - {fileID: 21300000, guid: 58dffdaa41fb7fc4981368c117d27c28, type: 3}
-  - {fileID: 21300000, guid: fd05d4311252e174cb17e124acf5e1a0, type: 3}
-  - {fileID: 21300000, guid: 7aa4d87317ecd8643abcbc5366d1cf21, type: 3}
-  - {fileID: 21300000, guid: 30ecae82d5ca8f34b9c3f9153bcc7591, type: 3}
+  - {fileID: 21300000, guid: 9a0dd6d9a78523f42b741d9d8dd04871, type: 3}
+  - {fileID: 21300000, guid: 489b8a0a6e89c7745a2f7d265acd31d8, type: 3}
+  - {fileID: 21300000, guid: 95a531097183be244b43396501a002ff, type: 3}
+  - {fileID: 21300000, guid: df99e13f7bd8484448e42f266393d705, type: 3}
+  - {fileID: 21300000, guid: c1d867dca6581d54c95002daa3f164d7, type: 3}
+  - {fileID: 21300000, guid: a63672ecfed956e408566c8d23dbbe19, type: 3}
+  - {fileID: 21300000, guid: ec271bab0b88e294394ab8ce50fb0c34, type: 3}
+  - {fileID: 21300000, guid: b404c9a53c1b29747b5b74956ce6c504, type: 3}
   _range:
   - {x: -1, y: 0}
   - {x: 0, y: 1}
