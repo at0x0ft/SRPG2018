@@ -267,8 +267,18 @@ public class AttackEffectFactory : MonoBehaviour
 		_effectFuncs[AttackEffectKind.FireBall] =
 		_effectFuncs[AttackEffectKind.HolyBind] =
 		_effectFuncs[AttackEffectKind.DarkBind] =
-		_effectFuncs[AttackEffectKind.MagnificentHit] =
+		_effectFuncs[AttackEffectKind.MagnificentHit] =   
 		_effectFuncs[AttackEffectKind.IceShooting] =
+		_effectFuncs[AttackEffectKind.FlameBiller] =      // モブ強攻撃
+		_effectFuncs[AttackEffectKind.FreezeBiller] =
+		_effectFuncs[AttackEffectKind.GrandBiller] =
+		_effectFuncs[AttackEffectKind.ShineBiller] =
+		_effectFuncs[AttackEffectKind.DalianShotOfFire] =
+		_effectFuncs[AttackEffectKind.DalianShotOfWater] =
+		_effectFuncs[AttackEffectKind.DalianShotOfWind] =
+		_effectFuncs[AttackEffectKind.DalianShotOfGrand] =
+		_effectFuncs[AttackEffectKind.DalianShotOfLight] =
+		_effectFuncs[AttackEffectKind.DalianShotOfDark] =
 		NormalEffectMaker;
 
 		// for みすちゃん
@@ -304,8 +314,9 @@ public class AttackEffectFactory : MonoBehaviour
 
 		// for 木星
 		_effectFuncs[AttackEffectKind.WindBlades] = WindBlades;
-		_effectFuncs[AttackEffectKind.Flash] = Flash;
-		_effectFuncs[AttackEffectKind.Darkness] = Flash;
+		_effectFuncs[AttackEffectKind.Flash] = 
+		_effectFuncs[AttackEffectKind.Darkness] = 
+		Flash;
 
 		// for 土星
 		_effectFuncs[AttackEffectKind.StormAndStress] = StormAndStress;
@@ -327,7 +338,18 @@ public class AttackEffectFactory : MonoBehaviour
 		_effectFuncs[AttackEffectKind.CaosInferno] = CaosInferno;
 		_effectFuncs[AttackEffectKind.AbsoluteZero] = HolyLiric;
 		_effectFuncs[AttackEffectKind.TheEnd] = TheEnd;
-		
+
+		// for モブ強攻撃
+		_effectFuncs[AttackEffectKind.FireStorm] =
+		_effectFuncs[AttackEffectKind.WaterStorm] =
+		_effectFuncs[AttackEffectKind.WindStorm] =
+		_effectFuncs[AttackEffectKind.GrandStorm] =
+		_effectFuncs[AttackEffectKind.LightStorm] =
+		_effectFuncs[AttackEffectKind.DarkStorm] =
+		Storm;
+		_effectFuncs[AttackEffectKind.HolyCircle] =
+		_effectFuncs[AttackEffectKind.DarkCircle] =
+		Flash;
 	}
 
 	/// <summary>
@@ -836,5 +858,11 @@ public class AttackEffectFactory : MonoBehaviour
 		})
 		.AppendInterval(waitTime)
 		.SetLoops(10);
+	}
+
+	//// モブ強攻撃用
+	private void Storm(Sequence seq)
+	{
+		SlashEffectMaker(seq, 3, 3, 1.0f);
 	}
 }

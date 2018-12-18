@@ -116,11 +116,15 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.ThunderBolt] =
 		_effectFunc[AttackEffectKind.BloodyBlast] =           // 冥王星用
 		_effectFunc[AttackEffectKind.DarknessBind] =
-		_effectFunc[AttackEffectKind.WindTornado] =           // モブ弱攻撃
-		_effectFunc[AttackEffectKind.FlameTornado] =
 		_effectFunc[AttackEffectKind.HolyBind] =              // モブ中攻撃
 		_effectFunc[AttackEffectKind.DarkBind] =
 		_effectFunc[AttackEffectKind.MagnificentHit] =
+		_effectFunc[AttackEffectKind.HolyCircle] =            // モブ強攻撃
+		_effectFunc[AttackEffectKind.DarkCircle] =
+		_effectFunc[AttackEffectKind.FlameBiller] =     
+		_effectFunc[AttackEffectKind.FreezeBiller] =
+		_effectFunc[AttackEffectKind.GrandBiller] =
+		_effectFunc[AttackEffectKind.ShineBiller] =
 		NormalLoop;
 
 		// 画像を早めに1週させるだけ(斬撃向け)
@@ -149,12 +153,24 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.ASwordOfGrand] =
 		_effectFunc[AttackEffectKind.ASwordOfLight] =
 		_effectFunc[AttackEffectKind.ASwordOfDark] =
-		_effectFunc[AttackEffectKind.FireSwords] =       // モブ中攻撃
+		_effectFunc[AttackEffectKind.FireSwords] =             // モブ中攻撃
 		_effectFunc[AttackEffectKind.WaterSwords] =
 		_effectFunc[AttackEffectKind.WindSwords] =
 		_effectFunc[AttackEffectKind.GrandSwords] =
 		_effectFunc[AttackEffectKind.LightSwords] =
 		_effectFunc[AttackEffectKind.DarkSwords] =
+		_effectFunc[AttackEffectKind.FireStorm] =             // モブ強攻撃
+		_effectFunc[AttackEffectKind.WaterStorm] =
+		_effectFunc[AttackEffectKind.WindStorm] =
+		_effectFunc[AttackEffectKind.GrandStorm] =
+		_effectFunc[AttackEffectKind.LightStorm] =
+		_effectFunc[AttackEffectKind.DarkStorm] =
+		_effectFunc[AttackEffectKind.DalianShotOfFire] =
+		_effectFunc[AttackEffectKind.DalianShotOfWater] =
+		_effectFunc[AttackEffectKind.DalianShotOfWind] =
+		_effectFunc[AttackEffectKind.DalianShotOfGrand] =
+		_effectFunc[AttackEffectKind.DalianShotOfLight] =
+		_effectFunc[AttackEffectKind.DalianShotOfDark] =
 		HighSpeedNormalLoop;
 
 		// みすちゃん
@@ -205,6 +221,9 @@ public class AttackEffect : MonoBehaviour
 		_effectFunc[AttackEffectKind.CaosInferno] = Flirtill;
 
 		// for モブ
+		_effectFunc[AttackEffectKind.WindTornado] =           // モブ弱攻撃
+		_effectFunc[AttackEffectKind.FlameTornado] =
+		Spiral;
 		_effectFunc[AttackEffectKind.FireBall] = FireBall;
 		_effectFunc[AttackEffectKind.IceShooting] = IcycleStaff;
 	}
