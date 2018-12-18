@@ -1086,8 +1086,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 1066517513}
-  selectedCommands: []
+  - {fileID: 1066517504}
+  selectedCommands:
+  - {fileID: 1066517499}
   variables: []
   description: 
   stepPause: 0
@@ -1115,7 +1116,7 @@ MonoBehaviour:
   conversationText:
     stringRef: {fileID: 0}
     stringVal: "uranus:\u5C11\u3057\u3001\u3044\u3044\u304B\uFF1F\nmokusei right Left:\u2026\uFF1F\u541B\u306F\uFF1F\nuranus
-      suisei Right:\u4FFA\u306F\u5316\u5B66\u30B5\u30FC\u30AF\u30EB\u306E\u4EE3\u8868\u3001\u7A7A\u9591\u7406\u4EBA\u3060\nmokusei:\u79C1\u306B\u4F55\u304B\u7528\u304B\u3044\uFF1F\nuranus:\u5358\u5200\u76F4\u5165\u306B\u805E\u304B\u305B\u3066\u3082\u3089\u304A\u3046\n\u6B66\u5668\u306E\u69D8\u5B50\u304C\u666E\u6BB5\u3068\u9055\u3046\u3060\u3068\u304B\u3001\u8ABF\u5B50\u304C\u60AA\u3044\u3068\u3044\u3063\u305F\u611F\u89E6\u306F\u3042\u3063\u305F\u304B\uFF1F\nmokueisei:\u2026\uFF01\u307E\u3055\u304B\u3001\u304A\u524D\u304C\u2026\uFF01\nmokusei:\u2026\u4E8C\u4EBA\u3068\u3082\u3001\u3084\u3081\u308B\u3093\u3060\nmokueisei:\u3057\u304B\u3057\u2026\uFF01\nmokusei:\u5C11\u3057\u3001\u4E0B\u304C\u3063\u3066\u3044\u3066\u304F\u308C\nmokueisei:\u2026\u306F\u3044\u3001\u5206\u304B\u308A\u307E\u3057\u305F\n"
+      rihito_stand Rihito_pos:\u4FFA\u306F\u5316\u5B66\u30B5\u30FC\u30AF\u30EB\u306E\u4EE3\u8868\u3001\u7A7A\u9591\u7406\u4EBA\u3060\nmokusei:\u79C1\u306B\u4F55\u304B\u7528\u304B\u3044\uFF1F\nuranus:\u5358\u5200\u76F4\u5165\u306B\u805E\u304B\u305B\u3066\u3082\u3089\u304A\u3046\n\u6B66\u5668\u306E\u69D8\u5B50\u304C\u666E\u6BB5\u3068\u9055\u3046\u3060\u3068\u304B\u3001\u8ABF\u5B50\u304C\u60AA\u3044\u3068\u3044\u3063\u305F\u611F\u89E6\u306F\u3042\u3063\u305F\u304B\uFF1F\nmokueisei:\u2026\uFF01\u307E\u3055\u304B\u3001\u304A\u524D\u304C\u2026\uFF01\nmokusei:\u2026\u4E8C\u4EBA\u3068\u3082\u3001\u3084\u3081\u308B\u3093\u3060\nmokueisei:\u3057\u304B\u3057\u2026\uFF01\nmokusei:\u5C11\u3057\u3001\u4E0B\u304C\u3063\u3066\u3044\u3066\u304F\u308C\nmokueisei:\u2026\u306F\u3044\u3001\u5206\u304B\u308A\u307E\u3057\u305F\n"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1938,7 +1939,7 @@ MonoBehaviour:
   nameColor: {r: 0, g: 0, b: 0, a: 1}
   soundEffect: {fileID: 0}
   portraits:
-  - {fileID: 21300000, guid: a6e9aaf5a4d3e994083b4565a4005a9e, type: 3}
+  - {fileID: 21300000, guid: d6dee677bcde3cc42920f6edde478312, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 0}
   description: 
@@ -2117,7 +2118,7 @@ GameObject:
   - component: {fileID: 1795157624}
   - component: {fileID: 1795157623}
   m_Layer: 0
-  m_Name: Offscreen Right
+  m_Name: Rihito_pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2139,8 +2140,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 1400, y: -800}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: 450, y: -1000}
+  m_SizeDelta: {x: 400, y: 1000}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1795157623
 MonoBehaviour:
