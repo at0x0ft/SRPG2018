@@ -26,7 +26,22 @@ public class Unit : MonoBehaviour
 	public enum UnitNames
 	{
 		mis,
-		mercury
+		lightmoon,
+		darkmoon,
+		mercury,
+		venus,
+		mars,
+		mars_mob,
+		jupiter,
+		jupiter_mob,
+		saturn,
+		saturn_mob,
+		uranus,
+		uranus_mob,
+		neptune,
+		neptune_mob,
+		pluto,
+		pluto_mob
 	}
 
 	public enum Team
