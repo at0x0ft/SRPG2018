@@ -30,14 +30,12 @@ public class EndingViewer : MonoBehaviour
 
 	private void Update()
 	{
-		if(!_finishFlg)
+		//if(!_finishFlg)
 		{
 			Debug.Log("In !_finishFlg.");	// 4debug
 			foreach(var item in creditDataArray)
 			{
-				_showingText.text = item[0] + "\n" + item[1];
-				StartCoroutine(FadeIn());
-				StartCoroutine(FadeOut());
+				StartCoroutine(FadeInAndOut(item[0], item[1]));
 			}
 			_finishFlg = true;
 			Debug.Log("In !_finishFlg is " + _finishFlg);   // 4debug
@@ -63,12 +61,24 @@ public class EndingViewer : MonoBehaviour
 
 	private IEnumerator FadeOut()
 	{
-		while(_alpha > 0)
+		while(_alpha < 1)
 		{
 			_hidePanel.GetComponent<Image>().color += new Color(0, 0, 0, _alphaChangeRate);
-			_alpha -= _alphaChangeRate;
+			_alpha += _alphaChangeRate;
 			yield return null;
 		}
+	}
+
+	private IEnumerator FadeInAndOut(string title, string content)
+	{
+		//_showingText.text = title + "\n" + content;
+		_showingText.text = "hoge";
+
+		yield return StartCoroutine(FadeIn());
+
+		Debug.Log("[Debug] : Finish fade in.");	// 4debug
+
+		yield return StartCoroutine(FadeOut());
 	}
 
 	private void InitializeMembers()
