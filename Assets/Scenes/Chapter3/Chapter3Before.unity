@@ -1140,7 +1140,8 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 1066517503}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 1066517504}
   variables: []
   description: 
   stepPause: 0
@@ -1309,7 +1310,7 @@ MonoBehaviour:
   stage: {fileID: 0}
   character: {fileID: 1496551854}
   replacedCharacter: {fileID: 0}
-  portrait: {fileID: 21300000, guid: a6e9aaf5a4d3e994083b4565a4005a9e, type: 3}
+  portrait: {fileID: 21300000, guid: cbe2a663c4d70f14d88e0b109a2a31ef, type: 3}
   offset: 0
   fromPosition: {fileID: 0}
   toPosition: {fileID: 184724072}
@@ -2294,8 +2295,7 @@ MonoBehaviour:
   nameColor: {r: 0, g: 0, b: 0, a: 1}
   soundEffect: {fileID: 0}
   portraits:
-  - {fileID: 21300000, guid: a6e9aaf5a4d3e994083b4565a4005a9e, type: 3}
-  - {fileID: 21300000, guid: 494d2707c69684c4fa0bc7cbf5ddfca0, type: 3}
+  - {fileID: 21300000, guid: cbe2a663c4d70f14d88e0b109a2a31ef, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 0}
   description: 

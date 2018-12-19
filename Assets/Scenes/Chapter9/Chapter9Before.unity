@@ -550,7 +550,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 600, y: -1000}
+  m_AnchoredPosition: {x: 600, y: -1300}
   m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &102566472
@@ -923,7 +923,7 @@ Prefab:
         type: 2}
       propertyPath: portraits.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: d6dee677bcde3cc42920f6edde478312,
+      objectReference: {fileID: 21300000, guid: 811bbd1bb28fe9548b0c013c4d8d38bd,
         type: 3}
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
@@ -1203,8 +1203,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 300, y: -1200}
-  m_SizeDelta: {x: 500, y: 1000}
+  m_AnchoredPosition: {x: 300, y: -1000}
+  m_SizeDelta: {x: 600, y: 1200}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &625959685
 MonoBehaviour:
@@ -1402,7 +1402,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 689019059}
   selectedCommands:
-  - {fileID: 689019088}
+  - {fileID: 689019082}
   variables: []
   description: 
   stepPause: 0
@@ -1927,7 +1927,7 @@ MonoBehaviour:
   indentLevel: 0
   _duration:
     floatRef: {fileID: 0}
-    floatVal: 2
+    floatVal: 1
   durationOLD: 0
 --- !u!114 &689019082
 MonoBehaviour:
@@ -1947,7 +1947,7 @@ MonoBehaviour:
     stringVal: "Mio mio_stand Mio_pos:\nRihito rihito_stand Rihito_pos:\nMis:(\u6FAA\u3061\u3083\u3093\u3084\u7A7A\u9591\u5148\u8F29\u306E\u304A\u304B\u3052\u3067\u3001\u5B89\u5FC3\u3057\u3066\u6226\u3048\u308B\u2026)\nMio
       hide:\nRihito hide:\nNagisa nagisa_stand Nagisa_pos:\nKaren karen_stand Karen_pos:\nMis:(\u6E1A\u3084\u83EF\u6190\u306E\u304A\u304B\u3052\u3067\u3001\u4ECA\u307E\u3067\u306E\u79C1\u3088\u308A\u3082\u5F37\u304F\u306A\u3063\u3066\u308B)\nNagisa
       hide:\nKaren hide:\nYuki dosei_stand Yuki_pos:\nTakumi takumi_stand Takumi_pos:\nSota
-      mae Sota_pos:\nMis:(\u305D\u3057\u3066\u3001\u4ECA\u307E\u3067\u6226\u3063\u3066\u304D\u305F\u4EBA\u306E\u60F3\u3044\u3092\u80CC\u8CA0\u3063\u3066\u3001\u79C1\u306F\u4ECA\u3053\u3053\u306B\u3044\u308B\u2026\uFF01)\nYuki
+      sota_stand Sota_pos:\nMis:(\u305D\u3057\u3066\u3001\u4ECA\u307E\u3067\u6226\u3063\u3066\u304D\u305F\u4EBA\u306E\u60F3\u3044\u3092\u80CC\u8CA0\u3063\u3066\u3001\u79C1\u306F\u4ECA\u3053\u3053\u306B\u3044\u308B\u2026\uFF01)\nYuki
       hide:\nTakumi hide:\nSota hide:\nYamituki yamituki_right Mid-left:\nMituki mituki_left
       Mid-right:\nMis:(\u305D\u3057\u3066\u3001\u3053\u308C\u307E\u3067\u4E00\u7DD2\u306B\u6226\u3063\u3066\u304F\u308C\u305F\u4E8C\u4EBA\u306E\u305F\u3081\u306B\u3082)\nYamituki
       hide:\nMituki hide:"
@@ -1985,7 +1985,7 @@ MonoBehaviour:
   targetCamera: {fileID: 0}
 --- !u!114 &689019084
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -2005,7 +2005,7 @@ MonoBehaviour:
   targetCamera: {fileID: 0}
 --- !u!114 &689019085
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -2034,7 +2034,7 @@ MonoBehaviour:
   waitUntilFinished: 0
 --- !u!114 &689019086
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -2063,7 +2063,7 @@ MonoBehaviour:
   waitUntilFinished: 0
 --- !u!114 &689019087
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -2092,7 +2092,7 @@ MonoBehaviour:
   waitUntilFinished: 0
 --- !u!114 &689019088
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -2176,7 +2176,7 @@ Prefab:
         type: 2}
       propertyPath: portraits.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 075f0021c251e2e41b6a9e2dfa37c5a4,
+      objectReference: {fileID: 21300000, guid: cbe2a663c4d70f14d88e0b109a2a31ef,
         type: 3}
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
@@ -2965,7 +2965,7 @@ Prefab:
         type: 2}
       propertyPath: portraits.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: b77d208cf2b357c4b9c5d66ff4b4a175,
+      objectReference: {fileID: 21300000, guid: 696e4840dd13c1a49af8d7a44ed59391,
         type: 3}
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
@@ -3379,8 +3379,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 500, y: -1000}
-  m_SizeDelta: {x: 750, y: 750}
+  m_AnchoredPosition: {x: 500, y: -1350}
+  m_SizeDelta: {x: 750, y: 1200}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2003971148
 MonoBehaviour:

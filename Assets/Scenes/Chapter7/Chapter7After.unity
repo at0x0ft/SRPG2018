@@ -747,8 +747,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 460.43, y: -1000}
-  m_SizeDelta: {x: 750, y: 750}
+  m_AnchoredPosition: {x: 0, y: -1400}
+  m_SizeDelta: {x: 750, y: 1200}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &511624239
 MonoBehaviour:
@@ -846,7 +846,7 @@ Prefab:
         type: 2}
       propertyPath: portraits.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: bfccc82ddd1d27645866ceb1e7af89d4,
+      objectReference: {fileID: 21300000, guid: 811bbd1bb28fe9548b0c013c4d8d38bd,
         type: 3}
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
@@ -1109,9 +1109,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019074}
+  - {fileID: 689019077}
   selectedCommands:
-  - {fileID: 689019073}
+  - {fileID: 689019097}
   variables: []
   description: 
   stepPause: 0
@@ -1583,7 +1583,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Rihito rihito_stand Right1:\nHaruki:\u3055\u3041\u3001\u6E96\u3005\u6C7A\u52DD\u7B2C\u56DB\u30AB\u30FC\u30C9\u306E\u59CB\u307E\u308A\u3067\u3059\u2026\uFF01\r\nRihito:\u2026\u2026\u2026\u2026\u2026\u2026\nHaruki:\u304A\u304A\u3063\u3068\u3001\u9023\u6226\u306E\u75B2\u308C\u304C\u51FA\u3066\u3044\u308B\u306E\u304B\uFF1F\u30C8\u30AD\u30EF\u30A2\u30AF\u30BF\u30FC\u30BA\u306B\u3044\u3064\u3082\u306E\u3088\u3046\u306A\u52E2\u3044\u304C\u7121\u3044\u305E\uFF01\uFF1F\nRihito:T-Gamers\u306B\u5F15\u304D\u7D9A\u3044\u3066\u3001\u3053\u3061\u3089\u3082\u2026\n\u2026\u4ECA\u5EA6\u3053\u305D\u3001\u9593\u9055\u3044\u306A\u3055\u305D\u3046\u3060\nHaruki:\u6C7A\u307E\u3063\u305F\u3041\u3041\u3041\uFF01\n\u6E96\u6C7A\u52DD\u3078\u9032\u3080\u306E\u306F\u3001\u7D42\u7109\u306E\u66F8(\u30A2\u30DD\u30AB\u30EA\u30D7\u30B9)\u9060\u8F1D\u6E21\u652F\u90E8\u3067\u3059\uFF01\nRihito
+    stringVal: "Rihito rihito_stand Rihito_pos:\nHaruki:\u3055\u3041\u3001\u6E96\u3005\u6C7A\u52DD\u7B2C\u56DB\u30AB\u30FC\u30C9\u306E\u59CB\u307E\u308A\u3067\u3059\u2026\uFF01\r\nRihito:\u2026\u2026\u2026\u2026\u2026\u2026\nHaruki:\u304A\u304A\u3063\u3068\u3001\u9023\u6226\u306E\u75B2\u308C\u304C\u51FA\u3066\u3044\u308B\u306E\u304B\uFF1F\u30C8\u30AD\u30EF\u30A2\u30AF\u30BF\u30FC\u30BA\u306B\u3044\u3064\u3082\u306E\u3088\u3046\u306A\u52E2\u3044\u304C\u7121\u3044\u305E\uFF01\uFF1F\nRihito:T-Gamers\u306B\u5F15\u304D\u7D9A\u3044\u3066\u3001\u3053\u3061\u3089\u3082\u2026\n\u2026\u4ECA\u5EA6\u3053\u305D\u3001\u9593\u9055\u3044\u306A\u3055\u305D\u3046\u3060\nHaruki:\u6C7A\u307E\u3063\u305F\u3041\u3041\u3041\uFF01\n\u6E96\u6C7A\u52DD\u3078\u9032\u3080\u306E\u306F\u3001\u7D42\u7109\u306E\u66F8(\u30A2\u30DD\u30AB\u30EA\u30D7\u30B9)\u9060\u8F1D\u6E21\u652F\u90E8\u3067\u3059\uFF01\nRihito
       hide:\nYayoi:\u2026\u2026\u2026\u2026\u2026\u2026\r\n"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -1865,7 +1865,7 @@ MonoBehaviour:
   stage: {fileID: 1970152459}
   character: {fileID: 1650671494}
   replacedCharacter: {fileID: 0}
-  portrait: {fileID: 21300000, guid: b77d208cf2b357c4b9c5d66ff4b4a175, type: 3}
+  portrait: {fileID: 21300000, guid: 696e4840dd13c1a49af8d7a44ed59391, type: 3}
   offset: 0
   fromPosition: {fileID: 0}
   toPosition: {fileID: 511624238}
@@ -1908,7 +1908,7 @@ MonoBehaviour:
     booleanVal: 1
 --- !u!114 &689019102
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -1928,7 +1928,7 @@ MonoBehaviour:
   targetCamera: {fileID: 0}
 --- !u!114 &689019103
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -1948,7 +1948,7 @@ MonoBehaviour:
   targetCamera: {fileID: 0}
 --- !u!114 &689019104
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -1968,7 +1968,7 @@ MonoBehaviour:
   targetCamera: {fileID: 0}
 --- !u!114 &689019105
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -1988,7 +1988,7 @@ MonoBehaviour:
   targetCamera: {fileID: 0}
 --- !u!114 &689019106
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -2004,7 +2004,7 @@ MonoBehaviour:
   waitUntilFinished: 1
 --- !u!114 &689019107
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -2017,7 +2017,7 @@ MonoBehaviour:
   indentLevel: 0
 --- !u!114 &689019108
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -2033,7 +2033,7 @@ MonoBehaviour:
   waitUntilFinished: 1
 --- !u!114 &689019109
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -2050,7 +2050,7 @@ MonoBehaviour:
   fadeDuration: 1
 --- !u!114 &689019110
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -2066,7 +2066,7 @@ MonoBehaviour:
   waitUntilFinished: 1
 --- !u!114 &689019111
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -2079,7 +2079,7 @@ MonoBehaviour:
   indentLevel: 0
 --- !u!114 &689019112
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -2095,7 +2095,7 @@ MonoBehaviour:
   waitUntilFinished: 1
 --- !u!114 &689019113
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -2386,6 +2386,7 @@ MonoBehaviour:
   - {fileID: 852008265}
   - {fileID: 1229439894}
   - {fileID: 1454116692}
+  - {fileID: 916787529}
 --- !u!4 &803902424
 Transform:
   m_ObjectHideFlags: 0
@@ -2436,7 +2437,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 460, y: -1300}
-  m_SizeDelta: {x: 1000, y: 1100}
+  m_SizeDelta: {x: 500, y: 1100}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &852008266
 MonoBehaviour:
@@ -2547,6 +2548,79 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 868125009}
   m_CullTransparentMesh: 0
+--- !u!1 &916787528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 110270, guid: c6289d5f8fa843145a2355af9cb09719,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 916787529}
+  - component: {fileID: 916787531}
+  - component: {fileID: 916787530}
+  m_Layer: 0
+  m_Name: Rihito_pos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &916787529
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 22410270, guid: c6289d5f8fa843145a2355af9cb09719,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 916787528}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000105, y: 1.0000105, z: 1.0000105}
+  m_Children: []
+  m_Father: {fileID: 987013911}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 460.0001, y: -1000.00006}
+  m_SizeDelta: {x: 600, y: 1200}
+  m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &916787530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 11410270, guid: c6289d5f8fa843145a2355af9cb09719,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 916787528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: ea8f56c43254d41728f5ac4e8299b6c9, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &916787531
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 22210270, guid: c6289d5f8fa843145a2355af9cb09719,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 916787528}
+  m_CullTransparentMesh: 0
 --- !u!1001 &920591093
 Prefab:
   m_ObjectHideFlags: 0
@@ -2612,7 +2686,7 @@ Prefab:
         type: 2}
       propertyPath: portraits.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: b77d208cf2b357c4b9c5d66ff4b4a175,
+      objectReference: {fileID: 21300000, guid: 696e4840dd13c1a49af8d7a44ed59391,
         type: 3}
     - target: {fileID: 114551948983041052, guid: a27093f763038b243ab6542e014f8e84,
         type: 2}
@@ -2668,6 +2742,7 @@ RectTransform:
   - {fileID: 852008265}
   - {fileID: 1229439894}
   - {fileID: 1454116692}
+  - {fileID: 916787529}
   m_Father: {fileID: 803902424}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
