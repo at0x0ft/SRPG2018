@@ -140,7 +140,7 @@ public class AttackSelectWindow : SubWindow
 			// 有効な攻撃のみ, ウィンドウに表示し, 追加する.
 			_attackBtns[i].gameObject.SetActive(true);
 			_attackBtns[i].interactable = canAttack;
-			_attackBtns[i].GetComponentInChildren<Text>().text = atk.name;
+			_attackBtns[i].GetComponentInChildren<Text>().text = atk.Name;
 			_attackBtns[i].onClick.RemoveAllListeners();
 			_attackBtns[i].onClick.AddListener(() => CommandButtonAction(atk));
 		}
