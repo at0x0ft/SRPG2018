@@ -31,7 +31,6 @@ public class RangeAttackNozzle : SubWindow
 	public void Initialize(AttackController ac, Units units, Map map, BattleStateController bsc)
 	{
 		_centerButton = transform.Find("TurnLabel").GetComponent<Button>();
-		_circleButton = transform.Find("CircleButton").GetComponent<Button>();
 		_text = _centerButton.gameObject.GetComponent<Text>();
 
 		_ac = ac;
@@ -40,7 +39,6 @@ public class RangeAttackNozzle : SubWindow
 		_bsc = bsc;
 
 		_centerButton.onClick.AddListener(() => ActRangeAttack());
-		_circleButton.onClick.AddListener(() => RotateRangeHighLight());
 
 		_flowchart = GameObject.Find("Flowchart").GetComponent<Flowchart>();
 
@@ -84,37 +82,6 @@ public class RangeAttackNozzle : SubWindow
 
 		// 場面を進めます
 		_bsc.NextBattleState();
-	}
-
-	/// <summary>
-	/// 範囲攻撃のときに、Attack!ボタンの周囲を押したら、攻撃範囲が回転します。
-	/// (素材が無いため、反時計回りのみとしてあります)
-	/// </summary>
-	public void RotateRangeHighLight()
-	{
-		Debug.Log("ok2");	// 4debug
-		// 強溜め攻撃準備の時は、無視します
-		if(_reason == AccessReason.HighAttack) return;
-
-		// 中身が見当たらない場合は無視します
-		var attacker = _units.ActiveUnit;
-		var attackInfo = attacker.PlanningAttack;
-		if(attackInfo == null) return;
-
-		// 単体攻撃の場合も無視します
-		int dir = attackInfo.Value.Value;
-		var attack = attackInfo.Value.Key;
-		if(attack.Scale == Attack.AttackScale.Single) return;
-
-		// 回転できない場合も無視します
-		var rangeAttack = (RangeAttack)attack;
-		if(!rangeAttack.IsRotatable) return;
-
-		// 攻撃可能範囲のハイライトを回転します.
-		int newDir = _ac.Highlight(attacker, attack, dir);
-
-		// 方角の更新をします
-		attacker.PlanningAttack = new KeyValuePair<Attack, int>(attack, newDir);
 	}
 
 	private void SetLabel(AccessReason reason)
