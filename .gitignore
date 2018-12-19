@@ -39,3 +39,6 @@ sysinfo.txt
 # Ignore Fungus asset files.
 Assets/Fungus/
 Assets/FungusExamples/
+
+# Ignore ending credit file.
+Assets/Resources/credits.txt
