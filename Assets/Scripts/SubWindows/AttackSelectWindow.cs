@@ -48,10 +48,10 @@ public class AttackSelectWindow : SubWindow
 
 
 		// 攻撃の数が攻撃選択ウィンドウのボタンの数よりも多ければ, エラーとする. (全ての攻撃を表示しきれないため.)
-		if(units.Max(u => u.Attacks.Count) > _attackBtns.Count)
-		{
-			Debug.LogError("[Error] : Number of the attacks is over than that of the AttackSelectWindow's Button!");
-		}
+		//if(units.Max(u => u.Attacks.Count) > _attackBtns.Count)
+		//{
+		//	Debug.LogError("[Error] : Number of the attacks is over than that of the AttackSelectWindow's Button!");
+		//}
 	}
 
 	/// <summary>
@@ -132,7 +132,7 @@ public class AttackSelectWindow : SubWindow
 		{
 			button.gameObject.SetActive(false);
 		}
-
+		Debug.Log("show  -- " +atkBoolPairs.Count);
 		for(int i = 0; i < atkBoolPairs.Count(); i++)
 		{
 			var atk = atkBoolPairs[i].Key;
@@ -148,5 +148,12 @@ public class AttackSelectWindow : SubWindow
 		}
 
 		Show();
+	}
+
+	new public void Hide()
+	{
+		foreach(var btn in _attackBtns) btn.onClick.RemoveAllListeners();
+
+		base.Hide();
 	}
 }

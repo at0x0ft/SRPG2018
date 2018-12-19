@@ -328,7 +328,8 @@ public class AI : MonoBehaviour
 		var selectedCommands = attackableCommands[kind];
 
 		// 攻撃実行
-		var res = _ui.AttackSelectWindow.SelectAttack(selectedCommands);
+		var attacker = _units.ActiveUnit;
+		var res = _ui.AttackSelectWindow(attacker).SelectAttack(selectedCommands);
 
 		// 挙動が早すぎて実行失敗の場合があるため
 		if(res) return selectedCommands;
