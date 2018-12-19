@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEngine.UI;
-using Fungus;
 
 public class AttackSelectWindow : SubWindow
 {
@@ -18,7 +17,6 @@ public class AttackSelectWindow : SubWindow
 	private RangeAttackNozzle _ran;
 	private AttackInfoWindow _aiw;
 	private Map _map;
-	private Flowchart _flowchart;
 
 	private List<KeyValuePair<Attack, bool>> _displayedAttacks;
 
@@ -34,9 +32,6 @@ public class AttackSelectWindow : SubWindow
 		_aiw = aiw;
 		_ran = ran;
 		_map = map;
-
-		// フローチャート設定
-		_flowchart = GameObject.Find("Flowchart").GetComponent<Flowchart>();
 	}
 
 	/// <summary>
@@ -65,7 +60,7 @@ public class AttackSelectWindow : SubWindow
 	/// <param name="atk"></param>
 	private void CommandButtonAction(Attack atk)
 	{
-		Debug.Log("clicked");
+		Debug.Log(atk.ToString() + atk.Kind.ToString());
 		// 1.その詳細情報を表示し
 		_aiw.Show(atk);
 
@@ -106,9 +101,6 @@ public class AttackSelectWindow : SubWindow
 	/// <returns>攻撃可否</returns>
 	public bool SelectAttack(Attack attack)
 	{
-		// 動作不能な状態では、放置する
-		if(!gameObject.activeSelf) return false;
-
 		for(int i = 0; i < _displayedAttacks.Count(); i++)
 		{
 			if(_displayedAttacks[i].Key == attack)

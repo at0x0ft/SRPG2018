@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1571411631033570}
+  m_IsPrefabAsset: 1
+--- !u!1 &1571411631033570
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4608088764625908}
+  - component: {fileID: 114293893010961250}
+  m_Layer: 0
+  m_Name: "\u30B5\u30F3\u30C0\u30FC\u30DC\u30EB\u30C8"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4608088764625908
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1571411631033570}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114293893010961250
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1571411631033570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc087992668157d48af319bc544f4c28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: "\u30B5\u30F3\u30C0\u30FC\u30DC\u30EB\u30C8"
+  _kind: 2
+  _type: {fileID: 114928696413571736, guid: b8ed57c99ab9a41488850dbd6209597f, type: 2}
+  _effectKind: 61
+  _power: 190
+  _accuracy: 95
+  _effectImages:
+  - {fileID: 21300000, guid: a7a8819a618993645bf39b9d4cf2e5f1, type: 3}
+  - {fileID: 21300000, guid: 4333cb1ad2fcb9e4e92cbfe61d9eeb93, type: 3}
+  - {fileID: 21300000, guid: 0225cbc9106bb6d4d83875a0fc2d87c0, type: 3}
+  - {fileID: 21300000, guid: 6de3bfd5de3b42e4ab0bf654986fe05b, type: 3}
+  - {fileID: 21300000, guid: 20c4ccefc4b4b5d4eba92818a48b4f1d, type: 3}
+  - {fileID: 21300000, guid: 054121f75a5785947a062bff3fe2e8d2, type: 3}
+  - {fileID: 21300000, guid: 74698884fc300664ba33b29d6d1360e0, type: 3}
+  - {fileID: 21300000, guid: 37c8aaef3116a60428c14a0c4095b669, type: 3}
+  - {fileID: 21300000, guid: 031dbd1334375e44db1f59dab8b1236e, type: 3}
+  _range:
+  - {x: -3, y: -1}
+  - {x: -3, y: 0}
+  - {x: -3, y: 1}
+  - {x: -2, y: -1}
+  - {x: -2, y: 0}
+  - {x: -2, y: 1}
+  - {x: -1, y: -1}
+  - {x: -1, y: 0}
+  - {x: -1, y: 1}
+  _isRotatable: 0

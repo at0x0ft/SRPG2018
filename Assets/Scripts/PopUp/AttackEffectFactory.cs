@@ -17,6 +17,24 @@ public enum AttackEffectKind
 	CPU,
 	OverFlow,
 	DeadLock,
+	WaterFallMis,
+	FireWall,
+
+	// 闇月ちゃん用
+	DarkSlashing,
+	TotalShock,
+	WaterHammer,
+	ZeroDay,
+	DisorderlySlash,
+	FlameBreak,
+
+	// 光月ちゃん用
+	PhotonCode,
+	LightObject,
+	BrightChain,
+	FatalError,
+	MegabyteShotgun,
+	GigabitCannon,
 
 	// 水星ちゃん用
 	BubbleNotes,
@@ -24,8 +42,108 @@ public enum AttackEffectKind
 	IcicleStaff,
 	NotesEdge,
 	HellTone,
-	HolyLiric
+	HolyLiric,
+
+	// 金星用
+	DefenseBreakSeparate,
+	WoundFist,
+	StampWave,
+	Flirtill,
+	DimensionBreaking,
+	MirrorSympony,
+
+	// 火星用
+	TwinLights,
+	CrushingShine,
+	FourFireFlame,
+	FlameShot,
+	RoarBurningWall,
+	DestructExtinctShock,
+
+	// 木星用
+	WindBlades,
+	Flash,
+	Dragonfly,
+	AFoam,
+	Darkness,
+	GodWind,
+	
+	// 土星用
+	SwordSword,
+	InfusionFossil,
+	LionsQuick,
+	StormAndStress,
+	WholeThings,
+	PurpleQuota,
+
+	// 天王星用
+	Ephroresence,
+	Trunkization,
+	Crystallize,
+	Altenaji,
+	DeadlyPoison,
+	SideEffect,
+
+	// 海王星用
+	IceStub,
+	FairyTwister,
+	BubbleTears,
+	VenomRain,
+	WaterFallNeptune,
+	ThunderBolt,
+
+	// 冥王星用
+	EternalVoid,
+	CaosInferno,
+	BloodyBlast,
+	AbsoluteZero,
+	DarknessBind,
+	TheEnd,
+
+	// モブ弱攻撃
+	ASwordOfFire,
+	ASwordOfWater,
+	ASwordOfWind,
+	ASwordOfGrand,
+	ASwordOfLight,
+	ASwordOfDark,
+	WindTornado,
+	FlameTornado,
+
+	// モブ中攻撃
+	FireSwords,
+	WaterSwords,
+	WindSwords,
+	GrandSwords,
+	LightSwords,
+	DarkSwords,
+	FireBall,
+	HolyBind,
+	DarkBind,
+	MagnificentHit,
+	IceShooting,
+
+	// モブ強攻撃
+	FireStorm,
+	WaterStorm,
+	WindStorm,
+	GrandStorm,
+	LightStorm,
+	DarkStorm,
+	HolyCircle,
+	DarkCircle,
+	FlameBiller,
+	FreezeBiller,
+	GrandBiller,
+	ShineBiller,
+	DalianShotOfFire,
+	DalianShotOfWater,
+	DalianShotOfWind,
+	DalianShotOfGrand,
+	DalianShotOfLight,
+	DalianShotOfDark,
 }
+
 
 /// <summary>
 /// 攻撃エフェクトを量産する場所です。
@@ -35,8 +153,8 @@ public enum AttackEffectKind
 /// </summary>
 public class AttackEffectFactory : MonoBehaviour
 {
-	const float DestroyCheckInterval = 0.5f; 
-	
+	const float DestroyCheckInterval = 0.5f;
+
 	// ==========変数==========
 	private AttackEffectKind _effect;
 	private Unit _attacker;
@@ -48,8 +166,7 @@ public class AttackEffectFactory : MonoBehaviour
 	private AttackEffect _ae;
 	private RectTransform _attackerRect;
 
-	private Dictionary<AttackEffectKind, string> _imageNames;
-	private Dictionary<AttackEffectKind, Action> _effectFuncs;
+	private Dictionary<AttackEffectKind, Action<Sequence>> _effectFuncs;
 
 
 
@@ -67,10 +184,11 @@ public class AttackEffectFactory : MonoBehaviour
 		ValidityConfirmation();
 
 		// ファクトリーを実行
-		_effectFuncs[_effect]();
+		var seq = DOTween.Sequence();
+		_effectFuncs[_effect](seq);
 
 		// 終了条件を設定
-		StartCoroutine(Finalizer());
+		StartCoroutine(Finalizer(seq));
 	}
 
 	/// <summary>
@@ -87,36 +205,10 @@ public class AttackEffectFactory : MonoBehaviour
 		gameObject.name = attack.name + "'s effect";
 
 		// クラス内部処理
-		_ae = GetComponentInChildren<AttackEffect>();            // 攻撃エフェクトの金型
-		_attackerRect = _attacker.GetComponent<RectTransform>(); // 攻撃起点情報
-		AssociateEffectKindWithImageName();                      // エフェクト画像の初期設定
-		AssociateEffectKindWithFactoryFunc();                    // エフェクト動作の初期設定
-		_sprites = GetSprites();                                 // 画像取り込み
-	}
-	
-	/// <summary>
-	/// 攻撃エフェクト画像名を、各enumと対応付けます
-	/// </summary>
-	private void AssociateEffectKindWithImageName()
-	{
-		_imageNames = new Dictionary<AttackEffectKind, string>();
-
-		// for みすちゃん
-		_imageNames[AttackEffectKind.Spiral] = "tornado";
-		_imageNames[AttackEffectKind.BackUp] = "hit_effect";
-		_imageNames[AttackEffectKind.MARock] = "rock";
-		_imageNames[AttackEffectKind.CPU] = "hit_effect";
-		_imageNames[AttackEffectKind.OverFlow] = "hit_effect";
-		_imageNames[AttackEffectKind.DeadLock] = "rock";
-
-		// for 水星ちゃん
-		_imageNames[AttackEffectKind.BubbleNotes] = "bubbleNotes";
-		_imageNames[AttackEffectKind.TrebulCreph] = "tone";
-		_imageNames[AttackEffectKind.IcicleStaff] = "ice";
-		_imageNames[AttackEffectKind.NotesEdge] = "edge";
-		_imageNames[AttackEffectKind.HellTone] = "hell";
-		_imageNames[AttackEffectKind.HolyLiric] = "holy";
-
+		_ae = GetComponentInChildren<AttackEffect>();              // 攻撃エフェクトの金型
+		_attackerRect = _attacker.GetComponent<RectTransform>();   // 攻撃起点情報
+		AssociateEffectKindWithFactoryFunc();                      // エフェクト動作の初期設定
+		_sprites = _attack.EffectImages;                           // 画像取り込み
 	}
 
 	/// <summary>
@@ -124,59 +216,143 @@ public class AttackEffectFactory : MonoBehaviour
 	/// </summary>
 	private void AssociateEffectKindWithFactoryFunc()
 	{
-		_effectFuncs = new Dictionary<AttackEffectKind, Action>();
+		_effectFuncs = new Dictionary<AttackEffectKind, Action<Sequence>>();
 
-		// 特に凝ったことをしないエフェクト達
-		_effectFuncs[AttackEffectKind.Spiral] =
+		// 同じ攻撃エフェクト画像群で、攻撃範囲全体に、同時に何かするエフェクト達
+		_effectFuncs[AttackEffectKind.Spiral] =           // みすちゃん
 		_effectFuncs[AttackEffectKind.BackUp] =
 		_effectFuncs[AttackEffectKind.CPU] =
 		_effectFuncs[AttackEffectKind.OverFlow] =
-		_effectFuncs[AttackEffectKind.IcicleStaff] =
+		_effectFuncs[AttackEffectKind.DeadLock] =
+		_effectFuncs[AttackEffectKind.FireWall] =
+		_effectFuncs[AttackEffectKind.DarkSlashing] =     // 闇月ちゃん
+		_effectFuncs[AttackEffectKind.WaterHammer] =
+		_effectFuncs[AttackEffectKind.ZeroDay] =
+		_effectFuncs[AttackEffectKind.LightObject] =      // 光月ちゃん 
+		_effectFuncs[AttackEffectKind.BrightChain] =
+		_effectFuncs[AttackEffectKind.IcicleStaff] =      // 水星ちゃん
+		_effectFuncs[AttackEffectKind.WoundFist] =        // 金星
+		_effectFuncs[AttackEffectKind.StampWave] =
+		_effectFuncs[AttackEffectKind.CrushingShine] =    // 火星
+		_effectFuncs[AttackEffectKind.RoarBurningWall] = 
+		_effectFuncs[AttackEffectKind.DestructExtinctShock] =
+		_effectFuncs[AttackEffectKind.Dragonfly] =        // 木星
+		_effectFuncs[AttackEffectKind.GodWind] =          
+		_effectFuncs[AttackEffectKind.SwordSword] =       // 土星
+		_effectFuncs[AttackEffectKind.InfusionFossil] =
+		_effectFuncs[AttackEffectKind.LionsQuick] =    
+		_effectFuncs[AttackEffectKind.WholeThings] =
+		_effectFuncs[AttackEffectKind.Ephroresence] =     // 天王星
+		_effectFuncs[AttackEffectKind.Trunkization] =
+		_effectFuncs[AttackEffectKind.Crystallize] =
+		_effectFuncs[AttackEffectKind.DeadlyPoison] =
+		_effectFuncs[AttackEffectKind.IceStub] =          // 海王星
+		_effectFuncs[AttackEffectKind.BloodyBlast] =      // 冥王星
+		_effectFuncs[AttackEffectKind.DarknessBind] =    
+		_effectFuncs[AttackEffectKind.ASwordOfFire] =     // モブ弱攻撃
+		_effectFuncs[AttackEffectKind.ASwordOfWater] =
+		_effectFuncs[AttackEffectKind.ASwordOfWind] =
+		_effectFuncs[AttackEffectKind.ASwordOfGrand] =
+		_effectFuncs[AttackEffectKind.ASwordOfLight] =
+		_effectFuncs[AttackEffectKind.ASwordOfDark] =
+		_effectFuncs[AttackEffectKind.WindTornado] =
+		_effectFuncs[AttackEffectKind.FlameTornado] =
+		_effectFuncs[AttackEffectKind.FireSwords] =       // モブ中攻撃
+		_effectFuncs[AttackEffectKind.WaterSwords] =
+		_effectFuncs[AttackEffectKind.WindSwords] =
+		_effectFuncs[AttackEffectKind.GrandSwords] =
+		_effectFuncs[AttackEffectKind.LightSwords] =
+		_effectFuncs[AttackEffectKind.DarkSwords] =
+		_effectFuncs[AttackEffectKind.FireBall] =
+		_effectFuncs[AttackEffectKind.HolyBind] =
+		_effectFuncs[AttackEffectKind.DarkBind] =
+		_effectFuncs[AttackEffectKind.MagnificentHit] =   
+		_effectFuncs[AttackEffectKind.IceShooting] =
+		_effectFuncs[AttackEffectKind.FlameBiller] =      // モブ強攻撃
+		_effectFuncs[AttackEffectKind.FreezeBiller] =
+		_effectFuncs[AttackEffectKind.GrandBiller] =
+		_effectFuncs[AttackEffectKind.ShineBiller] =
+		_effectFuncs[AttackEffectKind.DalianShotOfFire] =
+		_effectFuncs[AttackEffectKind.DalianShotOfWater] =
+		_effectFuncs[AttackEffectKind.DalianShotOfWind] =
+		_effectFuncs[AttackEffectKind.DalianShotOfGrand] =
+		_effectFuncs[AttackEffectKind.DalianShotOfLight] =
+		_effectFuncs[AttackEffectKind.DalianShotOfDark] =
 		NormalEffectMaker;
 
 		// for みすちゃん
 		_effectFuncs[AttackEffectKind.MARock] = MARock;
-		_effectFuncs[AttackEffectKind.DeadLock] = DeadLock;
+		_effectFuncs[AttackEffectKind.WaterFallMis] = WaterFallMis;
+
+		// 闇月ちゃん用
+		_effectFuncs[AttackEffectKind.TotalShock] = TotalShock;
+		_effectFuncs[AttackEffectKind.DisorderlySlash] = DisorderlySlash;
+		_effectFuncs[AttackEffectKind.FlameBreak] = FlameBreak;
+
+		// for 光月ちゃん
+		_effectFuncs[AttackEffectKind.PhotonCode] = PhotonCode;
+		_effectFuncs[AttackEffectKind.FatalError] = FatalError;
+		_effectFuncs[AttackEffectKind.MegabyteShotgun] = MegabyteShotgun;
+		_effectFuncs[AttackEffectKind.GigabitCannon] = GigabitCannon;
 
 		// for 水星ちゃん
 		_effectFuncs[AttackEffectKind.BubbleNotes] = BubbleNotes;
 		_effectFuncs[AttackEffectKind.TrebulCreph] = TrebleCreph;
 		_effectFuncs[AttackEffectKind.NotesEdge] = NotesEdge;
 		_effectFuncs[AttackEffectKind.HellTone] = HellTone;
-		_effectFuncs[AttackEffectKind.HolyLiric] = HolyLiryc;
-	}
+		_effectFuncs[AttackEffectKind.HolyLiric] = HolyLiric;
 
-	/// <summary>
-	/// 目的の名前の画像ファイルを読み込みます。
-	/// </summary>
-	/// <param name="name">エフェクト共通名称</param>
-	/// <returns>画像リスト</returns>
-	private List<Sprite> GetSprites()
-	{
-		List<Sprite> sprites = new List<Sprite>();
-		var basePath = GetAttackEffectPath();
+		// for 金星
+		_effectFuncs[AttackEffectKind.DefenseBreakSeparate] = DefenseBreakSeparate;
+		_effectFuncs[AttackEffectKind.DimensionBreaking] = DimensionBreaking;
+		_effectFuncs[AttackEffectKind.Flirtill] = Flirtill;
+		_effectFuncs[AttackEffectKind.MirrorSympony] = MirrorSympony;
 
-		for(int i = 1; ; i++)
-		{
-			var path = basePath + "_" + i;
-			var sprite = Resources.Load(path, typeof(Sprite)) as Sprite;
-			if(sprite == null) break;
-			else sprites.Add(sprite);
-		}
+		// for 火星
+		_effectFuncs[AttackEffectKind.TwinLights] = TwinLights;
+		_effectFuncs[AttackEffectKind.FourFireFlame] = TotalShock;
+		_effectFuncs[AttackEffectKind.FlameShot] = FlameBreak;
 
-		return sprites;
-	}
+		// for 木星
+		_effectFuncs[AttackEffectKind.WindBlades] = WindBlades;
+		_effectFuncs[AttackEffectKind.AFoam] = AFoam;
+		_effectFuncs[AttackEffectKind.Flash] = 
+		_effectFuncs[AttackEffectKind.Darkness] = 
+		Flash;
 
-	/// <summary>
-	/// 攻撃エフェクト画像の凡その配置場所です
-	/// </summary>
-	/// <param name="name"></param>
-	/// <returns></returns>
-	private string GetAttackEffectPath()
-	{
-		const string imageRoot = "Sprites/";
+		// for 土星
+		_effectFuncs[AttackEffectKind.StormAndStress] = StormAndStress;
+		_effectFuncs[AttackEffectKind.PurpleQuota] = WindBlades;
 
-		return imageRoot + _attacker.UnitName + "/" + _imageNames[_attack.EffectKind];
+		// for 天王星
+		_effectFuncs[AttackEffectKind.SideEffect] = WindBlades;
+		_effectFuncs[AttackEffectKind.Altenaji] = Altenaji;
+
+		// for 海王星
+		_effectFuncs[AttackEffectKind.BubbleTears] = BubbleTears;
+		_effectFuncs[AttackEffectKind.FairyTwister] = 
+		_effectFuncs[AttackEffectKind.VenomRain] = 
+		FairyTwister;
+		_effectFuncs[AttackEffectKind.WaterFallNeptune] = WaterFallNeptune;
+		_effectFuncs[AttackEffectKind.ThunderBolt] = ThunderBolt;
+
+		// for 冥王星
+		_effectFuncs[AttackEffectKind.EternalVoid] = Flash;
+		_effectFuncs[AttackEffectKind.CaosInferno] = CaosInferno;
+		_effectFuncs[AttackEffectKind.AbsoluteZero] = HolyLiric;
+		_effectFuncs[AttackEffectKind.TheEnd] = TheEnd;
+
+		// for モブ強攻撃
+		_effectFuncs[AttackEffectKind.FireStorm] =
+		_effectFuncs[AttackEffectKind.WaterStorm] =
+		_effectFuncs[AttackEffectKind.WindStorm] =
+		_effectFuncs[AttackEffectKind.GrandStorm] =
+		_effectFuncs[AttackEffectKind.LightStorm] =
+		_effectFuncs[AttackEffectKind.DarkStorm] =
+		Storm;
+		_effectFuncs[AttackEffectKind.HolyCircle] =
+		_effectFuncs[AttackEffectKind.DarkCircle] =
+		Flash;
 	}
 
 	/// <summary>
@@ -191,14 +367,6 @@ public class AttackEffectFactory : MonoBehaviour
 		if(_attack.Scale == Attack.AttackScale.Single && _targets.Count != 1)
 			error += " : 単体攻撃のはずが、複数箇所に攻撃アニメーションをしようとしています。" +
 					"PopUpController.AttackEffectFactoryの呼び出しの、第2引数を確認してください";
-
-		// Q.2
-		if(_sprites.Count == 0)
-			error += ":攻撃エフェクト画像がありません。" +
-			"画像の存在や,パスが通っているのかを確認してください。" +
-			"現在捜査した画像パスは," + GetAttackEffectPath() +
-			"_1～ です";
-
 		// 結果
 		if(error.Length == 0)
 		{
@@ -211,16 +379,19 @@ public class AttackEffectFactory : MonoBehaviour
 			return false;
 		}
 	}
-	
+
 	/// <summary>
 	/// このファクトリーの消滅条件です
 	/// </summary>
-	private IEnumerator Finalizer()
+	private IEnumerator Finalizer(Sequence seq)
 	{
+		yield return seq.WaitForCompletion();
+		// 金型があるため、最低1個は子オブジェクトがある
 		do
 		{
+			Debug.Log("waiting");
 			yield return new WaitForSeconds(DestroyCheckInterval);
-		} while(transform.childCount > 1); // 金型があるため、最低1個は子オブジェクトがある
+		} while(transform.childCount > 1);
 
 		Destroy(gameObject);
 	}
@@ -229,19 +400,86 @@ public class AttackEffectFactory : MonoBehaviour
 
 	// ==========動作定義補助関数==========
 	/// <summary>
+	/// 攻撃範囲の重心を求めます
+	/// </summary>
+	/// <param name="floors">攻撃範囲</param>
+	/// <returns></returns>
+	private Vector3 FindCenterOfGravity(List<Floor> floors)
+	{
+		Vector3 center = Vector3.zero;
+		foreach(var pos in floors.Select(f=>f.CoordinatePair.Value))
+		{
+			center += pos;
+		}
+		return center / floors.Count;
+	}
+
+	/// <summary>
+	/// 海王星でトリィが出てくる攻撃は、1個目をトリィにしておいて下さい
+	/// (無理やり実装してます)
+	/// </summary>
+	/// <param name="seq"></param>
+	private GameObject PopUpTolly(Sequence seq, ref List<Sprite> normal)
+	{
+		// tolly 取出し
+		List<Sprite> tolly = new List<Sprite>();
+		Debug.Log(_sprites.Count);
+		for(int i = 0; i < _sprites.Count; i++)
+		{
+			Debug.Log(_sprites[i].name);
+			if(_sprites[i].name == "tolly")
+			{
+				tolly.Add(_sprites[i]);
+			}
+			else{
+				normal.Add(_sprites[i]);
+			}
+		}
+		if(tolly.Count == 0) tolly.Add(_sprites[0]);
+
+		// tolly 作成
+		var pos = _attacker.Floor.CoordinatePair.Value;
+		return  AttackEffectPopUp(_attack, tolly, pos, Vector3.zero); // zeroが、tolly発生向けの特殊コマンドを示す
+	}
+
+	/// <summary>
 	/// 特定の位置達に、1通りの画像群で一斉にエフェクトを表現する
+	/// (対象全てにコマ送りだったらこれ)
 	/// </summary>
 	/// <returns></returns>
-	private void NormalEffectMaker()
+	private void NormalEffectMaker(Sequence seq)
 	{
-		foreach(var target in _targets)
+		SlashEffectMaker(seq, _targets.Count, 1);
+	}
+
+	/// <summary>
+	/// 斬撃系でよく使われる
+	/// (複数個所にコマ送りならこれ)
+	/// </summary>
+	/// <param name="seq"></param>
+	/// <param name="onceAttack"></param>
+	/// <param name="loops"></param>
+	/// <param name="waitTime"></param>
+	private void SlashEffectMaker(Sequence seq, int onceAttack, int loops, float waitTime = 0.3f)
+	{
+		int id = 0;
+		seq.
+		AppendCallback(() =>
 		{
-			MakeEffect(target.CoordinatePair.Value);
-		}
+			for(int i = 0; i < onceAttack; i++) 
+			{
+				var pos = _targets[id].CoordinatePair.Value;
+				MakeEffect(pos);
+				id = (id + 1) % _targets.Count;
+			}
+		})
+		.AppendInterval(waitTime)
+		.SetLoops(loops);
 	}
 
 	/// <summary>
 	/// 特定の位置にエフェクトを作成します
+	/// (凝ったことをしなければ、これを使用するだけで良いでしょう)
 	/// </summary>
 	/// <param name="target">エフェクト作成位置</param>
 	private GameObject MakeEffect(Vector3 occur, List<Sprite> mySprites = null)
@@ -255,6 +493,7 @@ public class AttackEffectFactory : MonoBehaviour
 
 	/// <summary>
 	/// 攻撃エフェクトを"実際に"発生させます
+	/// (一番低レイヤで、エフェクト作成の自由度が高いです)
 	/// </summary>
 	/// <param name="attack">攻撃内容</param>
 	public GameObject AttackEffectPopUp(Attack attack, List<Sprite> sprites, Vector3 pos, Vector3? opt = null)
@@ -270,13 +509,11 @@ public class AttackEffectFactory : MonoBehaviour
 		return effect;
 	}
 
-
-
 	// ==========動作定義関数==========
 	// 数秒待機するなどの処理をする場合は、DOTWEENを使いましょう
 	// ttps://gist.github.com/anzfactory/da73149ba91626ba796d598578b163cc#loop
 	// みすちゃん用
-	private void MARock()
+	private void MARock(Sequence seq)
 	{
 		AttackEffectPopUp(
 			_attack,
@@ -286,27 +523,128 @@ public class AttackEffectFactory : MonoBehaviour
 		);
 	}
 
-	private void DeadLock()
+	private void WaterFallMis(Sequence seq)
 	{
+		var pos = _attacker.Floor.CoordinatePair.Value;
+		pos.x += 50 * 4;
+		MakeEffect(pos);
+	}
+
+	//// 闇月ちゃん用
+	private void TotalShock(Sequence seq)
+	{
+		const float eachAttackTime = 0.3f; // それぞれのマスを攻撃する時間
+
+		int id = 0; // 画像番号
 		foreach(var target in _targets)
 		{
-			MakeEffect(target.GetComponent<RectTransform>().anchoredPosition);
-		}
+			var pos = target.CoordinatePair.Value;
+			var images = _sprites.GetRange(4 * id, 4);
+			seq.AppendCallback(() =>
+			{
+				MakeEffect(pos, images);
+			}).AppendInterval(eachAttackTime);
 
+			id++;
+			if(4 * id >= _sprites.Count) id = 0;
+		}
+	}
+
+	private void DisorderlySlash(Sequence seq)
+	{
+		// shuffle
+		_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList();
+		SlashEffectMaker(seq, 1, _targets.Count * 2);
+	}
+
+	private void FlameBreak(Sequence seq)
+	{
+		MakeEffect(FindCenterOfGravity(_targets));
+	}
+
+	//// 光月ちゃん用
+	private void PhotonCode(Sequence seq)
+	{
+		const float stepTime = 0.1f; // 1マス発生間隔
+		// 左から順にエフェクト発生
+		_targets = _targets.OrderBy(f => f.X).ToList();
+
+		SlashEffectMaker(seq, 1, _targets.Count, stepTime);
+	}
+
+	private void FatalError(Sequence seq)
+	{
+		const int floorSize = 50;
+		var center = _attacker.Floor.CoordinatePair.Value;
+		center.x += floorSize * 4;
+		
+		MakeEffect(center);
+	}
+
+	private void MegabyteShotgun(Sequence seq)
+	{
+		const float allTime = 5.0f;
+		const float happenRate = 0.1f;
+
+		var targetsPos = _targets
+		.Select(pos => pos.GetComponent<RectTransform>().anchoredPosition)
+		.ToList();
+
+		seq
+		.AppendCallback(() =>
+		{
+			var targetPos = targetsPos[UnityEngine.Random.Range(0, _targets.Count)];
+			AttackEffectPopUp(
+				_attack,
+				_sprites,
+				targetPos
+			);
+		})
+		.AppendInterval(happenRate)
+		.SetLoops((int)(allTime/happenRate));
+	}
+
+	private void GigabitCannon(Sequence seq)
+	{
+		const float happenRate = 0.1f;
+
+		var targetsPos = _targets
+		.OrderBy(t => t.X)
+		.Select(pos => pos.GetComponent<RectTransform>().anchoredPosition)
+		.ToList();
+
+		int loops = targetsPos.Count / 3;
+		int hitSet = 0; // 3個セットで攻撃する
+		
+		seq
+		.AppendCallback(() =>
+		{
+			foreach(var pos in targetsPos.GetRange(3 * hitSet, 3))
+			{
+				AttackEffectPopUp(
+					_attack,
+					_sprites,
+					pos
+				);
+			}
+			hitSet++;
+		})
+		.AppendInterval(happenRate)
+		.SetLoops(loops);
 	}
 
 	// 水星ちゃん用
-	private void BubbleNotes()
+	private void BubbleNotes(Sequence seq)
 	{
 		var pos = _attackerRect.anchoredPosition;
 		
-		DOTween.Sequence()
+		seq
 		.AppendCallback(() => MakeEffect(pos))  // MakeEffect(pos)が呼ばれるのを
 		.AppendInterval(0.2f)                   // 0.2秒毎にするのを
 		.SetLoops(3);                           // 3回繰り返す
 	}
 
-	private void TrebleCreph()
+	private void TrebleCreph(Sequence seq)
 	{
 		const float effectTime = 2.0f;
 
@@ -320,7 +658,7 @@ public class AttackEffectFactory : MonoBehaviour
 		//rect.pivot = new Vector2(0.5f, 0.5f);             // 画像の中心を座標基準にする
 		rect.localEulerAngles= new Vector3(0f, 0f, 359f); // 時計回りに回すために無理やり
 		
-		DOTween.Sequence() 
+		seq
 		.Append(
 			// 360°を越さないように、effectTimeだけかけて回転角(0,0,1)まで、ローカル回転座標系で回転する
 			rect.DOLocalRotate(new Vector3(0, 0, 1f), effectTime, RotateMode.FastBeyond360) 
@@ -330,7 +668,7 @@ public class AttackEffectFactory : MonoBehaviour
 		);
 	}
 
-	private void NotesEdge()
+	private void NotesEdge(Sequence seq)
 	{
 		var pos = _attackerRect.anchoredPosition;
 
@@ -344,13 +682,13 @@ public class AttackEffectFactory : MonoBehaviour
 		}
 	}
 
-	private void HellTone()
+	private void HellTone(Sequence seq)
 	{
 		const float allTime = 5.0f;     // 大技が終了するまでの時間
 		const float happenRate = 0.2f;  // 大技の個々のエフェクトの発生間隔
 		List<Sprite> sprite = new List<Sprite>();
 		
-		var seq = DOTween.Sequence()
+		seq
 		.AppendCallback(() =>
 		{
 			sprite.Clear();
@@ -359,35 +697,253 @@ public class AttackEffectFactory : MonoBehaviour
 			MakeEffect(target.GetComponent<RectTransform>().anchoredPosition, sprite);
 		})
 		.AppendInterval(happenRate)
-		.SetLoops(-1);
-
-		// 上のループの終了条件
-		DOVirtual.DelayedCall(allTime, () => seq.Kill());
+		.SetLoops((int)(allTime/happenRate));
 	}
 
-	private void HolyLiryc()
+	private void HolyLiric(Sequence seq)
 	{
-		const float allTime = 5.0f;
-		const float happenRate = 0.2f;
+		const float allTime = 3.0f;
+		const float happenRate = 0.1f;
 		List<Sprite> sprite = new List<Sprite>();
 
-		var seq = DOTween.Sequence()
+		var targetsPos = _targets
+		.Select(pos => pos.GetComponent<RectTransform>().anchoredPosition)
+		.ToList();
+
+		seq
 		.AppendCallback(() =>
 		{
 			sprite.Clear();
 
-			var target = _targets[UnityEngine.Random.Range(0, _targets.Count)];
+			var targetPos = targetsPos[UnityEngine.Random.Range(0, _targets.Count)];
 			sprite.Add(_sprites[UnityEngine.Random.Range(0, _sprites.Count)]);
 			AttackEffectPopUp(
 				_attack,
 				sprite,
 				_attackerRect.anchoredPosition,
-				target.GetComponent<RectTransform>().anchoredPosition
+				targetPos
 			);
 		})
 		.AppendInterval(happenRate)
-		.SetLoops(-1);
+		.SetLoops((int)(allTime/happenRate));
+	}
+	
+	// 金星用
+	private void DefenseBreakSeparate(Sequence seq)
+	{
+		const float moveDist = 50f;
+		const float frontTime = 1.2f;
 
-		DOVirtual.DelayedCall(allTime, () => seq.Kill());
+		var rect = _attacker.GetComponent<RectTransform>();
+
+		seq
+		.Append(rect.DOLocalMoveX(-moveDist, 0.1f).SetRelative());
+		NormalEffectMaker(seq);
+		
+		seq
+		.AppendInterval(frontTime)
+		.Append(rect.DOLocalMoveX( moveDist, 0.1f).SetRelative());
+	}
+
+	private void StampWave(Sequence seq)
+	{
+		MakeEffect(FindCenterOfGravity(_targets));
+	}
+
+	private void Flirtill(Sequence seq)
+	{
+		// shuffle
+		_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList();
+		SlashEffectMaker(seq, 1, 10);
+	}
+
+	private void DimensionBreaking(Sequence seq)
+	{
+		const int onceAttack = 2;  // 一度に攻撃するマス数
+
+		int loop = _targets.Count / onceAttack;
+
+		_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList();// shuffle
+		SlashEffectMaker(seq, onceAttack, loop);
+	}
+
+	private void MirrorSympony(Sequence seq)
+	{
+		const float moveDist = 50f;
+		const float frontTime = 1.2f;
+		var avatar = Instantiate(_attacker.gameObject, transform).GetComponent<RectTransform>();
+
+		seq
+		.Append(avatar.DOLocalMoveX(-moveDist, 0.5f).SetRelative())
+		.Join(avatar.DOScaleX(-1, 0.5f));
+
+		NormalEffectMaker(seq);
+
+		seq
+		.AppendInterval(frontTime)		
+		.Append(avatar.DOLocalMoveX(moveDist, 0.5f).SetRelative())
+		.Join(avatar.DOScaleX(1, 0.5f))
+		.OnComplete(() => { Destroy(avatar.gameObject); });
+	}
+
+	//// 火星用
+	private void TwinLights(Sequence seq)
+	{
+		List<Sprite> sprites = new List<Sprite>();
+
+		int id = 0;
+		for(int pos=0;pos<2;pos++)
+		{
+			for(int i = 0; i < 4; i++, id++) sprites.Add(_sprites[id]);
+			MakeEffect(_targets[pos].CoordinatePair.Value, sprites);
+			sprites.Clear();
+		}
+	}
+	
+	//// 木星用
+	private void WindBlades(Sequence seq)
+	{
+		MakeEffect(FindCenterOfGravity(_targets));
+	}
+
+	private void Flash(Sequence seq)
+	{
+		MakeEffect(_attacker.Floor.CoordinatePair.Value);
+	}
+	
+	private void AFoam(Sequence seq)
+	{
+		const int occurNum = 5;
+
+		// shuffle
+		_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList();
+		foreach(var target in _targets.GetRange(0, occurNum))
+		{
+			MakeEffect(target.CoordinatePair.Value);
+		}
+	}
+
+	//// 土星用
+	private void StormAndStress(Sequence seq)
+	{
+		SlashEffectMaker(seq, 2, 3);
+	}
+
+	//// 天王星用
+	private void Altenaji(Sequence seq)
+	{
+		List<Sprite> sprites = new List<Sprite>();
+		int id = 0;
+
+		foreach(var target in _targets)
+		{
+			for(int i = 0; i < 3; i++, id++) 
+				sprites.Add(_sprites[id]);
+			MakeEffect(target.CoordinatePair.Value, sprites);
+			sprites.Clear();
+		}
+	}
+
+	//// 海王星用
+	private void FairyTwister(Sequence seq)
+	{
+		List<Sprite> normal = new List<Sprite>();
+		var tollyObj = PopUpTolly(seq, ref normal);
+		foreach(var target in _targets)
+		{
+			MakeEffect(target.CoordinatePair.Value, normal);
+		}
+
+		// tolly 終了条件
+		seq
+		.AppendInterval(3.0f)
+		.AppendCallback(() => { Destroy(tollyObj); });
+	}
+
+	private void WaterFallNeptune(Sequence seq)
+	{
+		List<Sprite> normal = new List<Sprite>();
+		var tollyObj = PopUpTolly(seq, ref normal);
+
+		var pos = _attacker.Floor.CoordinatePair.Value;
+		pos.x -= 50 * 4;
+		MakeEffect(pos, normal);
+
+		// tolly 終了条件
+		seq
+		.AppendInterval(3.0f)
+		.AppendCallback(() => { Destroy(tollyObj); });
+	}
+
+	private void ThunderBolt(Sequence seq)
+	{
+		List<Sprite> normal = new List<Sprite>();
+		var tollyObj = PopUpTolly(seq, ref normal);
+
+		var pos = _attacker.Floor.CoordinatePair.Value;
+		pos.x -= 50 * 2;
+		MakeEffect(pos, normal);
+
+		// tolly 終了条件
+		seq
+		.AppendInterval(3.0f)
+		.AppendCallback(() => { Destroy(tollyObj); });
+	}
+
+	private void BubbleTears(Sequence seq)
+	{
+		const float totalTime = 2.0f;
+		const float waitTime = 0.4f;
+
+		var targets = _targets
+		.Select(tar => tar.CoordinatePair.Value)
+		.ToList();
+
+
+		seq
+		.AppendCallback(() =>
+		{
+			var targetPos = targets[UnityEngine.Random.Range(0, _targets.Count)];
+			MakeEffect(targetPos);
+		})
+		.AppendInterval(waitTime)
+		.SetLoops((int)(totalTime/waitTime));
+	}
+	
+
+	//ThunderBolt,
+
+	//// 冥王星用
+	private void CaosInferno(Sequence seq)
+	{
+		// shuffle
+		_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList();
+
+		SlashEffectMaker(seq, 1, 15);
+	}
+
+	private void TheEnd(Sequence seq)
+	{
+		const float waitTime = 0.3f; // 1マス辺りの攻撃時間
+		seq
+		.AppendCallback(() =>
+		{
+			// shuffle
+			_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList();
+			foreach(var target in _targets.GetRange(0, 10))
+			{
+				MakeEffect(target.CoordinatePair.Value);
+			}
+		})
+		.AppendInterval(waitTime)
+		.SetLoops(10);
+	}
+
+	//// モブ強攻撃用
+	private void Storm(Sequence seq)
+	{
+		// shuffle
+		_targets = _targets.OrderBy(a => Guid.NewGuid()).ToList();
+		SlashEffectMaker(seq, 5, 3, 0.5f);
 	}
 }

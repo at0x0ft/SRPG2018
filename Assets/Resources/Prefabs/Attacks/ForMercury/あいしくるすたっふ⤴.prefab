@@ -54,9 +54,11 @@ MonoBehaviour:
   _name: "\u3042\u3044\u3057\u304F\u308B\u3059\u305F\u3063\u3075\u2934"
   _kind: 1
   _type: {fileID: 114928696413571736, guid: 8baf576386dc34245ba2a70ad54626a4, type: 2}
-  _effectKind: 8
+  _effectKind: 22
   _power: 90
   _accuracy: 80
+  _effectImages:
+  - {fileID: 21300000, guid: 17c2f28e2cf380341974ce91009b3af6, type: 3}
   _range:
   - {x: -1, y: 0}
   - {x: 0, y: 1}

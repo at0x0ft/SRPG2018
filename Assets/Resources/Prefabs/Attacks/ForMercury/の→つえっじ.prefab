@@ -54,9 +54,12 @@ MonoBehaviour:
   _name: "\u306E\u2192\u3064\u3048\u3063\u3058"
   _kind: 1
   _type: {fileID: 114928696413571736, guid: 8baf576386dc34245ba2a70ad54626a4, type: 2}
-  _effectKind: 9
+  _effectKind: 23
   _power: 130
   _accuracy: 80
+  _effectImages:
+  - {fileID: 21300000, guid: f4a4a4014e74d484b9c25645412365d6, type: 3}
+  - {fileID: 21300000, guid: 4e8453c7903249445b77d15d1db732f5, type: 3}
   _range:
   - {x: -1, y: 0}
   - {x: -2, y: 0}

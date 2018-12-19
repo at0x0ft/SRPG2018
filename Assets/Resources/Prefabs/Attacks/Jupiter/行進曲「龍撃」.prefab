@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1694136732905010}
+  m_IsPrefabAsset: 1
+--- !u!1 &1694136732905010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4855619822071552}
+  - component: {fileID: 114859742884574832}
+  m_Layer: 0
+  m_Name: "\u884C\u9032\u66F2\u300C\u9F8D\u6483\u300D"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4855619822071552
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1694136732905010}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114859742884574832
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1694136732905010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc087992668157d48af319bc544f4c28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: "\u884C\u9032\u66F2\u300C\u9F8D\u6483\u300D"
+  _kind: 2
+  _type: {fileID: 114928696413571736, guid: 43a080bff49961e4db4fe6a1b05c7abf, type: 2}
+  _effectKind: 40
+  _power: 240
+  _accuracy: 90
+  _effectImages:
+  - {fileID: 21300000, guid: fa4dcd94623b92b4a8edb95b763bb58d, type: 3}
+  - {fileID: 21300000, guid: 7fd985cd0e33bb8439703f64bac5159f, type: 3}
+  - {fileID: 21300000, guid: b51da78f4531e084ab8eac23313784d3, type: 3}
+  _range:
+  - {x: -4, y: 0}
+  - {x: -3, y: -1}
+  - {x: -3, y: 0}
+  - {x: -3, y: 1}
+  - {x: -2, y: 0}
+  _isRotatable: 0
