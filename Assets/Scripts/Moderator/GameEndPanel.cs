@@ -77,8 +77,8 @@ public class GameEndPanel : MonoBehaviour
 	{
 		// text info
 		_endMessage.text = "You Win!";
-		_gameContBtn.GetComponentInChildren<Text>().text = "Winner Story";
-		
+		_gameContBtn.GetComponentInChildren<Text>().text = "Go to Next";
+
 		// function
 		string sceneName = SetCommonMessage();
 		_gameContBtn.onClick.AddListener(() =>
