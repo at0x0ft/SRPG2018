@@ -28,6 +28,7 @@ public class Unit : MonoBehaviour
 		mis,
 		lightmoon,
 		darkmoon,
+		darkmoonEnemy,
 		mercury,
 		venus,
 		mars,
