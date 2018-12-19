@@ -87,6 +87,7 @@ public class UI : MonoBehaviour
 		Debug.Log(str);
 
  		if(attackNum == 6) return _attackSelectWindow6;
+		else if(attackNum == 7) return _attackSelectWindow7;
 		else if(attackNum == 8) return _attackSelectWindow8;
 		else {
 			Debug.LogError("保持攻撃種類数が6でも8でもありません");
@@ -99,6 +100,13 @@ public class UI : MonoBehaviour
 	private AttackSelectWindow AttackSelectWindow6
 	{
 		get{ return _attackSelectWindow6; }
+	}
+
+	[SerializeField]
+	private AttackSelectWindow _attackSelectWindow7;
+	private AttackSelectWindow AttackSelectWindow7
+	{
+		get { return _attackSelectWindow7; }
 	}
 
 	[SerializeField]
@@ -151,6 +159,8 @@ public class UI : MonoBehaviour
 
 		if(!_attackSelectWindow6) Debug.LogError("[Error] : AttackInfoWindow is not set!");
 		_attackSelectWindow6.CheckSerializedMember(units.GetComponentsInChildren<Unit>());
+		if(!_attackSelectWindow7) Debug.LogError("[Error] : AttackInfoWindow is not set!");
+		_attackSelectWindow7.CheckSerializedMember(units.GetComponentsInChildren<Unit>());
 		if(!_attackSelectWindow8) Debug.LogError("[Error] : AttackInfoWindow is not set!");
 		_attackSelectWindow8.CheckSerializedMember(units.GetComponentsInChildren<Unit>());
 
@@ -171,6 +181,7 @@ public class UI : MonoBehaviour
 		_chargeEffectController.Initialize();
 		_rangeAttackNozzle.Initialize(ac, units, map, bsc);
 		_attackSelectWindow6.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
+		_attackSelectWindow7.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
 		_attackSelectWindow8.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
 		_gameEndPanel.gameObject.SetActive(false);
 		_gameEndPanel.Initialize();
@@ -181,6 +192,7 @@ public class UI : MonoBehaviour
 		_unitInfoWindow.Hide();
 		_attackInfoWindow.Hide();
 		_attackSelectWindow6.Hide();
+		_attackSelectWindow7.Hide();
 		_attackSelectWindow8.Hide();
 	}
 
