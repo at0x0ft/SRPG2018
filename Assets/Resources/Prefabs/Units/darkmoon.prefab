@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 114274038411170896}
   - component: {fileID: 114490810780128746}
   m_Layer: 5
-  m_Name: mis
+  m_Name: darkmoon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -230,21 +230,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bb6b5f2ae6914361a03eef7b5af3a09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _name: "\u307F\u3059\u3061\u3083\u3093"
+  _name: "\u9662\u5802\u54B2"
   _unitName: 0
   _belonging: 0
-  _position: 1
-  _type: {fileID: 114928696413571736, guid: 43a080bff49961e4db4fe6a1b05c7abf, type: 2}
-  _maxLife: 1000
-  _attackPower: 500
-  _defence: 400
+  _position: 0
+  _type: {fileID: 114928696413571736, guid: 429cdf1a3716e7546bec0ca6553aac4e, type: 2}
+  _maxLife: 700
+  _attackPower: 550
+  _defence: 300
   _attacks:
-  - {fileID: 114711770026450164, guid: 7494cad2776df814fb28436baef0907f, type: 2}
-  - {fileID: 114314692353413232, guid: 5e3cc3a8b0b68d245b6d67f2590144a2, type: 2}
-  - {fileID: 114118324751172088, guid: 4ef7dd259148e914b83f56e0cbf384db, type: 2}
-  - {fileID: 114059043796223576, guid: b994073977667194494fde0e6009dedd, type: 2}
-  - {fileID: 114968416149137720, guid: 26df6363d4a60594d864cfddf853d716, type: 2}
-  - {fileID: 114734659155255296, guid: e1a43bbab9440244f9c9d53880ae874e, type: 2}
+  - {fileID: 114356154624252302, guid: 99cc4791718c3ab4eb4d8e0b9e24899c, type: 2}
+  - {fileID: 114666298209516860, guid: 56a1cafaa6ad3f14c9c4625d3a94b0b5, type: 2}
+  - {fileID: 114404096104324316, guid: 70427081ff439b741b4d7ac534cb0393, type: 2}
+  - {fileID: 114042141144528050, guid: 6394311850270d849b32dedd8cc0f08c, type: 2}
+  - {fileID: 114352658012792172, guid: 53906ffec183c0044914c514aa6d40bb, type: 2}
+  - {fileID: 114853861785556866, guid: 5ebb0f1132991954d8013dc6b86edf59, type: 2}
   _initialFloor: {fileID: 0}
 --- !u!114 &114792765303542296
 MonoBehaviour:
@@ -286,7 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
