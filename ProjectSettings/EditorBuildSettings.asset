@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Title/Title.unity
+    guid: b7dccc636424b694285ec9f9f7a22848
+  - enabled: 1
     path: Assets/Scenes/Title/ChapterIntro.unity
     guid: bd0616231955b114cbf36e72e7b00c77
   - enabled: 1
@@ -23,4 +26,46 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Chapter2/Chapter2After.unity
     guid: f0913b009a060754993553aab95d947f
+  - enabled: 1
+    path: Assets/Scenes/Chapter3/Chapter3Before.unity
+    guid: df8812265ec19db4687c1c7f7786142d
+  - enabled: 1
+    path: Assets/Scenes/Chapter3/Chapter3After.unity
+    guid: c5164a464364b2b45aad02a260ce0a13
+  - enabled: 1
+    path: Assets/Scenes/Chapter4/Chapter4Before.unity
+    guid: cf2d1e49a159e4345a60c1a4f3e0e051
+  - enabled: 1
+    path: Assets/Scenes/Chapter4/Chapter4After.unity
+    guid: cc5739080a3125143a06f44cd339a7d9
+  - enabled: 1
+    path: Assets/Scenes/Chapter5/Chapter5Before.unity
+    guid: 142f8c2a613076e40a365390742c79bb
+  - enabled: 1
+    path: Assets/Scenes/Chapter5/Chapter5After.unity
+    guid: dbdfa2669bd2ea34abef2402b5500a1d
+  - enabled: 1
+    path: Assets/Scenes/Chapter6/Chapter6Before.unity
+    guid: 020a52a1711d46447b201eeff193ad25
+  - enabled: 1
+    path: Assets/Scenes/Chapter6/Chapter6After.unity
+    guid: 9559e127a2b3b244988e7ff5e21cf3fb
+  - enabled: 1
+    path: Assets/Scenes/Chapter7/Chapter7Before.unity
+    guid: d332e9406526dd842a75d3a6551e0710
+  - enabled: 1
+    path: Assets/Scenes/Chapter7/Chapter7After.unity
+    guid: fab80de5ecf3bfd46805489ee4e58728
+  - enabled: 1
+    path: Assets/Scenes/Chapter8/Chapter8Before.unity
+    guid: 4bbb107f64120a04ebe4b54a50723682
+  - enabled: 1
+    path: Assets/Scenes/Chapter8/Chapter8After.unity
+    guid: 97d5b4c1458b8ae499f1e28fb03481d6
+  - enabled: 1
+    path: Assets/Scenes/Chapter9/Chapter9Before.unity
+    guid: 903baf346af4bdf41b73182d80718e53
+  - enabled: 1
+    path: Assets/Scenes/Chapter9/Chapter9After.unity
+    guid: 0f5bbcc65df89784c9fcedeff7d34320
   m_configObjects: {}

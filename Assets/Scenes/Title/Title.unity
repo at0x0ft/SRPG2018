@@ -2862,6 +2862,7 @@ GameObject:
   - component: {fileID: 689019083}
   - component: {fileID: 689019082}
   - component: {fileID: 689019077}
+  - component: {fileID: 689019112}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -2894,7 +2895,7 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019071}
+  - {fileID: 689019072}
   selectedCommands: []
   variables: []
   description: 
@@ -3169,7 +3170,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
   m_Name: 
@@ -3260,6 +3261,7 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 689019069}
+  - {fileID: 689019112}
 --- !u!114 &689019073
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3275,7 +3277,7 @@ MonoBehaviour:
   indentLevel: 0
   _sceneName:
     stringRef: {fileID: 0}
-    stringVal: 
+    stringVal: ChapterIntro
   loadingImage: {fileID: 0}
   sceneNameOLD: 
 --- !u!114 &689019074
@@ -3353,7 +3355,7 @@ MonoBehaviour:
   indentLevel: 0
   _sceneName:
     stringRef: {fileID: 0}
-    stringVal: 
+    stringVal: Chapter8Before
   loadingImage: {fileID: 0}
   sceneNameOLD: 
 --- !u!114 &689019078
@@ -3394,7 +3396,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: -97.22943
-    y: 99.768936
+    y: 96.82777
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -3421,7 +3423,7 @@ MonoBehaviour:
   indentLevel: 0
   _sceneName:
     stringRef: {fileID: 0}
-    stringVal: 
+    stringVal: Chapter1Before
   loadingImage: {fileID: 0}
   sceneNameOLD: 
 --- !u!114 &689019081
@@ -3501,7 +3503,7 @@ MonoBehaviour:
   indentLevel: 0
   _sceneName:
     stringRef: {fileID: 0}
-    stringVal: 
+    stringVal: Chapter9Before
   loadingImage: {fileID: 0}
   sceneNameOLD: 
 --- !u!114 &689019085
@@ -3563,7 +3565,7 @@ MonoBehaviour:
   indentLevel: 0
   _sceneName:
     stringRef: {fileID: 0}
-    stringVal: 
+    stringVal: Chapter6Before
   loadingImage: {fileID: 0}
   sceneNameOLD: 
 --- !u!114 &689019088
@@ -3625,7 +3627,7 @@ MonoBehaviour:
   indentLevel: 0
   _sceneName:
     stringRef: {fileID: 0}
-    stringVal: 
+    stringVal: Chapter5Before
   loadingImage: {fileID: 0}
   sceneNameOLD: 
 --- !u!114 &689019091
@@ -3687,7 +3689,7 @@ MonoBehaviour:
   indentLevel: 0
   _sceneName:
     stringRef: {fileID: 0}
-    stringVal: 
+    stringVal: Chapter4Before
   loadingImage: {fileID: 0}
   sceneNameOLD: 
 --- !u!114 &689019094
@@ -3749,7 +3751,7 @@ MonoBehaviour:
   indentLevel: 0
   _sceneName:
     stringRef: {fileID: 0}
-    stringVal: 
+    stringVal: Chapter7Before
   loadingImage: {fileID: 0}
   sceneNameOLD: 
 --- !u!114 &689019097
@@ -3811,7 +3813,7 @@ MonoBehaviour:
   indentLevel: 0
   _sceneName:
     stringRef: {fileID: 0}
-    stringVal: 
+    stringVal: Chapter3Before
   loadingImage: {fileID: 0}
   sceneNameOLD: 
 --- !u!114 &689019100
@@ -3873,7 +3875,7 @@ MonoBehaviour:
   indentLevel: 0
   _sceneName:
     stringRef: {fileID: 0}
-    stringVal: 
+    stringVal: Chapter2Before
   loadingImage: {fileID: 0}
   sceneNameOLD: 
 --- !u!114 &689019103
@@ -4080,6 +4082,30 @@ MonoBehaviour:
   text: Chapter9
   description: 
   targetBlock: {fileID: 689019086}
+  hideIfVisited: 0
+  interactable:
+    booleanRef: {fileID: 0}
+    booleanVal: 1
+  setMenuDialog: {fileID: 0}
+  hideThisOption:
+    booleanRef: {fileID: 0}
+    booleanVal: 0
+--- !u!114 &689019112
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 689019055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 90
+  indentLevel: 0
+  text: Click to Start
+  description: 
+  targetBlock: {fileID: 689019070}
   hideIfVisited: 0
   interactable:
     booleanRef: {fileID: 0}
