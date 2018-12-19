@@ -2097,7 +2097,6 @@ GameObject:
   - component: {fileID: 689019068}
   - component: {fileID: 689019067}
   - component: {fileID: 689019077}
-  - component: {fileID: 689019076}
   - component: {fileID: 689019071}
   - component: {fileID: 689019075}
   - component: {fileID: 689019074}
@@ -2111,6 +2110,7 @@ GameObject:
   - component: {fileID: 689019083}
   - component: {fileID: 689019084}
   - component: {fileID: 689019058}
+  - component: {fileID: 689019076}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -2143,8 +2143,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019070}
-  selectedCommands: []
+  - {fileID: 689019071}
+  selectedCommands:
+  - {fileID: 689019072}
   variables: []
   description: 
   stepPause: 0
@@ -2479,8 +2480,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 131.7947
-    y: 335.1916
+    x: 43.422676
+    y: 330.54037
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -2534,7 +2535,7 @@ MonoBehaviour:
   indentLevel: 0
   _sceneName:
     stringRef: {fileID: 0}
-    stringVal: Chapter1Before
+    stringVal: Title
   loadingImage: {fileID: 0}
   sceneNameOLD: 
 --- !u!114 &689019073
@@ -2616,24 +2617,22 @@ MonoBehaviour:
     booleanVal: 1
 --- !u!114 &689019076
 MonoBehaviour:
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
+  m_Script: {fileID: 11500000, guid: 00d03ae0919f04264b018681ed534177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemId: 18
+  itemId: 33
   indentLevel: 0
-  targetFlowchart: {fileID: 0}
-  targetBlock: {fileID: 689019068}
-  startLabel:
+  _sceneName:
     stringRef: {fileID: 0}
-    stringVal: 
-  startIndex: 0
-  callMode: 0
+    stringVal: Title
+  loadingImage: {fileID: 0}
+  sceneNameOLD: 
 --- !u!114 &689019077
 MonoBehaviour:
   m_ObjectHideFlags: 2
