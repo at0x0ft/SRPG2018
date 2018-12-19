@@ -322,7 +322,8 @@ public class Unit : MonoBehaviour
 		var attackCommandList = _units.ActiveUnit.GetAttackCommandsList();
 
 		// 攻撃一覧画面を作成する(UIに任せる)
-		_map.UI.AttackSelectWindow.Show(attackCommandList);
+		var attacker = _units.ActiveUnit;
+		_map.UI.AttackSelectWindow(attacker).Show(attackCommandList);
 
 		// 場面を移動する
 		_bsc.NextBattleState();

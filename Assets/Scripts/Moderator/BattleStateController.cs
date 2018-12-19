@@ -156,7 +156,8 @@ public class BattleStateController
 		var attackCommandList = _units.ActiveUnit.GetAttackCommandsList();
 
 		// 攻撃一覧画面を作成する(UIに任せる)
-		_map.UI.AttackSelectWindow.Show(attackCommandList);
+		var attacker = _units.ActiveUnit;
+		_map.UI.AttackSelectWindow(attacker).Show(attackCommandList);
 
 		endButton.interactable = true;
 		yield break;
