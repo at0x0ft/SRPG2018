@@ -43,6 +43,7 @@ public class AI : MonoBehaviour
 	// ==========(一応)変数==========
 	private Coroutine coroutine;
 	private float waitSeconds;
+	private int _errorHandler = 0;
 
 	//関数格納
 	private Dictionary<BattleStates, Func<IEnumerator>> BattleStatesBehavior;
@@ -341,11 +342,24 @@ public class AI : MonoBehaviour
 	{
 		var enemys = _map.GetAttackableFloors()
 		.Select(floor => _units.GetUnit(floor.X, floor.Y))
-		.Where(unit => unit != null)
+		.Where(unit => unit != null && unit.Belonging == Unit.Team.Player)
 		.ToList();
 
 		int kind = UnityEngine.Random.Range(0, enemys.Count());
-		enemys[kind].OnClick();
+		if(enemys.Count<=kind)
+		{
+			_errorHandler++;
+			if(_errorHandler==5)
+			{
+				FinishUnitAction();
+				_errorHandler = 0;
+			}
+		}
+		else
+		{
+			enemys[kind].OnClick();
+			_errorHandler = 0;
+		}
 	}
 
 	// ==========Load Faze==========

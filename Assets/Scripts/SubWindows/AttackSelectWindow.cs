@@ -101,6 +101,8 @@ public class AttackSelectWindow : SubWindow
 	/// <returns>攻撃可否</returns>
 	public bool SelectAttack(Attack attack)
 	{
+		if(!gameObject.activeSelf) return false;
+		
 		for(int i = 0; i < _displayedAttacks.Count(); i++)
 		{
 			if(_displayedAttacks[i].Key == attack)
