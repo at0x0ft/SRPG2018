@@ -120,6 +120,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114520381070998952, guid: 4e74c1b579a544040b0e861e9439bcfb,
+        type: 2}
+      propertyPath: portraits.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4738689302284668, guid: 4e74c1b579a544040b0e861e9439bcfb, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -184,6 +189,12 @@ Prefab:
       propertyPath: nameColor.b
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114520381070998952, guid: 4e74c1b579a544040b0e861e9439bcfb,
+        type: 2}
+      propertyPath: portraits.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 70d7d9b2981cfc64b98ea5ecd32ad477,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e74c1b579a544040b0e861e9439bcfb, type: 2}
   m_IsPrefabAsset: 0
@@ -272,7 +283,7 @@ Prefab:
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
       propertyPath: portraits.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4147535092854016, guid: 7b435053dd972884cafb314c6d6d7205, type: 2}
       propertyPath: m_LocalPosition.x
@@ -322,7 +333,7 @@ Prefab:
         type: 2}
       propertyPath: portraits.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 494d2707c69684c4fa0bc7cbf5ddfca0,
+      objectReference: {fileID: 21300000, guid: 7da5545b9a0c58045bb438aca58e739b,
         type: 3}
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
@@ -547,12 +558,158 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b435053dd972884cafb314c6d6d7205, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &266660424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1374106015875704, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 266660425}
+  - component: {fileID: 266660427}
+  - component: {fileID: 266660426}
+  m_Layer: 0
+  m_Name: Rihito_pos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &266660425
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 224495486629390212, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 266660424}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000105, y: 1.0000105, z: 1.0000105}
+  m_Children: []
+  m_Father: {fileID: 1703603926}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 459.99997, y: -1000}
+  m_SizeDelta: {x: 600, y: 1200}
+  m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &266660426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 114817123348610654, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 266660424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: ea8f56c43254d41728f5ac4e8299b6c9, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &266660427
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 222126324187528808, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 266660424}
+  m_CullTransparentMesh: 0
 --- !u!114 &278957147 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114154241267996572, guid: 9f0b63d277a0d284eabbfa3186900134,
     type: 2}
   m_PrefabInternal: {fileID: 1192945978}
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
+--- !u!1 &503881643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 1396732956269018, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 503881644}
+  - component: {fileID: 503881646}
+  - component: {fileID: 503881645}
+  m_Layer: 0
+  m_Name: Nagisa_pos_left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &503881644
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 224203456540738222, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 503881643}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000105, y: 1.0000105, z: 1.0000105}
+  m_Children: []
+  m_Father: {fileID: 1703603926}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -400, y: -1200}
+  m_SizeDelta: {x: 1000, y: 1000}
+  m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &503881645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 114758057774779896, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 503881643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: ea8f56c43254d41728f5ac4e8299b6c9, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &503881646
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 222788698841097980, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 503881643}
+  m_CullTransparentMesh: 0
 --- !u!1001 &530139001
 Prefab:
   m_ObjectHideFlags: 0
@@ -608,7 +765,7 @@ Prefab:
         type: 2}
       propertyPath: portraits.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: a6e9aaf5a4d3e994083b4565a4005a9e,
+      objectReference: {fileID: 21300000, guid: 811bbd1bb28fe9548b0c013c4d8d38bd,
         type: 3}
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
@@ -718,7 +875,7 @@ GameObject:
   - component: {fileID: 581348158}
   - component: {fileID: 581348157}
   m_Layer: 0
-  m_Name: Offscreen Left
+  m_Name: Nagisa_pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -740,8 +897,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -1300, y: -1000}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: 400, y: -1200}
+  m_SizeDelta: {x: 1000, y: 1000}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &581348157
 MonoBehaviour:
@@ -804,7 +961,6 @@ GameObject:
   - component: {fileID: 689019097}
   - component: {fileID: 689019099}
   - component: {fileID: 689019098}
-  - component: {fileID: 689019103}
   - component: {fileID: 689019102}
   - component: {fileID: 689019101}
   - component: {fileID: 689019100}
@@ -875,7 +1031,8 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 689019104}
-  selectedCommands: []
+  selectedCommands:
+  - {fileID: 689019108}
   variables: []
   description: 
   stepPause: 0
@@ -1051,7 +1208,6 @@ MonoBehaviour:
   - {fileID: 689019076}
   - {fileID: 689019074}
   - {fileID: 689019075}
-  - {fileID: 689019103}
   - {fileID: 689019098}
   - {fileID: 689019102}
   - {fileID: 689019090}
@@ -1335,8 +1491,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Karen karen_stand Karen_pos:\u4E45\u3057\u3076\u308A\u3060\u306A\u3001\u307F\u3059\nCharacter_Nagisa
-      hide:"
+    stringVal: "Character_Nagisa hide:\nCharacter_Karen karen_stand Karen_pos:\u4E45\u3057\u3076\u308A\u3060\u306A\u3001\u307F\u3059"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1466,7 +1621,7 @@ MonoBehaviour:
   itemId: 110
   indentLevel: 0
   volume: 1
-  fadeDuration: 1
+  fadeDuration: 0
   waitUntilFinished: 1
 --- !u!114 &689019086
 MonoBehaviour:
@@ -1499,7 +1654,8 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Nagisa left Middle:\nCharacter_Mis mis_right Left:(\u2026\u30A4\u30E1\u30FC\u30B8\u3059\u308B\u3093\u3060)\n(\u3044\u3064\u3082\u4E8C\u4EBA\u304C\u6253\u3063\u3066\u304F\u308B\u3088\u3046\u306A)\n(\u8352\u304F\u6FC0\u3057\u3044\u3001\u6C34\u306E\u6D41\u308C\u3092\u2026\uFF01)\nNone:(Charge\u97F3)\nCharacter_Nagisa:\u2026\u2026\u2026\uFF01\nCharacter_Mis:\u2026\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB\uFF01\nNone:(\u7832\u6483\u97F3)"
+    stringVal: "Character_Nagisa nagisa_stand Nagisa_pos:\nCharacter_Mis mis_right
+      Left:(\u2026\u30A4\u30E1\u30FC\u30B8\u3059\u308B\u3093\u3060)\n(\u3044\u3064\u3082\u4E8C\u4EBA\u304C\u6253\u3063\u3066\u304F\u308B\u3088\u3046\u306A)\n(\u8352\u304F\u6FC0\u3057\u3044\u3001\u6C34\u306E\u6D41\u308C\u3092\u2026\uFF01)\nNone:(Charge\u97F3)\nCharacter_Nagisa:\u2026\u2026\u2026\uFF01\nCharacter_Mis:\u2026\u30A6\u30A9\u30FC\u30BF\u30FC\u30D5\u30A9\u30FC\u30EB\uFF01\nNone:(\u7832\u6483\u97F3)"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1691,7 +1847,8 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Rihito suisei Right:\nCharacter_Nagisa right Left:\nCharacter_Nagisa:\u2026\uFF1F\n\u79C1\u306B\u3001\u7528\uFF1F\nCharacter_Rihito:\u3042\u3042\n\u541B\u306B\u3001\u983C\u307F\u304C\u3042\u308B\nCharacter_Nagisa:\u2026\uFF1F\nCharacter_Nagisa
+    stringVal: "Character_Rihito rihito_stand Rihito_pos:\nCharacter_Nagisa nagisa_stand
+      Nagisa_pos_left:\nCharacter_Nagisa:\u2026\uFF1F\n\u79C1\u306B\u3001\u7528\uFF1F\nCharacter_Rihito:\u3042\u3042\n\u541B\u306B\u3001\u983C\u307F\u304C\u3042\u308B\nCharacter_Nagisa:\u2026\uFF1F\nCharacter_Nagisa
       hide:\nCharacter_Rihito hide:"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -1740,23 +1897,6 @@ MonoBehaviour:
   indentLevel: 0
   _duration:
     floatRef: {fileID: 0}
-    floatVal: 2
-  durationOLD: 0
---- !u!114 &689019103
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3315ad2ebb85443909a1203d56d9344e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 88
-  indentLevel: 0
-  _duration:
-    floatRef: {fileID: 0}
     floatVal: 1
   durationOLD: 0
 --- !u!114 &689019104
@@ -1773,7 +1913,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 368.33405
-    y: 309.31473
+    y: 307.49655
     width: 120
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -1840,7 +1980,7 @@ MonoBehaviour:
   indentLevel: 0
   _duration:
     floatRef: {fileID: 0}
-    floatVal: 2
+    floatVal: 1
   durationOLD: 0
 --- !u!114 &689019107
 MonoBehaviour:
@@ -1877,7 +2017,8 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Yamituki:\u2026\u2026\u3044\u308B\u306E\u306F\u5206\u304B\u3063\u3066\u3044\u307E\u3059\u3088\nCharacter_Yamituki:\u3069\u306A\u305F\u304B\u5B58\u3058\u307E\u305B\u3093\u304C\u3001\u3044\u3044\u52A0\u6E1B\u51FA\u3066\u304D\u3066\u306F\u3069\u3046\u3067\u3059\u304B\uFF1F\nCharacter_Nazo:\u2026\u2026\u2026\u2026\u2026\u2026\nCharacter_Yamituki:\u2026\u2026\u8CB4\u65B9\u306F\u2026\n"
+    stringVal: "Character_Yamituki:\u2026\u2026\u3044\u308B\u306E\u306F\u5206\u304B\u3063\u3066\u3044\u307E\u3059\u3088\nCharacter_Yamituki:\u3069\u306A\u305F\u304B\u5B58\u3058\u307E\u305B\u3093\u304C\u3001\u3044\u3044\u52A0\u6E1B\u51FA\u3066\u304D\u3066\u306F\u3069\u3046\u3067\u3059\u304B\uFF1F\nCharacter_Nazo:\u2026\u2026\u2026\u2026\u2026\u2026\nCharacter_Yamituki:\u2026\u2026\u8CB4\u65B9\u306F\u2026\nCharacter_Yamituki
+      hide:\n"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1922,7 +2063,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Mituki:\u305D\u308C\u3058\u3083\u3001\u79C1\u305F\u3061\u3082\u5E30\u308D\u3046\u304B\u3001\u54B2\nCharacter_Yamituki:\u2026\u2026\u2026\u2026\u2026\u2026\n\u2026\u82FA\u3001\u5148\u306B\u5E30\u3063\u3066\u3066\u3082\u3089\u3048\u308B\uFF1F\nCharacter_Mituki:\u2026\uFF1F\u4F55\u304B\u3042\u3063\u305F\u306E\uFF1F\nCharacter_Yamituki:\u2026\u2026\u2026\u5FD8\u308C\u7269\nCharacter_Mituki:\u305D\u3063\u304B\u3001\u305D\u308C\u3058\u3083\u3001\u5148\u306B\u884C\u3063\u3066\u308B\u306D\nCharacter_Mituki
+    stringVal: "Character_Mituk mituki_left Middle:\u305D\u308C\u3058\u3083\u3001\u79C1\u305F\u3061\u3082\u5E30\u308D\u3046\u304B\u3001\u54B2\nCharacter_Yamituki:\u2026\u2026\u2026\u2026\u2026\u2026\n\u2026\u82FA\u3001\u5148\u306B\u5E30\u3063\u3066\u3066\u3082\u3089\u3048\u308B\uFF1F\nCharacter_Mituki:\u2026\uFF1F\u4F55\u304B\u3042\u3063\u305F\u306E\uFF1F\nCharacter_Yamituki:\u2026\u2026\u2026\u5FD8\u308C\u7269\nCharacter_Mituki:\u305D\u3063\u304B\u3001\u305D\u308C\u3058\u3083\u3001\u5148\u306B\u884C\u3063\u3066\u308B\u306D\nCharacter_Mituki
       hide:\nCharacter_Yamituki:\u2026\u2026\u2026\u2026\u2026\u2026"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -2178,7 +2319,7 @@ Prefab:
         type: 2}
       propertyPath: portraits.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: b77d208cf2b357c4b9c5d66ff4b4a175,
+      objectReference: {fileID: 21300000, guid: 696e4840dd13c1a49af8d7a44ed59391,
         type: 3}
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
@@ -2302,6 +2443,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
+        type: 2}
+      propertyPath: portraits.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4147535092854016, guid: 7b435053dd972884cafb314c6d6d7205, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2977,6 +3123,8 @@ RectTransform:
   - {fileID: 1416220344}
   - {fileID: 581348156}
   - {fileID: 578537839}
+  - {fileID: 266660425}
+  - {fileID: 503881644}
   m_Father: {fileID: 2139920550}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3280,6 +3428,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114520381070998952, guid: 4e74c1b579a544040b0e861e9439bcfb,
+        type: 2}
+      propertyPath: portraits.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4738689302284668, guid: 4e74c1b579a544040b0e861e9439bcfb, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3349,6 +3502,12 @@ Prefab:
       propertyPath: nameColor.b
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114520381070998952, guid: 4e74c1b579a544040b0e861e9439bcfb,
+        type: 2}
+      propertyPath: portraits.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 70d7d9b2981cfc64b98ea5ecd32ad477,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e74c1b579a544040b0e861e9439bcfb, type: 2}
   m_IsPrefabAsset: 0
@@ -3489,3 +3648,5 @@ MonoBehaviour:
   - {fileID: 1416220344}
   - {fileID: 581348156}
   - {fileID: 578537839}
+  - {fileID: 266660425}
+  - {fileID: 503881644}

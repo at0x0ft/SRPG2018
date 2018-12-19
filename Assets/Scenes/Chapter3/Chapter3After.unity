@@ -1054,6 +1054,8 @@ GameObject:
   - component: {fileID: 1066517530}
   - component: {fileID: 1066517527}
   - component: {fileID: 1066517531}
+  - component: {fileID: 1066517532}
+  - component: {fileID: 1066517533}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -1086,8 +1088,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 1066517513}
-  selectedCommands: []
+  - {fileID: 1066517500}
+  selectedCommands:
+  - {fileID: 1066517506}
   variables: []
   description: 
   stepPause: 0
@@ -1114,8 +1117,8 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "uranus:\u5C11\u3057\u3001\u3044\u3044\u304B\uFF1F\nmokusei right Left:\u2026\uFF1F\u541B\u306F\uFF1F\nuranus
-      suisei Right:\u4FFA\u306F\u5316\u5B66\u30B5\u30FC\u30AF\u30EB\u306E\u4EE3\u8868\u3001\u7A7A\u9591\u7406\u4EBA\u3060\nmokusei:\u79C1\u306B\u4F55\u304B\u7528\u304B\u3044\uFF1F\nuranus:\u5358\u5200\u76F4\u5165\u306B\u805E\u304B\u305B\u3066\u3082\u3089\u304A\u3046\n\u6B66\u5668\u306E\u69D8\u5B50\u304C\u666E\u6BB5\u3068\u9055\u3046\u3060\u3068\u304B\u3001\u8ABF\u5B50\u304C\u60AA\u3044\u3068\u3044\u3063\u305F\u611F\u89E6\u306F\u3042\u3063\u305F\u304B\uFF1F\nmokueisei:\u2026\uFF01\u307E\u3055\u304B\u3001\u304A\u524D\u304C\u2026\uFF01\nmokusei:\u2026\u4E8C\u4EBA\u3068\u3082\u3001\u3084\u3081\u308B\u3093\u3060\nmokueisei:\u3057\u304B\u3057\u2026\uFF01\nmokusei:\u5C11\u3057\u3001\u4E0B\u304C\u3063\u3066\u3044\u3066\u304F\u308C\nmokueisei:\u2026\u306F\u3044\u3001\u5206\u304B\u308A\u307E\u3057\u305F\n"
+    stringVal: "uranus:\u5C11\u3057\u3001\u3044\u3044\u304B\uFF1F\nmokusei sota_stand
+      Left:\u2026\uFF1F\u541B\u306F\uFF1F\nuranus rihito_stand Rihito_pos:\u4FFA\u306F\u5316\u5B66\u30B5\u30FC\u30AF\u30EB\u306E\u4EE3\u8868\u3001\u7A7A\u9591\u7406\u4EBA\u3060\nmokusei:\u79C1\u306B\u4F55\u304B\u7528\u304B\u3044\uFF1F\nuranus:\u5358\u5200\u76F4\u5165\u306B\u805E\u304B\u305B\u3066\u3082\u3089\u304A\u3046\n\u6B66\u5668\u306E\u69D8\u5B50\u304C\u666E\u6BB5\u3068\u9055\u3046\u3060\u3068\u304B\u3001\u8ABF\u5B50\u304C\u60AA\u3044\u3068\u3044\u3063\u305F\u611F\u89E6\u306F\u3042\u3063\u305F\u304B\uFF1F\nmokueisei:\u2026\uFF01\u307E\u3055\u304B\u3001\u304A\u524D\u304C\u2026\uFF01\nmokusei:\u2026\u4E8C\u4EBA\u3068\u3082\u3001\u3084\u3081\u308B\u3093\u3060\nmokueisei:\u3057\u304B\u3057\u2026\uFF01\nmokusei:\u5C11\u3057\u3001\u4E0B\u304C\u3063\u3066\u3044\u3066\u304F\u308C\nmokueisei:\u2026\u306F\u3044\u3001\u5206\u304B\u308A\u307E\u3057\u305F\n"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1214,6 +1217,7 @@ MonoBehaviour:
   - {fileID: 1066517518}
   - {fileID: 1066517521}
   - {fileID: 1066517529}
+  - {fileID: 1066517533}
   - {fileID: 1066517511}
   - {fileID: 1066517523}
   - {fileID: 1066517517}
@@ -1305,7 +1309,7 @@ MonoBehaviour:
   callMode: 0
 --- !u!114 &1066517508
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1066517497}
@@ -1325,7 +1329,7 @@ MonoBehaviour:
   targetCamera: {fileID: 0}
 --- !u!114 &1066517509
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1066517497}
@@ -1388,7 +1392,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "mokusei suisei Right:\u3044\u3044\u8A66\u5408\u3060\u3063\u305F\u3001\u5B8C\u6557\u3060\u3088\nmischan:\u3042\u3001\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3059\uFF01\nmokusei:\u79C1\u305F\u3061\u306B\u52DD\u3063\u305F\u3093\u3060\u3001\u305C\u3072\u512A\u52DD\u3057\u3066\u304F\u308C\u3001\u5FDC\u63F4\u3057\u3066\u3044\u308B\u3088\nmischan:\u306F\u3044\u3001\u9811\u5F35\u308A\u307E\u3059\uFF01\nmokueiseis:\u2026\u2026\u2026\u2026\u2026\u2026\nyamituki:\u2026\u2026\u2026\u4F55\u304B\u3042\u308A\u307E\u3057\u305F\u304B\uFF1F\nmokueiseis:\u2026\u2026\u3044\u3048\u3001\u4F55\u3082\nmokusei:\u305D\u308C\u3067\u306F\u79C1\u305F\u3061\u306F\u3053\u308C\u3067\nmischan:\u304A\u75B2\u308C\u3055\u307E\u3067\u3057\u305F\uFF01\nmokusei
+    stringVal: "mokusei:\u3044\u3044\u8A66\u5408\u3060\u3063\u305F\u3001\u5B8C\u6557\u3060\u3088\nmischan:\u3042\u3001\u3042\u308A\u304C\u3068\u3046\u3054\u3056\u3044\u307E\u3059\uFF01\nmokusei:\u79C1\u305F\u3061\u306B\u52DD\u3063\u305F\u3093\u3060\u3001\u305C\u3072\u512A\u52DD\u3057\u3066\u304F\u308C\u3001\u5FDC\u63F4\u3057\u3066\u3044\u308B\u3088\nmischan:\u306F\u3044\u3001\u9811\u5F35\u308A\u307E\u3059\uFF01\nmokueiseis:\u2026\u2026\u2026\u2026\u2026\u2026\nyamituki:\u2026\u2026\u2026\u4F55\u304B\u3042\u308A\u307E\u3057\u305F\u304B\uFF1F\nmokueiseis:\u2026\u2026\u3044\u3048\u3001\u4F55\u3082\nmokusei:\u305D\u308C\u3067\u306F\u79C1\u305F\u3061\u306F\u3053\u308C\u3067\nmischan:\u304A\u75B2\u308C\u3055\u307E\u3067\u3057\u305F\uFF01\nmokusei
       hide:\nmischan hide:"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -1461,6 +1465,7 @@ MonoBehaviour:
   - {fileID: 1066517512}
   - {fileID: 1066517527}
   - {fileID: 1066517531}
+  - {fileID: 1066517532}
   - {fileID: 1066517507}
 --- !u!114 &1066517514
 MonoBehaviour:
@@ -1559,7 +1564,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "mokusei right Right:\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026\nmokueiseis:\u2026\u2026\u3042\u306E\u3001\u594F\u592A\u3055\u3093\u2026\nmokusei:\u3059\u307E\u306A\u3044\u4E8C\u4EBA\u3068\u3082\u3001\u529B\u53CA\u3070\u306A\u304B\u3063\u305F\nmokueiseis:\u3057\u304B\u3057\u3001\u4ECA\u306E\u306F\u2026\uFF01\nmokusei:\u3044\u3044\u3093\u3060\u3001\u4E8C\u4EBA\u3068\u3082\nyamituki
+    stringVal: "mokusei sota_stand Right:\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026\u2026\nmokueiseis:\u2026\u2026\u3042\u306E\u3001\u594F\u592A\u3055\u3093\u2026\nmokusei:\u3059\u307E\u306A\u3044\u4E8C\u4EBA\u3068\u3082\u3001\u529B\u53CA\u3070\u306A\u304B\u3063\u305F\nmokueiseis:\u3057\u304B\u3057\u3001\u4ECA\u306E\u306F\u2026\uFF01\nmokusei:\u3044\u3044\u3093\u3060\u3001\u4E8C\u4EBA\u3068\u3082\nyamituki
       yamituki_right Left:\u2026\u2026\u2026\uFF1F\nyamituki hide:\nmokusei hide:"
   clearPrevious:
     booleanRef: {fileID: 0}
@@ -1762,7 +1767,7 @@ MonoBehaviour:
   waitUntilFinished: 0
 --- !u!114 &1066517527
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1066517497}
@@ -1778,7 +1783,7 @@ MonoBehaviour:
   waitUntilFinished: 1
 --- !u!114 &1066517528
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1066517497}
@@ -1795,7 +1800,7 @@ MonoBehaviour:
   fadeDuration: 1
 --- !u!114 &1066517529
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1066517497}
@@ -1824,7 +1829,7 @@ MonoBehaviour:
   waitUntilFinished: 0
 --- !u!114 &1066517530
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1066517497}
@@ -1842,7 +1847,7 @@ MonoBehaviour:
   sceneNameOLD: 
 --- !u!114 &1066517531
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1066517497}
@@ -1853,6 +1858,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 55
   indentLevel: 0
+--- !u!114 &1066517532
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1066517497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4015e84616cc45cfb498561373899d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 56
+  indentLevel: 0
+  volume: 1
+  fadeDuration: 0
+  waitUntilFinished: 1
+--- !u!114 &1066517533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1066517497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac5ce55bc698fa4290939ef6e426501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 57
+  indentLevel: 0
+  display: 1
+  stage: {fileID: 0}
+  character: {fileID: 1496551854}
+  replacedCharacter: {fileID: 0}
+  portrait: {fileID: 21300000, guid: cbe2a663c4d70f14d88e0b109a2a31ef, type: 3}
+  offset: 0
+  fromPosition: {fileID: 0}
+  toPosition: {fileID: 184724072}
+  facing: 0
+  useDefaultSettings: 1
+  fadeDuration: 0.5
+  moveDuration: 1
+  shiftOffset: {x: 0, y: 0}
+  move: 0
+  shiftIntoPlace: 0
+  waitUntilFinished: 0
 --- !u!1 &1194324077
 GameObject:
   m_ObjectHideFlags: 0
@@ -1938,7 +1988,7 @@ MonoBehaviour:
   nameColor: {r: 0, g: 0, b: 0, a: 1}
   soundEffect: {fileID: 0}
   portraits:
-  - {fileID: 21300000, guid: a6e9aaf5a4d3e994083b4565a4005a9e, type: 3}
+  - {fileID: 21300000, guid: 811bbd1bb28fe9548b0c013c4d8d38bd, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 0}
   description: 
@@ -2085,9 +2135,7 @@ MonoBehaviour:
   nameColor: {r: 0, g: 0, b: 0, a: 1}
   soundEffect: {fileID: 0}
   portraits:
-  - {fileID: 21300000, guid: a6e9aaf5a4d3e994083b4565a4005a9e, type: 3}
-  - {fileID: 21300000, guid: 494d2707c69684c4fa0bc7cbf5ddfca0, type: 3}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: cbe2a663c4d70f14d88e0b109a2a31ef, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 0}
   description: 
@@ -2117,7 +2165,7 @@ GameObject:
   - component: {fileID: 1795157624}
   - component: {fileID: 1795157623}
   m_Layer: 0
-  m_Name: Offscreen Right
+  m_Name: Rihito_pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2139,8 +2187,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 1400, y: -800}
-  m_SizeDelta: {x: 500, y: 500}
+  m_AnchoredPosition: {x: 450, y: -1150}
+  m_SizeDelta: {x: 700, y: 1300}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1795157623
 MonoBehaviour:

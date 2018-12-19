@@ -388,8 +388,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 300, y: -1000.00006}
-  m_SizeDelta: {x: 400, y: 1000}
+  m_AnchoredPosition: {x: 300, y: -1050}
+  m_SizeDelta: {x: 600, y: 1200}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &319434429
 MonoBehaviour:
@@ -546,8 +546,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 500, y: -1000}
-  m_SizeDelta: {x: 750, y: 750}
+  m_AnchoredPosition: {x: 500, y: -1350}
+  m_SizeDelta: {x: 750, y: 1200}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &527402170
 MonoBehaviour:
@@ -645,7 +645,7 @@ Prefab:
         type: 2}
       propertyPath: portraits.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: d6dee677bcde3cc42920f6edde478312,
+      objectReference: {fileID: 21300000, guid: 811bbd1bb28fe9548b0c013c4d8d38bd,
         type: 3}
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
@@ -1016,8 +1016,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -300, y: -2100}
-  m_SizeDelta: {x: 1500, y: 2000}
+  m_AnchoredPosition: {x: -300, y: -1600}
+  m_SizeDelta: {x: 1100, y: 1700}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &644026488
 MonoBehaviour:
@@ -1159,9 +1159,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019065}
+  - {fileID: 689019057}
   selectedCommands:
-  - {fileID: 689019064}
+  - {fileID: 689019061}
   variables: []
   description: 
   stepPause: 0
@@ -1275,7 +1275,7 @@ MonoBehaviour:
   itemId: 7
   indentLevel: 0
   targetFlowchart: {fileID: 0}
-  targetBlock: {fileID: 689019065}
+  targetBlock: {fileID: 689019072}
   startLabel:
     stringRef: {fileID: 0}
     stringVal: 
@@ -2685,8 +2685,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -300, y: -1000.00006}
-  m_SizeDelta: {x: 750, y: 750}
+  m_AnchoredPosition: {x: -300, y: -1350}
+  m_SizeDelta: {x: 750, y: 1200}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &723082121
 MonoBehaviour:
@@ -2816,8 +2816,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -200, y: -1000}
-  m_SizeDelta: {x: 400, y: 1000}
+  m_AnchoredPosition: {x: -200, y: -1050}
+  m_SizeDelta: {x: 600, y: 1200}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1158659679
 MonoBehaviour:
@@ -3185,8 +3185,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -300, y: -1850}
-  m_SizeDelta: {x: 1300, y: 2000}
+  m_AnchoredPosition: {x: -300, y: -1600}
+  m_SizeDelta: {x: 1100, y: 1700}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1401911023
 MonoBehaviour:
@@ -3575,8 +3575,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 300, y: -2100}
-  m_SizeDelta: {x: 1500, y: 2000}
+  m_AnchoredPosition: {x: 300, y: -1600}
+  m_SizeDelta: {x: 1100, y: 1700}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1654598521
 MonoBehaviour:
@@ -3797,7 +3797,7 @@ Prefab:
         type: 2}
       propertyPath: portraits.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: b77d208cf2b357c4b9c5d66ff4b4a175,
+      objectReference: {fileID: 21300000, guid: 696e4840dd13c1a49af8d7a44ed59391,
         type: 3}
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
