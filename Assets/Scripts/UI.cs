@@ -130,6 +130,12 @@ public class UI : MonoBehaviour
 		get { return _gameEndPanel; }
 	}
 
+	private TeamInfoWindow _teamInfoWindow;
+	public TeamInfoWindow TeamInfoWindow
+	{
+		get { return _teamInfoWindow; }
+	}
+
 	/// <summary>
 	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
 	/// </summary>
@@ -185,6 +191,8 @@ public class UI : MonoBehaviour
 		_attackSelectWindow8.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
 		_gameEndPanel.gameObject.SetActive(false);
 		_gameEndPanel.Initialize();
+		_teamInfoWindow = GetComponentInChildren<TeamInfoWindow>();
+		_teamInfoWindow.Initialize(units);
 	}
 
 	public void NextUnit()

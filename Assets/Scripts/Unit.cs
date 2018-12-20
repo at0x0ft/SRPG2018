@@ -193,7 +193,7 @@ public class Unit : MonoBehaviour
 	private Units _units;
 	private AttackController _ac;
 	private BattleStateController _bsc;
-	private HpBar _hpBar;
+	private HpBar _hpBar, _subHpBar;
 	private Flowchart _flowchart;
 
 	public bool IsFocusing { get; set; }
@@ -264,6 +264,11 @@ public class Unit : MonoBehaviour
 
 		// クリックによる動作の初期化
 		SetClickBehavior();
+	}
+
+	public void SetupSubHpBar(HpBar subHpBar)
+	{
+		_subHpBar = subHpBar;
 	}
 
 	/// <summary>
@@ -506,6 +511,7 @@ public class Unit : MonoBehaviour
 		int damageInt = damage.Value;
 		Life = Mathf.Max(0, Life - damageInt);
 		_hpBar.SetHP(Life);
+		_subHpBar.SetHP(Life);
 
 		StrongAttackFailure();
 
@@ -518,6 +524,9 @@ public class Unit : MonoBehaviour
 	/// </summary>
 	public void DestroyWithAnimate()
 	{
+		// TOPバーの状態を変える
+		_subHpBar.SetDarker();
+
 		GetComponent<Button>().enabled = false;
 		transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
 			{
