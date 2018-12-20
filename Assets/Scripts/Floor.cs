@@ -185,7 +185,7 @@ public class Floor : MonoBehaviour
 		_map.UI.UnitInfoWindow.Hide();
 
 		// Floor詳細情報サブウィンドウを開く.
-		_map.UI.FloorInfoWindow.Show(FloorType, _mc.GetFloorCost(this), (int)(_dc.GetReduceRate(this) * 100), _dc.GetAvoidRate(this));
+		_map.UI.FloorInfoWindow.Show(this, FloorType, _mc.GetFloorCost(this), (int)(_dc.GetReduceRate(this) * 100), _dc.GetAvoidRate(this));
 
 		// 移動量サブウィンドウも閉じる
 		_map.UI.MoveAmountInfoWindow.Hide();
