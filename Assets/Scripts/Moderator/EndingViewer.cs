@@ -13,9 +13,10 @@ public class EndingViewer : MonoBehaviour
 	[SerializeField]
 	private RectTransform _hidePanel;
 	[SerializeField]
-	private float _alphaChangeRate = 0.005f;
+	private float _alphaChangeRate = 0.1f;
 
-	private string fileName = "credits";
+	private const string fileName = "credits";
+	private const string spaceCharacter = "^";
 	private List<string[]> creditDataArray;
 	private bool _fadeFlg = false;
 	private bool _finishFlg = false;
@@ -26,27 +27,8 @@ public class EndingViewer : MonoBehaviour
 		if(!_showingText) Debug.LogError("[Error] : Showing Text is not set!");
 
 		InitializeMembers();
-	}
 
-	private void Update()
-	{
-		//if(!_finishFlg)
-		{
-			Debug.Log("In !_finishFlg.");	// 4debug
-			foreach(var item in creditDataArray)
-			{
-				StartCoroutine(FadeInAndOut(item[0], item[1]));
-			}
-			_finishFlg = true;
-			Debug.Log("In !_finishFlg is " + _finishFlg);   // 4debug
-		}
-
-		/*
-		if(Input.GetKeyDown(KeyCode.A))
-		{
-			StartCoroutine(FadeIn());
-		}
-		*/
+		StartCoroutine(ShowCreditMsgs());
 	}
 
 	private IEnumerator FadeIn()
@@ -69,15 +51,29 @@ public class EndingViewer : MonoBehaviour
 		}
 	}
 
+	private string ConvertSpaceCharacter(string msg)
+	{
+		return msg == spaceCharacter ? "" : msg;
+	}
+
+	private IEnumerator ShowCreditMsgs()
+	{
+		foreach(var item in creditDataArray)
+		{
+			yield return StartCoroutine(FadeInAndOut(ConvertSpaceCharacter(item[0]), ConvertSpaceCharacter(item[1])));
+		}
+	}
+
+	private string FormatCreditMsg(string title, string name)
+	{
+		return title + "\n\n" + name;
+	}
+
 	private IEnumerator FadeInAndOut(string title, string content)
 	{
-		//_showingText.text = title + "\n" + content;
-		_showingText.text = "hoge";
+		_showingText.text = FormatCreditMsg(title, content);
 
 		yield return StartCoroutine(FadeIn());
-
-		Debug.Log("[Debug] : Finish fade in.");	// 4debug
-
 		yield return StartCoroutine(FadeOut());
 	}
 
@@ -101,14 +97,18 @@ public class EndingViewer : MonoBehaviour
 		foreach(var line in stageData)
 			creditDataArray.Add(line.Split('|'));
 
+		Debug.Log("In LoadText() stageData size = " + stageData.Length);    // 4debug
+
 		// 4debug
-		foreach(var line in creditDataArray)
+		/*
+		foreach(var item in stageData)
 		{
-			foreach(var word in line)
+			foreach(var word in item)
 			{
-				Debug.Log("[Debug] : word = " + word);
+				Debug.Log("[Debug] : " + word);
 			}
 		}
+		*/
 		// 4debug
 	}
 }
