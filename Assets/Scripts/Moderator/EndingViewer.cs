@@ -13,10 +13,13 @@ public class EndingViewer : MonoBehaviour
 	[SerializeField]
 	private RectTransform _hidePanel;
 	[SerializeField]
-	private float _alphaChangeRate = 0.1f;
+	private float _fadeTimeSec = 1.5f;
+	[SerializeField]
+	private float _viewTimeSec = 1f;
 
 	private const string fileName = "credits";
 	private const string spaceCharacter = "^";
+	private const float alphaDistance = 1f;
 	private List<string[]> creditDataArray;
 	private bool _fadeFlg = false;
 	private bool _finishFlg = false;
@@ -31,24 +34,9 @@ public class EndingViewer : MonoBehaviour
 		StartCoroutine(ShowCreditMsgs());
 	}
 
-	private IEnumerator FadeIn()
+	private string FormatCreditMsg(string title, string name)
 	{
-		while(_alpha > 0)
-		{
-			_hidePanel.GetComponent<Image>().color -= new Color(0, 0, 0, _alphaChangeRate);
-			_alpha -= _alphaChangeRate;
-			yield return null;
-		}
-	}
-
-	private IEnumerator FadeOut()
-	{
-		while(_alpha < 1)
-		{
-			_hidePanel.GetComponent<Image>().color += new Color(0, 0, 0, _alphaChangeRate);
-			_alpha += _alphaChangeRate;
-			yield return null;
-		}
+		return title + "\n\n" + name;
 	}
 
 	private string ConvertSpaceCharacter(string msg)
@@ -62,11 +50,8 @@ public class EndingViewer : MonoBehaviour
 		{
 			yield return StartCoroutine(FadeInAndOut(ConvertSpaceCharacter(item[0]), ConvertSpaceCharacter(item[1])));
 		}
-	}
 
-	private string FormatCreditMsg(string title, string name)
-	{
-		return title + "\n\n" + name;
+		Debug.Log("[Debug] : End successfully!");
 	}
 
 	private IEnumerator FadeInAndOut(string title, string content)
@@ -74,6 +59,7 @@ public class EndingViewer : MonoBehaviour
 		_showingText.text = FormatCreditMsg(title, content);
 
 		yield return StartCoroutine(FadeIn());
+		yield return new WaitForSeconds(_viewTimeSec);
 		yield return StartCoroutine(FadeOut());
 	}
 
@@ -110,5 +96,38 @@ public class EndingViewer : MonoBehaviour
 		}
 		*/
 		// 4debug
+	}
+
+	private float GetAlphaDistancePerFrame(float alphaDistance, float time)
+	{
+		// AlphaDistancePreFrame [-/F]
+		// = AlphaDistance [-] / (_fadeSpeedSecond [s] * FramePerSecond [F/s])
+		// = AlphaDistance [-] * deltaTime [s/F] / _fadeSpeedSecond [s]
+		return alphaDistance * Time.deltaTime / time;
+	}
+
+	private IEnumerator Fade(Func<Color, Color, Color> alphaUpdator)
+	{
+		float _time = 0;
+		while(_time < _fadeTimeSec)
+		{
+			_hidePanel.GetComponent<Image>().color = alphaUpdator(
+					_hidePanel.GetComponent<Image>().color,
+					new Color(0, 0, 0, GetAlphaDistancePerFrame(alphaDistance, _fadeTimeSec))
+					);
+			_time += Time.deltaTime;
+			Debug.Log("Update alpha! And accumlated delta = " + _time); // 4debug
+			yield return null;
+		}
+	}
+
+	private IEnumerator FadeIn()
+	{
+		return Fade((x, y) => x - y);
+	}
+
+	private IEnumerator FadeOut()
+	{
+		return Fade((x, y) => x + y);
 	}
 }
