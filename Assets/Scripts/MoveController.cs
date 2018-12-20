@@ -38,6 +38,12 @@ public class MoveController : MonoBehaviour
 		get{ return _nowMoving; }
 	}
 
+	private SoundEffectMaker _sem;
+	private void Start()
+	{
+		_sem = GameObject.Find("BattleBGM").GetComponent<SoundEffectMaker>();
+	}
+
 	/// <summary>
 	/// 各ユニットのポジションによる最大移動量を返す
 	/// </summary>
@@ -100,7 +106,7 @@ public class MoveController : MonoBehaviour
 		// 残移動力が0以上（移動可能）なマスのみを返す
 		return infos.Where(x => x.Value >= 0).ToDictionary(x => x.Key, x => x.Value);
 	}
-
+	
 	private enum State
 	{
 		idle,
@@ -109,7 +115,7 @@ public class MoveController : MonoBehaviour
 		back,
 		front
 	}
-
+	
 	private Image image;
 	private Sprite motion_1;
 	private Sprite motion_2;
@@ -118,6 +124,12 @@ public class MoveController : MonoBehaviour
 	/// </summary>
 	public void MoveTo(Map map, Unit unit, Floor destFloor)
 	{
+		// 移動音声
+		if(unit.Floor!=destFloor)
+		{
+			_sem.play(SoundEffect.Walk);
+		}
+
 		map.ClearHighlight();
 
 		// 移動先から移動経路を計算

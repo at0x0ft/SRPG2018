@@ -195,6 +195,7 @@ public class Unit : MonoBehaviour
 	private BattleStateController _bsc;
 	private HpBar _hpBar;
 	private Flowchart _flowchart;
+	private SoundEffectMaker _sem;
 
 	public bool IsFocusing { get; set; }
 
@@ -237,6 +238,9 @@ public class Unit : MonoBehaviour
 
 		// フローチャート設定
 		_flowchart = GameObject.Find("Flowchart").GetComponent<Flowchart>();
+
+		// サウンドエフェクト設定
+		_sem = GameObject.Find("BattleBGM").GetComponent<SoundEffectMaker>();
 
 		// ユニット自身がButtonとしての役割も持っており, 押下された時にOnClickメソッドの内容を実行する.
 		GetComponent<Button>().onClick.AddListener(OnClick);
@@ -518,6 +522,9 @@ public class Unit : MonoBehaviour
 	/// </summary>
 	public void DestroyWithAnimate()
 	{
+		// 消滅音
+		_sem.play(SoundEffect.HitOrDestroy);
+
 		GetComponent<Button>().enabled = false;
 		transform.DOScale(Vector3.zero, 0.5f).OnComplete(() =>
 			{

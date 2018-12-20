@@ -130,6 +130,9 @@ public class UI : MonoBehaviour
 		get { return _gameEndPanel; }
 	}
 
+	// 効果音
+	private SoundEffectMaker _sem;
+
 	/// <summary>
 	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
 	/// </summary>
@@ -185,6 +188,10 @@ public class UI : MonoBehaviour
 		_attackSelectWindow8.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
 		_gameEndPanel.gameObject.SetActive(false);
 		_gameEndPanel.Initialize();
+
+		// 決定音設定
+		_sem = GameObject.Find("BattleBGM").GetComponent<SoundEffectMaker>();
+		EndCommandButton.onClick.AddListener(() => { _sem.play(SoundEffect.Confirm); });
 	}
 
 	public void NextUnit()
