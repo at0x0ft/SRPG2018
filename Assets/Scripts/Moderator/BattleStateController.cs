@@ -32,6 +32,7 @@ public class BattleStateController
 	private Units _units;
 	private UI _ui;
 	private Flowchart _flowchart; // for hint window
+	private SoundEffectMaker _sem;
 	private Button endButton;
 
 	/// <summary>
@@ -49,6 +50,7 @@ public class BattleStateController
 		_units = units;
 		_ui = ui;
 		_flowchart = GameObject.Find("Flowchart").GetComponent<Flowchart>();
+		_sem = GameObject.Find("BattleBGM").GetComponent<SoundEffectMaker>();
 		endButton = _ui.EndCommandButton.GetComponent<Button>();
 	}
 

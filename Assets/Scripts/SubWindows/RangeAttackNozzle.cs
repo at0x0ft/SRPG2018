@@ -76,6 +76,7 @@ public class RangeAttackNozzle : SubWindow
 			if(!_ac.Attack(attacker, attack))
 			{
 				_flowchart.ExecuteBlock("UnitUnknown");
+				_sem.play(SoundEffect.Cancel);
 				return;
 			}
 		}

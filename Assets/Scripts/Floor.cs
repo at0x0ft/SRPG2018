@@ -30,12 +30,13 @@ public class Floor : MonoBehaviour
 	private Color _attackableColor;
 
 	private Flowchart _flowchart;
+	private SoundEffectMaker _sem;
 	private Map _map;
 	private Units _units;
 	private MoveController _mc;
 	private DamageCalculator _dc;
 	private BattleStateController _bsc;
-	private Dictionary<BattleStates, Action> ClickBehaviors;
+	private Dictionary<BattleStates, Func<bool>> ClickBehaviors;
 	private Text _costText;
 
 	/// <summary>
@@ -148,6 +149,7 @@ public class Floor : MonoBehaviour
 		_attackableColor = _map.AttackableColor;
 
 		_flowchart = GameObject.Find("Flowchart").GetComponent<Flowchart>();
+		_sem = GameObject.Find("BattleBGM").GetComponent<SoundEffectMaker>();
 		_costText = gameObject.GetComponentInChildren<Text>();
 
 		// マス自身がボタンの役割を果たしており, これをクリックした時にOnClickメソッドを実行するように設定する.
@@ -176,7 +178,7 @@ public class Floor : MonoBehaviour
 	/// <summary>
 	/// 戦況確認中の挙動
 	/// </summary>
-	private void ClickBehaviorOnChecking()
+	private bool ClickBehaviorOnChecking()
 	{
 		// 何もない所をクリックしているため、ユニット選択を解除する
 		_units.ClearFocusingUnit();
@@ -189,18 +191,20 @@ public class Floor : MonoBehaviour
 
 		// 移動量サブウィンドウも閉じる
 		_map.UI.MoveAmountInfoWindow.Hide();
+
+		return true;
 	}
 
 	/// <summary>
 	/// 移動先設定中の挙動
 	/// </summary>
-	private void ClickBehaviorOnMoving()
+	private bool ClickBehaviorOnMoving()
 	{
 		// 移動先が移動不可能なら
 		if(!IsMovable)
 		{
 			_flowchart.ExecuteBlock("NotMovable");
-			return;
+			return false;
 		}
 
 		// 移動する
@@ -208,19 +212,21 @@ public class Floor : MonoBehaviour
 
 		// 場面を移動する
 		_bsc.NextBattleState();
+
+		return true;
 	}
 
 	/// <summary>
 	/// 攻撃設定中の挙動
 	/// </summary>
-	private void ClickBehaviorOnAttacking()
+	private bool ClickBehaviorOnAttacking()
 	{
 		var attacker = _units.ActiveUnit;
 		var attackOrNull = attacker.PlanningAttack;
 		if(attackOrNull == null)
 		{
 			_flowchart.ExecuteBlock("UnitUnknown");
-			return;
+			return false;
 		}
 		var attack = attackOrNull.Value.Key;
 
@@ -241,18 +247,20 @@ public class Floor : MonoBehaviour
 			// ユニットが居る場合は、Unit.csの方の処理が呼ばれるため、こちらは呼ばれません。
 			_flowchart.ExecuteBlock("UnitUnknown");
 		}
+		return false;
 	}
 
 	/// <summary>
 	/// マスをクリックした場合の挙動を登録します
+	/// true:肯定的クリック false:否定的クリック
 	/// </summary>
 	private void SetClickBehavior()
 	{
-		ClickBehaviors = new Dictionary<BattleStates, Action>();
+		ClickBehaviors = new Dictionary<BattleStates, Func<bool>>();
 		ClickBehaviors[BattleStates.Check] = ClickBehaviorOnChecking;
 		ClickBehaviors[BattleStates.Move] = ClickBehaviorOnMoving;
 		ClickBehaviors[BattleStates.Attack] = ClickBehaviorOnAttacking;
-		ClickBehaviors[BattleStates.Load] = () => { };
+		ClickBehaviors[BattleStates.Load] = () => { return false; };
 	}
 
 	/// <summary>
@@ -262,6 +270,8 @@ public class Floor : MonoBehaviour
 	{
 		//Debug.Log(gameObject.name + " is clicked. BattleState is " + _bsc.BattleState.ToString());	// 4debug
 
-		ClickBehaviors[_bsc.BattleState]();
+		bool res = ClickBehaviors[_bsc.BattleState]();
+		if(res) _sem.play(SoundEffect.Confirm);
+		else _sem.play(SoundEffect.Cancel);
 	}
 }

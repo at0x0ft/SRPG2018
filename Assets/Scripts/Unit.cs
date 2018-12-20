@@ -129,7 +129,7 @@ public class Unit : MonoBehaviour
 	public int MaxMoveAmount { get; private set; }
 	public int MoveAmount { get; set; }
 	public KeyValuePair<Attack, int>? PlanningAttack { get; set; }
-	private Dictionary<BattleStates, Action> ClickBehaviors;
+	private Dictionary<BattleStates, Func<bool>> ClickBehaviors;
 
 	/// <summary>
 	/// ローカル座標を表す. (transformの座標ではない)
@@ -273,7 +273,7 @@ public class Unit : MonoBehaviour
 	/// <summary>
 	/// 戦況確認中のときに、ユニットをクリックした場合の挙動
 	/// </summary>
-	private void ClickBehaviorOnChecking()
+	private bool ClickBehaviorOnChecking()
 	{
 		// とりあえず盤面を綺麗にする
 		_map.ClearHighlight();
@@ -292,7 +292,9 @@ public class Unit : MonoBehaviour
 			{
 				_map.HighlightMovableFloors(Floor, MoveAmount);
 				_bsc.NextBattleState();
+				return true;
 			}
+			return false;
 		}
 		else
 		{
@@ -310,15 +312,17 @@ public class Unit : MonoBehaviour
 
 			// 移動量情報を表すウィンドウも追加で呼び出す.
 			_map.UI.MoveAmountInfoWindow.Show(MaxMoveAmount, MoveAmount);
+
+			return true;
 		}
 	}
 
-	private void ClickBehaviorOnMoving()
+	private bool ClickBehaviorOnMoving()
 	{
 		if(_units.ActiveUnit != this)
 		{
 			_flowchart.ExecuteBlock("NotMovable");
-			return;
+			return false;
 		}
 		_map.ClearHighlight();
 
@@ -331,18 +335,20 @@ public class Unit : MonoBehaviour
 
 		// 場面を移動する
 		_bsc.NextBattleState();
+
+		return true;
 	}
 
 	/// <summary>
 	/// 攻撃選択中のときに、ユニットをクリックした場合の挙動
 	/// </summary>
-	private void ClickBehaviorOnAttack()
+	private bool ClickBehaviorOnAttack()
 	{
 		var attacker = _units.ActiveUnit;
 		if(!attacker.PlanningAttack.HasValue)
 		{
 			_flowchart.ExecuteBlock("NotAttackable");
-			return;
+			return false;
 		}
 
 		var attack = attacker.PlanningAttack.Value.Key;
@@ -352,13 +358,15 @@ public class Unit : MonoBehaviour
 		if(scale == Attack.AttackScale.Range)
 		{
 			_flowchart.ExecuteBlock("MustClickCircle");
-			return;
+			_sem.play(SoundEffect.Cancel);
+			return false;
 		}
 
 		if(!Floor.IsAttackable)
 		{
 			_flowchart.ExecuteBlock("NotAttackable");
-			return;
+			_sem.play(SoundEffect.Cancel);
+			return false;
 		}
 
 		// 強攻撃特殊処理!!! Charge前は攻撃しない!!! (発動契機は、Set2開始時)
@@ -369,7 +377,7 @@ public class Unit : MonoBehaviour
 				// Set1のときは、RangeNozzleButtonを押して、Chargeを始めるため、クリックを拒否します。
 				case AttackStates.LittleAttack:
 					_flowchart.ExecuteBlock("MustClickCircle");
-					return;
+					return false;
 
 				// Set2で強攻撃が出来る場合は、攻撃します。
 				case AttackStates.Charging:
@@ -389,23 +397,25 @@ public class Unit : MonoBehaviour
 		if(!success)
 		{
 			_flowchart.ExecuteBlock("UnitUnknown");
-			return;
+			return false;
 		}
 
 		// 攻撃が終わるまではLoadFaze
 		_bsc.NextBattleState();
+		return true;
 	}
 
 	/// <summary>
 	/// ユニットがクリックされた場合の挙動を設定する
+	/// true: 肯定的なクリック false: 否定的なクリック
 	/// </summary>
 	private void SetClickBehavior()
 	{
-		ClickBehaviors = new Dictionary<BattleStates, Action>();
+		ClickBehaviors = new Dictionary<BattleStates, Func<bool>>();
 		ClickBehaviors[BattleStates.Check] = ClickBehaviorOnChecking;
 		ClickBehaviors[BattleStates.Move] = ClickBehaviorOnMoving;
 		ClickBehaviors[BattleStates.Attack] = ClickBehaviorOnAttack;
-		ClickBehaviors[BattleStates.Load] = () => { };
+		ClickBehaviors[BattleStates.Load] = () => { return false; };
 	}
 
 	/// <summary>
@@ -416,7 +426,9 @@ public class Unit : MonoBehaviour
 		//Debug.Log(gameObject.name + " is clicked. AttackState is " + AttackState.ToString());   // 4debug
 
 		// SetClickBehaviorで登録した関数を実行
-		ClickBehaviors[_bsc.BattleState]();
+		bool res = ClickBehaviors[_bsc.BattleState]();
+		if(res) _sem.play(SoundEffect.Confirm);
+		else _sem.play(SoundEffect.Cancel);
 	}
 
 	/// <summary>
