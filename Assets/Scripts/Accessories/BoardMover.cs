@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class BoardMover : MonoBehaviour {
 
@@ -24,6 +25,42 @@ public class BoardMover : MonoBehaviour {
 		// BoardControllerを噛ませて、唯一性を担保する。
 		_board = GameObject.Find("Board").GetComponent<BoardController>().gameObject;
 		_boardSize = _board.GetComponent<RectTransform>().sizeDelta;
+
+		var trigger = _board.GetComponent<EventTrigger>();
+		trigger.triggers.Add(BoardDrag());
+		trigger.triggers.Add(BoardScroll());
+	}
+
+	private EventTrigger.Entry BoardDrag()
+	{
+		var entry = new EventTrigger.Entry
+		{
+			eventID = EventTriggerType.Drag
+		};
+		entry.callback.AddListener((data) =>
+		{
+			var delta = ((PointerEventData)data).delta;
+			delta.x /= _boardSize.x / 2;
+			delta.y /= _boardSize.y / 2;
+			_X.value -= delta.x;
+			_Y.value += delta.y;
+		});
+		return entry;
+	}
+
+	private EventTrigger.Entry BoardScroll()
+	{
+		var entry = new EventTrigger.Entry
+		{
+			eventID = EventTriggerType.Scroll
+		};
+		entry.callback.AddListener((data) =>
+		{
+			var delta = ((PointerEventData)data).scrollDelta;
+			Debug.Log(delta);
+			_Size.value += delta.y / 10;
+		});
+		return entry;
 	}
 
 	private void SetUpSlider()
