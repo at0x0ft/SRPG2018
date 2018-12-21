@@ -295,6 +295,8 @@ public class Unit : MonoBehaviour
 			// MoveFazeへの移行条件
 			if(_units.ActiveUnit == this)
 			{
+				Debug.Log(Floor);
+				Debug.Log(MoveAmount);
 				_map.HighlightMovableFloors(Floor, MoveAmount);
 				_bsc.NextBattleState();
 				return true;

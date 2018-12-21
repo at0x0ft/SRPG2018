@@ -117,7 +117,7 @@ public class AI : MonoBehaviour
 	private IEnumerator CheckCoroutine()
 	{
 		var attacker = _units.ActiveUnit;
-
+		Debug.Log("Called");
 		// 1クリック
 		attacker.OnClick();
 		yield return new WaitForSeconds(WaitSeconds());
@@ -236,10 +236,16 @@ public class AI : MonoBehaviour
 			yield break;
 		}
 
+		// ここまでで、当たる攻撃が、確実にattackに格納されている
 		yield return new WaitForSeconds(WaitSeconds());
 
 		// 攻撃の場所を選択（攻撃）
-		if(attack.Scale == Attack.AttackScale.Single)
+		if(_units.ActiveUnit.AttackState == Unit.AttackStates.LittleAttack && attack.Kind == Attack.Level.High)
+		{
+			// ターン1において強攻撃を選択している場合は、問答無用でチャージボタンを押す
+			_ui.RangeAttackNozzle.ActRangeAttack();
+		}
+		else if(attack.Scale == Attack.AttackScale.Single)
 		{
 			SelectSingleAttackFloor();
 		}

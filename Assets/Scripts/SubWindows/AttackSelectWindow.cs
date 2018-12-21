@@ -66,7 +66,7 @@ public class AttackSelectWindow : SubWindow
 		// 選択音をならす
 		_sem.play(SoundEffect.Confirm);
 		
-		Debug.Log(atk.ToString() + atk.Kind.ToString());
+		//Debug.Log(atk.ToString() + atk.Kind.ToString());
 		// 1.その詳細情報を表示し
 		_aiw.Show(atk);
 
@@ -138,7 +138,7 @@ public class AttackSelectWindow : SubWindow
 		{
 			button.gameObject.SetActive(false);
 		}
-		Debug.Log("show  -- " +atkBoolPairs.Count);
+		//Debug.Log("show  -- " +atkBoolPairs.Count);
 		for(int i = 0; i < atkBoolPairs.Count(); i++)
 		{
 			var atk = atkBoolPairs[i].Key;

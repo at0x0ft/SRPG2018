@@ -84,7 +84,7 @@ public class UI : MonoBehaviour
 
 		string str = attackNum.ToString();
 		foreach(var attack in attacker.Attacks) str += attack.ToString();
-		Debug.Log(str);
+		//Debug.Log(str);
 
  		if(attackNum == 6) return _attackSelectWindow6;
 		else if(attackNum == 7) return _attackSelectWindow7;
