@@ -77,7 +77,7 @@ public class UI : MonoBehaviour
 	{
 		get { return _attackInfoWindow; }
 	}
-	
+
 	public AttackSelectWindow AttackSelectWindow(Unit attacker)
 	{
 		int attackNum = attacker.Attacks.Count;
@@ -129,6 +129,15 @@ public class UI : MonoBehaviour
 	{
 		get { return _gameEndPanel; }
 	}
+
+	private TeamInfoWindow _teamInfoWindow;
+	public TeamInfoWindow TeamInfoWindow
+	{
+		get { return _teamInfoWindow; }
+	}
+
+	// 効果音
+	private SoundEffectMaker _sem;
 
 	/// <summary>
 	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
@@ -185,6 +194,12 @@ public class UI : MonoBehaviour
 		_attackSelectWindow8.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
 		_gameEndPanel.gameObject.SetActive(false);
 		_gameEndPanel.Initialize();
+		_teamInfoWindow = GetComponentInChildren<TeamInfoWindow>();
+		_teamInfoWindow.Initialize(units);
+
+		// 決定音設定
+		_sem = GameObject.Find("BattleBGM").GetComponent<SoundEffectMaker>();
+		EndCommandButton.onClick.AddListener(() => { _sem.play(SoundEffect.Confirm); });
 	}
 
 	public void NextUnit()

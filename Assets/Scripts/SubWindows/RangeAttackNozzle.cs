@@ -25,6 +25,7 @@ public class RangeAttackNozzle : SubWindow
 	private Map _map;
 	private BattleStateController _bsc;
 	private Flowchart _flowchart;
+	private SoundEffectMaker _sem;
 
 	private AccessReason _reason;
 
@@ -41,6 +42,7 @@ public class RangeAttackNozzle : SubWindow
 		_centerButton.onClick.AddListener(() => ActRangeAttack());
 
 		_flowchart = GameObject.Find("Flowchart").GetComponent<Flowchart>();
+		_sem = GameObject.Find("BattleBGM").GetComponent<SoundEffectMaker>();
 
 		// ハイライトエフェクトくっつけます
 		_map.UI.ChargeEffectController.AlwaysAttachEffect(_centerButton.transform, HighLightSize);
@@ -74,11 +76,15 @@ public class RangeAttackNozzle : SubWindow
 			if(!_ac.Attack(attacker, attack))
 			{
 				_flowchart.ExecuteBlock("UnitUnknown");
+				_sem.play(SoundEffect.Cancel);
 				return;
 			}
 		}
 
 		Hide();
+
+		// 選択音をならします
+		_sem.play(SoundEffect.Confirm);
 
 		// 場面を進めます
 		_bsc.NextBattleState();

@@ -17,6 +17,7 @@ public class AttackSelectWindow : SubWindow
 	private RangeAttackNozzle _ran;
 	private AttackInfoWindow _aiw;
 	private Map _map;
+	private SoundEffectMaker _sem;
 
 	private List<KeyValuePair<Attack, bool>> _displayedAttacks;
 
@@ -32,6 +33,8 @@ public class AttackSelectWindow : SubWindow
 		_aiw = aiw;
 		_ran = ran;
 		_map = map;
+
+		_sem = GameObject.Find("BattleBGM").GetComponent<SoundEffectMaker>();
 	}
 
 	/// <summary>
@@ -60,6 +63,9 @@ public class AttackSelectWindow : SubWindow
 	/// <param name="atk"></param>
 	private void CommandButtonAction(Attack atk)
 	{
+		// 選択音をならす
+		_sem.play(SoundEffect.Confirm);
+		
 		Debug.Log(atk.ToString() + atk.Kind.ToString());
 		// 1.その詳細情報を表示し
 		_aiw.Show(atk);
