@@ -78,11 +78,42 @@ public class UI : MonoBehaviour
 		get { return _attackInfoWindow; }
 	}
 
-	[SerializeField]
-	private AttackSelectWindow _attackSelectWindow;
-	public AttackSelectWindow AttackSelectWindow
+	public AttackSelectWindow AttackSelectWindow(Unit attacker)
 	{
-		get{ return _attackSelectWindow; }
+		int attackNum = attacker.Attacks.Count;
+
+		string str = attackNum.ToString();
+		foreach(var attack in attacker.Attacks) str += attack.ToString();
+		Debug.Log(str);
+
+ 		if(attackNum == 6) return _attackSelectWindow6;
+		else if(attackNum == 7) return _attackSelectWindow7;
+		else if(attackNum == 8) return _attackSelectWindow8;
+		else {
+			Debug.LogError("保持攻撃種類数が6でも8でもありません");
+			return _attackSelectWindow6;
+		}
+	}
+
+	[SerializeField]
+	private AttackSelectWindow _attackSelectWindow6;
+	private AttackSelectWindow AttackSelectWindow6
+	{
+		get{ return _attackSelectWindow6; }
+	}
+
+	[SerializeField]
+	private AttackSelectWindow _attackSelectWindow7;
+	private AttackSelectWindow AttackSelectWindow7
+	{
+		get { return _attackSelectWindow7; }
+	}
+
+	[SerializeField]
+	private AttackSelectWindow _attackSelectWindow8;
+	private AttackSelectWindow AttackSelectWindow8
+	{
+		get { return _attackSelectWindow8; }
 	}
 
 	[SerializeField]
@@ -98,6 +129,15 @@ public class UI : MonoBehaviour
 	{
 		get { return _gameEndPanel; }
 	}
+
+	private TeamInfoWindow _teamInfoWindow;
+	public TeamInfoWindow TeamInfoWindow
+	{
+		get { return _teamInfoWindow; }
+	}
+
+	// 効果音
+	private SoundEffectMaker _sem;
 
 	/// <summary>
 	/// [SerializedField]で定義されたメンバがnullか否かを判定するメソッド (4debug)
@@ -126,8 +166,12 @@ public class UI : MonoBehaviour
 		if(!_attackInfoWindow) Debug.LogError("[Error] : AttackInfoWindow is not set!");
 		_attackInfoWindow.CheckSerializedMember();
 
-		if(!_attackSelectWindow) Debug.LogError("[Error] : AttackInfoWindow is not set!");
-		_attackSelectWindow.CheckSerializedMember(units.GetComponentsInChildren<Unit>());
+		if(!_attackSelectWindow6) Debug.LogError("[Error] : AttackInfoWindow is not set!");
+		_attackSelectWindow6.CheckSerializedMember(units.GetComponentsInChildren<Unit>());
+		if(!_attackSelectWindow7) Debug.LogError("[Error] : AttackInfoWindow is not set!");
+		_attackSelectWindow7.CheckSerializedMember(units.GetComponentsInChildren<Unit>());
+		if(!_attackSelectWindow8) Debug.LogError("[Error] : AttackInfoWindow is not set!");
+		_attackSelectWindow8.CheckSerializedMember(units.GetComponentsInChildren<Unit>());
 
 		if(!_gameEndPanel) Debug.LogError("[Error] : GameEndPanel is not set!");
 	}
@@ -145,16 +189,26 @@ public class UI : MonoBehaviour
 		_popUpController.Initialize(bc, this, map.FloorSize);
 		_chargeEffectController.Initialize();
 		_rangeAttackNozzle.Initialize(ac, units, map, bsc);
-		_attackSelectWindow.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
+		_attackSelectWindow6.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
+		_attackSelectWindow7.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
+		_attackSelectWindow8.Initialize(units, ac, _rangeAttackNozzle, _attackInfoWindow, map);
 		_gameEndPanel.gameObject.SetActive(false);
 		_gameEndPanel.Initialize();
+		_teamInfoWindow = GetComponentInChildren<TeamInfoWindow>();
+		_teamInfoWindow.Initialize(units);
+
+		// 決定音設定
+		_sem = GameObject.Find("BattleBGM").GetComponent<SoundEffectMaker>();
+		EndCommandButton.onClick.AddListener(() => { _sem.play(SoundEffect.Confirm); });
 	}
 
 	public void NextUnit()
 	{
 		_unitInfoWindow.Hide();
 		_attackInfoWindow.Hide();
-		_attackSelectWindow.Hide();
+		_attackSelectWindow6.Hide();
+		_attackSelectWindow7.Hide();
+		_attackSelectWindow8.Hide();
 	}
 
 	/// <summary>

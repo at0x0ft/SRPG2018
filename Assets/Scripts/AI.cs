@@ -52,7 +52,7 @@ public class AI : MonoBehaviour
 	// ==========基盤関数==========
 	private void Awake()
 	{
-		_speed = GetComponentInChildren<Slider>();
+		_speed = GameObject.Find("BoardMover/Slider").transform.Find("Speed").GetComponent<Slider>();
 		if(_speed != null) _speed.value = 0.5f; // 1vs1では速度バーが無かったため
 		waitSeconds = MaxWaitSeconds;
 	}
@@ -328,7 +328,8 @@ public class AI : MonoBehaviour
 		var selectedCommands = attackableCommands[kind];
 
 		// 攻撃実行
-		var res = _ui.AttackSelectWindow.SelectAttack(selectedCommands);
+		var attacker = _units.ActiveUnit;
+		var res = _ui.AttackSelectWindow(attacker).SelectAttack(selectedCommands);
 
 		// 挙動が早すぎて実行失敗の場合があるため
 		if(res) return selectedCommands;

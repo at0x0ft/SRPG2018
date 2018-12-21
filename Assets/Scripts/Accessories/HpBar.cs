@@ -22,4 +22,11 @@ public class HpBar : MonoBehaviour
 	{
 		_slider.value = hp;
 	}
+
+	// 担当Unitを暗くする（親がUnitであること）
+	public void SetDarker()
+	{
+		var image = GetComponentInParent<Image>();
+		image.color = Color.gray;
+	}
 }

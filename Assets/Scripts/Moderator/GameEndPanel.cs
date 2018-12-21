@@ -12,10 +12,12 @@ public class GameEndPanel : MonoBehaviour
 	private Button _gameContBtn;
 	private Button _gameEndBtn;
 	private Dictionary<string, string> _nextChapter;
+	private SoundEffectMaker _sem;
 
 	public void Initialize()
 	{
 		_endMessage = GetComponentInChildren<Text>();
+		_sem = GameObject.Find("BattleBGM").GetComponent<SoundEffectMaker>();
 
 		_gameContBtn = null;
 		_gameEndBtn = null;
@@ -64,6 +66,7 @@ public class GameEndPanel : MonoBehaviour
 		_gameEndBtn.onClick.RemoveAllListeners();
 		_gameEndBtn.onClick.AddListener(() =>
 		{
+			_sem.play(SoundEffect.Confirm);
 			SceneManager.LoadScene("Title");
 		});
 
@@ -83,6 +86,7 @@ public class GameEndPanel : MonoBehaviour
 		string sceneName = SetCommonMessage();
 		_gameContBtn.onClick.AddListener(() =>
 		{
+			_sem.play(SoundEffect.Confirm);
 			SceneManager.LoadScene(_nextChapter[sceneName]);
 		});
 
@@ -104,6 +108,7 @@ public class GameEndPanel : MonoBehaviour
 
 		_gameContBtn.onClick.AddListener(() =>
 		{
+			_sem.play(SoundEffect.Confirm);
 			SceneManager.LoadScene(sceneName);
 		});
 	}

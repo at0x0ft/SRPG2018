@@ -17,6 +17,7 @@ public class AttackSelectWindow : SubWindow
 	private RangeAttackNozzle _ran;
 	private AttackInfoWindow _aiw;
 	private Map _map;
+	private SoundEffectMaker _sem;
 
 	private List<KeyValuePair<Attack, bool>> _displayedAttacks;
 
@@ -32,6 +33,8 @@ public class AttackSelectWindow : SubWindow
 		_aiw = aiw;
 		_ran = ran;
 		_map = map;
+
+		_sem = GameObject.Find("BattleBGM").GetComponent<SoundEffectMaker>();
 	}
 
 	/// <summary>
@@ -48,10 +51,10 @@ public class AttackSelectWindow : SubWindow
 
 
 		// 攻撃の数が攻撃選択ウィンドウのボタンの数よりも多ければ, エラーとする. (全ての攻撃を表示しきれないため.)
-		if(units.Max(u => u.Attacks.Count) > _attackBtns.Count)
-		{
-			Debug.LogError("[Error] : Number of the attacks is over than that of the AttackSelectWindow's Button!");
-		}
+		//if(units.Max(u => u.Attacks.Count) > _attackBtns.Count)
+		//{
+		//	Debug.LogError("[Error] : Number of the attacks is over than that of the AttackSelectWindow's Button!");
+		//}
 	}
 
 	/// <summary>
@@ -60,6 +63,9 @@ public class AttackSelectWindow : SubWindow
 	/// <param name="atk"></param>
 	private void CommandButtonAction(Attack atk)
 	{
+		// 選択音をならす
+		_sem.play(SoundEffect.Confirm);
+		
 		Debug.Log(atk.ToString() + atk.Kind.ToString());
 		// 1.その詳細情報を表示し
 		_aiw.Show(atk);
@@ -132,7 +138,7 @@ public class AttackSelectWindow : SubWindow
 		{
 			button.gameObject.SetActive(false);
 		}
-
+		Debug.Log("show  -- " +atkBoolPairs.Count);
 		for(int i = 0; i < atkBoolPairs.Count(); i++)
 		{
 			var atk = atkBoolPairs[i].Key;
@@ -142,11 +148,18 @@ public class AttackSelectWindow : SubWindow
 			// 有効な攻撃のみ, ウィンドウに表示し, 追加する.
 			_attackBtns[i].gameObject.SetActive(true);
 			_attackBtns[i].interactable = canAttack;
-			_attackBtns[i].GetComponentInChildren<Text>().text = atk.name;
+			_attackBtns[i].GetComponentInChildren<Text>().text = atk.Name;
 			_attackBtns[i].onClick.RemoveAllListeners();
 			_attackBtns[i].onClick.AddListener(() => CommandButtonAction(atk));
 		}
 
 		Show();
+	}
+
+	new public void Hide()
+	{
+		foreach(var btn in _attackBtns) btn.onClick.RemoveAllListeners();
+
+		base.Hide();
 	}
 }
