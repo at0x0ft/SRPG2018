@@ -1107,6 +1107,7 @@ GameObject:
   - component: {fileID: 1066517537}
   - component: {fileID: 1066517538}
   - component: {fileID: 1066517539}
+  - component: {fileID: 1066517540}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -1141,7 +1142,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 1066517514}
   selectedCommands:
-  - {fileID: 1066517536}
+  - {fileID: 1066517540}
   variables: []
   description: 
   stepPause: 0
@@ -1582,6 +1583,7 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 1066517515}
+  - {fileID: 1066517540}
   - {fileID: 1066517536}
 --- !u!114 &1066517515
 MonoBehaviour:
@@ -1589,7 +1591,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1066517497}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 207aecf668a0345388087ccf522f9957, type: 3}
   m_Name: 
@@ -2114,6 +2116,26 @@ MonoBehaviour:
   volume: 1
   fadeDuration: 0
   waitUntilFinished: 1
+--- !u!114 &1066517540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1066517497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 437f9a4e3dbc647f9bdce95308418bff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 44
+  indentLevel: 0
+  duration: 1
+  fadeOut: 1
+  targetView: {fileID: 1496372993}
+  waitUntilFinished: 1
+  fadeColor: {r: 0, g: 0, b: 0, a: 1}
+  fadeTexture: {fileID: 0}
+  targetCamera: {fileID: 0}
 --- !u!1 &1194324077
 GameObject:
   m_ObjectHideFlags: 0
