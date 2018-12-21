@@ -13,7 +13,7 @@ public class EndingViewer : MonoBehaviour
 	[SerializeField]
 	private RectTransform _hidePanel;
 	[SerializeField]
-	private float _fadeTimeSec = 1.5f;
+	private float _fadeTimeSec = 1f;
 	[SerializeField]
 	private float _viewTimeSec = 1f;
 
@@ -84,18 +84,6 @@ public class EndingViewer : MonoBehaviour
 			creditDataArray.Add(line.Split('|'));
 
 		Debug.Log("In LoadText() stageData size = " + stageData.Length);    // 4debug
-
-		// 4debug
-		/*
-		foreach(var item in stageData)
-		{
-			foreach(var word in item)
-			{
-				Debug.Log("[Debug] : " + word);
-			}
-		}
-		*/
-		// 4debug
 	}
 
 	private float GetAlphaDistancePerFrame(float alphaDistance, float time)

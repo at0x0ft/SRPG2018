@@ -186,7 +186,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1600, y: 900}
+  m_SizeDelta: {x: 1400, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &462764757
 GameObject:
@@ -298,7 +298,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _showingText: {fileID: 149314108}
   _hidePanel: {fileID: 1617750017}
-  _alphaChangeRate: 0.005
+  _fadeTimeSec: 1
+  _viewTimeSec: 1
 --- !u!1 &1449296373
 GameObject:
   m_ObjectHideFlags: 0
