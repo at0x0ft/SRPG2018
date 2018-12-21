@@ -892,6 +892,7 @@ GameObject:
   - component: {fileID: 689019114}
   - component: {fileID: 689019113}
   - component: {fileID: 689019112}
+  - component: {fileID: 689019067}
   m_Layer: 0
   m_Name: Flowchart
   m_TagString: Untagged
@@ -924,8 +925,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019072}
-  selectedCommands: []
+  - {fileID: 689019064}
+  selectedCommands:
+  - {fileID: 689019067}
   variables: []
   description: 
   stepPause: 0
@@ -1107,6 +1109,7 @@ MonoBehaviour:
   eventHandler: {fileID: 0}
   commandList:
   - {fileID: 689019065}
+  - {fileID: 689019067}
 --- !u!114 &689019065
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -1145,6 +1148,24 @@ MonoBehaviour:
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
   fadeTexture: {fileID: 0}
   targetCamera: {fileID: 0}
+--- !u!114 &689019067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 689019055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d03ae0919f04264b018681ed534177, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemId: 104
+  indentLevel: 0
+  _sceneName:
+    stringRef: {fileID: 0}
+    stringVal: Chapter6Battle
+  loadingImage: {fileID: 0}
+  sceneNameOLD: 
 --- !u!114 &689019068
 MonoBehaviour:
   m_ObjectHideFlags: 2

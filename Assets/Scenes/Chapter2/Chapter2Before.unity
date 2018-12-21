@@ -504,7 +504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 97.265076, y: 5.263669}
+  scrollPos: {x: 141.56888, y: -230.17934}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 275
@@ -516,9 +516,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019059}
+  - {fileID: 689019064}
   selectedCommands:
-  - {fileID: 689019081}
+  - {fileID: 689019068}
   variables: []
   description: 
   stepPause: 0
@@ -803,7 +803,7 @@ MonoBehaviour:
   indentLevel: 0
   _sceneName:
     stringRef: {fileID: 0}
-    stringVal: Chapter2After
+    stringVal: Chapter2Battle
   loadingImage: {fileID: 0}
   sceneNameOLD: 
 --- !u!114 &689019069

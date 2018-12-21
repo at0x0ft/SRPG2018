@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Title/ChapterIntro.unity
     guid: bd0616231955b114cbf36e72e7b00c77
   - enabled: 1
+    path: Assets/Scenes/Title/Tutorial.unity
+    guid: 820b19287c7a53b44ab186b13853215c
+  - enabled: 1
+    path: Assets/Scenes/Title/Title.unity
+    guid: b7dccc636424b694285ec9f9f7a22848
+  - enabled: 1
     path: Assets/Scenes/Chapter1/Chapter1Before.unity
     guid: a076f75e7ebc2f843bfe3aaac5cd8bcb
   - enabled: 1
@@ -89,4 +95,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Chapter9/Chapter9After.unity
     guid: 0f5bbcc65df89784c9fcedeff7d34320
+  - enabled: 1
+    path: Assets/Scenes/Ending.unity
+    guid: 7c6726be788e0b346b4a7b7d71a7b348
   m_configObjects: {}

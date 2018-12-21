@@ -2131,7 +2131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 466.22302, y: -75.20472}
+  scrollPos: {x: 498.78125, y: -77.530304}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 200
@@ -2144,8 +2144,7 @@ MonoBehaviour:
     height: 859
   selectedBlocks:
   - {fileID: 689019071}
-  selectedCommands:
-  - {fileID: 689019072}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -2630,7 +2629,7 @@ MonoBehaviour:
   indentLevel: 0
   _sceneName:
     stringRef: {fileID: 0}
-    stringVal: Title
+    stringVal: Tutorial
   loadingImage: {fileID: 0}
   sceneNameOLD: 
 --- !u!114 &689019077
@@ -2685,7 +2684,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec422cd568a9c4a31ad7c36d0572b9da, type: 3}
   m_Name: 

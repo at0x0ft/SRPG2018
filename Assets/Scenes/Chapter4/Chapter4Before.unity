@@ -759,9 +759,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019074}
+  - {fileID: 689019082}
   selectedCommands:
-  - {fileID: 689019080}
+  - {fileID: 689019083}
   variables: []
   description: 
   stepPause: 0
@@ -1324,7 +1324,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00d03ae0919f04264b018681ed534177, type: 3}
   m_Name: 
@@ -1333,7 +1333,7 @@ MonoBehaviour:
   indentLevel: 0
   _sceneName:
     stringRef: {fileID: 0}
-    stringVal: Chapter2After
+    stringVal: Chapter4Battle
   loadingImage: {fileID: 0}
   sceneNameOLD: 
 --- !u!114 &689019084
