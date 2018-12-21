@@ -52,7 +52,7 @@ public class AI : MonoBehaviour
 	// ==========基盤関数==========
 	private void Awake()
 	{
-		_speed = GetComponentInChildren<Slider>();
+		_speed = GameObject.Find("BoardMover/Slider").transform.Find("Speed").GetComponent<Slider>();
 		if(_speed != null) _speed.value = 0.5f; // 1vs1では速度バーが無かったため
 		waitSeconds = MaxWaitSeconds;
 	}

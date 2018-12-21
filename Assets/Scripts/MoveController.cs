@@ -210,7 +210,7 @@ public class MoveController : MonoBehaviour
 			motion_1 = motion_dic[result + "_1"];
 			motion_2 = motion_dic[result + "_2"];
 
-			sequence.Append(unit.transform.DOMove(routeFloor.transform.position, 0.2f).SetEase(Ease.Linear));
+			sequence.Append(unit.transform.DOLocalMove(routeFloor.transform.localPosition, 0.2f).SetEase(Ease.Linear));
 			yield return StartCoroutine(AttachMoveAnimation());
 		}
 
