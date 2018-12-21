@@ -63,6 +63,12 @@ public class AttackSelectWindow : SubWindow
 	/// <param name="atk"></param>
 	private void CommandButtonAction(Attack atk)
 	{
+		for(int i = 0; i < Mathf.Min(_attackBtns.Count, _displayedAttacks.Count); i++)
+		{
+			bool res = _displayedAttacks[i].Key == atk;
+			SetButtonColor(_attackBtns[i], res);
+		}
+		
 		// 選択音をならす
 		_sem.play(SoundEffect.Confirm);
 		
@@ -127,9 +133,17 @@ public class AttackSelectWindow : SubWindow
 		return false;
 	}
 
+	private void SetButtonColor(Button button, bool click)
+	{
+		var tmp = button.image.color;
+		tmp.b = (click ? 255 : 0);
+		button.image.color = tmp;
+	}
+
 	public void Show(List<KeyValuePair<Attack, bool>> atkBoolPairs)
 	{
 		Hide();
+		foreach(var command in _attackBtns) SetButtonColor(command, false);
 
 		_displayedAttacks = atkBoolPairs;
 
