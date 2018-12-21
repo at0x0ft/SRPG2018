@@ -726,7 +726,7 @@ MonoBehaviour:
   - {fileID: 689019068}
 --- !u!114 &689019065
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -775,7 +775,7 @@ MonoBehaviour:
     booleanVal: 1
 --- !u!114 &689019067
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -859,7 +859,7 @@ MonoBehaviour:
   fadeTexture: {fileID: 0}
 --- !u!114 &689019072
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -902,7 +902,7 @@ MonoBehaviour:
     booleanVal: 1
 --- !u!114 &689019074
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -947,7 +947,7 @@ MonoBehaviour:
     booleanVal: 1
 --- !u!114 &689019076
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -960,7 +960,7 @@ MonoBehaviour:
   indentLevel: 0
 --- !u!114 &689019077
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -1017,7 +1017,7 @@ MonoBehaviour:
     booleanVal: 1
 --- !u!114 &689019079
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -1046,7 +1046,7 @@ MonoBehaviour:
     booleanVal: 1
 --- !u!114 &689019080
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -1059,7 +1059,7 @@ MonoBehaviour:
   indentLevel: 0
 --- !u!114 &689019081
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -1091,7 +1091,7 @@ MonoBehaviour:
     booleanVal: 1
 --- !u!114 &689019082
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -1104,7 +1104,7 @@ MonoBehaviour:
   indentLevel: 0
 --- !u!114 &689019083
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -1121,7 +1121,7 @@ MonoBehaviour:
   fadeDuration: 1
 --- !u!114 &689019084
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
