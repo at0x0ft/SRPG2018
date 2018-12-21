@@ -52,6 +52,8 @@ public class EndingViewer : MonoBehaviour
 		yield return StartCoroutine(FadeOutMusic());
 
 		Debug.Log("[Debug] : End successfully!");
+
+		SceneManager.LoadScene("Title");
 	}
 
 	private IEnumerator FadeInAndOut(string content)
