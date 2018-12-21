@@ -52,7 +52,12 @@ public class BoardMover : MonoBehaviour {
 	private void SetUpTouchBlocker()
 	{
 		// 非アクティブになってるので、親から子を取得する
-		var trigger = GameObject.Find("Canvas").transform.Find("TouchBlocker").GetComponent<EventTrigger>();
+		var blocker = GameObject.Find("Canvas").transform.Find("TouchBlocker");
+		var trigger = blocker.GetComponent<EventTrigger>();
+		if(trigger == null)
+		{
+			trigger = blocker.gameObject.AddComponent<EventTrigger>();
+		}
 		trigger.triggers.Add(BoardDrag());
 		trigger.triggers.Add(BoardScroll());
 	}
