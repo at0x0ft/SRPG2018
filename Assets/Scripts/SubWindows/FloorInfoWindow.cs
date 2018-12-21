@@ -29,9 +29,16 @@ public class FloorInfoWindow : SubWindow
 		if(!_avoidTextBox) Debug.LogError("[Error] : Avo. TextBox is not set!");
 	}
 
-	public void Show(Floor.Feature feature, int cost, int defUp, int avoid)
+	private Floor before = null;
+	public void Show(Floor selected, Floor.Feature feature, int cost, int defUp, int avoid)
 	{
 		Hide();
+		if(selected == before)
+		{
+			before = null;
+			return;
+		}
+		before = selected;
 		_featTextBox.text = LocalizingFeature(feature);
 		_costTextBox.text = FormatCost(feature, cost);
 		_defUpTextBox.text = FormatDefUp(feature, defUp);
