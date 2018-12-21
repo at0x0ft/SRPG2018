@@ -3362,7 +3362,7 @@ Prefab:
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
       propertyPath: nameText
-      value: "\u65B0\u754C \u7531\u7D00(\u3057\u3093\u304B\u3044 \u3086\u304D)"
+      value: "\u5965\u82D1 \u7531\u7D00(\u3057\u3093\u304B\u3044 \u3086\u304D)"
       objectReference: {fileID: 0}
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
