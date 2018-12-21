@@ -460,7 +460,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &578537838
 GameObject:
@@ -760,9 +760,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019082}
+  - {fileID: 689019074}
   selectedCommands:
-  - {fileID: 689019087}
+  - {fileID: 689019080}
   variables: []
   description: 
   stepPause: 0
@@ -1121,7 +1121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 555.80237
+    x: 554.23987
     y: 261.49893
     width: 120
     height: 40
@@ -1263,7 +1263,8 @@ MonoBehaviour:
   conversationText:
     stringRef: {fileID: 0}
     stringVal: "Character_Mis mis_left Right:\nCharacter_Mituki mituki_right Left:\u2026\u3042\u308C\u304C\u3001\u6C37\u6CB3\u3055\u3093\u2026\u2026\nCharacter_Yamituki
-      yamituki_right Middle:\u307E\u3041\u3001\u9AD8\u7B49\u90E8\u306E\u751F\u5F92\u306A\u3089\u77E5\u3089\u306A\u3044\u4EBA\u306F\u3044\u306A\u3044\u3088\u306D\nCharacter_Mituki:\u3042\u306E\u4EBA\u306B\u3001\u52DD\u3066\u308B\u306E\u304B\u306A\u2026\uFF1F\nCharacter_Yamituki:\u2026\u8A00\u3063\u305F\u3067\u3057\u3087\u3046\uFF1F\nCharacter_Mituki:\u2026\uFF01\n\u300E\u79C1\u305F\u3061\u304C\u3001\u5148\u8F29\u3092\u52A9\u3051\u3088\u3046\u300F\n\u300E\u79C1\u305F\u3061\u304C\u3001\u5148\u8F29\u306E\u652F\u3048\u306B\u306A\u308D\u3046\u300F\u2026\uFF01\nCharacter_Yamituki:\u305D\u3046\u3044\u3046\u4E8B\n\u79C1\u305F\u3061\u500B\u4EBA\u304C\u6575\u308F\u306A\u304F\u3066\u3082\u2026\u30C1\u30FC\u30E0\u3067\u52DD\u3066\u3070\u3044\u3044\n\u305D\u308C\u306B\u2026\u79C1\u305F\u3061\u3060\u3063\u3066\u3001\u5F37\u3044\uFF01\nHaruki:\u305D\u308C\u3067\u306F\u9593\u3082\u306A\u304F\u3001\u4E09\u56DE\u6226\u3092\u958B\u59CB\u3057\u307E\u3059\uFF01\nCharacter_Mis:\u3088\u3063\u3057\uFF01\u4E8C\u4EBA\u3068\u3082\u3088\u308D\u3057\u304F\u306D\uFF01\nCharacter_Double:\u300C\u306F\u3044\uFF01\uFF01\u300D\nHaruki:\u4E09\u56DE\u6226\u3001\u958B\u59CB\u3043\u3043\uFF01\uFF01"
+      yamituki_right Middle:\u307E\u3041\u3001\u9AD8\u7B49\u90E8\u306E\u751F\u5F92\u306A\u3089\u77E5\u3089\u306A\u3044\u4EBA\u306F\u3044\u306A\u3044\u3088\u306D\nCharacter_Mituki:\u3042\u306E\u4EBA\u306B\u3001\u52DD\u3066\u308B\u306E\u304B\u306A\u2026\uFF1F\nCharacter_Yamituki:\u2026\u8A00\u3063\u305F\u3067\u3057\u3087\u3046\uFF1F\nCharacter_Mituki:\u2026\uFF01\n\u300E\u79C1\u305F\u3061\u304C\u3001\u5148\u8F29\u3092\u52A9\u3051\u3088\u3046\u300F\n\u300E\u79C1\u305F\u3061\u304C\u3001\u5148\u8F29\u306E\u652F\u3048\u306B\u306A\u308D\u3046\u300F\u2026\uFF01\nCharacter_Yamituki:\u305D\u3046\u3044\u3046\u4E8B\n\u79C1\u305F\u3061\u500B\u4EBA\u304C\u6575\u308F\u306A\u304F\u3066\u3082\u2026\u30C1\u30FC\u30E0\u3067\u52DD\u3066\u3070\u3044\u3044\n\u305D\u308C\u306B\u2026\u79C1\u305F\u3061\u3060\u3063\u3066\u3001\u5F37\u3044\uFF01\nHaruki:\u305D\u308C\u3067\u306F\u9593\u3082\u306A\u304F\u3001\u4E09\u56DE\u6226\u3092\u958B\u59CB\u3057\u307E\u3059\uFF01\nCharacter_Mis:\u3088\u3063\u3057\uFF01\u4E8C\u4EBA\u3068\u3082\u3088\u308D\u3057\u304F\u306D\uFF01\nCharacter_Double:\u300C\u306F\u3044\uFF01\uFF01\u300D\nHaruki:\u4E09\u56DE\u6226\u3001\u958B\u59CB\u3043\u3043\uFF01\uFF01\nCharacter_Mis
+      hide:\nCharacter_Yamituki hide:\nCharacter_Mituki hide:"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1878,7 +1879,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1416220343
 GameObject:
@@ -2588,7 +2589,7 @@ Transform:
   m_Children:
   - {fileID: 1703603926}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2139920551
 MonoBehaviour:
