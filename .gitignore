@@ -41,4 +41,4 @@ Assets/Fungus/
 Assets/FungusExamples/
 
 # Ignore ending credit file.
-Assets/Resources/credits.txt
+Assets/Resources/credits.json

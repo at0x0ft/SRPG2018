@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 using System;
 using UnityEngine.UI;
+using System.IO;
 
 public class EndingViewer : MonoBehaviour
 {
@@ -17,11 +18,11 @@ public class EndingViewer : MonoBehaviour
 	[SerializeField]
 	private float _viewTimeSec = 1f;
 
-	private const string fileName = "credits";
-	//private const string spaceCharacter = "^";
+	private List<CreditData> _creditData;
+
+	private const string fileName = "credits.json";
 	private const char linebreakCharacter = '|';
 	private const float alphaDistance = 1f;
-	private string[] creditData;
 
 	private void Start()
 	{
@@ -29,7 +30,7 @@ public class EndingViewer : MonoBehaviour
 
 		InitializeMembers();
 
-		StartCoroutine(ShowCreditMsgs());
+		//StartCoroutine(ShowCreditMsgs());
 	}
 
 	private string FormatCreditMsg(string content)
@@ -46,9 +47,10 @@ public class EndingViewer : MonoBehaviour
 
 	private IEnumerator ShowCreditMsgs()
 	{
-		foreach(var item in creditData)
+		foreach(var item in _creditData)
 		{
-			yield return StartCoroutine(FadeInAndOut(item));
+			yield return //StartCoroutine(FadeInAndOut(item));
+				null;
 		}
 
 		Debug.Log("[Debug] : End successfully!");
@@ -72,10 +74,26 @@ public class EndingViewer : MonoBehaviour
 
 	private void LoadText()
 	{
+		/*
 		var endingTextAsset = Resources.Load(fileName) as TextAsset;
 		creditData = endingTextAsset.text.Split('\n');
+		*/
 
-		Debug.Log("In LoadText() stageData size = " + creditData.Length);    // 4debug
+		string json = File.ReadAllText("Assets/Resources/" + fileName);
+		Debug.Log("[Debug] : json = " + json);
+		_creditData = JsonHelper.ListFromJson<CreditData>(json);
+		//_creditData = JsonHelper.ListFromJson<CreditData>(json);
+
+		foreach(var item in _creditData)
+		{
+			Debug.Log("[Debug] : credit data cat = " + item.CategoryTitle); // 4debug
+			foreach(var content in item.Contents)
+			{
+				Debug.Log("[Debug] : " + content);
+			}
+		}
+
+		//Debug.Log("In LoadText() stageData size = " + creditData.Length);    // 4debug
 
 		// 4debug
 		/*
@@ -122,4 +140,34 @@ public class EndingViewer : MonoBehaviour
 	{
 		return Fade((x, y) => x + y);
 	}
+
+	[Serializable]
+	public class CreditData
+	{
+		public string CategoryTitle;
+		public List<string> Contents;
+
+		public CreditData()
+		{
+			CategoryTitle = null;
+			Contents = null;
+		}
+	}
+
+	public class JsonHelper
+	{
+		public static List<T> ListFromJson<T>(string json)
+		{
+			var newJson = "{ \"list\": " + json + "}";
+			Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(newJson);
+			return wrapper.list;
+		}
+
+		[Serializable]
+		class Wrapper<T>
+		{
+			public List<T> list;
+		}
+	}
 }
+
