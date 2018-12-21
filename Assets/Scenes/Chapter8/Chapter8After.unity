@@ -952,9 +952,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019064}
+  - {fileID: 689019101}
   selectedCommands:
-  - {fileID: 689019068}
+  - {fileID: 689019102}
   variables: []
   description: 
   stepPause: 0
@@ -3676,7 +3676,7 @@ Prefab:
     - target: {fileID: 114551948983041052, guid: a27093f763038b243ab6542e014f8e84,
         type: 2}
       propertyPath: nameText
-      value: "\u9662\u5802\u82FA\u30FB\u9662\u5802\u54B2"
+      value: "\u9662\u5802\u82FA\uFF06\u9662\u5802\u54B2"
       objectReference: {fileID: 0}
     - target: {fileID: 1944237914459148, guid: a27093f763038b243ab6542e014f8e84, type: 2}
       propertyPath: m_Name

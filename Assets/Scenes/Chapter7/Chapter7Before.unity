@@ -375,7 +375,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &300652230
 GameObject:
@@ -737,9 +737,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019064}
+  - {fileID: 689019058}
   selectedCommands:
-  - {fileID: 689019071}
+  - {fileID: 689019062}
   variables: []
   description: 
   stepPause: 0
@@ -1971,7 +1971,7 @@ Prefab:
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
       propertyPath: nameText
-      value: "\u91D1\u7BC9 \u5DE7(\u304B\u306A\u3065\u304D \u305F\u304F\u307F)"
+      value: "\u91D1\u7BC9 \u5DE7(\u304B\u306A\u3064\u304D \u305F\u304F\u307F)"
       objectReference: {fileID: 0}
     - target: {fileID: 114190120598369646, guid: 7b435053dd972884cafb314c6d6d7205,
         type: 2}
@@ -2183,7 +2183,7 @@ Transform:
   m_Children:
   - {fileID: 1703603926}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2139920551
 MonoBehaviour:
