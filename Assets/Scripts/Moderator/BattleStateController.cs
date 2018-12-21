@@ -87,6 +87,7 @@ public class BattleStateController
 	/// <param name="battleStates"></param>
 	private void StartTreatmentPerBattleStates(BattleStates battleStates)
 	{
+		Debug.Log(battleStates);
 		//Debug.Log(battleStates);
 		// ウィンドウ更新
 		_ui.SetCycleInfoWindow.UpdateStateInfo(battleStates);
@@ -171,6 +172,7 @@ public class BattleStateController
 	/// </summary>
 	public void NextBattleState()
 	{
+		Debug.Log("called next");
 		BattleState = (BattleStates)(((int)BattleState + 1) % 4);
 
 		StartTreatmentPerBattleStates(BattleState);
@@ -182,6 +184,7 @@ public class BattleStateController
 	/// <param name="state"></param>
 	public void WarpBattleState(BattleStates state)
 	{
+		Debug.Log("called warp" + state.ToString());
 		BattleState = state;
 
 		StartTreatmentPerBattleStates(BattleState);
