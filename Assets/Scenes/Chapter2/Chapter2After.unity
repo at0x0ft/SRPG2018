@@ -1313,7 +1313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1
-  scrollPos: {x: 222.10753, y: -206.45323}
+  scrollPos: {x: 283.64612, y: -81.17853}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
   blockViewHeight: 344
@@ -1325,9 +1325,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019064}
+  - {fileID: 689019057}
   selectedCommands:
-  - {fileID: 689019068}
+  - {fileID: 689019070}
   variables: []
   description: 
   stepPause: 0
@@ -1720,7 +1720,7 @@ MonoBehaviour:
   indentLevel: 0
   conversationText:
     stringRef: {fileID: 0}
-    stringVal: "Character_Mis:(..................)\n(...\u305D\u3046\u3044\u3048\u3070)\n(\u95C7\u6708\u3061\u3083\u3093\u3001\u306A\u3093\u3067\u79C1\u304C\u9045\u523B\u3057\u304B\u3051\u305F\u3053\u3068\u77E5\u3063\u3066\u305F\u3093\u3060\u308D\u3046\uFF1F)\n(..................)\n(\u898B\u3066\u3066\u304F\u308C\u305F\u3093\u3060\u306D\uFF01\u95C7\u6708\u3061\u3083\u3093\uFF01)\n\nCharacter_Mis
+    stringVal: "Character_Mis:(..................)\n(...\u305D\u3046\u3044\u3048\u3070)\n(\u54B2\u3061\u3083\u3093\u3001\u306A\u3093\u3067\u79C1\u304C\u9045\u523B\u3057\u304B\u3051\u305F\u3053\u3068\u77E5\u3063\u3066\u305F\u3093\u3060\u308D\u3046\uFF1F)\n(..................)\n(\u898B\u3066\u3066\u304F\u308C\u305F\u3093\u3060\u306D\uFF01\u54B2\u3061\u3083\u3093\uFF01)\n\nCharacter_Mis
       hide:"
   clearPrevious:
     booleanRef: {fileID: 0}
