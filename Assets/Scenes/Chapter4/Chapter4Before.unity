@@ -172,7 +172,7 @@ Prefab:
     - target: {fileID: 114097713296802240, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
         type: 2}
       propertyPath: nameText
-      value: "\u6C37\u7259"
+      value: "\u6C37\u7259(\u3072\u3087\u3046\u304C)"
       objectReference: {fileID: 0}
     - target: {fileID: 114097713296802240, guid: 2e4d4d01f76880645a0b97e3bb4aba9c,
         type: 2}
@@ -460,7 +460,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &578537838
 GameObject:
