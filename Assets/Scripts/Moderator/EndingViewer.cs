@@ -16,8 +16,11 @@ public class EndingViewer : MonoBehaviour
 	private float _fadeTimeSec = 1f;
 	[SerializeField]
 	private float _viewTimeSec = 1f;
+	[SerializeField]
+	private float _musicFadeOutSec = 1f;
 
 	private const string fileName = "credits";
+	private AudioSource _audioSource;
 	private const string spaceCharacter = "^";
 	private const float alphaDistance = 1f;
 	private List<string[]> creditDataArray;
@@ -28,6 +31,7 @@ public class EndingViewer : MonoBehaviour
 	private void Start()
 	{
 		if(!_showingText) Debug.LogError("[Error] : Showing Text is not set!");
+		_audioSource = GetComponent<AudioSource>();
 
 		InitializeMembers();
 
@@ -50,6 +54,8 @@ public class EndingViewer : MonoBehaviour
 		{
 			yield return StartCoroutine(FadeInAndOut(ConvertSpaceCharacter(item[0]), ConvertSpaceCharacter(item[1])));
 		}
+
+		yield return StartCoroutine(FadeOutMusic());
 
 		Debug.Log("[Debug] : End successfully!");
 	}
@@ -104,7 +110,6 @@ public class EndingViewer : MonoBehaviour
 					new Color(0, 0, 0, GetAlphaDistancePerFrame(alphaDistance, _fadeTimeSec))
 					);
 			_time += Time.deltaTime;
-			Debug.Log("Update alpha! And accumlated delta = " + _time); // 4debug
 			yield return null;
 		}
 	}
@@ -117,5 +122,16 @@ public class EndingViewer : MonoBehaviour
 	private IEnumerator FadeOut()
 	{
 		return Fade((x, y) => x + y);
+	}
+
+	private IEnumerator FadeOutMusic()
+	{
+		float _time = 0;
+		while(_time < _musicFadeOutSec)
+		{
+			_audioSource.volume -= alphaDistance * Time.deltaTime / _musicFadeOutSec;
+			_time += Time.deltaTime;
+			yield return null;
+		}
 	}
 }
