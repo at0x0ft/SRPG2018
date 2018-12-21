@@ -21,9 +21,8 @@ public class EndingViewer : MonoBehaviour
 
 	private const string fileName = "credits";
 	private AudioSource _audioSource;
-	private const string spaceCharacter = "^";
 	private const float alphaDistance = 1f;
-	private List<string[]> creditDataArray;
+	private string[] _creditData;
 	private bool _fadeFlg = false;
 	private bool _finishFlg = false;
 	private float _alpha;
@@ -38,21 +37,16 @@ public class EndingViewer : MonoBehaviour
 		StartCoroutine(ShowCreditMsgs());
 	}
 
-	private string FormatCreditMsg(string title, string name)
+	private string FormatCreditMsg(string content)
 	{
-		return title + "\n\n" + name;
-	}
-
-	private string ConvertSpaceCharacter(string msg)
-	{
-		return msg == spaceCharacter ? "" : msg;
+		return content.Replace('|', '\n');
 	}
 
 	private IEnumerator ShowCreditMsgs()
 	{
-		foreach(var item in creditDataArray)
+		foreach(var item in _creditData)
 		{
-			yield return StartCoroutine(FadeInAndOut(ConvertSpaceCharacter(item[0]), ConvertSpaceCharacter(item[1])));
+			yield return StartCoroutine(FadeInAndOut(item));
 		}
 
 		yield return StartCoroutine(FadeOutMusic());
@@ -60,9 +54,9 @@ public class EndingViewer : MonoBehaviour
 		Debug.Log("[Debug] : End successfully!");
 	}
 
-	private IEnumerator FadeInAndOut(string title, string content)
+	private IEnumerator FadeInAndOut(string content)
 	{
-		_showingText.text = FormatCreditMsg(title, content);
+		_showingText.text = FormatCreditMsg(content);
 
 		yield return StartCoroutine(FadeIn());
 		yield return new WaitForSeconds(_viewTimeSec);
@@ -82,14 +76,9 @@ public class EndingViewer : MonoBehaviour
 	private void LoadText()
 	{
 		var endingTextAsset = Resources.Load(fileName) as TextAsset;
-		var stageData = endingTextAsset.text.Split('\n');
+		_creditData = endingTextAsset.text.Split('\n');
 
-		creditDataArray = new List<string[]>();
-
-		foreach(var line in stageData)
-			creditDataArray.Add(line.Split('|'));
-
-		Debug.Log("In LoadText() stageData size = " + stageData.Length);    // 4debug
+		Debug.Log("In LoadText() stageData size = " + _creditData.Length);    // 4debug
 	}
 
 	private float GetAlphaDistancePerFrame(float alphaDistance, float time)
