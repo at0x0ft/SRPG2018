@@ -2811,17 +2811,11 @@ GameObject:
   - component: {fileID: 689019057}
   - component: {fileID: 689019064}
   - component: {fileID: 689019061}
-  - component: {fileID: 689019071}
   - component: {fileID: 689019072}
-  - component: {fileID: 689019070}
   - component: {fileID: 689019069}
-  - component: {fileID: 689019068}
-  - component: {fileID: 689019067}
   - component: {fileID: 689019059}
-  - component: {fileID: 689019066}
   - component: {fileID: 689019062}
   - component: {fileID: 689019058}
-  - component: {fileID: 689019074}
   - component: {fileID: 689019063}
   - component: {fileID: 689019079}
   - component: {fileID: 689019076}
@@ -2876,7 +2870,6 @@ GameObject:
   - component: {fileID: 689019119}
   - component: {fileID: 689019118}
   - component: {fileID: 689019125}
-  - component: {fileID: 689019126}
   - component: {fileID: 689019127}
   m_Layer: 0
   m_Name: Flowchart
@@ -2910,9 +2903,8 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 689019059}
-  selectedCommands:
-  - {fileID: 689019111}
+  - {fileID: 689019072}
+  selectedCommands: []
   variables: []
   description: 
   stepPause: 0
@@ -3123,67 +3115,6 @@ MonoBehaviour:
   - {fileID: 689019075}
   - {fileID: 689019117}
   - {fileID: 689019073}
---- !u!114 &689019066
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 31
-  indentLevel: 0
-  text: "\u30B2\u30FC\u30E0\u958B\u59CB"
-  description: 
-  targetBlock: {fileID: 689019059}
-  hideIfVisited: 0
-  interactable:
-    booleanRef: {fileID: 0}
-    booleanVal: 1
-  setMenuDialog: {fileID: 0}
-  hideThisOption:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
---- !u!114 &689019067
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 689019055}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e1337544a71d4d5dab5510fe86ddca8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 29
-  indentLevel: 0
---- !u!114 &689019068
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 841589fc622bc494aa5405f416fa1301, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 28
-  indentLevel: 0
-  text: "\u30B2\u30FC\u30E0\u7D42\u4E86"
-  description: 
-  targetBlock: {fileID: 689019071}
-  hideIfVisited: 0
-  interactable:
-    booleanRef: {fileID: 0}
-    booleanVal: 1
-  setMenuDialog: {fileID: 0}
-  hideThisOption:
-    booleanRef: {fileID: 0}
-    booleanVal: 0
 --- !u!114 &689019069
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3198,65 +3129,12 @@ MonoBehaviour:
   itemId: 27
   indentLevel: 0
   targetFlowchart: {fileID: 0}
-  targetBlock: {fileID: 689019070}
+  targetBlock: {fileID: 0}
   startLabel:
     stringRef: {fileID: 0}
     stringVal: 
   startIndex: 0
   callMode: 0
---- !u!114 &689019070
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: 214.38568
-    y: 221.66507
-    width: 157.1427
-    height: 40
-  tint: {r: 1, g: 1, b: 1, a: 1}
-  useCustomTint: 0
-  itemId: 26
-  blockName: "\u30BF\u30A4\u30C8\u30EB\u753B\u9762\u9078\u629E\u80A2"
-  description: 
-  eventHandler: {fileID: 0}
-  commandList:
-  - {fileID: 689019066}
-  - {fileID: 689019068}
---- !u!114 &689019071
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d3d73aef2cfc4f51abf34ac00241f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeRect:
-    serializedVersion: 2
-    x: 600.7016
-    y: 129.63727
-    width: 120
-    height: 40
-  tint: {r: 1, g: 1, b: 1, a: 1}
-  useCustomTint: 0
-  itemId: 19
-  blockName: Gamfinish
-  description: 
-  eventHandler: {fileID: 0}
-  commandList:
-  - {fileID: 689019074}
-  - {fileID: 689019067}
-  - {fileID: 689019126}
 --- !u!114 &689019072
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -3270,8 +3148,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 225.09999
-    y: 143.64299
+    x: 171.5286
+    y: 182.92867
     width: 157.1427
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
@@ -3302,24 +3180,6 @@ MonoBehaviour:
     stringVal: ChapterIntro
   loadingImage: {fileID: 0}
   sceneNameOLD: 
---- !u!114 &689019074
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 207aecf668a0345388087ccf522f9957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 36
-  indentLevel: 0
-  duration: 1
-  targetAlpha: 1
-  waitUntilFinished: 1
-  fadeColor: {r: 0, g: 0, b: 0, a: 1}
-  fadeTexture: {fileID: 0}
 --- !u!114 &689019075
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4136,7 +3996,7 @@ MonoBehaviour:
   indentLevel: 0
   text: Click to Start
   description: 
-  targetBlock: {fileID: 689019070}
+  targetBlock: {fileID: 689019059}
   hideIfVisited: 0
   interactable:
     booleanRef: {fileID: 0}
@@ -4325,29 +4185,9 @@ MonoBehaviour:
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
   fadeTexture: {fileID: 0}
   targetCamera: {fileID: 0}
---- !u!114 &689019126
-MonoBehaviour:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 689019055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050fb9e6e72f442b3b883da8a965bdeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemId: 104
-  indentLevel: 0
-  targetFlowchart: {fileID: 0}
-  targetBlock: {fileID: 689019057}
-  startLabel:
-    stringRef: {fileID: 0}
-    stringVal: 
-  startIndex: 0
-  callMode: 0
 --- !u!114 &689019127
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
