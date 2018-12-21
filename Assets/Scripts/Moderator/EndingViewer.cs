@@ -18,7 +18,7 @@ public class EndingViewer : MonoBehaviour
 	[SerializeField]
 	private float _viewTimeSec = 1f;
 
-	private List<CreditData> _creditData;
+	private CreditData[] _creditData;
 
 	private const string fileName = "credits.json";
 	private const char linebreakCharacter = '|';
@@ -81,12 +81,13 @@ public class EndingViewer : MonoBehaviour
 
 		string json = File.ReadAllText("Assets/Resources/" + fileName);
 		Debug.Log("[Debug] : json = " + json);
-		_creditData = JsonHelper.ListFromJson<CreditData>(json);
-		//_creditData = JsonHelper.ListFromJson<CreditData>(json);
+		//_creditData = JsonUtility.FromJson<List<CreditData>>(json);
+		_creditData = (CreditData[])JsonHelper.FromJson<CreditData>(json);
 
 		foreach(var item in _creditData)
 		{
 			Debug.Log("[Debug] : credit data cat = " + item.CategoryTitle); // 4debug
+			Debug.Log("[Debug]: credit content length = " + item.Contents.Length);
 			foreach(var content in item.Contents)
 			{
 				Debug.Log("[Debug] : " + content);
@@ -144,30 +145,32 @@ public class EndingViewer : MonoBehaviour
 	[Serializable]
 	public class CreditData
 	{
-		public string CategoryTitle;
-		public List<string> Contents;
-
-		public CreditData()
-		{
-			CategoryTitle = null;
-			Contents = null;
-		}
+		public string CategoryTitle;// { get; set; }
+		public string[] Contents;// { get; set; }
 	}
 
-	public class JsonHelper
+	public static class JsonHelper
 	{
-		public static List<T> ListFromJson<T>(string json)
+		public static object FromJson<T>(string json)
 		{
-			var newJson = "{ \"list\": " + json + "}";
-			Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(newJson);
-			return wrapper.list;
+			if(json.StartsWith("["))
+			{
+				json = "{\"Items\":" + json + "}";
+				var obj = JsonUtility.FromJson<Wrapper<T>>(json);
+				return (T[])(object)obj.Items;
+			}
+			else
+			{
+				T obj = JsonUtility.FromJson<T>(json);
+				return obj;
+			}
 		}
 
 		[Serializable]
-		class Wrapper<T>
+		private class Wrapper<T>
 		{
-			public List<T> list;
+			public T Items;
 		}
 	}
-}
 
+}
