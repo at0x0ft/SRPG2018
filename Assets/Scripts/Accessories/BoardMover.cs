@@ -27,8 +27,12 @@ public class BoardMover : MonoBehaviour {
 		// BoardControllerを噛ませて、唯一性を担保する。
 		_board = GameObject.Find("Board").GetComponent<BoardController>().gameObject;
 		_boardSize = _board.GetComponent<RectTransform>().sizeDelta;
-
+		
 		var trigger = _board.GetComponent<EventTrigger>();
+		if(trigger==null)
+		{
+			trigger = _board.AddComponent<EventTrigger>();
+		}
 		trigger.triggers.Add(BoardDrag());
 		trigger.triggers.Add(BoardScroll());
 	}
