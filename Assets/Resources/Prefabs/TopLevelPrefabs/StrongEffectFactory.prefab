@@ -58,7 +58,6 @@ MonoBehaviour:
   _LoopTime: 3
   _MaxSize: 80
   _MaxAlpha: 0.5
-  _image: {fileID: 114563697868471580}
 --- !u!114 &114563697868471580
 MonoBehaviour:
   m_ObjectHideFlags: 1
