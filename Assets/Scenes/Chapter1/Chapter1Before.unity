@@ -958,7 +958,7 @@ MonoBehaviour:
   selectedBlocks:
   - {fileID: 689019059}
   selectedCommands:
-  - {fileID: 689019062}
+  - {fileID: 689019058}
   variables: []
   description: 
   stepPause: 0
@@ -1014,7 +1014,7 @@ MonoBehaviour:
   conversationText:
     stringRef: {fileID: 0}
     stringVal: "Character_Sun:\u3055\u3041\u3001\u59CB\u307E\u308A\u307E\u3057\u305F\u3001\u9060\u8F1D\u6E21\u5927\u5B66\u30B5\u30FC\u30AF\u30EB\u5BFE\u6297\u6226\uFF01\n\u53F8\u4F1A\u306F\u79C1\u3001\u795E\u5BAE\u5BFA\u6674\u8F1D(\u3058\u3093\u3050\u3046\u3058
-      \u306F\u308B\u304D)\u304C\u52D9\u3081\u3055\u305B\u3066\u3044\u305F\u3060\u304D\u307E\u3059\uFF01\n\u9060\u8F1D\u6E21\u5927\u5B66\u306E\u9802\u70B9\u3092\u6C7A\u3081\u308B\u3053\u306E\u5927\u4F1A\u306B\u3001\u6211\u304C\u30B5\u30FC\u30AF\u30EB\u3053\u305D\u304CNo.1\u3067\u3042\u308B\u3068\u540D\u4E57\u308A\u3092\u4E0A\u3052\u305F\u62BC\u3057\u639B\u3051\u305F\u7CBE\u92ED\u305F\u3061\u306B\u3088\u308B\u71B1\u3044\u6226\u3044\u304C\u4ECA\u3001\u7E70\u308A\u5E83\u3052\u3089\u308C\u3088\u3046\u3068\u3057\u3066\u3044\u307E\u3059\uFF01\n\u679C\u305F\u3057\u3066\u512A\u52DD\u3057\u3066\u300C\u81F3\u9AD8\u306E\u8F1D\u304D(\u30A2\u30EB\u30D5\u30A1\u30FB\u30B0\u30ED\u30A6)\u300D\u306E\u79F0\u53F7\u3092\u624B\u306B\u3059\u308B\u306E\u306F\u3069\u306E\u30B5\u30FC\u30AF\u30EB\u304B\uFF01\n\u2026\u304A\u3084\u3001\u3069\u3046\u3084\u3089\u307E\u3060\u5230\u7740\u3057\u3066\u3044\u306A\u3044\u30B5\u30FC\u30AF\u30EB\u304C\u3042\u308B\u3088\u3046\u3067\u3059\u306D\u2026?"
+      \u306F\u308B\u304D)\u304C\u52D9\u3081\u3055\u305B\u3066\u3044\u305F\u3060\u304D\u307E\u3059\uFF01\n\u9060\u8F1D\u6E21\u5927\u5B66\u306E\u9802\u70B9\u3092\u6C7A\u3081\u308B\u3053\u306E\u5927\u4F1A\u306B\u3001\u6211\u304C\u30B5\u30FC\u30AF\u30EB\u3053\u305D\u304CNo.1\u3067\u3042\u308B\u3068\u540D\u4E57\u308A\u3092\u4E0A\u3052\u305F\u7CBE\u92ED\u305F\u3061\u306B\u3088\u308B\u71B1\u3044\u6226\u3044\u304C\u4ECA\u3001\u7E70\u308A\u5E83\u3052\u3089\u308C\u3088\u3046\u3068\u3057\u3066\u3044\u307E\u3059\uFF01\n\u679C\u305F\u3057\u3066\u512A\u52DD\u3057\u3066\u300C\u81F3\u9AD8\u306E\u8F1D\u304D(\u30A2\u30EB\u30D5\u30A1\u30FB\u30B0\u30ED\u30A6)\u300D\u306E\u79F0\u53F7\u3092\u624B\u306B\u3059\u308B\u306E\u306F\u3069\u306E\u30B5\u30FC\u30AF\u30EB\u304B\uFF01\n\u2026\u304A\u3084\u3001\u3069\u3046\u3084\u3089\u307E\u3060\u5230\u7740\u3057\u3066\u3044\u306A\u3044\u30B5\u30FC\u30AF\u30EB\u304C\u3042\u308B\u3088\u3046\u3067\u3059\u306D\u2026?"
   clearPrevious:
     booleanRef: {fileID: 0}
     booleanVal: 1
@@ -1156,7 +1156,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 174.57121
     y: 305.2451
-    width: 208.7719
+    width: 207.14282
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -1170,7 +1170,7 @@ MonoBehaviour:
   - {fileID: 689019068}
 --- !u!114 &689019065
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -1308,7 +1308,7 @@ MonoBehaviour:
   fadeTexture: {fileID: 0}
 --- !u!114 &689019072
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -1328,7 +1328,7 @@ MonoBehaviour:
   targetCamera: {fileID: 0}
 --- !u!114 &689019073
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
@@ -1341,7 +1341,7 @@ MonoBehaviour:
   indentLevel: 0
 --- !u!114 &689019074
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 2
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 689019055}
