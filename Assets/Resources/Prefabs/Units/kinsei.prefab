@@ -251,9 +251,9 @@ MonoBehaviour:
   _belonging: 1
   _position: 0
   _type: {fileID: 114928696413571736, guid: 79f0160951bceae4e80efc5ffa818745, type: 2}
-  _maxLife: 3000
-  _attackPower: 1000
-  _defence: 600
+  _maxLife: 2500
+  _attackPower: 750
+  _defence: 500
   _attacks:
   - {fileID: 114625200034534846, guid: c0e447d97c7540e4a8bd1999bd2a70bf, type: 2}
   - {fileID: 114727544782043544, guid: 5dc4a5a3fba3320428a1d43b1dfd4f83, type: 2}
