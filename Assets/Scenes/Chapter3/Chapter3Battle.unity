@@ -5437,6 +5437,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114352480415073662, guid: 3b13a6c1c9c0b4644ab54eb1e5903157,
+        type: 2}
+      propertyPath: selectedBlocks.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4262753021425694, guid: 3b13a6c1c9c0b4644ab54eb1e5903157, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5469,9 +5474,20 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114890196114145988, guid: 3b13a6c1c9c0b4644ab54eb1e5903157,
+        type: 2}
+      propertyPath: storyText
+      value: "\u8D64\u8272\u306B\u767A\u5149\u3057\u3066\u3044\u308B\u30DE\u30B9\u304C\u3001\n\u653B\u6483\u53EF\u80FD\u306A\u4F4D\u7F6E\u3067\u3059"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b13a6c1c9c0b4644ab54eb1e5903157, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &182913541 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114352480415073662, guid: 3b13a6c1c9c0b4644ab54eb1e5903157,
+    type: 2}
+  m_PrefabInternal: {fileID: 182913540}
+  m_Script: {fileID: 11500000, guid: 7a334fe2ffb574b3583ff3b18b4792d3, type: 3}
 --- !u!1 &183542988
 GameObject:
   m_ObjectHideFlags: 0
@@ -44130,7 +44146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedFlowchart: {fileID: 0}
+  selectedFlowchart: {fileID: 182913541}
 --- !u!4 &1701048765
 Transform:
   m_ObjectHideFlags: 1
