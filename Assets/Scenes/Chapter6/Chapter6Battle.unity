@@ -30085,6 +30085,11 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114768215680186374, guid: dc777a2ea0ecf8a45b140aa805962d8b,
+        type: 2}
+      propertyPath: _name
+      value: "TG\u90E8\u54E12"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc777a2ea0ecf8a45b140aa805962d8b, type: 2}
   m_IsPrefabAsset: 0
@@ -41410,6 +41415,11 @@ Prefab:
         type: 2}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114768215680186374, guid: 017bd7a49283d40468f2e2815d858398,
+        type: 2}
+      propertyPath: _name
+      value: "TG\u90E8\u54E11"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 017bd7a49283d40468f2e2815d858398, type: 2}
