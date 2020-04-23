@@ -11,7 +11,7 @@ public class TilesBatchChanger : EditorWindow
 	private const string MenuItemName = "Utilities/Tiles Batch Changer";
 
 	private Font _font;
-	private int _fontSize = 30;
+	private int _fontSize = 35;
 	private GameObject _tilesParent;
 
 	[MenuItem(MenuItemName)]
