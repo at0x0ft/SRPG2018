@@ -427,7 +427,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &398083716
 GameObject:
@@ -994,7 +994,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 328.5943
     y: 334.70377
-    width: 245.1514
+    width: 247.40247
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -1071,7 +1071,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 376.98593
     y: 186.71288
-    width: 137.27267
+    width: 141.42851
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
@@ -1165,7 +1165,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 353.0364
     y: 254.04837
-    width: 191.81808
+    width: 198.57133
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0

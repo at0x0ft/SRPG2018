@@ -374,11 +374,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fb867d2049d41f597aefdd6b19f598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameText: "\u5149\u6708"
-  nameColor: {r: 1, g: 1, b: 1, a: 1}
+  nameText: "\u9662\u5802 \u82FA(\u3044\u3093\u3069\u3046 \u3044\u3061\u3054)"
+  nameColor: {r: 0, g: 0, b: 0, a: 1}
   soundEffect: {fileID: 0}
   portraits:
-  - {fileID: 21300000, guid: 10e76e1aba8bc2d45ab61c93c4f52ed1, type: 3}
+  - {fileID: 21300000, guid: 4763cf7196d8ec84da89e78b0f07fe5a, type: 3}
+  - {fileID: 21300000, guid: 383ede4675ab1064da61a222b6de9f3d, type: 3}
   portraitsFace: 0
   setSayDialog: {fileID: 114533536695749158}
   description: 
@@ -402,7 +403,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: bb145366ce7024469a5758b08d31802c, type: 3}
+    m_Font: {fileID: 12800000, guid: 85ff91e8402f3b14d887664bc7c8ed3e, type: 3}
     m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
@@ -589,7 +590,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 79197ecfbc3a4294a89ce589dac02cf2, type: 3}
+    m_Font: {fileID: 12800000, guid: 10cd110520544ed43b7cdb776a976ec7, type: 3}
     m_FontSize: 45
     m_FontStyle: 0
     m_BestFit: 0
