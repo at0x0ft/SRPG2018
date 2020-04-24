@@ -35,3 +35,6 @@ sysinfo.txt
 
 # Files for macOS
 .DS_Store
+
+# Ignore WebGL deployment directory
+!/docs/Build
